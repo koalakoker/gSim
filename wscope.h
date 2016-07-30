@@ -19,12 +19,18 @@ public:
     void reset(void);
     void addPoint(double t, double y);
     void debugty(void);
+    void setAxis(double xMin,double  xMax,double  yMin,double  yMax);
 
 private:
     Ui::WScope *ui;
 
     QVector<double> tArray;
     QVector<double> yArray;
+
+    double xMin;
+    double xMax;
+    double yMin;
+    double yMax;
 
 signals:
 

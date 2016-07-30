@@ -8,12 +8,23 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 
     ui->qplot->addGraph();
 
-    // give the axes some labels:
     ui->qplot->xAxis->setLabel("x");
     ui->qplot->yAxis->setLabel("y");
-    // set axes ranges, so we see all data:
-    ui->qplot->xAxis->setRange(0, 1);
-    ui->qplot->yAxis->setRange(-1, 1);
+    setAxis(0,1,-2,2);
+}
+
+void WScope::setAxis(double xMin,double  xMax,double  yMin,double  yMax)
+{
+    this->xMin = xMin;
+    this->xMax = xMax;
+    ui->qplot->xAxis->setRange(xMin, xMax);
+    ui->xMin->setValue(xMin);
+    ui->xMax->setValue(xMax);
+    this->yMin = yMin;
+    this->yMax = yMax;
+    ui->qplot->yAxis->setRange(yMin, yMax);
+    ui->yMin->setValue(yMin);
+    ui->yMax->setValue(yMax);
     ui->qplot->replot();
 }
 
