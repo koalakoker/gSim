@@ -32,7 +32,6 @@ void WScope::addPoint(double t, double y)
     tArray.append(t);
     yArray.append(y);
     ui->qplot->graph(0)->addData(t, y);
-    ui->qplot->replot();
 }
 
 void WScope::debugty(void)

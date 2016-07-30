@@ -9,13 +9,6 @@ mainSimulator::mainSimulator()
 
 void mainSimulator::startSimulation(void)
 {
-    if (!scope1.isVisible())
-    {
-        scope1.show();
-    }
-
-
-
     t = 0;
     step = (int)(duration / dt);
 
@@ -27,4 +20,7 @@ void mainSimulator::startSimulation(void)
         scope1.addPoint(t, y);
         t += dt;
     }
+
+    scope1.show();
+    scope1.refresh();
 }
