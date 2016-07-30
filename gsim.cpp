@@ -1,6 +1,6 @@
 #include "gsim.h"
 #include "ui_gsim.h"
-#include "qcustomplot/qcustomplot.h"
+#include "qcustomplot.h"
 
 gSim::gSim(QWidget *parent) :
     QMainWindow(parent),
