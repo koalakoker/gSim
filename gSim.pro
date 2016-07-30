@@ -14,9 +14,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         gsim.cpp \
-    qcustomplot/qcustomplot.cpp
+        qcustomplot.cpp
 
 HEADERS  += gsim.h \
-    qcustomplot/qcustomplot.h
+        qcustomplot.h
 
 FORMS    += gsim.ui
