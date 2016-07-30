@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         gsim.cpp \
         qcustomplot.cpp \
     wscope.cpp \
-    oscope.cpp
+    mainsimulator.cpp \
+    mathfunction.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
     wscope.h \
-    oscope.h
+    mainsimulator.h \
+    mathfunction.h
 
 FORMS    += gsim.ui \
     wscope.ui

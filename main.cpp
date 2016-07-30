@@ -1,16 +1,10 @@
 #include "gsim.h"
 #include <QApplication>
 
-#include "wscope.h"
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-//    gSim w;
-//    w.show();
-
-    WScope sc;
-    sc.show();
-
+    gSim w;
+    w.show();
     return a.exec();
 }

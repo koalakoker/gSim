@@ -2,7 +2,9 @@
 #define WSCOPE_H
 
 #include <QWidget>
-#include "oscope.h"
+#include "QVector"
+
+#define ELEMENT 100
 
 namespace Ui {
 class WScope;
@@ -14,17 +16,20 @@ class WScope : public QWidget
 public:
     explicit WScope(QWidget *parent = 0);
 
-    OScope oscope;
+    void reset(void);
+    void addPoint(double t, double y);
+    void debugty(void);
 
 private:
     Ui::WScope *ui;
+
+    QVector<double> tArray;
+    QVector<double> yArray;
 
 signals:
 
 public slots:
 	void refresh(void);
-private slots:
-    void on_listPlot_currentRowChanged(int currentRow);
 };
 
 #endif // WSCOPE_H
