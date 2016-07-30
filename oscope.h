@@ -1,12 +1,11 @@
 #ifndef OSCOPE_H
 #define OSCOPE_H
 
-#include "out.h"
 #include "QVector"
 
 #define ELEMENT 100
 
-class OScope : Out
+class OScope
 {
 public:
     OScope();
