@@ -22,6 +22,7 @@ private:
 signals:
 
 public slots:
+    void refresh(void);
 };
 
 #endif // WSCOPE_H
