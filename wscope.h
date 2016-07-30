@@ -1,14 +1,14 @@
 #ifndef WSCOPE_H
 #define WSCOPE_H
 
-#include "wout.h"
+#include <QWidget>
 #include "oscope.h"
 
 namespace Ui {
 class WScope;
 }
 
-class WScope : public WOut
+class WScope : public QWidget
 {
     Q_OBJECT
 public:
@@ -22,6 +22,8 @@ private:
 signals:
 
 public slots:
+private slots:
+    void on_listPlot_currentRowChanged(int currentRow);
 };
 
 #endif // WSCOPE_H
