@@ -58,56 +58,8 @@
         <widget class="QListWidget" name="listPlot"/>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox">
-         <property name="title">
-          <string>Axis</string>
-         </property>
-         <layout class="QFormLayout" name="formLayout_2">
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout">
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>x</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>y</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>min</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>max</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QDoubleSpinBox" name="xMin"/>
-            </item>
-            <item row="1" column="2">
-             <widget class="QDoubleSpinBox" name="xMax"/>
-            </item>
-            <item row="2" column="1">
-             <widget class="QDoubleSpinBox" name="yMin"/>
-            </item>
-            <item row="2" column="2">
-             <widget class="QDoubleSpinBox" name="yMax"/>
-            </item>
-           </layout>
-          </item>
-         </layout>
+        <widget class="wAxisCtrl" name="axisCtrl" native="true">
+         <layout class="QFormLayout" name="formLayout_2"/>
         </widget>
        </item>
        <item>
@@ -134,6 +86,12 @@
    <class>QCustomPlot</class>
    <extends>QWidget</extends>
    <header location="global">qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>wAxisCtrl</class>
+   <extends>QWidget</extends>
+   <header location="global">waxisctrl.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

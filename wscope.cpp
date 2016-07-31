@@ -11,6 +11,11 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
     ui->qplot->xAxis->setLabel("x");
     ui->qplot->yAxis->setLabel("y");
     setAxis(0,1,-2,2);
+
+    ui->qplot->setInteractions(QCP::iRangeDrag);
+
+    connect(ui->qplot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRange(QCPRange)));
+    connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRange(QCPRange)));
 }
 
 void WScope::setAxis(double xMin,double  xMax,double  yMin,double  yMax)
@@ -18,13 +23,13 @@ void WScope::setAxis(double xMin,double  xMax,double  yMin,double  yMax)
     this->xMin = xMin;
     this->xMax = xMax;
     ui->qplot->xAxis->setRange(xMin, xMax);
-    ui->xMin->setValue(xMin);
-    ui->xMax->setValue(xMax);
+    ui->axisCtrl->setXmin(xMin);
+    ui->axisCtrl->setXmax(xMax);
     this->yMin = yMin;
     this->yMax = yMax;
     ui->qplot->yAxis->setRange(yMin, yMax);
-    ui->yMin->setValue(yMin);
-    ui->yMax->setValue(yMax);
+    ui->axisCtrl->setYmin(yMin);
+    ui->axisCtrl->setYmax(yMax);
     ui->qplot->replot();
 }
 

@@ -17,13 +17,16 @@ SOURCES += main.cpp\
         qcustomplot.cpp \
     wscope.cpp \
     mainsimulator.cpp \
-    mathfunction.cpp
+    mathfunction.cpp \
+    waxisctrl.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
     wscope.h \
     mainsimulator.h \
-    mathfunction.h
+    mathfunction.h \
+    waxisctrl.h
 
 FORMS    += gsim.ui \
-    wscope.ui
+    wscope.ui \
+    waxisctrl.ui
