@@ -24,12 +24,26 @@ double wAxisCtrl::Ymax() {return ui->yMin->value();}
 
 void wAxisCtrl::setRangeX(QCPRange r)
 {
+    blockSignals(true);
     setXmin(r.lower);
     setXmax(r.upper);
+    blockSignals(false);
 }
 
 void wAxisCtrl::setRangeY(QCPRange r)
 {
+    blockSignals(true);
     setYmin(r.lower);
     setYmax(r.upper);
+    blockSignals(false);
+}
+
+void wAxisCtrl::on_yMax_valueChanged(double arg1)
+{
+    emit YMaxChanged(arg1);
+}
+
+void wAxisCtrl::on_xMax_valueChanged(double arg1)
+{
+    emit
 }

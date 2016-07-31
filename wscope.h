@@ -36,6 +36,10 @@ signals:
 
 public slots:
 	void refresh(void);
+    void setXMin(double val);
+    void setXMax(double val);
+    void setYMin(double val);
+    void setYMax(double val);
 };
 
 #endif // WSCOPE_H

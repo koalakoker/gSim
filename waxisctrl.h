@@ -31,6 +31,12 @@ private:
 public slots:
     void setRangeX(QCPRange r);
     void setRangeY(QCPRange r);
+private slots:
+    void on_yMax_valueChanged(double arg1);
+    void on_xMax_valueChanged(double arg1);
+
+signals:
+    void YMaxChanged(double);
 };
 
 #endif // WAXISCTRL_H

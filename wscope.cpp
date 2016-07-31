@@ -16,6 +16,11 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 
     connect(ui->qplot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeX(QCPRange)));
     connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeY(QCPRange)));
+
+    connect(ui->axisCtrl, SIGNAL(XMinChanged(double)), this, SLOT(setXMin(double)));
+    connect(ui->axisCtrl, SIGNAL(XMaxChanged(double)), this, SLOT(setXMax(double)));
+    connect(ui->axisCtrl, SIGNAL(YMinChanged(double)), this, SLOT(setYMin(double)));
+    connect(ui->axisCtrl, SIGNAL(YMaxChanged(double)), this, SLOT(setYMax(double)));
 }
 
 void WScope::setAxis(double xMin,double  xMax,double  yMin,double  yMax)
@@ -61,4 +66,28 @@ void WScope::debugty(void)
         QString out = QString("step %1 : %2 , %3").arg(i).arg(t).arg(y);
         ui->listPlot->addItem(out);
     }
+}
+
+void WScope::setXMin(double val)
+{
+    ui->qplot->xAxis->setRangeLower(val);
+    ui->qplot->replot();
+}
+
+void WScope::setXMax(double val)
+{
+    ui->qplot->xAxis->setRangeUpper(val);
+    ui->qplot->replot();
+}
+
+void WScope::setYMin(double val)
+{
+    ui->qplot->yAxis->setRangeLower(val);
+    ui->qplot->replot();
+}
+
+void WScope::setYMax(double val)
+{
+    ui->qplot->yAxis->setRangeUpper(val);
+    ui->qplot->replot();
 }
