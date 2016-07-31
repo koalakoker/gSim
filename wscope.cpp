@@ -14,8 +14,8 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 
     ui->qplot->setInteractions(QCP::iRangeDrag);
 
-    connect(ui->qplot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRange(QCPRange)));
-    connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRange(QCPRange)));
+    connect(ui->qplot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeX(QCPRange)));
+    connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeY(QCPRange)));
 }
 
 void WScope::setAxis(double xMin,double  xMax,double  yMin,double  yMax)

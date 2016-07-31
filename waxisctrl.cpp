@@ -22,8 +22,14 @@ double wAxisCtrl::Xmax() {return ui->xMax->value();}
 double wAxisCtrl::Ymin() {return ui->yMin->value();}
 double wAxisCtrl::Ymax() {return ui->yMin->value();}
 
-void wAxisCtrl::setRange(QCPRange r)
+void wAxisCtrl::setRangeX(QCPRange r)
 {
     setXmin(r.lower);
     setXmax(r.upper);
+}
+
+void wAxisCtrl::setRangeY(QCPRange r)
+{
+    setYmin(r.lower);
+    setYmax(r.upper);
 }

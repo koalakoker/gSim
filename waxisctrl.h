@@ -29,7 +29,8 @@ private:
     Ui::wAxisCtrl *ui;
 
 public slots:
-    void setRange(QCPRange r);
+    void setRangeX(QCPRange r);
+    void setRangeY(QCPRange r);
 };
 
 #endif // WAXISCTRL_H
