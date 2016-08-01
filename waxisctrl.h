@@ -37,11 +37,17 @@ private slots:
     void on_yMin_valueChanged(double arg1);
     void on_xMin_valueChanged(double arg1);
 
+    void on_maximizeX_clicked();
+    void on_maximizeY_clicked();
+
 signals:
     void YMaxChanged(double);
     void YMinChanged(double);
     void XMaxChanged(double);
     void XMinChanged(double);
+
+    void maximizeX();
+    void maximizeY();
 };
 
 #endif // WAXISCTRL_H

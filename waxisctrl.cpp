@@ -57,3 +57,13 @@ void wAxisCtrl::on_xMin_valueChanged(double arg1)
 {
     emit XMinChanged(arg1);
 }
+
+void wAxisCtrl::on_maximizeX_clicked()
+{
+    emit maximizeX();
+}
+
+void wAxisCtrl::on_maximizeY_clicked()
+{
+    emit maximizeY();
+}

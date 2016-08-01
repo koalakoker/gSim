@@ -12,7 +12,7 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
     ui->qplot->yAxis->setLabel("y");
     setAxis(0,1,-2,2);
 
-    ui->qplot->setInteractions(QCP::iRangeDrag);
+    ui->qplot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes);
 
     connect(ui->qplot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeX(QCPRange)));
     connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeY(QCPRange)));
@@ -21,6 +21,12 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
     connect(ui->axisCtrl, SIGNAL(XMaxChanged(double)), this, SLOT(setXMax(double)));
     connect(ui->axisCtrl, SIGNAL(YMinChanged(double)), this, SLOT(setYMin(double)));
     connect(ui->axisCtrl, SIGNAL(YMaxChanged(double)), this, SLOT(setYMax(double)));
+
+    connect(ui->axisCtrl, SIGNAL(maximizeX()), this, SLOT(maximizeX()));
+    connect(ui->axisCtrl, SIGNAL(maximizeY()), this, SLOT(maximizeY()));
+
+    connect(ui->qplot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress()));
+    connect(ui->qplot, SIGNAL(mouseWheel(QWheelEvent*)), this, SLOT(mouseWheel()));
 }
 
 void WScope::setAxis(double xMin,double  xMax,double  yMin,double  yMax)
@@ -90,4 +96,118 @@ void WScope::setYMax(double val)
 {
     ui->qplot->yAxis->setRangeUpper(val);
     ui->qplot->replot();
+}
+
+double WScope::getMaxSignalY(void)
+{
+    double max = 0.0;
+    int nPoint = yArray.length();
+    if (nPoint > 0)
+    {
+        max = yArray[0];
+        int i;
+        for (i = 1; i < nPoint; i++)
+        {
+            if (yArray[i] > max)
+            {
+                max = yArray[i];
+            }
+        }
+    }
+    return max;
+}
+
+double WScope::getMaxSignalX(void)
+{
+    double max = 0.0;
+    int nPoint = tArray.length();
+    if (nPoint > 0)
+    {
+        max = tArray[0];
+        int i;
+        for (i = 1; i < nPoint; i++)
+        {
+            if (tArray[i] > max)
+            {
+                max = tArray[i];
+            }
+        }
+    }
+    return max;
+}
+
+double WScope::getMinSignalY(void)
+{
+    double min = 0.0;
+    int nPoint = yArray.length();
+    if (nPoint > 0)
+    {
+        min = yArray[0];
+        int i;
+        for (i = 1; i < nPoint; i++)
+        {
+            if (yArray[i] < min)
+            {
+                min = yArray[i];
+            }
+        }
+    }
+    return min;
+}
+
+double WScope::getMinSignalX(void)
+{
+    double min = 0.0;
+    int nPoint = tArray.length();
+    if (nPoint > 0)
+    {
+        min = tArray[0];
+        int i;
+        for (i = 1; i < nPoint; i++)
+        {
+            if (tArray[i] < min)
+            {
+                min = tArray[i];
+            }
+        }
+    }
+    return min;
+}
+
+void WScope::maximizeX()
+{
+    setXMax(getMaxSignalX());
+    setXMin(getMinSignalX());
+}
+
+void WScope::maximizeY()
+{
+    setYMax(getMaxSignalY());
+    setYMin(getMinSignalY());
+}
+
+void WScope::mousePress()
+{
+  // if an axis is selected, only allow the direction of that axis to be dragged
+  // if no axis is selected, both directions may be dragged
+
+  if (ui->qplot->xAxis->selectedParts().testFlag(QCPAxis::spAxis))
+    ui->qplot->axisRect()->setRangeDrag(ui->qplot->xAxis->orientation());
+  else if (ui->qplot->yAxis->selectedParts().testFlag(QCPAxis::spAxis))
+    ui->qplot->axisRect()->setRangeDrag(ui->qplot->yAxis->orientation());
+  else
+    ui->qplot->axisRect()->setRangeDrag(Qt::Horizontal|Qt::Vertical);
+}
+
+void WScope::mouseWheel()
+{
+  // if an axis is selected, only allow the direction of that axis to be zoomed
+  // if no axis is selected, both directions may be zoomed
+
+  if (ui->qplot->xAxis->selectedParts().testFlag(QCPAxis::spAxis))
+    ui->qplot->axisRect()->setRangeZoom(ui->qplot->xAxis->orientation());
+  else if (ui->qplot->yAxis->selectedParts().testFlag(QCPAxis::spAxis))
+    ui->qplot->axisRect()->setRangeZoom(ui->qplot->yAxis->orientation());
+  else
+    ui->qplot->axisRect()->setRangeZoom(Qt::Horizontal|Qt::Vertical);
 }

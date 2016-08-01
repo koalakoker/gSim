@@ -32,6 +32,15 @@ private:
     double yMin;
     double yMax;
 
+    double getMaxSignalY(void);
+    double getMaxSignalX(void);
+    double getMinSignalY(void);
+    double getMinSignalX(void);
+
+private slots:
+    void mousePress();
+    void mouseWheel();
+
 signals:
 
 public slots:
@@ -40,6 +49,9 @@ public slots:
     void setXMax(double val);
     void setYMin(double val);
     void setYMax(double val);
+
+    void maximizeX();
+    void maximizeY();
 };
 
 #endif // WSCOPE_H
