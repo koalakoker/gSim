@@ -45,5 +45,15 @@ void wAxisCtrl::on_yMax_valueChanged(double arg1)
 
 void wAxisCtrl::on_xMax_valueChanged(double arg1)
 {
-    emit
+    emit XMaxChanged(arg1);
+}
+
+void wAxisCtrl::on_yMin_valueChanged(double arg1)
+{
+    emit YMinChanged(arg1);
+}
+
+void wAxisCtrl::on_xMin_valueChanged(double arg1)
+{
+    emit XMinChanged(arg1);
 }

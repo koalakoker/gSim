@@ -34,9 +34,14 @@ public slots:
 private slots:
     void on_yMax_valueChanged(double arg1);
     void on_xMax_valueChanged(double arg1);
+    void on_yMin_valueChanged(double arg1);
+    void on_xMin_valueChanged(double arg1);
 
 signals:
     void YMaxChanged(double);
+    void YMinChanged(double);
+    void XMaxChanged(double);
+    void XMinChanged(double);
 };
 
 #endif // WAXISCTRL_H
