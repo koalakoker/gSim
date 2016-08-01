@@ -3,8 +3,10 @@
 
 #include <QWidget>
 #include "QVector"
+#include "qcustomplot.h"
 
 #define ELEMENT 100
+#define CURSOR_NUMBER 2
 
 namespace Ui {
 class WScope;
@@ -18,11 +20,12 @@ public:
 
     void reset(void);
     void addPoint(double t, double y);
-    void debugty(void);
+    void exportData(void);
     void setAxis(double xMin,double  xMax,double  yMin,double  yMax);
 
 private:
     Ui::WScope *ui;
+    QCPItemLine* vCursor[CURSOR_NUMBER];
 
     QVector<double> tArray;
     QVector<double> yArray;
@@ -51,6 +54,8 @@ private slots:
 
     void axisXSelect(bool ch);
     void axisYSelect(bool ch);
+
+    void cursorUpdated(int cur, double x);
 
 signals:
 

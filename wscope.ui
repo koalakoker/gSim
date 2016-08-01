@@ -55,12 +55,12 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QListWidget" name="listPlot"/>
-       </item>
-       <item>
         <widget class="wAxisCtrl" name="axisCtrl" native="true">
          <layout class="QFormLayout" name="formLayout_2"/>
         </widget>
+       </item>
+       <item>
+        <widget class="wCursorCtrl" name="cursorCtrl" native="true"/>
        </item>
        <item>
         <spacer name="verticalSpacer">
@@ -92,6 +92,12 @@
    <class>wAxisCtrl</class>
    <extends>QWidget</extends>
    <header location="global">waxisctrl.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>wCursorCtrl</class>
+   <extends>QWidget</extends>
+   <header location="global">wcursorctrl.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

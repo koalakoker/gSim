@@ -30,6 +30,19 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 
     connect(ui->axisCtrl, SIGNAL(axisXSelect(bool)), this, SLOT(axisXSelect(bool)));
     connect(ui->axisCtrl, SIGNAL(axisYSelect(bool)), this, SLOT(axisYSelect(bool)));
+
+    /* Cursor */
+    int i;
+    for (i = 0; i < CURSOR_NUMBER; i++)
+    {
+        vCursor[i] = new QCPItemLine(ui->qplot);
+        ui->qplot->addItem(vCursor[i]);
+        vCursor[i]->setPen(QPen(Qt::black));
+        vCursor[i]->start->setCoords( 0, QCPRange::minRange);
+        vCursor[i]->end->setCoords( 0, QCPRange::maxRange);
+    }
+
+    connect(ui->cursorCtrl, SIGNAL(cursorUpdated(int,double)), this, SLOT(cursorUpdated(int,double)));
 }
 
 void WScope::setAxis(double xMin,double  xMax,double  yMin,double  yMax)
@@ -64,7 +77,7 @@ void WScope::addPoint(double t, double y)
     ui->qplot->graph(0)->addData(t, y);
 }
 
-void WScope::debugty(void)
+void WScope::exportData(void)
 {
     int size = tArray.size();
     int i;
@@ -73,7 +86,6 @@ void WScope::debugty(void)
         double t = tArray[i];
         double y = yArray[i];
         QString out = QString("step %1 : %2 , %3").arg(i).arg(t).arg(y);
-        ui->listPlot->addItem(out);
     }
 }
 
@@ -238,5 +250,12 @@ void WScope::axisYSelect(bool ch)
     {
         ui->qplot->yAxis->setSelectedParts(QCPAxis::spNone);
     }
+    ui->qplot->replot();
+}
+
+void WScope::cursorUpdated(int cur, double x)
+{
+    vCursor[cur]->start->setCoords( x, QCPRange::minRange);
+    vCursor[cur]->end->setCoords( x, QCPRange::maxRange);
     ui->qplot->replot();
 }

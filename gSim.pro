@@ -18,18 +18,21 @@ SOURCES += main.cpp\
     wscope.cpp \
     mainsimulator.cpp \
     mathfunction.cpp \
-    waxisctrl.cpp
+    waxisctrl.cpp \
+    wcursorctrl.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
     wscope.h \
     mainsimulator.h \
     mathfunction.h \
-    waxisctrl.h
+    waxisctrl.h \
+    wcursorctrl.h
 
 FORMS    += gsim.ui \
     wscope.ui \
-    waxisctrl.ui
+    waxisctrl.ui \
+    wcursorctrl.ui
 
 DISTFILES +=
 
