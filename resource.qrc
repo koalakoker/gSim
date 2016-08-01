@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>png/maxY.png</file>
+        <file>png/maxX.png</file>
+        <file>png/zoomicons.png</file>
+    </qresource>
+</RCC>

@@ -67,3 +67,33 @@ void wAxisCtrl::on_maximizeY_clicked()
 {
     emit maximizeY();
 }
+
+void wAxisCtrl::on_zoomX_toggled(bool checked)
+{
+    emit axisXSelect(checked);
+    if (checked)
+    {
+        if (ui->zoomY->isChecked())
+        {
+            blockSignals(true);
+            ui->zoomY->setChecked(false);
+            blockSignals(false);
+            emit axisYSelect(false);
+        }
+    }
+}
+
+void wAxisCtrl::on_zoomY_toggled(bool checked)
+{
+    emit axisYSelect(checked);
+    if (checked)
+    {
+        if (ui->zoomX->isChecked())
+        {
+            blockSignals(true);
+            ui->zoomX->setChecked(false);
+            blockSignals(false);
+            emit axisXSelect(false);
+        }
+    }
+}

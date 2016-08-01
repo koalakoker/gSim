@@ -27,6 +27,9 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 
     connect(ui->qplot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress()));
     connect(ui->qplot, SIGNAL(mouseWheel(QWheelEvent*)), this, SLOT(mouseWheel()));
+
+    connect(ui->axisCtrl, SIGNAL(axisXSelect(bool)), this, SLOT(axisXSelect(bool)));
+    connect(ui->axisCtrl, SIGNAL(axisYSelect(bool)), this, SLOT(axisYSelect(bool)));
 }
 
 void WScope::setAxis(double xMin,double  xMax,double  yMin,double  yMax)
@@ -210,4 +213,30 @@ void WScope::mouseWheel()
     ui->qplot->axisRect()->setRangeZoom(ui->qplot->yAxis->orientation());
   else
     ui->qplot->axisRect()->setRangeZoom(Qt::Horizontal|Qt::Vertical);
+}
+
+void WScope::axisXSelect(bool ch)
+{
+    if (ch)
+    {
+        ui->qplot->xAxis->setSelectedParts(QCPAxis::spAxis);
+    }
+    else
+    {
+        ui->qplot->xAxis->setSelectedParts(QCPAxis::spNone);
+    }
+    ui->qplot->replot();
+}
+
+void WScope::axisYSelect(bool ch)
+{
+    if (ch)
+    {
+        ui->qplot->yAxis->setSelectedParts(QCPAxis::spAxis);
+    }
+    else
+    {
+        ui->qplot->yAxis->setSelectedParts(QCPAxis::spNone);
+    }
+    ui->qplot->replot();
 }

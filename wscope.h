@@ -41,10 +41,6 @@ private slots:
     void mousePress();
     void mouseWheel();
 
-signals:
-
-public slots:
-	void refresh(void);
     void setXMin(double val);
     void setXMax(double val);
     void setYMin(double val);
@@ -52,6 +48,14 @@ public slots:
 
     void maximizeX();
     void maximizeY();
+
+    void axisXSelect(bool ch);
+    void axisYSelect(bool ch);
+
+signals:
+
+public slots:
+	void refresh(void);
 };
 
 #endif // WSCOPE_H

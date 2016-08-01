@@ -30,3 +30,8 @@ HEADERS  += gsim.h \
 FORMS    += gsim.ui \
     wscope.ui \
     waxisctrl.ui
+
+DISTFILES +=
+
+RESOURCES += \
+    resource.qrc

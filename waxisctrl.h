@@ -40,6 +40,9 @@ private slots:
     void on_maximizeX_clicked();
     void on_maximizeY_clicked();
 
+    void on_zoomX_toggled(bool checked);
+    void on_zoomY_toggled(bool checked);
+
 signals:
     void YMaxChanged(double);
     void YMinChanged(double);
@@ -48,6 +51,9 @@ signals:
 
     void maximizeX();
     void maximizeY();
+
+    void axisXSelect(bool);
+    void axisYSelect(bool);
 };
 
 #endif // WAXISCTRL_H
