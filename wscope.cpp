@@ -16,7 +16,6 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 
     connect(ui->qplot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeX(QCPRange)));
     connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeY(QCPRange)));
-
     connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(updateCursorLenghtAfterAxisChange(QCPRange)));
 
     connect(ui->axisCtrl, SIGNAL(XMinChanged(double)), this, SLOT(setXMin(double)));
@@ -29,6 +28,8 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 
     connect(ui->qplot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress()));
     connect(ui->qplot, SIGNAL(mouseWheel(QWheelEvent*)), this, SLOT(mouseWheel()));
+    connect(ui->qplot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)));
+    connect(ui->qplot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(mouseRelease()));
 
     connect(ui->axisCtrl, SIGNAL(axisXSelect(bool)), this, SLOT(axisXSelect(bool)));
     connect(ui->axisCtrl, SIGNAL(axisYSelect(bool)), this, SLOT(axisYSelect(bool)));
@@ -42,6 +43,7 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
         vCursor[i]->setPen(QPen(Qt::black));
         vCursor[i]->start->setCoords( 0, ui->qplot->yAxis->range().lower);
         vCursor[i]->end->setCoords( 0, ui->qplot->yAxis->range().upper);
+        vCursorDrag[i] = false;
     }
 
     connect(ui->cursorCtrl, SIGNAL(cursorUpdated(int,double)), this, SLOT(cursorUpdated(int,double)));
@@ -207,28 +209,71 @@ void WScope::maximizeY()
 
 void WScope::mousePress()
 {
-  // if an axis is selected, only allow the direction of that axis to be dragged
-  // if no axis is selected, both directions may be dragged
-
-  if (ui->qplot->xAxis->selectedParts().testFlag(QCPAxis::spAxis))
-    ui->qplot->axisRect()->setRangeDrag(ui->qplot->xAxis->orientation());
-  else if (ui->qplot->yAxis->selectedParts().testFlag(QCPAxis::spAxis))
-    ui->qplot->axisRect()->setRangeDrag(ui->qplot->yAxis->orientation());
-  else
-    ui->qplot->axisRect()->setRangeDrag(Qt::Horizontal|Qt::Vertical);
+    // if cursor is selected then mouse will move it
+    if (vCursor[0]->selected())
+    {
+        ui->qplot->axisRect()->setRangeDrag(0);
+        vCursorDrag[0] = true;
+    }
+    else if (vCursor[1]->selected())
+    {
+        ui->qplot->axisRect()->setRangeDrag(0);
+        vCursorDrag[1] = true;
+    }
+    else
+    {
+        // if an axis is selected, only allow the direction of that axis to be dragged
+        // if no axis is selected, both directions may be dragged
+        if (ui->qplot->xAxis->selectedParts().testFlag(QCPAxis::spAxis))
+            ui->qplot->axisRect()->setRangeDrag(ui->qplot->xAxis->orientation());
+        else if (ui->qplot->yAxis->selectedParts().testFlag(QCPAxis::spAxis))
+            ui->qplot->axisRect()->setRangeDrag(ui->qplot->yAxis->orientation());
+        else
+            ui->qplot->axisRect()->setRangeDrag(Qt::Horizontal|Qt::Vertical);
+    }
 }
 
 void WScope::mouseWheel()
 {
-  // if an axis is selected, only allow the direction of that axis to be zoomed
-  // if no axis is selected, both directions may be zoomed
+    // if an axis is selected, only allow the direction of that axis to be zoomed
+    // if no axis is selected, both directions may be zoomed
 
-  if (ui->qplot->xAxis->selectedParts().testFlag(QCPAxis::spAxis))
-    ui->qplot->axisRect()->setRangeZoom(ui->qplot->xAxis->orientation());
-  else if (ui->qplot->yAxis->selectedParts().testFlag(QCPAxis::spAxis))
-    ui->qplot->axisRect()->setRangeZoom(ui->qplot->yAxis->orientation());
-  else
-    ui->qplot->axisRect()->setRangeZoom(Qt::Horizontal|Qt::Vertical);
+    if (ui->qplot->xAxis->selectedParts().testFlag(QCPAxis::spAxis))
+        ui->qplot->axisRect()->setRangeZoom(ui->qplot->xAxis->orientation());
+    else if (ui->qplot->yAxis->selectedParts().testFlag(QCPAxis::spAxis))
+        ui->qplot->axisRect()->setRangeZoom(ui->qplot->yAxis->orientation());
+    else
+        ui->qplot->axisRect()->setRangeZoom(Qt::Horizontal|Qt::Vertical);
+}
+
+void WScope::mouseMove(QMouseEvent* event)
+{
+    if (vCursorDrag[0])
+    {
+        double x = ui->qplot->xAxis->pixelToCoord(event->pos().x());
+        vCursor[0]->start->setCoords(x, ui->qplot->yAxis->range().lower);
+        vCursor[0]->end->setCoords(x, ui->qplot->yAxis->range().upper);
+        ui->qplot->replot();
+    }
+    if (vCursorDrag[1])
+    {
+        double x = ui->qplot->xAxis->pixelToCoord(event->pos().x());
+        vCursor[1]->start->setCoords(x, ui->qplot->yAxis->range().lower);
+        vCursor[1]->end->setCoords(x, ui->qplot->yAxis->range().upper);
+        ui->qplot->replot();
+    }
+}
+
+void WScope::mouseRelease()
+{
+    if (vCursorDrag[0])
+    {
+        vCursorDrag[0] = false;
+    }
+    if (vCursorDrag[1])
+    {
+        vCursorDrag[1] = false;
+    }
 }
 
 void WScope::axisXSelect(bool ch)

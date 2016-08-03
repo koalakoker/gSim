@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "QVector"
 #include "qcustomplot.h"
+#include <QMouseEvent>
 
 #define ELEMENT 100
 #define CURSOR_NUMBER 2
@@ -26,6 +27,7 @@ public:
 private:
     Ui::WScope *ui;
     QCPItemLine* vCursor[CURSOR_NUMBER];
+    bool vCursorDrag[CURSOR_NUMBER];
 
     QVector<double> tArray;
     QVector<double> yArray;
@@ -43,6 +45,8 @@ private:
 private slots:
     void mousePress();
     void mouseWheel();
+    void mouseMove(QMouseEvent* event);
+    void mouseRelease();
 
     void setXMin(double val);
     void setXMax(double val);
