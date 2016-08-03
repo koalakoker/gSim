@@ -12,10 +12,12 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
     ui->qplot->yAxis->setLabel("y");
     setAxis(0,1,-2,2);
 
-    ui->qplot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes);
+    ui->qplot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectItems);
 
     connect(ui->qplot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeX(QCPRange)));
     connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeY(QCPRange)));
+
+    connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(updateCursorLenghtAfterAxisChange(QCPRange)));
 
     connect(ui->axisCtrl, SIGNAL(XMinChanged(double)), this, SLOT(setXMin(double)));
     connect(ui->axisCtrl, SIGNAL(XMaxChanged(double)), this, SLOT(setXMax(double)));
@@ -38,11 +40,13 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
         vCursor[i] = new QCPItemLine(ui->qplot);
         ui->qplot->addItem(vCursor[i]);
         vCursor[i]->setPen(QPen(Qt::black));
-        vCursor[i]->start->setCoords( 0, QCPRange::minRange);
-        vCursor[i]->end->setCoords( 0, QCPRange::maxRange);
+        vCursor[i]->start->setCoords( 0, ui->qplot->yAxis->range().lower);
+        vCursor[i]->end->setCoords( 0, ui->qplot->yAxis->range().upper);
     }
 
     connect(ui->cursorCtrl, SIGNAL(cursorUpdated(int,double)), this, SLOT(cursorUpdated(int,double)));
+
+    connect(ui->qplot, SIGNAL(selectionChangedByUser()), this, SLOT(selectionChanged()));
 }
 
 void WScope::setAxis(double xMin,double  xMax,double  yMin,double  yMax)
@@ -255,7 +259,42 @@ void WScope::axisYSelect(bool ch)
 
 void WScope::cursorUpdated(int cur, double x)
 {
-    vCursor[cur]->start->setCoords( x, QCPRange::minRange);
-    vCursor[cur]->end->setCoords( x, QCPRange::maxRange);
+    vCursor[cur]->start->setCoords( x, ui->qplot->yAxis->range().lower);
+    vCursor[cur]->end->setCoords( x, ui->qplot->yAxis->range().upper);
     ui->qplot->replot();
+}
+
+void WScope::updateCursorLenghtAfterAxisChange(QCPRange)
+{
+    int i;
+    for (i = 0; i < CURSOR_NUMBER; i++)
+    {
+        QPointF start = vCursor[i]->start->coords();
+        vCursor[i]->start->setCoords(start.x(), ui->qplot->yAxis->range().lower);
+        vCursor[i]->end->setCoords(start.x(), ui->qplot->yAxis->range().upper);
+    }
+}
+
+void WScope::selectionChanged()
+{
+    if (ui->qplot->xAxis->selectedParts().testFlag(QCPAxis::spAxis) || ui->qplot->xAxis->selectedParts().testFlag(QCPAxis::spTickLabels))
+    {
+        ui->qplot->xAxis->setSelectedParts(QCPAxis::spAxis|QCPAxis::spTickLabels);
+    }
+
+    if (ui->qplot->yAxis->selectedParts().testFlag(QCPAxis::spAxis) || ui->qplot->yAxis->selectedParts().testFlag(QCPAxis::spTickLabels))
+    {
+        ui->qplot->yAxis->setSelectedParts(QCPAxis::spAxis|QCPAxis::spTickLabels);
+    }
+
+    for (int i=0; i<ui->qplot->graphCount(); ++i)
+    {
+        QCPGraph *graph = ui->qplot->graph(i);
+        QCPPlottableLegendItem *item = ui->qplot->legend->itemWithPlottable(graph);
+        if (item->selected() || graph->selected())
+        {
+            item->setSelected(true);
+            graph->setSelected(true);
+        }
+    }
 }

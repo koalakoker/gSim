@@ -55,7 +55,11 @@ private slots:
     void axisXSelect(bool ch);
     void axisYSelect(bool ch);
 
+    void updateCursorLenghtAfterAxisChange(QCPRange);
+
     void cursorUpdated(int cur, double x);
+
+    void selectionChanged();
 
 signals:
 
