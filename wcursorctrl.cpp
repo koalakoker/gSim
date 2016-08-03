@@ -22,3 +22,17 @@ void wCursorCtrl::on_cur2x_valueChanged(double arg1)
 {
     emit cursorUpdated(1, arg1);
 }
+
+void wCursorCtrl::cursorMoved(int cur, double x)
+{
+    blockSignals(true);
+    if (cur == 0)
+    {
+        ui->cur1x->setValue(x);
+    }
+    else
+    {
+        ui->cur2x->setValue(x);
+    }
+    blockSignals(false);
+}

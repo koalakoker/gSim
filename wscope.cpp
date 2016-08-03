@@ -2,6 +2,8 @@
 #include "ui_wscope.h"
 #include "qstring.h"
 
+
+
 WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 {
     ui->setupUi(this);
@@ -12,11 +14,10 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
     ui->qplot->yAxis->setLabel("y");
     setAxis(0,1,-2,2);
 
-    ui->qplot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectItems);
+    ui->qplot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes);
 
     connect(ui->qplot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeX(QCPRange)));
     connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeY(QCPRange)));
-    connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), this, SLOT(updateCursorLenghtAfterAxisChange(QCPRange)));
 
     connect(ui->axisCtrl, SIGNAL(XMinChanged(double)), this, SLOT(setXMin(double)));
     connect(ui->axisCtrl, SIGNAL(XMaxChanged(double)), this, SLOT(setXMax(double)));
@@ -26,7 +27,7 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
     connect(ui->axisCtrl, SIGNAL(maximizeX()), this, SLOT(maximizeX()));
     connect(ui->axisCtrl, SIGNAL(maximizeY()), this, SLOT(maximizeY()));
 
-    connect(ui->qplot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress()));
+    connect(ui->qplot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress(QMouseEvent*)));
     connect(ui->qplot, SIGNAL(mouseWheel(QWheelEvent*)), this, SLOT(mouseWheel()));
     connect(ui->qplot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(mouseMove(QMouseEvent*)));
     connect(ui->qplot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(mouseRelease()));
@@ -38,15 +39,30 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
     int i;
     for (i = 0; i < CURSOR_NUMBER; i++)
     {
-        vCursor[i] = new QCPItemLine(ui->qplot);
-        ui->qplot->addItem(vCursor[i]);
-        vCursor[i]->setPen(QPen(Qt::black));
-        vCursor[i]->start->setCoords( 0, ui->qplot->yAxis->range().lower);
-        vCursor[i]->end->setCoords( 0, ui->qplot->yAxis->range().upper);
+        QCPItemLine* vCur = new QCPItemLine(ui->qplot);
+        vCursor[i] = vCur;
+        ui->qplot->addItem(vCur);
+
+        // Set cursor line
+        QPen pen = vCur->pen();
+        pen.setStyle(vCursorStyle[i]);
+        pen.setColor(vCursorColor[i]);
+        vCur->setPen(pen);
+        pen = vCur->selectedPen();
+        pen.setStyle(vCursorStyle[i]);
+        pen.setColor(vCursorColor[i]);
+        vCur->setSelectedPen(pen);
+
+        // Set cursor position
+        vCursor[i]->start->setTypeY(QCPItemPosition::ptAxisRectRatio);
+        vCursor[i]->start->setCoords(0, 0);
+        vCursor[i]->end->setTypeY(QCPItemPosition::ptAxisRectRatio);
+        vCursor[i]->end->setCoords( 0, 1);
         vCursorDrag[i] = false;
     }
 
     connect(ui->cursorCtrl, SIGNAL(cursorUpdated(int,double)), this, SLOT(cursorUpdated(int,double)));
+    connect(this, SIGNAL(cursorMoved(int,double)), ui->cursorCtrl, SLOT(cursorMoved(int,double)));
 
     connect(ui->qplot, SIGNAL(selectionChangedByUser()), this, SLOT(selectionChanged()));
 }
@@ -81,6 +97,14 @@ void WScope::addPoint(double t, double y)
     tArray.append(t);
     yArray.append(y);
     ui->qplot->graph(0)->addData(t, y);
+}
+
+void WScope::setData(QVector<double> tArray,QVector<double> yArray)
+{
+    this->tArray = tArray;
+    this->yArray = yArray;
+    ui->qplot->graph(0)->setData(this->tArray, this->yArray);
+    ui->qplot->replot();
 }
 
 void WScope::exportData(void)
@@ -207,20 +231,28 @@ void WScope::maximizeY()
     setYMin(getMinSignalY());
 }
 
-void WScope::mousePress()
+void WScope::mousePress(QMouseEvent* event)
 {
+    // Check if cursor is clicked
+    QCPAbstractItem* item = ui->qplot->itemAt(event->pos());
+
     // if cursor is selected then mouse will move it
-    if (vCursor[0]->selected())
+    int i;
+    bool cursorHit = false;
+    for (i = 0; i < CURSOR_NUMBER; i++)
     {
-        ui->qplot->axisRect()->setRangeDrag(0);
-        vCursorDrag[0] = true;
+        if ((QCPAbstractItem*)vCursor[i] == item)
+        {
+            vCursor[i]->setSelected(true);
+            ui->qplot->replot();
+            ui->qplot->axisRect()->setRangeDrag(0);
+            vCursorDrag[i] = true;
+            cursorHit = true;
+            break;
+        }
     }
-    else if (vCursor[1]->selected())
-    {
-        ui->qplot->axisRect()->setRangeDrag(0);
-        vCursorDrag[1] = true;
-    }
-    else
+
+    if (!cursorHit)
     {
         // if an axis is selected, only allow the direction of that axis to be dragged
         // if no axis is selected, both directions may be dragged
@@ -248,31 +280,31 @@ void WScope::mouseWheel()
 
 void WScope::mouseMove(QMouseEvent* event)
 {
-    if (vCursorDrag[0])
+    int i;
+    for (i = 0; i < CURSOR_NUMBER; i++)
     {
-        double x = ui->qplot->xAxis->pixelToCoord(event->pos().x());
-        vCursor[0]->start->setCoords(x, ui->qplot->yAxis->range().lower);
-        vCursor[0]->end->setCoords(x, ui->qplot->yAxis->range().upper);
-        ui->qplot->replot();
-    }
-    if (vCursorDrag[1])
-    {
-        double x = ui->qplot->xAxis->pixelToCoord(event->pos().x());
-        vCursor[1]->start->setCoords(x, ui->qplot->yAxis->range().lower);
-        vCursor[1]->end->setCoords(x, ui->qplot->yAxis->range().upper);
-        ui->qplot->replot();
+        if (vCursorDrag[i])
+        {
+            double x = ui->qplot->xAxis->pixelToCoord(event->pos().x());
+            vCursor[i]->start->setCoords(x, 0);
+            vCursor[i]->end->setCoords(x, 1);
+            ui->qplot->replot();
+            emit cursorMoved(i, x);
+        }
     }
 }
 
 void WScope::mouseRelease()
 {
-    if (vCursorDrag[0])
+    int i;
+    for (i = 0; i < CURSOR_NUMBER; i++)
     {
-        vCursorDrag[0] = false;
-    }
-    if (vCursorDrag[1])
-    {
-        vCursorDrag[1] = false;
+        if (vCursorDrag[i])
+        {
+            vCursorDrag[i] = false;
+            vCursor[i]->setSelected(false);
+            ui->qplot->replot();
+        }
     }
 }
 
@@ -304,20 +336,9 @@ void WScope::axisYSelect(bool ch)
 
 void WScope::cursorUpdated(int cur, double x)
 {
-    vCursor[cur]->start->setCoords( x, ui->qplot->yAxis->range().lower);
-    vCursor[cur]->end->setCoords( x, ui->qplot->yAxis->range().upper);
+    vCursor[cur]->start->setCoords( x, 0);
+    vCursor[cur]->end->setCoords( x, 1);
     ui->qplot->replot();
-}
-
-void WScope::updateCursorLenghtAfterAxisChange(QCPRange)
-{
-    int i;
-    for (i = 0; i < CURSOR_NUMBER; i++)
-    {
-        QPointF start = vCursor[i]->start->coords();
-        vCursor[i]->start->setCoords(start.x(), ui->qplot->yAxis->range().lower);
-        vCursor[i]->end->setCoords(start.x(), ui->qplot->yAxis->range().upper);
-    }
 }
 
 void WScope::selectionChanged()

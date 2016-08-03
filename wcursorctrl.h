@@ -15,9 +15,11 @@ public:
     explicit wCursorCtrl(QWidget *parent = 0);
     ~wCursorCtrl();
 
+public slots:
+    void cursorMoved(int cur, double x);
+
 private slots:
     void on_cur1x_valueChanged(double arg1);
-
     void on_cur2x_valueChanged(double arg1);
 
 private:

@@ -21,6 +21,7 @@ public:
 
     void reset(void);
     void addPoint(double t, double y);
+    void setData(QVector<double> tArray,QVector<double> yArray);
     void exportData(void);
     void setAxis(double xMin,double  xMax,double  yMin,double  yMax);
 
@@ -28,6 +29,8 @@ private:
     Ui::WScope *ui;
     QCPItemLine* vCursor[CURSOR_NUMBER];
     bool vCursorDrag[CURSOR_NUMBER];
+    const QColor vCursorColor[CURSOR_NUMBER] = {Qt::black, Qt::black};
+    const Qt::PenStyle vCursorStyle[CURSOR_NUMBER] = {Qt::DashLine, Qt::DashDotLine};
 
     QVector<double> tArray;
     QVector<double> yArray;
@@ -43,7 +46,7 @@ private:
     double getMinSignalX(void);
 
 private slots:
-    void mousePress();
+    void mousePress(QMouseEvent* event);
     void mouseWheel();
     void mouseMove(QMouseEvent* event);
     void mouseRelease();
@@ -59,13 +62,12 @@ private slots:
     void axisXSelect(bool ch);
     void axisYSelect(bool ch);
 
-    void updateCursorLenghtAfterAxisChange(QCPRange);
-
     void cursorUpdated(int cur, double x);
 
     void selectionChanged();
 
 signals:
+    void cursorMoved(int cur, double x);
 
 public slots:
 	void refresh(void);
