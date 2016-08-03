@@ -21,6 +21,7 @@ void mainSimulator::startSimulation(void)
         t += dt;
     }
 
+    scope1.setdt(dt);
     scope1.show();
     scope1.refresh();
 }

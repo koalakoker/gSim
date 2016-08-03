@@ -25,6 +25,9 @@ public:
     void exportData(void);
     void setAxis(double xMin,double  xMax,double  yMin,double  yMax);
 
+    void setdt(double dt);
+    double dt(void) {return this->dtVal;}
+
 private:
     Ui::WScope *ui;
     QCPItemLine* vCursor[CURSOR_NUMBER];
@@ -34,6 +37,8 @@ private:
 
     QVector<double> tArray;
     QVector<double> yArray;
+
+    double dtVal;
 
     double xMin;
     double xMax;
@@ -67,7 +72,7 @@ private slots:
     void selectionChanged();
 
 signals:
-    void cursorMoved(int cur, double x);
+    void cursorMoved(int cur, double x, double y);
 
 public slots:
 	void refresh(void);

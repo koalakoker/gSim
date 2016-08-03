@@ -62,9 +62,15 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
     }
 
     connect(ui->cursorCtrl, SIGNAL(cursorUpdated(int,double)), this, SLOT(cursorUpdated(int,double)));
-    connect(this, SIGNAL(cursorMoved(int,double)), ui->cursorCtrl, SLOT(cursorMoved(int,double)));
+    connect(this, SIGNAL(cursorMoved(int,double,double)), ui->cursorCtrl, SLOT(cursorMoved(int,double,double)));
 
     connect(ui->qplot, SIGNAL(selectionChangedByUser()), this, SLOT(selectionChanged()));
+}
+
+void WScope::setdt(double dt)
+{
+    dtVal = dt;
+    ui->cursorCtrl->setdt(dt);
 }
 
 void WScope::setAxis(double xMin,double  xMax,double  yMin,double  yMax)
@@ -289,7 +295,10 @@ void WScope::mouseMove(QMouseEvent* event)
             vCursor[i]->start->setCoords(x, 0);
             vCursor[i]->end->setCoords(x, 1);
             ui->qplot->replot();
-            emit cursorMoved(i, x);
+            int index = (int)(round(x / dtVal));
+            x = (double)index * dtVal;
+            double y = yArray[index];
+            emit cursorMoved(i, x, y);
         }
     }
 }
