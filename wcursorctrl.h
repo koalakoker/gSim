@@ -2,6 +2,7 @@
 #define WCURSORCTRL_H
 
 #include <QWidget>
+#include <QPointF>
 
 namespace Ui {
 class wCursorCtrl;
@@ -18,6 +19,9 @@ public:
     void setdt(double dt);
     double dt(void) {return this->dtVal;}
 
+    QPointF cur1(void);
+    QPointF cur2(void);
+
 public slots:
     void cursorMoved(int cur, double x, double y);
 
@@ -28,6 +32,7 @@ private slots:
 private:
     Ui::wCursorCtrl *ui;
     double dtVal;
+    void updateStats(void);
 
 signals:
     void cursorUpdated(int cur, double x);
