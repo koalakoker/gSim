@@ -71,8 +71,11 @@ private slots:
 
     void selectionChanged();
 
+    void closeEvent(QCloseEvent *event);
+
 signals:
     void cursorMoved(int cur, double x, double y);
+    void hiding(void);
 
 public slots:
 	void refresh(void);

@@ -297,7 +297,11 @@ void WScope::mouseMove(QMouseEvent* event)
             ui->qplot->replot();
             int index = (int)(round(x / dtVal));
             x = (double)index * dtVal;
-            double y = yArray[index];
+            double y = 0;
+            if ((index > 0) && (index < yArray.size()))
+            {
+                yArray[index];
+            }
             emit cursorMoved(i, x, y);
         }
     }
@@ -372,4 +376,10 @@ void WScope::selectionChanged()
             graph->setSelected(true);
         }
     }
+}
+
+void WScope::closeEvent(QCloseEvent *event)
+{
+    emit hiding();
+    event->accept();
 }
