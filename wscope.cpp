@@ -8,6 +8,8 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 {
     ui->setupUi(this);
 
+    ui->dockControls->setVisible(false);
+
     ui->qplot->addGraph();
 
     ui->qplot->xAxis->setLabel("x");
@@ -65,6 +67,22 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
     connect(this, SIGNAL(cursorMoved(int,double,double)), ui->cursorCtrl, SLOT(cursorMoved(int,double,double)));
 
     connect(ui->qplot, SIGNAL(selectionChangedByUser()), this, SLOT(selectionChanged()));
+
+    controlVisible = false;
+    updateControls();
+}
+
+void WScope::updateControls(void)
+{
+    ui->dockControls->setVisible(controlVisible);
+    if (controlVisible)
+    {
+        ui->showControl->setText("<<");
+    }
+    else
+    {
+        ui->showControl->setText(">>");
+    }
 }
 
 void WScope::setdt(double dt)
@@ -382,4 +400,10 @@ void WScope::closeEvent(QCloseEvent *event)
 {
     emit hiding();
     event->accept();
+}
+
+void WScope::on_showControl_clicked()
+{
+    controlVisible = !controlVisible;
+    updateControls();
 }

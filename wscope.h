@@ -35,6 +35,8 @@ private:
     const QColor vCursorColor[CURSOR_NUMBER] = {Qt::black, Qt::black};
     const Qt::PenStyle vCursorStyle[CURSOR_NUMBER] = {Qt::DashLine, Qt::DashDotLine};
 
+    bool controlVisible;
+
     QVector<double> tArray;
     QVector<double> yArray;
 
@@ -49,6 +51,8 @@ private:
     double getMaxSignalX(void);
     double getMinSignalY(void);
     double getMinSignalX(void);
+
+    void updateControls(void);
 
 private slots:
     void mousePress(QMouseEvent* event);
@@ -72,6 +76,7 @@ private slots:
     void selectionChanged();
 
     void closeEvent(QCloseEvent *event);
+    void on_showControl_clicked();
 
 signals:
     void cursorMoved(int cur, double x, double y);
