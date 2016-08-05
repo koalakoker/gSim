@@ -3,6 +3,7 @@
 
 #include "wscope.h"
 #include "mathfunction.h"
+#include "sinfunction.h"
 
 class mainSimulator
 {
@@ -17,6 +18,7 @@ private:
     int step;
     WScope scope1;
     mathFunction func1;
+    sinfunction func2;
 };
 
 #endif // MAINSIMULATOR_H

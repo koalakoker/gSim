@@ -85,6 +85,16 @@ void WScope::updateControls(void)
     }
 }
 
+bool WScope::setTracks(int num)
+{
+    bool retVal = ((num > 0) && (num <= MAX_TRACKS));
+    if (retVal)
+    {
+        tracksNum = num;
+    }
+    return retVal;
+}
+
 void WScope::setdt(double dt)
 {
     dtVal = dt;
@@ -116,30 +126,31 @@ void WScope::refresh(void)
     ui->qplot->replot();
 }
 
-void WScope::addPoint(double t, double y)
+void WScope::addPoint(double t, QVector<double> y)
 {
     tArray.append(t);
     yArray.append(y);
-    ui->qplot->graph(0)->addData(t, y);
+    ui->qplot->graph(0)->addData(t, y[0]);
 }
 
-void WScope::setData(QVector<double> tArray,QVector<double> yArray)
+void WScope::setData(QVector<double> tArray,QVector<QVector<double>> yArray)
 {
     this->tArray = tArray;
     this->yArray = yArray;
-    ui->qplot->graph(0)->setData(this->tArray, this->yArray);
+    ui->qplot->graph(0)->setData(this->tArray, this->yArray[0]);
     ui->qplot->replot();
 }
 
 void WScope::exportData(void)
 {
+    QVector<double> y = yArray[0];
     int size = tArray.size();
     int i;
     for (i = 0; i < size; i++)
     {
         double t = tArray[i];
-        double y = yArray[i];
-        QString out = QString("step %1 : %2 , %3").arg(i).arg(t).arg(y);
+        double y0 = y[i];
+        QString out = QString("step %1 : %2 , %3").arg(i).arg(t).arg(y0);
     }
 }
 
@@ -169,17 +180,18 @@ void WScope::setYMax(double val)
 
 double WScope::getMaxSignalY(void)
 {
+    QVector<double> y0 = yArray[0];
     double max = 0.0;
     int nPoint = yArray.length();
     if (nPoint > 0)
     {
-        max = yArray[0];
+        max = y0[0];
         int i;
         for (i = 1; i < nPoint; i++)
         {
-            if (yArray[i] > max)
+            if (y0[i] > max)
             {
-                max = yArray[i];
+                max = y0[i];
             }
         }
     }
@@ -207,17 +219,18 @@ double WScope::getMaxSignalX(void)
 
 double WScope::getMinSignalY(void)
 {
+    QVector<double> y0 = yArray[0];
     double min = 0.0;
     int nPoint = yArray.length();
     if (nPoint > 0)
     {
-        min = yArray[0];
+        min = y0[0];
         int i;
         for (i = 1; i < nPoint; i++)
         {
-            if (yArray[i] < min)
+            if (y0[i] < min)
             {
-                min = yArray[i];
+                min = y0[i];
             }
         }
     }

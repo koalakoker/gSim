@@ -16,8 +16,12 @@ void mainSimulator::startSimulation(void)
 
     for (i = 0; i < step; i++)
     {
-        double y = func1.calc(t);
-        scope1.addPoint(t, y);
+        QVector<double> data;
+        data.append(func1.calc(t));
+        data.append(func2.calc(t));
+
+        scope1.addPoint(t, data);
+
         t += dt;
     }
 

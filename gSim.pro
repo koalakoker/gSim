@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     mainsimulator.cpp \
     mathfunction.cpp \
     waxisctrl.cpp \
-    wcursorctrl.cpp
+    wcursorctrl.cpp \
+    sinfunction.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
@@ -27,7 +28,8 @@ HEADERS  += gsim.h \
     mainsimulator.h \
     mathfunction.h \
     waxisctrl.h \
-    wcursorctrl.h
+    wcursorctrl.h \
+    sinfunction.h
 
 FORMS    += gsim.ui \
     wscope.ui \

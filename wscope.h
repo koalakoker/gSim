@@ -8,6 +8,7 @@
 
 #define ELEMENT 100
 #define CURSOR_NUMBER 2
+#define MAX_TRACKS 4
 
 namespace Ui {
 class WScope;
@@ -20,13 +21,16 @@ public:
     explicit WScope(QWidget *parent = 0);
 
     void reset(void);
-    void addPoint(double t, double y);
-    void setData(QVector<double> tArray,QVector<double> yArray);
+    void addPoint(double t, QVector<double> y);
+    void setData(QVector<double> tArray, QVector<QVector<double> > yArray);
     void exportData(void);
     void setAxis(double xMin,double  xMax,double  yMin,double  yMax);
 
     void setdt(double dt);
     double dt(void) {return this->dtVal;}
+
+    bool setTracks(int num);
+    int tracks() {return tracksNum;}
 
 private:
     Ui::WScope *ui;
@@ -37,8 +41,9 @@ private:
 
     bool controlVisible;
 
+    int tracksNum;
     QVector<double> tArray;
-    QVector<double> yArray;
+    QVector<QVector<double>> yArray;
 
     double dtVal;
 
