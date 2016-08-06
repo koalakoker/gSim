@@ -18,7 +18,7 @@ class WScope : public QWidget
 {
     Q_OBJECT
 public:
-    explicit WScope(QWidget *parent = 0);
+    explicit WScope(int tracks = 1, QWidget *parent = 0);
 
     void reset(void);
     void addPoint(double t, QVector<double> y);
@@ -29,8 +29,9 @@ public:
     void setdt(double dt);
     double dt(void) {return this->dtVal;}
 
-    bool setTracks(int num);
     int tracks() {return tracksNum;}
+    int selectedTrack() {return selectedTrackValue;}
+    bool setSelectedTrack(int tr);
 
 private:
     Ui::WScope *ui;
@@ -42,6 +43,7 @@ private:
     bool controlVisible;
 
     int tracksNum;
+    int selectedTrackValue;
     QVector<double> tArray;
     QVector<QVector<double>> yArray;
 
@@ -58,12 +60,15 @@ private:
     double getMinSignalX(void);
 
     void updateControls(void);
+    double calculateYfromX(double x);
 
 private slots:
     void mousePress(QMouseEvent* event);
     void mouseWheel();
     void mouseMove(QMouseEvent* event);
     void mouseRelease();
+
+    void setTracks(int num);
 
     void setXMin(double val);
     void setXMax(double val);

@@ -16,7 +16,7 @@ private:
     double dt;
     double duration;
     int step;
-    WScope scope1;
+    WScope* scope1;
     mathFunction func1;
     sinfunction func2;
 };

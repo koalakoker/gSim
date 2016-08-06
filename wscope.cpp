@@ -1,22 +1,35 @@
 #include "wscope.h"
 #include "ui_wscope.h"
-#include "qstring.h"
+#include <QString>
 
-
-
-WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
+WScope::WScope(int tracks, QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 {
+    const Qt::GlobalColor plotColor[MAX_TRACKS] = {Qt::black, Qt::blue, Qt::green, Qt::red};
+
     ui->setupUi(this);
 
     ui->dockControls->setVisible(false);
 
-    ui->qplot->addGraph();
+    setTracks(tracks);
+
+    for (int i = 0; i < tracksNum; i++)
+    {
+        QCPGraph* graph = ui->qplot->addGraph();
+        graph->setPen(QPen(plotColor[i]));
+        QPen pen = graph->selectedPen();
+        pen.setColor(plotColor[i]);
+        graph->setSelectedPen(pen);
+
+        yArray.append(QVector<double>(0));
+    }
+
+    setSelectedTrack(0);
 
     ui->qplot->xAxis->setLabel("x");
     ui->qplot->yAxis->setLabel("y");
     setAxis(0,1,-2,2);
 
-    ui->qplot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes);
+    ui->qplot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectPlottables);
 
     connect(ui->qplot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeX(QCPRange)));
     connect(ui->qplot->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->axisCtrl, SLOT(setRangeY(QCPRange)));
@@ -38,8 +51,7 @@ WScope::WScope(QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
     connect(ui->axisCtrl, SIGNAL(axisYSelect(bool)), this, SLOT(axisYSelect(bool)));
 
     /* Cursor */
-    int i;
-    for (i = 0; i < CURSOR_NUMBER; i++)
+    for (int i = 0; i < CURSOR_NUMBER; i++)
     {
         QCPItemLine* vCur = new QCPItemLine(ui->qplot);
         vCursor[i] = vCur;
@@ -85,12 +97,28 @@ void WScope::updateControls(void)
     }
 }
 
-bool WScope::setTracks(int num)
+void WScope::setTracks(int num)
 {
-    bool retVal = ((num > 0) && (num <= MAX_TRACKS));
+    tracksNum = num;
+
+    if (tracksNum < 1)
+    {
+        tracksNum = 1;
+    }
+
+    if (tracksNum > MAX_TRACKS)
+    {
+        tracksNum = MAX_TRACKS;
+    }
+}
+
+bool WScope::setSelectedTrack(int tr)
+{
+    bool retVal = ((tr >= 0) && (tr < tracksNum));
     if (retVal)
     {
-        tracksNum = num;
+        selectedTrackValue = tr;
+        ui->qplot->graph(selectedTrackValue)->setSelected(true);
     }
     return retVal;
 }
@@ -118,7 +146,11 @@ void WScope::setAxis(double xMin,double  xMax,double  yMin,double  yMax)
 
 void WScope::reset(void)
 {
-    ui->qplot->graph(0)->clearData();
+    int i;
+    for (i = 0; i < tracksNum; i++)
+    {
+        ui->qplot->graph(i)->clearData();
+    }
 }
 
 void WScope::refresh(void)
@@ -128,16 +160,26 @@ void WScope::refresh(void)
 
 void WScope::addPoint(double t, QVector<double> y)
 {
-    tArray.append(t);
-    yArray.append(y);
-    ui->qplot->graph(0)->addData(t, y[0]);
+    if (y.size() != tracksNum)
+    {
+        qDebug() << QString("addPoint error, size of y:%1 is not equal to tracks number:%2").arg(y.size()).arg(tracksNum);
+    }
+    else
+    {
+        tArray.append(t);
+        for (int i = 0; i < tracksNum; i++)
+        {
+            yArray[i].append(y[i]);
+            ui->qplot->graph(i)->addData(t, y[i]);
+        }
+    }
 }
 
 void WScope::setData(QVector<double> tArray,QVector<QVector<double>> yArray)
 {
     this->tArray = tArray;
     this->yArray = yArray;
-    ui->qplot->graph(0)->setData(this->tArray, this->yArray[0]);
+    ui->qplot->graph(0)->setData(this->tArray, this->yArray[0]); // To be fixed
     ui->qplot->replot();
 }
 
@@ -180,9 +222,9 @@ void WScope::setYMax(double val)
 
 double WScope::getMaxSignalY(void)
 {
-    QVector<double> y0 = yArray[0];
+    QVector<double> y0 = yArray[selectedTrackValue];
     double max = 0.0;
-    int nPoint = yArray.length();
+    int nPoint = y0.length();
     if (nPoint > 0)
     {
         max = y0[0];
@@ -219,9 +261,9 @@ double WScope::getMaxSignalX(void)
 
 double WScope::getMinSignalY(void)
 {
-    QVector<double> y0 = yArray[0];
+    QVector<double> y0 = yArray[selectedTrackValue];
     double min = 0.0;
-    int nPoint = yArray.length();
+    int nPoint = y0.length();
     if (nPoint > 0)
     {
         min = y0[0];
@@ -274,9 +316,8 @@ void WScope::mousePress(QMouseEvent* event)
     QCPAbstractItem* item = ui->qplot->itemAt(event->pos());
 
     // if cursor is selected then mouse will move it
-    int i;
     bool cursorHit = false;
-    for (i = 0; i < CURSOR_NUMBER; i++)
+    for (int i = 0; i < CURSOR_NUMBER; i++)
     {
         if ((QCPAbstractItem*)vCursor[i] == item)
         {
@@ -326,16 +367,23 @@ void WScope::mouseMove(QMouseEvent* event)
             vCursor[i]->start->setCoords(x, 0);
             vCursor[i]->end->setCoords(x, 1);
             ui->qplot->replot();
-            int index = (int)(round(x / dtVal));
-            x = (double)index * dtVal;
-            double y = 0;
-            if ((index > 0) && (index < yArray.size()))
-            {
-                yArray[index];
-            }
-            emit cursorMoved(i, x, y);
+
+            emit cursorMoved(i, x, calculateYfromX(x));
         }
     }
+}
+
+double WScope::calculateYfromX(double x)
+{
+    double y = 0;
+    int index = (int)(round(x / dtVal));
+    x = (double)index * dtVal;
+    QVector<double> y0 = yArray[selectedTrackValue];
+    if ((index > 0) && (index < y0.size()))
+    {
+        y = y0[index];
+    }
+    return y;
 }
 
 void WScope::mouseRelease()
@@ -383,6 +431,8 @@ void WScope::cursorUpdated(int cur, double x)
     vCursor[cur]->start->setCoords( x, 0);
     vCursor[cur]->end->setCoords( x, 1);
     ui->qplot->replot();
+
+    emit cursorMoved(cur, x, calculateYfromX(x));
 }
 
 void WScope::selectionChanged()
@@ -397,15 +447,27 @@ void WScope::selectionChanged()
         ui->qplot->yAxis->setSelectedParts(QCPAxis::spAxis|QCPAxis::spTickLabels);
     }
 
+    bool hitPlot = false;
     for (int i=0; i<ui->qplot->graphCount(); ++i)
     {
         QCPGraph *graph = ui->qplot->graph(i);
-        QCPPlottableLegendItem *item = ui->qplot->legend->itemWithPlottable(graph);
-        if (item->selected() || graph->selected())
+        if (graph->selected())
         {
-            item->setSelected(true);
-            graph->setSelected(true);
+            if (selectedTrackValue != i)
+            {
+                setSelectedTrack(i);
+                double x = ui->cursorCtrl->cur1().x();
+                emit cursorMoved(0, x, calculateYfromX(x));
+                x = ui->cursorCtrl->cur2().x();
+                emit cursorMoved(1, x, calculateYfromX(x));
+                hitPlot = true;
+            }
         }
+    }
+
+    if (!hitPlot)
+    {
+        setSelectedTrack(selectedTrackValue);
     }
 }
 

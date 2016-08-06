@@ -12,20 +12,20 @@ void mainSimulator::startSimulation(void)
     t = 0;
     step = (int)(duration / dt);
 
-    int i;
+    scope1 = new WScope(2);
 
-    for (i = 0; i < step; i++)
+    for (int i = 0; i < step; i++)
     {
         QVector<double> data;
         data.append(func1.calc(t));
         data.append(func2.calc(t));
 
-        scope1.addPoint(t, data);
+        scope1->addPoint(t, data);
 
         t += dt;
     }
 
-    scope1.setdt(dt);
-    scope1.show();
-    scope1.refresh();
+    scope1->setdt(dt);
+    scope1->show();
+    scope1->refresh();
 }
