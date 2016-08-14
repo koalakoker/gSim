@@ -20,7 +20,12 @@ SOURCES += main.cpp\
     mathfunction.cpp \
     wscope\waxisctrl.cpp \
     wscope\wcursorctrl.cpp \
-    sinfunction.cpp
+    sinfunction.cpp \
+    simulation/sdata.cpp \
+    simulation/sdatavector.cpp \
+    simulation/selement.cpp \
+    simulation/ssource.cpp \
+    simulation/sssin.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
@@ -29,7 +34,12 @@ HEADERS  += gsim.h \
     mathfunction.h \
     wscope\waxisctrl.h \
     wscope\wcursorctrl.h \
-    sinfunction.h
+    sinfunction.h \
+    simulation/sdata.h \
+    simulation/sdatavector.h \
+    simulation/selement.h \
+    simulation/ssource.h \
+    simulation/sssin.h
 
 FORMS    += gsim.ui \
     wscope\wscope.ui \
