@@ -6,10 +6,15 @@
 class SData
 {
 public:
-    SData();
+    SData(int pos = 1);
     QVector<double> data() {return m_data;}
     void setData(QVector<double> data){m_data = data;}
-    int length() {return m_data.length();}
+    int size() {return m_data.size();}
+
+    double elementAt(int pos) {return m_data[pos];}
+    void setElementAt(int pos, double y);
+
+    double& operator[](int i){return m_data[i];}
 
 private:
     QVector<double> m_data;

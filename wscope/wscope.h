@@ -2,9 +2,10 @@
 #define WSCOPE_H
 
 #include <QWidget>
-#include "QVector"
-#include "qcustomplot.h"
+#include <QVector>
 #include <QMouseEvent>
+#include "qcustomplot.h"
+#include "simulation/sdata.h"
 
 #define ELEMENT 100
 #define CURSOR_NUMBER 2
@@ -21,7 +22,7 @@ public:
     explicit WScope(int tracks = 1, QWidget *parent = 0);
 
     void reset(void);
-    void addPoint(double t, QVector<double> y);
+    void addPoint(double t, SData y);
     void setData(QVector<double> tArray, QVector<QVector<double> > yArray);
     void exportData(void);
     void setAxis(double xMin,double  xMax,double  yMin,double  yMax);

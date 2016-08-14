@@ -9,23 +9,25 @@ mainSimulator::mainSimulator()
 
 void mainSimulator::startSimulation(void)
 {
+    // Init simulation vars
     t = 0;
     step = (int)(duration / dt);
 
-    scope1 = new WScope(2);
+    // Init sink-source
+    SSSin ssin;
+    ssin.setAmplitude(1);
+    ssin.setFrequency(1);
+    SSScope sscope;
 
+    // Main cycle
     for (int i = 0; i < step; i++)
     {
-        QVector<double> data;
-        data.append(func1.calc(t));
-        data.append(func2.calc(t));
+        // Execution of sink and source
+        sscope.execute(t, ssin.execute(t));
 
-        scope1->addPoint(t, data);
-
+        // Update of simutaion variables
         t += dt;
     }
 
-    scope1->setdt(dt);
-    scope1->show();
-    scope1->refresh();
+    sscope.scopeUpdate(dt);
 }

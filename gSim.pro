@@ -25,7 +25,9 @@ SOURCES += main.cpp\
     simulation/sdatavector.cpp \
     simulation/selement.cpp \
     simulation/ssource.cpp \
-    simulation/sssin.cpp
+    simulation/sssin.cpp \
+    simulation/ssink.cpp \
+    simulation/ssscope.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
@@ -39,7 +41,9 @@ HEADERS  += gsim.h \
     simulation/sdatavector.h \
     simulation/selement.h \
     simulation/ssource.h \
-    simulation/sssin.h
+    simulation/sssin.h \
+    simulation/ssink.h \
+    simulation/ssscope.h
 
 FORMS    += gsim.ui \
     wscope\wscope.ui \

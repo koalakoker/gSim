@@ -158,7 +158,7 @@ void WScope::refresh(void)
     ui->qplot->replot();
 }
 
-void WScope::addPoint(double t, QVector<double> y)
+void WScope::addPoint(double t, SData y)
 {
     if (y.size() != tracksNum)
     {
