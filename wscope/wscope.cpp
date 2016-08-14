@@ -2,11 +2,12 @@
 #include "ui_wscope.h"
 #include <QString>
 
-WScope::WScope(int tracks, QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
+WScope::WScope(QString name, int tracks, QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 {
     const Qt::GlobalColor plotColor[MAX_TRACKS] = {Qt::black, Qt::blue, Qt::green, Qt::red};
 
     ui->setupUi(this);
+    setWindowTitle(name);
 
     ui->dockControls->setVisible(false);
 

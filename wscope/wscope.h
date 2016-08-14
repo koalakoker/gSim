@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QVector>
 #include <QMouseEvent>
+#include <QString>
 #include "qcustomplot.h"
 #include "simulation/sdata.h"
 
@@ -19,7 +20,7 @@ class WScope : public QWidget
 {
     Q_OBJECT
 public:
-    explicit WScope(int tracks = 1, QWidget *parent = 0);
+    explicit WScope(QString name, int tracks = 1, QWidget *parent = 0);
 
     void reset(void);
     void addPoint(double t, SData y);

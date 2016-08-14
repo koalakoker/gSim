@@ -1,9 +1,6 @@
 #ifndef MAINSIMULATOR_H
 #define MAINSIMULATOR_H
 
-#include "simulation/sssin.h"
-#include "simulation/ssscope.h"
-
 class mainSimulator
 {
 public:

@@ -1,8 +1,8 @@
 #include "ssscope.h"
 
-SSScope::SSScope(int tracks)
+SSScope::SSScope(QString name, int tracks)
 {
-    m_wscope = new WScope(tracks);
+    m_wscope = new WScope(name, tracks);
 }
 
 void SSScope::execute(double t, SDataVector in)
