@@ -12,6 +12,9 @@ private:
     double dt;
     double duration;
     int step;
+
+    void testSimulation0();
+    void testSimulation1();
 };
 
 #endif // MAINSIMULATOR_H

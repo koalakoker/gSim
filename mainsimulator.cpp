@@ -4,6 +4,7 @@
 #include "simulation/staritmetic.h"
 #include "simulation/stmux.h"
 #include "simulation/stdemux.h"
+#include "simulation/ssramp.h"
 
 mainSimulator::mainSimulator()
 {
@@ -13,6 +14,22 @@ mainSimulator::mainSimulator()
 }
 
 void mainSimulator::startSimulation(void)
+{
+    int simulation = 1;
+
+    switch (simulation) {
+    case 0:
+        testSimulation0();
+        break;
+    case 1:
+        testSimulation1();
+        break;
+    default:
+        break;
+    }
+}
+
+void mainSimulator::testSimulation0()
 {
     // Init simulation vars
     t = 0;
@@ -53,4 +70,43 @@ void mainSimulator::startSimulation(void)
     sscope2.scopeUpdate(dt);
     sscope3.scopeUpdate(dt);
     sscope4.scopeUpdate(dt);
+}
+
+void mainSimulator::testSimulation1()
+{
+    // Init simulation vars
+    t = 0;
+    step = (int)(duration / dt);
+
+    // Init sink-source-transfer
+    STMux smux;
+    SSRamp sramp(2,0.1);
+    SSSinCos ssin(10);
+    SSSinCos ssin2(1);
+    SSSinCos ssin3(1);
+    SSScope sscope("Ramp - Ramp Ampl - Ramp Freq - Ramp AmplFreq ", 4);
+
+    // Main cycle
+    for (int i = 0; i < step; i++)
+    {
+        // Execution of sink and source
+        SDataVector o1 = sramp.execute(t);
+
+        ssin.setAmplitude(o1.data(0,0));
+        ssin2.setFrequency(o1.data(0,0) * 10);
+        ssin3.setAmplitude(ssin.amplitude());
+        ssin3.setFrequency(ssin2.frequency());
+        o1.append(ssin.execute(t));
+        o1.append(ssin2.execute(t));
+        o1.append(ssin3.execute(t));
+
+        o1 = smux.execute(o1);
+
+        sscope.execute(t, o1);
+
+        // Update of simutaion variables
+        t += dt;
+    }
+
+    sscope.scopeUpdate(dt);
 }
