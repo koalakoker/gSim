@@ -2,6 +2,7 @@
 #include "simulation/sssincos.h"
 #include "simulation/ssscope.h"
 #include "simulation/staritmetic.h"
+#include "simulation/stmux.h"
 
 mainSimulator::mainSimulator()
 {
@@ -19,9 +20,10 @@ void mainSimulator::startSimulation(void)
     // Init sink-source-transfer
     SSSinCos ssin;
     SSSinCos scos(SSSinCos::cosType);
-    SSScope sscope("Sin");
-    SSScope sscope2("Cos");
+    SSScope sscope("Mux", 3);
+    //SSScope sscope2("Cos");
     STAritmetic ssum(STAritmetic::sumType);
+    STMux smux;
 
     // Main cycle
     for (int i = 0; i < step; i++)
@@ -30,13 +32,16 @@ void mainSimulator::startSimulation(void)
         SDataVector o1 = ssin.execute(t);
         SDataVector o2 = scos.execute(t);
         SDataVector o3 = ssum.execute(o1, o2);
+        o1.append(o2);
+        o1.append(o3);
+        o3 = smux.execute(o1);
         sscope.execute(t, o3);
-        sscope2.execute(t, o2);
+        //sscope2.execute(t, o2);
 
         // Update of simutaion variables
         t += dt;
     }
 
     sscope.scopeUpdate(dt);
-    sscope2.scopeUpdate(dt);
+    //sscope2.scopeUpdate(dt);
 }

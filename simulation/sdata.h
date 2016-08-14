@@ -9,6 +9,7 @@ public:
     SData(int pos = 1);
     QVector<double> data() {return m_data;}
     void setData(QVector<double> data){m_data = data;}
+    void append(double d){m_data.append(d);}
     int size() {return m_data.size();}
 
     double elementAt(int pos) {return m_data[pos];}

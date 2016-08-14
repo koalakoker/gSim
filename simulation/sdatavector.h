@@ -15,6 +15,8 @@ public:
     void setData(int slot, SData data);
     void setData(int slot, int pos, double y);
     int length() {return m_data.length();}
+    void append(SDataVector dv);
+    void append(SData d);
 
 private:
     QVector<SData> m_data;

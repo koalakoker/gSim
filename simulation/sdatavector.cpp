@@ -14,3 +14,13 @@ void SDataVector::setData(int slot, int pos, double y)
 {
     m_data[slot].setElementAt(pos, y);
 }
+
+void SDataVector::append(SDataVector dv)
+{
+    m_data.append(dv.data());
+}
+
+void SDataVector::append(SData d)
+{
+    m_data.append(d);
+}

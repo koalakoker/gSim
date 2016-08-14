@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     simulation/sssincos.cpp \
     simulation/stransfer.cpp \
     simulation/staritmetic.cpp \
-    simulation/stransferbinary.cpp
+    simulation/stransferbinary.cpp \
+    simulation/stmux.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
@@ -49,7 +50,8 @@ HEADERS  += gsim.h \
     simulation/sssincos.h \
     simulation/stransfer.h \
     simulation/staritmetic.h \
-    simulation/stransferbinary.h
+    simulation/stransferbinary.h \
+    simulation/stmux.h
 
 FORMS    += gsim.ui \
     wscope\wscope.ui \
