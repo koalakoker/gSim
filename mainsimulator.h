@@ -1,7 +1,7 @@
 #ifndef MAINSIMULATOR_H
 #define MAINSIMULATOR_H
 
-#include "wscope.h"
+#include "wscope\wscope.h"
 #include "mathfunction.h"
 #include "sinfunction.h"
 

@@ -15,26 +15,26 @@ TEMPLATE = app
 SOURCES += main.cpp\
         gsim.cpp \
         qcustomplot.cpp \
-    wscope.cpp \
+    wscope\wscope.cpp \
     mainsimulator.cpp \
     mathfunction.cpp \
-    waxisctrl.cpp \
-    wcursorctrl.cpp \
+    wscope\waxisctrl.cpp \
+    wscope\wcursorctrl.cpp \
     sinfunction.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
-    wscope.h \
+    wscope\wscope.h \
     mainsimulator.h \
     mathfunction.h \
-    waxisctrl.h \
-    wcursorctrl.h \
+    wscope\waxisctrl.h \
+    wscope\wcursorctrl.h \
     sinfunction.h
 
 FORMS    += gsim.ui \
-    wscope.ui \
-    waxisctrl.ui \
-    wcursorctrl.ui
+    wscope\wscope.ui \
+    wscope\waxisctrl.ui \
+    wscope\wcursorctrl.ui
 
 DISTFILES +=
 
