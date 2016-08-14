@@ -5,6 +5,12 @@ SDataVector::SDataVector(int slot)
     m_data = QVector<SData>(slot);
 }
 
+SDataVector::SDataVector(SData d)
+{
+    m_data = QVector<SData>();
+    m_data.append(d);
+}
+
 void SDataVector::setData(int slot, SData data)
 {
     m_data[slot] = data;
