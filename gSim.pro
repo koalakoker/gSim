@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     simulation/stransferbinary.cpp \
     simulation/stmux.cpp \
     simulation/stdemux.cpp \
-    simulation/ssramp.cpp
+    simulation/ssramp.cpp \
+    simulation/stprev.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
@@ -55,7 +56,8 @@ HEADERS  += gsim.h \
     simulation/stransferbinary.h \
     simulation/stmux.h \
     simulation/stdemux.h \
-    simulation/ssramp.h
+    simulation/ssramp.h \
+    simulation/stprev.h
 
 FORMS    += gsim.ui \
     wscope\wscope.ui \

@@ -5,6 +5,7 @@
 #include "simulation/stmux.h"
 #include "simulation/stdemux.h"
 #include "simulation/ssramp.h"
+#include "simulation/stprev.h"
 
 mainSimulator::mainSimulator()
 {
@@ -15,7 +16,7 @@ mainSimulator::mainSimulator()
 
 void mainSimulator::startSimulation(void)
 {
-    int simulation = 1;
+    int simulation = 2;
 
     switch (simulation) {
     case 0:
@@ -23,6 +24,9 @@ void mainSimulator::startSimulation(void)
         break;
     case 1:
         testSimulation1();
+        break;
+    case 2:
+        testSimulation2();
         break;
     default:
         break;
@@ -103,6 +107,36 @@ void mainSimulator::testSimulation1()
         o1 = smux.execute(o1);
 
         sscope.execute(t, o1);
+
+        // Update of simutaion variables
+        t += dt;
+    }
+
+    sscope.scopeUpdate(dt);
+}
+
+void mainSimulator::testSimulation2()
+{
+    // Init simulation vars
+    t = 0;
+    step = (int)(duration / dt);
+
+    // Init sink-source-transfer
+    STMux smux;
+    SSSinCos ssin(10);
+    SSScope sscope("Prev");
+    STPrev sprev;
+    STAritmetic sdiff(STAritmetic::differenceType);
+
+    // Main cycle
+    for (int i = 0; i < step; i++)
+    {
+        // Execution of sink and source
+        SDataVector o1 = ssin.execute(t);
+        SDataVector o2 = sprev.execute(o1);
+        SDataVector o3 = sdiff.execute(o2, o1);
+
+        sscope.execute(t, o3);
 
         // Update of simutaion variables
         t += dt;
