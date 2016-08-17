@@ -7,7 +7,7 @@ STAritmetic::STAritmetic(aritmeticType_t aritmeticType)
 
 SDataVector STAritmetic::execute(SDataVector in1, SDataVector in2)
 {
-    SDataVector* pOut = new SDataVector();
+    SDataVector Out;
     double x = in1.data(0,0);
     double y = in2.data(0,0);
     double z = 0; // Result of operation
@@ -35,6 +35,6 @@ SDataVector STAritmetic::execute(SDataVector in1, SDataVector in2)
     default:
         break;
     }
-    pOut->setData(0,0,z);
-    return *pOut;
+    Out.setData(0,0,z);
+    return Out;
 }

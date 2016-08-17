@@ -124,13 +124,13 @@
   <customwidget>
    <class>wAxisCtrl</class>
    <extends>QWidget</extends>
-   <header location="global">wscope\waxisctrl.h</header>
+   <header location="global">wscope/waxisctrl.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>wCursorCtrl</class>
    <extends>QWidget</extends>
-   <header location="global">wscope\wcursorctrl.h</header>
+   <header location="global">wscope/wcursorctrl.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
