@@ -24,5 +24,6 @@ SDataVector STPI::execute(SDataVector in)
     m_uPrev = u;
     m_ePrev = in.value();
 
+    Out.setValue(u);
     return Out;
 }

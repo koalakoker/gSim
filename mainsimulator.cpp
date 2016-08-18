@@ -7,12 +7,13 @@
 #include "simulation/ssramp.h"
 #include "simulation/stprev.h"
 #include "simulation/strl.h"
+#include "simulation/stpi.h"
 
 mainSimulator::mainSimulator()
 {
     m_t = 0;
-    m_dt = 0.001;
-    m_duration = 1;
+    m_dt = 0.0001;
+    m_duration = 0.04;
 }
 
 void mainSimulator::startSimulation(void)
@@ -156,22 +157,34 @@ void mainSimulator::testSimulation3()
     m_step = (int)(m_duration / m_dt);
 
     // Init sink-source-transfer
-    SSScope sscope("I");
+    SSScope sscope("Current");
+    SSScope sscope2("Voltage");
+    SSScope sscope3("Error");
     STRL strl(1, 0.001, m_dt);
-    SDataVector vin;
-    vin.setValue(1); // 1V Constant
+    STPI stpi(10, 1000, m_dt);
+    double iprev = 0;
+    double iTarg = 10;
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
     {
         // Execution of sink and source
-        SDataVector o1 = strl.execute(vin);
-
-        sscope.execute(m_t, o1);
+        double err;
+        err = iTarg - iprev;
+        SDataVector errDV;
+        errDV.setValue(err);
+        sscope3.execute(m_t, errDV);
+        SDataVector vin = stpi.execute(errDV);
+        sscope2.execute(m_t, vin);
+        SDataVector iRL = strl.execute(vin);
+        sscope.execute(m_t, iRL);
+        iprev = iRL.value();
 
         // Update of simutaion variables
         m_t += m_dt;
     }
 
     sscope.scopeUpdate(m_dt);
+    sscope2.scopeUpdate(m_dt);
+    sscope3.scopeUpdate(m_dt);
 }
