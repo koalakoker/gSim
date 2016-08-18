@@ -15,4 +15,6 @@ void SSScope::scopeUpdate(double dt)
     m_wscope->setdt(dt);
     m_wscope->show();
     m_wscope->refresh();
+    m_wscope->maximizeX();
+    m_wscope->maximizeY();
 }

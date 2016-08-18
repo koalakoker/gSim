@@ -77,9 +77,6 @@ private slots:
     void setYMin(double val);
     void setYMax(double val);
 
-    void maximizeX();
-    void maximizeY();
-
     void axisXSelect(bool ch);
     void axisYSelect(bool ch);
 
@@ -96,6 +93,8 @@ signals:
 
 public slots:
 	void refresh(void);
+    void maximizeX();
+    void maximizeY();
 };
 
 #endif // WSCOPE_H
