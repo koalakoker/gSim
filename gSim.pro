@@ -34,7 +34,9 @@ SOURCES += main.cpp\
     simulation/stmux.cpp \
     simulation/stdemux.cpp \
     simulation/ssramp.cpp \
-    simulation/stprev.cpp
+    simulation/stprev.cpp \
+    simulation/stpi.cpp \
+    simulation/strl.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
@@ -57,7 +59,9 @@ HEADERS  += gsim.h \
     simulation/stmux.h \
     simulation/stdemux.h \
     simulation/ssramp.h \
-    simulation/stprev.h
+    simulation/stprev.h \
+    simulation/stpi.h \
+    simulation/strl.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \

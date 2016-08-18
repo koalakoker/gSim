@@ -12,6 +12,8 @@ public:
     QVector<SData> data() {return m_data;}
     SData data(int slot){return m_data[slot];}
     double data(int slot, int pos){return m_data[slot].elementAt(pos);}
+    double value(){return data(0, 0);}
+    void setValue(double y){setData(0, 0, y);}
     void setData(QVector<SData> data){m_data = data;}
     void setData(int slot, SData data);
     void setData(int slot, int pos, double y);

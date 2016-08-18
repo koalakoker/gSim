@@ -8,8 +8,8 @@ STAritmetic::STAritmetic(aritmeticType_t aritmeticType)
 SDataVector STAritmetic::execute(SDataVector in1, SDataVector in2)
 {
     SDataVector Out;
-    double x = in1.data(0,0);
-    double y = in2.data(0,0);
+    double x = in1.value();
+    double y = in2.value();
     double z = 0; // Result of operation
     switch (m_aritmeticType) {
     case sumType:
