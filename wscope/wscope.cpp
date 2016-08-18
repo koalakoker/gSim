@@ -83,6 +83,8 @@ WScope::WScope(QString name, int tracks, QWidget *parent) : QWidget(parent), ui(
 
     controlVisible = false;
     updateControls();
+
+    setAttribute(Qt::WA_DeleteOnClose);
 }
 
 void WScope::updateControls(void)
