@@ -6,8 +6,8 @@ STPrev::STPrev()
 
 SDataVector STPrev::execute(SDataVector in)
 {
-    SDataVector* pOut = new SDataVector();
-    *pOut = m_prevValue;
+    SDataVector Out;
+    Out = m_prevValue;
     m_prevValue = in;
-    return *pOut;
+    return Out;
 }
