@@ -8,12 +8,17 @@
 #include "simulation/stprev.h"
 #include "simulation/strl.h"
 #include "simulation/stpi.h"
+#include "simulation/stdpi.h"
 
 mainSimulator::mainSimulator()
 {
     m_t = 0;
-    m_dt = 0.0001;
-    m_duration = 0.04;
+    m_ts = 0.00005;
+    m_tc = 0.0001;
+    m_duration = 0.01;
+
+    m_pi_kp = 2;
+    m_pi_ki = 1;
 }
 
 void mainSimulator::startSimulation(void)
@@ -42,7 +47,7 @@ void mainSimulator::testSimulation0()
 {
     // Init simulation vars
     m_t = 0;
-    m_step = (int)(m_duration / m_dt);
+    int m_step = (int)(m_duration / m_ts);
 
     // Init sink-source-transfer
     SSSinCos ssin;
@@ -72,20 +77,20 @@ void mainSimulator::testSimulation0()
         sscope4.execute(m_t, o2.data(2));
 
         // Update of simutaion variables
-        m_t += m_dt;
+        m_t += m_ts;
     }
 
-    sscope.scopeUpdate(m_dt);
-    sscope2.scopeUpdate(m_dt);
-    sscope3.scopeUpdate(m_dt);
-    sscope4.scopeUpdate(m_dt);
+    sscope.scopeUpdate(m_ts);
+    sscope2.scopeUpdate(m_ts);
+    sscope3.scopeUpdate(m_ts);
+    sscope4.scopeUpdate(m_ts);
 }
 
 void mainSimulator::testSimulation1()
 {
     // Init simulation vars
     m_t = 0;
-    m_step = (int)(m_duration / m_dt);
+    int m_step = (int)(m_duration / m_ts);
 
     // Init sink-source-transfer
     STMux smux;
@@ -114,17 +119,17 @@ void mainSimulator::testSimulation1()
         sscope.execute(m_t, o1);
 
         // Update of simutaion variables
-        m_t += m_dt;
+        m_t += m_ts;
     }
 
-    sscope.scopeUpdate(m_dt);
+    sscope.scopeUpdate(m_ts);
 }
 
 void mainSimulator::testSimulation2()
 {
     // Init simulation vars
     m_t = 0;
-    m_step = (int)(m_duration / m_dt);
+    int m_step = (int)(m_duration / m_ts);
 
     // Init sink-source-transfer
     STMux smux;
@@ -144,47 +149,55 @@ void mainSimulator::testSimulation2()
         sscope.execute(m_t, o3);
 
         // Update of simutaion variables
-        m_t += m_dt;
+        m_t += m_ts;
     }
 
-    sscope.scopeUpdate(m_dt);
+    sscope.scopeUpdate(m_ts);
 }
 
 void mainSimulator::testSimulation3()
 {
     // Init simulation vars
     m_t = 0;
-    m_step = (int)(m_duration / m_dt);
+    int m_step = (int)(m_duration / m_ts);
+    int m_controlStepRatio = (int)(m_tc / m_ts);
 
     // Init sink-source-transfer
     SSScope sscope("Current");
     SSScope sscope2("Voltage");
     SSScope sscope3("Error");
-    STRL strl(1, 0.001, m_dt);
-    STPI stpi(10, 1000, m_dt);
+    STRL strl(1, 0.001, m_ts);
+    STDPI stpi(m_pi_kp, m_pi_ki);
     double iprev = 0;
     double iTarg = 10;
+    SDataVector vin;
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
     {
         // Execution of sink and source
-        double err;
-        err = iTarg - iprev;
-        SDataVector errDV;
-        errDV.setValue(err);
-        sscope3.execute(m_t, errDV);
-        SDataVector vin = stpi.execute(errDV);
-        sscope2.execute(m_t, vin);
+
+        if ((i % m_controlStepRatio) == 0)
+        {
+            // Execution of control cycle
+            double err;
+            err = iTarg - iprev;
+            SDataVector errDV;
+            errDV.setValue(err);
+            sscope3.execute(m_t, errDV);
+            vin = stpi.execute(errDV);
+            sscope2.execute(m_t, vin);
+        }
+
         SDataVector iRL = strl.execute(vin);
         sscope.execute(m_t, iRL);
         iprev = iRL.value();
 
         // Update of simutaion variables
-        m_t += m_dt;
+        m_t += m_ts;
     }
 
-    sscope.scopeUpdate(m_dt);
-    sscope2.scopeUpdate(m_dt);
-    sscope3.scopeUpdate(m_dt);
+    sscope.scopeUpdate(m_ts);
+    //sscope2.scopeUpdate(m_ts);
+    //sscope3.scopeUpdate(m_ts);
 }
