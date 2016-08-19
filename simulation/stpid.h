@@ -2,6 +2,7 @@
 #define STPID_H
 
 #include "simulation/stransfer.h"
+#include "simulation/stfdiscretefirstorder.h"
 
 class STPID : public STransfer
 {
@@ -22,16 +23,8 @@ private:
     double m_ts;
     double m_n;
 
-    double m_a0;
-    double m_a1;
-    double m_a2;
-    double m_b1;
-    double m_b2;
-
-    double m_ePrev;
-    double m_e2Prev;
-    double m_uPrev;
-    double m_u2Prev;
+    STFDiscreteFirstOrder m_intTF;
+    STFDiscreteFirstOrder m_derTF;
 };
 
 #endif // STPID_H
