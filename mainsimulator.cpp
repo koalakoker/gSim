@@ -17,8 +17,8 @@ mainSimulator::mainSimulator()
     m_tc = 0.0001;
     m_duration = 0.01;
 
-    m_pi_kp = 2;
-    m_pi_ki = 10000;
+    m_pi_kp = 1.21;
+    m_pi_ki = 1040;
 
     m_r = 1;
     m_l = 0.001;
@@ -174,7 +174,7 @@ void mainSimulator::testSimulation3()
     STRL strl(m_r, m_l, m_ts);
     STRL strl2(m_r, m_l, m_ts);
     STDPI stdpi(m_pi_kp, m_pi_ki * m_tc);
-    STPI stpi(m_pi_kp, m_pi_ki, m_tc, STPI::Trapezoidal);
+    STPI stpi(m_pi_kp, m_pi_ki, m_tc);
     double iprev = 0;
     double iprev2 = 0;
     double iTarg = 10;
@@ -217,5 +217,5 @@ void mainSimulator::testSimulation3()
     //sscope2.scopeUpdate(m_ts);
     //sscope3.scopeUpdate(m_ts);
     sscope4.scopeUpdate(m_ts);
-    sscope5.scopeUpdate(m_ts);
+    //sscope5.scopeUpdate(m_ts);
 }
