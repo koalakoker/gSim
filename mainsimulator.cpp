@@ -166,6 +166,19 @@ void mainSimulator::testSimulation2()
 
 void mainSimulator::testSimulation3()
 {
+    // Test specific initialization
+    m_ts = 0.00005;
+    m_tc = 0.0001;
+    m_duration = 0.01;
+
+    m_pi_kp = 1.21;
+    m_pi_ki = 1040;
+    m_pi_kd = 0;
+    m_pi_n = 0;
+
+    m_r = 1;
+    m_l = 0.001;
+
     // Init simulation vars
     m_t = 0;
     int m_step = (int)(m_duration / m_ts);
