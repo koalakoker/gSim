@@ -6,8 +6,8 @@ STPI::STPI(double kp, double ki, double ts)
     m_ki = ki;
     m_ts = ts;
 
-    m_a = kp + (ki * (ts / 2));
-    m_b = (-kp) + (ki * (ts / 2));
+    m_a = kp + (ki * ts );
+    m_b = -kp;
 
     m_ePrev = 0;
     m_uPrev = 0;
@@ -18,11 +18,12 @@ SDataVector STPI::execute(SDataVector in)
     SDataVector Out;
 
     double u;
+    double err = in.value();
 
-    u = m_uPrev + m_a * in.value() + m_b * m_ePrev;
+    u = m_uPrev + m_a * err + m_b * m_ePrev;
 
     m_uPrev = u;
-    m_ePrev = in.value();
+    m_ePrev = err;
 
     Out.setValue(u);
     return Out;
