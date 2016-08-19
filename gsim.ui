@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>380</height>
+    <height>439</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -89,12 +89,56 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QDoubleSpinBox" name="kp"/>
+          <widget class="QDoubleSpinBox" name="kp">
+           <property name="decimals">
+            <number>10</number>
+           </property>
+           <property name="maximum">
+            <double>9999999999.000000000000000</double>
+           </property>
+          </widget>
          </item>
          <item row="1" column="1">
           <widget class="QDoubleSpinBox" name="ki">
+           <property name="decimals">
+            <number>10</number>
+           </property>
            <property name="maximum">
-            <double>999999.000000000000000</double>
+            <double>9999999999.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Kd</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>N</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QDoubleSpinBox" name="kd">
+           <property name="decimals">
+            <number>10</number>
+           </property>
+           <property name="maximum">
+            <double>9999999999.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QDoubleSpinBox" name="N">
+           <property name="decimals">
+            <number>10</number>
+           </property>
+           <property name="maximum">
+            <double>9999999999.000000000000000</double>
            </property>
           </widget>
          </item>

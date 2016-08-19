@@ -37,7 +37,8 @@ SOURCES += main.cpp\
     simulation/stprev.cpp \
     simulation/stpi.cpp \
     simulation/strl.cpp \
-    simulation/stdpi.cpp
+    simulation/stdpi.cpp \
+    simulation/stpid.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
@@ -63,7 +64,8 @@ HEADERS  += gsim.h \
     simulation/stprev.h \
     simulation/stpi.h \
     simulation/strl.h \
-    simulation/stdpi.h
+    simulation/stdpi.h \
+    simulation/stpid.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \

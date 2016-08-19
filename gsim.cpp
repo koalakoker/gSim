@@ -13,6 +13,8 @@ gSim::gSim(QWidget *parent) :
 
     ui->kp->setValue(sim.m_pi_kp);
     ui->ki->setValue(sim.m_pi_ki);
+    ui->kd->setValue(sim.m_pi_kd);
+    ui->N->setValue(sim.m_pi_n);
 
     ui->R->setValue(sim.m_r);
     ui->L->setValue(sim.m_l);
@@ -30,6 +32,8 @@ void gSim::on_startSimulation_clicked()
     sim.setControlTime(ui->controlTime->value());
     sim.m_pi_kp = ui->kp->value();
     sim.m_pi_ki = ui->ki->value();
+    sim.m_pi_kd = ui->kd->value();
+    sim.m_pi_n = ui->N->value();
     sim.m_r = ui->R->value();
     sim.m_l = ui->L->value();
     sim.startSimulation();

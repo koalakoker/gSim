@@ -15,6 +15,8 @@ public:
 
     double m_pi_kp;
     double m_pi_ki;
+    double m_pi_kd;
+    double m_pi_n;
 
     double m_r;
     double m_l;
@@ -30,6 +32,7 @@ private:
     void testSimulation1();
     void testSimulation2();
     void testSimulation3();
+    void testSimulation4();
 };
 
 #endif // MAINSIMULATOR_H

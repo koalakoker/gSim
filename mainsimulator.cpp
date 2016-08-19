@@ -9,6 +9,7 @@
 #include "simulation/strl.h"
 #include "simulation/stpi.h"
 #include "simulation/stdpi.h"
+#include "simulation/stpid.h"
 
 mainSimulator::mainSimulator()
 {
@@ -17,8 +18,10 @@ mainSimulator::mainSimulator()
     m_tc = 0.0001;
     m_duration = 0.01;
 
-    m_pi_kp = 1.21;
-    m_pi_ki = 1040;
+    m_pi_kp = 2.90663474828051;
+    m_pi_ki = 2113.6708113218;
+    m_pi_kd = 0.000111756425508289;
+    m_pi_n = 2514.9905893422;
 
     m_r = 1;
     m_l = 0.001;
@@ -26,7 +29,7 @@ mainSimulator::mainSimulator()
 
 void mainSimulator::startSimulation(void)
 {
-    int simulation = 3;
+    int simulation = 4;
 
     switch (simulation) {
     case 0:
@@ -40,6 +43,9 @@ void mainSimulator::startSimulation(void)
         break;
     case 3:
         testSimulation3();
+        break;
+    case 4:
+        testSimulation4();
         break;
     default:
         break;
@@ -218,4 +224,51 @@ void mainSimulator::testSimulation3()
     //sscope3.scopeUpdate(m_ts);
     sscope4.scopeUpdate(m_ts);
     //sscope5.scopeUpdate(m_ts);
+}
+
+void mainSimulator::testSimulation4()
+{
+    // Init simulation vars
+    m_t = 0;
+    int m_step = (int)(m_duration / m_ts);
+    int m_controlStepRatio = (int)(m_tc / m_ts);
+
+    // Init sink-source-transfer
+    SSScope sscope("Current PID");
+    SSScope sscope2("Voltage");
+    SSScope sscope3("Error");
+    STRL strl(m_r, m_l, m_ts);
+    STPID stpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
+    double iprev = 0;
+    double iTarg = 10;
+    SDataVector vin;
+
+    // Main cycle
+    for (int i = 0; i < m_step; i++)
+    {
+        // Execution of sink and source
+
+        if ((i % m_controlStepRatio) == 0)
+        {
+            // Execution of control cycle
+            double err;
+            err = iTarg - iprev;
+            SDataVector errDV;
+            errDV.setValue(err);
+            sscope3.execute(m_t, errDV);
+            vin = stpid.execute(errDV);
+            sscope2.execute(m_t, vin);
+        }
+
+        SDataVector iRL = strl.execute(vin);
+        sscope.execute(m_t, iRL);
+        iprev = iRL.value();
+
+        // Update of simutaion variables
+        m_t += m_ts;
+    }
+
+    sscope.scopeUpdate(m_ts);
+    //sscope2.scopeUpdate(m_ts);
+    //sscope3.scopeUpdate(m_ts);
 }
