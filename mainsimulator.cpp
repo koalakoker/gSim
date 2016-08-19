@@ -18,7 +18,10 @@ mainSimulator::mainSimulator()
     m_duration = 0.01;
 
     m_pi_kp = 2;
-    m_pi_ki = 1;
+    m_pi_ki = 10000;
+
+    m_r = 1;
+    m_l = 0.001;
 }
 
 void mainSimulator::startSimulation(void)
@@ -163,14 +166,18 @@ void mainSimulator::testSimulation3()
     int m_controlStepRatio = (int)(m_tc / m_ts);
 
     // Init sink-source-transfer
-    SSScope sscope("Current");
+    SSScope sscope("Current DPI");
     SSScope sscope2("Voltage");
     SSScope sscope3("Error");
-    STRL strl(1, 0.001, m_ts);
-    STDPI stpi(m_pi_kp, m_pi_ki);
+    SSScope sscope4("Current PI");
+    STRL strl(m_r, m_l, m_ts);
+    STRL strl2(m_r, m_l, m_ts);
+    STDPI stdpi(m_pi_kp, m_pi_ki * m_tc);
+    STPI stpi(m_pi_kp, m_pi_ki, m_tc);
     double iprev = 0;
+    double iprev2 = 0;
     double iTarg = 10;
-    SDataVector vin;
+    SDataVector vin,vin2;
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
@@ -185,13 +192,20 @@ void mainSimulator::testSimulation3()
             SDataVector errDV;
             errDV.setValue(err);
             sscope3.execute(m_t, errDV);
-            vin = stpi.execute(errDV);
+            vin = stdpi.execute(errDV);
             sscope2.execute(m_t, vin);
+
+            err = iTarg - iprev2;
+            errDV.setValue(err);
+            vin2 = stpi.execute(errDV);
         }
 
         SDataVector iRL = strl.execute(vin);
+        SDataVector iRL2 = strl2.execute(vin2);
         sscope.execute(m_t, iRL);
+        sscope4.execute(m_t, iRL2);
         iprev = iRL.value();
+        iprev2 = iRL2.value();
 
         // Update of simutaion variables
         m_t += m_ts;
@@ -200,4 +214,5 @@ void mainSimulator::testSimulation3()
     sscope.scopeUpdate(m_ts);
     //sscope2.scopeUpdate(m_ts);
     //sscope3.scopeUpdate(m_ts);
+    sscope4.scopeUpdate(m_ts);
 }

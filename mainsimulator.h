@@ -16,6 +16,9 @@ public:
     double m_pi_kp;
     double m_pi_ki;
 
+    double m_r;
+    double m_l;
+
 private:
     double m_t;
 
