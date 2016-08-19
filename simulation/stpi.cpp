@@ -1,13 +1,29 @@
 #include "stpi.h"
 
-STPI::STPI(double kp, double ki, double ts)
+STPI::STPI(double kp, double ki, double ts, TransformType_t transform)
 {
     m_kp = kp;
     m_ki = ki;
     m_ts = ts;
 
-    m_a = kp + (ki * ts );
-    m_b = -kp;
+    switch (transform)
+    {
+    default:
+    case BackwardEuler:
+    {
+        // Using Backward Euler transform
+        m_a = kp + (ki * ts );
+        m_b = -kp;
+    }
+        break;
+    case Trapezoidal:
+    {
+        // using Trapezoidal transform
+        m_a = kp + (ki * (ts / 2));
+        m_b = (-kp) + (ki * (ts / 2));
+    }
+        break;
+    }
 
     m_ePrev = 0;
     m_uPrev = 0;

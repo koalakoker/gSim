@@ -6,7 +6,13 @@
 class STPI : public STransfer
 {
 public:
-    STPI(double kp, double ki, double ts);
+    typedef enum
+    {
+        BackwardEuler,
+        Trapezoidal
+    } TransformType_t;
+
+    STPI(double kp, double ki, double ts, TransformType_t transform = BackwardEuler);
 
     SDataVector execute(SDataVector in);
 

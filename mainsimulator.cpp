@@ -174,7 +174,7 @@ void mainSimulator::testSimulation3()
     STRL strl(m_r, m_l, m_ts);
     STRL strl2(m_r, m_l, m_ts);
     STDPI stdpi(m_pi_kp, m_pi_ki * m_tc);
-    STPI stpi(m_pi_kp, m_pi_ki, m_tc);
+    STPI stpi(m_pi_kp, m_pi_ki, m_tc, STPI::Trapezoidal);
     double iprev = 0;
     double iprev2 = 0;
     double iTarg = 10;
