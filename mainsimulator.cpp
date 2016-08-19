@@ -247,14 +247,20 @@ void mainSimulator::testSimulation4()
     int m_controlStepRatio = (int)(m_tc / m_ts);
 
     // Init sink-source-transfer
-    SSScope sscope("Current PID");
-    SSScope sscope2("Voltage");
-    SSScope sscope3("Error");
+    SSScope sscope("Current PID - Forward Euler");
+    SSScope sscope2("Current PID - Backward Euler");
+    SSScope sscope3("Current PID - Trapezoidal");
     STRL strl(m_r, m_l, m_ts);
-    STPID stpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
+    STRL strl2(m_r, m_l, m_ts);
+    STRL strl3(m_r, m_l, m_ts);
+    STPID stpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, STPID::ForwardEuler);
+    STPID stpid2(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, STPID::BackwardEuler);
+    STPID stpid3(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, STPID::Trapezoidal);
     double iprev = 0;
+    double iprev2 = 0;
+    double iprev3 = 0;
     double iTarg = 10;
-    SDataVector vin;
+    SDataVector vin, vin2, vin3;
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
@@ -265,23 +271,38 @@ void mainSimulator::testSimulation4()
         {
             // Execution of control cycle
             double err;
-            err = iTarg - iprev;
             SDataVector errDV;
+            err = iTarg - iprev;
             errDV.setValue(err);
-            sscope3.execute(m_t, errDV);
             vin = stpid.execute(errDV);
-            sscope2.execute(m_t, vin);
+
+            err = iTarg - iprev2;
+            errDV.setValue(err);
+            vin2 = stpid2.execute(errDV);
+
+            err = iTarg - iprev3;
+            errDV.setValue(err);
+            vin3 = stpid3.execute(errDV);
+
         }
 
         SDataVector iRL = strl.execute(vin);
         sscope.execute(m_t, iRL);
         iprev = iRL.value();
 
+        iRL = strl2.execute(vin2);
+        sscope2.execute(m_t, iRL);
+        iprev2 = iRL.value();
+
+        iRL = strl3.execute(vin3);
+        sscope3.execute(m_t, iRL);
+        iprev3 = iRL.value();
+
         // Update of simutaion variables
         m_t += m_ts;
     }
 
     sscope.scopeUpdate(m_ts);
-    //sscope2.scopeUpdate(m_ts);
-    //sscope3.scopeUpdate(m_ts);
+    sscope2.scopeUpdate(m_ts);
+    sscope3.scopeUpdate(m_ts);
 }

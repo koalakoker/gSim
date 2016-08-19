@@ -9,7 +9,9 @@ class STPID : public STransfer
 public:
     typedef enum
     {
+        ForwardEuler,
         BackwardEuler,
+        Trapezoidal
     } TransformType_t;
 
     STPID(double kp, double ki, double kd, double n, double ts, TransformType_t transform = BackwardEuler);
