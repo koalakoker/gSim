@@ -170,6 +170,7 @@ void mainSimulator::testSimulation3()
     SSScope sscope2("Voltage");
     SSScope sscope3("Error");
     SSScope sscope4("Current PI");
+    SSScope sscope5("Difference");
     STRL strl(m_r, m_l, m_ts);
     STRL strl2(m_r, m_l, m_ts);
     STDPI stdpi(m_pi_kp, m_pi_ki * m_tc);
@@ -204,6 +205,7 @@ void mainSimulator::testSimulation3()
         SDataVector iRL2 = strl2.execute(vin2);
         sscope.execute(m_t, iRL);
         sscope4.execute(m_t, iRL2);
+        sscope5.execute(m_t, STAritmetic(STAritmetic::differenceType).execute(iRL,iRL2));
         iprev = iRL.value();
         iprev2 = iRL2.value();
 
@@ -215,4 +217,5 @@ void mainSimulator::testSimulation3()
     //sscope2.scopeUpdate(m_ts);
     //sscope3.scopeUpdate(m_ts);
     sscope4.scopeUpdate(m_ts);
+    sscope5.scopeUpdate(m_ts);
 }
