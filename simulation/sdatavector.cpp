@@ -11,6 +11,11 @@ SDataVector::SDataVector(SData d)
     m_data.append(d);
 }
 
+SDataVector::SDataVector(double d) : m_data(QVector<SData>(1))
+{
+    setData(0,0,d);
+}
+
 void SDataVector::setData(int slot, SData data)
 {
     m_data[slot] = data;

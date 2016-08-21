@@ -10,13 +10,14 @@
 #include "simulation/stpi.h"
 #include "simulation/stdpi.h"
 #include "simulation/stpid.h"
+#include "simulation/stpmsmqd.h"
 
 mainSimulator::mainSimulator()
 {
     m_t = 0;
     m_ts = 0.00005;
     m_tc = 0.0001;
-    m_duration = 0.01;
+    m_duration = 2;
 
     m_pi_kp = 2.90663474828051;
     m_pi_ki = 2113.6708113218;
@@ -29,7 +30,7 @@ mainSimulator::mainSimulator()
 
 void mainSimulator::startSimulation(void)
 {
-    int simulation = 4;
+    int simulation = 5;
 
     switch (simulation) {
     case 0:
@@ -46,6 +47,9 @@ void mainSimulator::startSimulation(void)
         break;
     case 4:
         testSimulation4();
+        break;
+    case 5:
+        testSimulation5();
         break;
     default:
         break;
@@ -241,6 +245,19 @@ void mainSimulator::testSimulation3()
 
 void mainSimulator::testSimulation4()
 {
+    // Test specific initialization
+    m_ts = 0.00005;
+    m_tc = 0.0001;
+    m_duration = 0.01;
+
+    m_pi_kp = 2.90663474828051;
+    m_pi_ki = 2113.6708113218;
+    m_pi_kd = 0.000111756425508289;
+    m_pi_n = 2514.9905893422;
+
+    m_r = 1;
+    m_l = 0.001;
+
     // Init simulation vars
     m_t = 0;
     int m_step = (int)(m_duration / m_ts);
@@ -305,4 +322,78 @@ void mainSimulator::testSimulation4()
     sscope.scopeUpdate(m_ts);
     sscope2.scopeUpdate(m_ts);
     sscope3.scopeUpdate(m_ts);
+}
+
+void mainSimulator::testSimulation5()
+{
+    // Test specific initialization
+
+    // Init simulation vars
+    m_t = 0;
+    int m_step = (int)(m_duration / m_ts);
+    //int m_controlStepRatio = (int)(m_tc / m_ts);
+
+    // Init sink-source-transfer
+    SSScope sscope("PMSM Speed",4);
+    STPMSMqd motor(0.35, 0.006, 0.006, 2, 0.196, 1.1e-5, 0.05, m_ts);
+    double vd = 0;
+    double vq = 10;
+
+//    STPID stpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, ForwardEuler);
+//    STPID stpid2(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, BackwardEuler);
+//    STPID stpid3(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, Trapezoidal);
+//    double iprev = 0;
+//    double iprev2 = 0;
+//    double iprev3 = 0;
+//    double iTarg = 10;
+//    SDataVector vin, vin2, vin3;
+
+    // Main cycle
+    for (int i = 0; i < m_step; i++)
+    {
+        // Execution of sink and source
+
+//        if ((i % m_controlStepRatio) == 0)
+//        {
+            // Execution of control cycle
+//            double err;
+//            SDataVector errDV;
+//            err = iTarg - iprev;
+//            errDV.setValue(err);
+//            vin = stpid.execute(errDV);
+
+//            err = iTarg - iprev2;
+//            errDV.setValue(err);
+//            vin2 = stpid2.execute(errDV);
+
+//            err = iTarg - iprev3;
+//            errDV.setValue(err);
+//            vin3 = stpid3.execute(errDV);
+
+//        }
+
+        SData vdq(0);
+        vdq.append(vd);
+        vdq.append(vq);
+        SDataVector vin(vdq);
+
+        SDataVector iW = motor.execute(vin);
+        sscope.execute(m_t, iW);
+//        iprev = iRL.value();
+
+//        iRL = strl2.execute(vin2);
+//        sscope2.execute(m_t, iRL);
+//        iprev2 = iRL.value();
+
+//        iRL = strl3.execute(vin3);
+//        sscope3.execute(m_t, iRL);
+//        iprev3 = iRL.value();
+
+        // Update of simutaion variables
+        m_t += m_ts;
+    }
+
+    sscope.scopeUpdate(m_ts);
+//    sscope2.scopeUpdate(m_ts);
+//    sscope3.scopeUpdate(m_ts);
 }
