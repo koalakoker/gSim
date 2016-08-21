@@ -2,19 +2,13 @@
 #define STPID_H
 
 #include "simulation/stransfer.h"
-#include "simulation/stfdiscretefirstorder.h"
+#include "simulation/stfintegrator.h"
+#include "simulation/stfderivatorfitered.h"
 
 class STPID : public STransfer
 {
 public:
-    typedef enum
-    {
-        ForwardEuler,
-        BackwardEuler,
-        Trapezoidal
-    } TransformType_t;
-
-    STPID(double kp, double ki, double kd, double n, double ts, TransformType_t transform = BackwardEuler);
+    STPID(double kp, double ki, double kd, double n, double ts, DiscreteTimeTransformType_t transform = BackwardEuler);
 
     SDataVector execute(SDataVector in);
 
@@ -25,8 +19,8 @@ private:
     double m_ts;
     double m_n;
 
-    STFDiscreteFirstOrder m_intTF;
-    STFDiscreteFirstOrder m_derTF;
+    STFIntegrator m_intTF;
+    STFDerivatorFitered m_derTF;
 };
 
 #endif // STPID_H

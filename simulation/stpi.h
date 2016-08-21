@@ -2,17 +2,12 @@
 #define STPI_H
 
 #include "simulation/stransfer.h"
+#include "simulation/discretetimetransformtype.h"
 
 class STPI : public STransfer
 {
 public:
-    typedef enum
-    {
-        BackwardEuler,
-        Trapezoidal
-    } TransformType_t;
-
-    STPI(double kp, double ki, double ts, TransformType_t transform = BackwardEuler);
+    STPI(double kp, double ki, double ts, DiscreteTimeTransformType_t transform = BackwardEuler);
 
     SDataVector execute(SDataVector in);
 

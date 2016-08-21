@@ -253,9 +253,9 @@ void mainSimulator::testSimulation4()
     STRL strl(m_r, m_l, m_ts);
     STRL strl2(m_r, m_l, m_ts);
     STRL strl3(m_r, m_l, m_ts);
-    STPID stpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, STPID::ForwardEuler);
-    STPID stpid2(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, STPID::BackwardEuler);
-    STPID stpid3(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, STPID::Trapezoidal);
+    STPID stpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, ForwardEuler);
+    STPID stpid2(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, BackwardEuler);
+    STPID stpid3(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, Trapezoidal);
     double iprev = 0;
     double iprev2 = 0;
     double iprev3 = 0;

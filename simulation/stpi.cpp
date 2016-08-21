@@ -1,6 +1,6 @@
 #include "stpi.h"
 
-STPI::STPI(double kp, double ki, double ts, TransformType_t transform)
+STPI::STPI(double kp, double ki, double ts, DiscreteTimeTransformType_t transform)
 {
     m_kp = kp;
     m_ki = ki;
