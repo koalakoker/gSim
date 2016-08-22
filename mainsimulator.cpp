@@ -17,13 +17,13 @@ mainSimulator::mainSimulator()
 {
     m_t = 0;
     m_ts = 0.00005;
-    m_tc = 0.0001;
+    m_tc = 0.00005;
     m_duration = 2;
 
     m_pi_kp = 2.90663474828051;
     m_pi_ki = 2113.6708113218;
-    m_pi_kd = 0.000111756425508289;
-    m_pi_n = 2514.9905893422;
+    m_pi_kd = 0;
+    m_pi_n = 0;
 
     m_r = 1;
     m_l = 0.001;
@@ -332,42 +332,47 @@ void mainSimulator::testSimulation5()
     // Init simulation vars
     m_t = 0;
     int m_step = (int)(m_duration / m_ts);
-    //int m_controlStepRatio = (int)(m_tc / m_ts);
+    int m_controlStepRatio = (int)(m_tc / m_ts);
 
     // Init sink-source-transfer
     SSScope sscope("PMSM Speed",4);
     STPMSMqd motor(0.35, 0.006, 0.006, 2, 0.196, 1.1e-5, 0.005, m_ts);
-    double vd = 0;
-    double vq = 10;
-
-//    STPID stpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, ForwardEuler);
-//    double iprev = 0;
-//    double iTarg = 10;
-//    SDataVector vin;
+    STPID idpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
+    STPID iqpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
+    double iqPrev = 0;
+    double iqTarg = 10;
+    double idPrev = 0;
+    double idTarg = 0;
+    SDataVector vqin, vdin;
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
     {
         // Execution of sink and source
 
-//        if ((i % m_controlStepRatio) == 0)
-//        {
+        if ((i % m_controlStepRatio) == 0)
+        {
             // Execution of control cycle
-//            double err;
-//            SDataVector errDV;
-//            err = iTarg - iprev;
-//            errDV.setValue(err);
-//            vin = stpid.execute(errDV);
-//        }
+            double err;
+            SDataVector errDV;
+            err = idTarg - idPrev;
+            errDV.setValue(err);
+            vdin = idpid.execute(errDV);
+
+            err = iqTarg - iqPrev;
+            errDV.setValue(err);
+            vqin = iqpid.execute(errDV);
+        }
 
         SData vdq(0);
-        vdq.append(vd);
-        vdq.append(vq);
+        vdq.append(vdin.value());
+        vdq.append(vqin.value());
         SDataVector vin(vdq);
 
         SDataVector iW = motor.execute(vin);
         sscope.execute(m_t, iW);
-//        iprev = iRL.value();
+        idPrev = iW.data(0,0);
+        iqPrev = iW.data(0,1);
 
         // Update of simutaion variables
         m_t += m_ts;
