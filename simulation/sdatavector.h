@@ -7,7 +7,7 @@
 class SDataVector
 {
 public:
-    SDataVector(int slot = 1);
+    SDataVector();
     SDataVector(SData d);
     SDataVector(double d);
     QVector<SData> data() {return m_data;}

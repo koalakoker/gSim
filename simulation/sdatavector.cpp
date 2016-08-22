@@ -1,8 +1,8 @@
 #include "sdatavector.h"
 
-SDataVector::SDataVector(int slot)
+SDataVector::SDataVector()
 {
-    m_data = QVector<SData>(slot);
+    m_data = QVector<SData>(1);
 }
 
 SDataVector::SDataVector(SData d)

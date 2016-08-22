@@ -21,7 +21,7 @@ SDataVector STPMSMqd::execute(SDataVector in)
 
     double torque = 1.5 * m_polesPairs * ((m_magneticFlux * iq) + ((m_ld - m_lq) * id * iq ));
 
-    double dw = (torque - (m_friction * m_wPrev) - m_brakeTorque);
+    double dw = (torque - (m_friction * m_wPrev) - m_brakeTorque) / m_inertia;
 
     double w = m_wPrev = m_wIntTF.execute(SDataVector(dw)).value();
 

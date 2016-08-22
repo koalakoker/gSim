@@ -11,6 +11,7 @@
 #include "simulation/stdpi.h"
 #include "simulation/stpid.h"
 #include "simulation/stpmsmqd.h"
+#include "simulation/stfintegrator.h"
 
 mainSimulator::mainSimulator()
 {
@@ -335,18 +336,14 @@ void mainSimulator::testSimulation5()
 
     // Init sink-source-transfer
     SSScope sscope("PMSM Speed",4);
-    STPMSMqd motor(0.35, 0.006, 0.006, 2, 0.196, 1.1e-5, 0.05, m_ts);
+    STPMSMqd motor(0.35, 0.006, 0.006, 2, 0.196, 1.1e-5, 0.005, m_ts);
     double vd = 0;
     double vq = 10;
 
 //    STPID stpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, ForwardEuler);
-//    STPID stpid2(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, BackwardEuler);
-//    STPID stpid3(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc, Trapezoidal);
 //    double iprev = 0;
-//    double iprev2 = 0;
-//    double iprev3 = 0;
 //    double iTarg = 10;
-//    SDataVector vin, vin2, vin3;
+//    SDataVector vin;
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
@@ -361,15 +358,6 @@ void mainSimulator::testSimulation5()
 //            err = iTarg - iprev;
 //            errDV.setValue(err);
 //            vin = stpid.execute(errDV);
-
-//            err = iTarg - iprev2;
-//            errDV.setValue(err);
-//            vin2 = stpid2.execute(errDV);
-
-//            err = iTarg - iprev3;
-//            errDV.setValue(err);
-//            vin3 = stpid3.execute(errDV);
-
 //        }
 
         SData vdq(0);
@@ -380,14 +368,6 @@ void mainSimulator::testSimulation5()
         SDataVector iW = motor.execute(vin);
         sscope.execute(m_t, iW);
 //        iprev = iRL.value();
-
-//        iRL = strl2.execute(vin2);
-//        sscope2.execute(m_t, iRL);
-//        iprev2 = iRL.value();
-
-//        iRL = strl3.execute(vin3);
-//        sscope3.execute(m_t, iRL);
-//        iprev3 = iRL.value();
 
         // Update of simutaion variables
         m_t += m_ts;
