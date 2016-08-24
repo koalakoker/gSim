@@ -8,9 +8,15 @@ class SDataVector
 {
 public:
     SDataVector();
+
+    SDataVector(SDataVector dv1, SDataVector dv2);
+
     SDataVector(SData d);
+    SDataVector(SData d1, SData d2);
+
     SDataVector(double d);
     SDataVector(double d1, double d2);
+
     QVector<SData> data() {return m_data;}
     SData data(int slot){return m_data[slot];}
     double data(int slot, int pos){return m_data[slot].elementAt(pos);}

@@ -366,7 +366,7 @@ void mainSimulator::testSimulation5()
             vqin = iqpid.execute(errDV);
         }
 
-        SDataVector vin = SDataVector(vdin.value(), vqin.value());
+        SDataVector vin = SDataVector(vdin, vqin);
         PMSMVars iW = motor.execute(vin);
         //sscope.execute(m_t, (SDataVector)iW);
         sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));

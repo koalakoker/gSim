@@ -5,10 +5,18 @@ SDataVector::SDataVector()
     m_data = QVector<SData>(1);
 }
 
+SDataVector::SDataVector(SDataVector dv1, SDataVector dv2) : SDataVector(dv1.value(), dv2.value())
+{
+}
+
 SDataVector::SDataVector(SData d)
 {
     m_data = QVector<SData>();
     m_data.append(d);
+}
+
+SDataVector::SDataVector(SData d1, SData d2) : SDataVector(d1.value(), d2.value())
+{
 }
 
 SDataVector::SDataVector(double d) : m_data(QVector<SData>(1))
@@ -18,8 +26,7 @@ SDataVector::SDataVector(double d) : m_data(QVector<SData>(1))
 
 SDataVector::SDataVector(double d1, double d2)
 {
-    SData data = SData(0);
-    data.append(d1);
+    SData data = SData(d1);
     data.append(d2);
     m_data = QVector<SData>();
     m_data.append(data);
