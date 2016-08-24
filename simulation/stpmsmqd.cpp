@@ -32,3 +32,15 @@ SDataVector STPMSMqd::execute(SDataVector in)
     d.append(torque);
     return SDataVector(d);
 }
+
+PMSMVars::PMSMVars() : SDataVector()
+{
+}
+
+PMSMVars::PMSMVars(SDataVector dv) : SDataVector(dv)
+{
+    Id = dv.data(0,0);
+    Iq = dv.data(0,1);
+    T = dv.data(0,2);
+    Wm = dv.data(0,3);
+}

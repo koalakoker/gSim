@@ -335,8 +335,7 @@ void mainSimulator::testSimulation5()
     int m_controlStepRatio = (int)(m_tc / m_ts);
 
     // Init sink-source-transfer
-    SSScope sscope("PMSM",4);
-    SSScope sscope2("V",2);
+
     STPMSMqd motor(0.2, 0.0085, 0.0085, 4, 0.175, 0.089, 0.05, m_ts, 4);
     STPID idpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
     STPID iqpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
@@ -345,6 +344,8 @@ void mainSimulator::testSimulation5()
     double idPrev = 0;
     double idTarg = 0;
     SDataVector vqin, vdin;
+    SSScope sscope("PMSM Speed",2);
+    SSScope sscope2("V",2);
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
@@ -365,13 +366,11 @@ void mainSimulator::testSimulation5()
             vqin = iqpid.execute(errDV);
         }
 
-        SData vdq(0);
-        vdq.append(vdin.value());
-        vdq.append(vqin.value());
-        SDataVector vin(vdq);
+        SDataVector vin = SDataVector(vdin.value(), vqin.value());
+        PMSMVars iW = motor.execute(vin);
+        //sscope.execute(m_t, (SDataVector)iW);
+        sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
 
-        SDataVector iW = motor.execute(vin);
-        sscope.execute(m_t, iW);
         idPrev = iW.data(0,0);
         iqPrev = iW.data(0,1);
 

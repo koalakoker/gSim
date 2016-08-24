@@ -34,4 +34,16 @@ private:
     STFIntegrator m_wIntTF;
 };
 
+class PMSMVars : public SDataVector
+{
+public:
+    PMSMVars();
+    PMSMVars(SDataVector dv);
+
+    double Iq;
+    double Id;
+    double T;
+    double Wm;
+};
+
 #endif // STPMSMQD_H
