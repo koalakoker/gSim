@@ -336,11 +336,11 @@ void mainSimulator::testSimulation5()
 
     // Init sink-source-transfer
     SSScope sscope("PMSM Speed",4);
-    STPMSMqd motor(0.35, 0.006, 0.006, 2, 0.196, 1.1e-5, 0.005, m_ts);
+    STPMSMqd motor(0.2, 0.0085, 0.0085, 4, 0.175, 0.089, 0.05, m_ts, 4);
     STPID idpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
     STPID iqpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
     double iqPrev = 0;
-    double iqTarg = 10;
+    double iqTarg = 4.76;
     double idPrev = 0;
     double idTarg = 0;
     SDataVector vqin, vdin;
