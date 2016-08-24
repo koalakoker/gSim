@@ -18,7 +18,7 @@ mainSimulator::mainSimulator()
     m_t = 0;
     m_ts = 0.00005;
     m_tc = 0.00005;
-    m_duration = 2;
+    m_duration = 10;
 
     m_pi_kp = 2.90663474828051;
     m_pi_ki = 2113.6708113218;
@@ -335,7 +335,8 @@ void mainSimulator::testSimulation5()
     int m_controlStepRatio = (int)(m_tc / m_ts);
 
     // Init sink-source-transfer
-    SSScope sscope("PMSM Speed",4);
+    SSScope sscope("PMSM",4);
+    SSScope sscope2("V",2);
     STPMSMqd motor(0.2, 0.0085, 0.0085, 4, 0.175, 0.089, 0.05, m_ts, 4);
     STPID idpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
     STPID iqpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
@@ -374,11 +375,13 @@ void mainSimulator::testSimulation5()
         idPrev = iW.data(0,0);
         iqPrev = iW.data(0,1);
 
+        sscope2.execute(m_t, vin);
+
         // Update of simutaion variables
         m_t += m_ts;
     }
 
     sscope.scopeUpdate(m_ts);
-//    sscope2.scopeUpdate(m_ts);
+    sscope2.scopeUpdate(m_ts);
 //    sscope3.scopeUpdate(m_ts);
 }
