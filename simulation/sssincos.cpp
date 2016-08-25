@@ -1,7 +1,7 @@
 #include "math.h"
 #include "sssincos.h"
 
-SSSinCos::SSSinCos(double frequency, double amplitude, trigType_t trigType)
+SSSinCos::SSSinCos(trigType_t trigType, double frequency, double amplitude)
 {
     m_trigType = trigType;
     m_amplitude = amplitude;

@@ -8,7 +8,7 @@ class SSSinCos : public SSource
 public:
     typedef enum {sinType, cosType} trigType_t;
 
-    SSSinCos(double frequency = 1, double amplitude = 1, trigType_t trigType = sinType);
+    SSSinCos(trigType_t trigType = sinType, double frequency = 1, double amplitude = 1);
     SDataVector execute(double t);
 
     double amplitude(){return m_amplitude;}

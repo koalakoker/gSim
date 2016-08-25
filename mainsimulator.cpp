@@ -18,7 +18,7 @@ mainSimulator::mainSimulator()
     m_t = 0;
     m_ts = 0.00005;
     m_tc = 0.00005;
-    m_duration = 10;
+    m_duration = 2;
 
     m_pi_kp = 2.90663474828051;
     m_pi_ki = 2113.6708113218;
@@ -108,9 +108,9 @@ void mainSimulator::testSimulation1()
     // Init sink-source-transfer
     STMux smux;
     SSRamp sramp(2,0.1);
-    SSSinCos ssin(10);
-    SSSinCos ssin2(1);
-    SSSinCos ssin3(1);
+    SSSinCos ssin(SSSinCos::sinType, 10);
+    SSSinCos ssin2(SSSinCos::sinType, 1);
+    SSSinCos ssin3(SSSinCos::sinType, 1);
     SSScope sscope("Ramp - Ramp Ampl - Ramp Freq - Ramp AmplFreq ", 4);
 
     // Main cycle
@@ -146,7 +146,7 @@ void mainSimulator::testSimulation2()
 
     // Init sink-source-transfer
     STMux smux;
-    SSSinCos ssin(10);
+    SSSinCos ssin(SSSinCos::sinType, 10);
     SSScope sscope("Prev");
     STPrev sprev;
     STAritmetic sdiff(STAritmetic::differenceType);
