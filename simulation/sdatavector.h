@@ -9,13 +9,16 @@ class SDataVector
 public:
     SDataVector();
 
-    SDataVector(SDataVector dv1, SDataVector dv2);
+    SDataVector(SDataVector dv1, SDataVector dv2) : SDataVector(dv1.value(), dv2.value()) {}
+    SDataVector(SDataVector dv1, SDataVector dv2, SDataVector dv3) : SDataVector(dv1.value(), dv2.value(), dv3.value()) {}
 
     SDataVector(SData d);
-    SDataVector(SData d1, SData d2);
+    SDataVector(SData d1, SData d2) : SDataVector(d1.value(), d2.value()) {}
+    SDataVector(SData d1, SData d2, SData d3) : SDataVector(d1.value(), d2.value(), d3.value()) {}
 
     SDataVector(double d);
     SDataVector(double d1, double d2);
+    SDataVector(double d1, double d2, double d3);
 
     QVector<SData> data() {return m_data;}
     SData data(int slot){return m_data[slot];}

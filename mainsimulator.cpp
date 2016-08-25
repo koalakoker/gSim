@@ -31,7 +31,7 @@ mainSimulator::mainSimulator()
 
 void mainSimulator::startSimulation(void)
 {
-    int simulation = 5;
+    int simulation = 0;
 
     switch (simulation) {
     case 0:
@@ -81,23 +81,22 @@ void mainSimulator::testSimulation0()
         SDataVector o1 = ssin.execute(m_t);
         SDataVector o2 = scos.execute(m_t);
         SDataVector o3 = ssum.execute(o1, o2);
-        o1.append(o2);
-        o1.append(o3);
-        o3 = smux.execute(o1);
-        sscope.execute(m_t, o3);
-        o2 = sdemux.execute(o3);
-        sscope2.execute(m_t, o2.data(0));
-        sscope3.execute(m_t, o2.data(1));
-        sscope4.execute(m_t, o2.data(2));
+        SDataVector o4Mux = SDataVector(o1, o2, o3);
+        //o3 = smux.execute(SDataVector(o1, o2, o3));
+        sscope.execute(m_t, o4Mux);
+//        o2 = sdemux.execute(o3);
+//        sscope2.execute(m_t, o2.data(0));
+//        sscope3.execute(m_t, o2.data(1));
+//        sscope4.execute(m_t, o2.data(2));
 
         // Update of simutaion variables
         m_t += m_ts;
     }
 
     sscope.scopeUpdate(m_ts);
-    sscope2.scopeUpdate(m_ts);
-    sscope3.scopeUpdate(m_ts);
-    sscope4.scopeUpdate(m_ts);
+//    sscope2.scopeUpdate(m_ts);
+//    sscope3.scopeUpdate(m_ts);
+//    sscope4.scopeUpdate(m_ts);
 }
 
 void mainSimulator::testSimulation1()
