@@ -10,8 +10,6 @@ STDPI::STDPI(double kp, double ki)
 
 SDataVector STDPI::execute(SDataVector in)
 {
-    SDataVector Out;
-
     double u;
     double err = in.value();
 
@@ -23,6 +21,6 @@ SDataVector STDPI::execute(SDataVector in)
 
     // Sat u
 
-    Out.setValue(u);
-    return Out;
+
+    return SDataVector(u);
 }

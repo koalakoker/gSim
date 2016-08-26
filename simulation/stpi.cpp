@@ -31,8 +31,6 @@ STPI::STPI(double kp, double ki, double ts, DiscreteTimeTransformType_t transfor
 
 SDataVector STPI::execute(SDataVector in)
 {
-    SDataVector Out;
-
     double u;
     double err = in.value();
 
@@ -41,6 +39,5 @@ SDataVector STPI::execute(SDataVector in)
     m_uPrev = u;
     m_ePrev = err;
 
-    Out.setValue(u);
-    return Out;
+    return SDataVector(u);
 }

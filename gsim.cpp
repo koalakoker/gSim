@@ -18,6 +18,8 @@ gSim::gSim(QWidget *parent) :
 
     ui->R->setValue(sim.m_r);
     ui->L->setValue(sim.m_l);
+
+    ui->simulation->setValue(sim.m_simulation);
 }
 
 gSim::~gSim()
@@ -36,5 +38,6 @@ void gSim::on_startSimulation_clicked()
     sim.m_pi_n = ui->N->value();
     sim.m_r = ui->R->value();
     sim.m_l = ui->L->value();
+    sim.m_simulation = ui->simulation->value();
     sim.startSimulation();
 }

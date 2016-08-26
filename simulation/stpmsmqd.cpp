@@ -16,16 +16,16 @@ SDataVector STPMSMqd::execute(SDataVector in)
     double did = (vd - (m_rs * m_idPrev) + (m_polesPairs * m_wPrev * m_lq * m_iqPrev)) / m_ld;
     double diq = (vq - (m_rs * m_iqPrev) - (m_polesPairs * m_wPrev * m_ld * m_idPrev) - (m_polesPairs * m_wPrev * m_magneticFlux)) / m_lq;
 
-    double id = m_idPrev = m_idIntTF.execute(SDataVector(did)).value();
-    double iq = m_iqPrev = m_iqIntTF.execute(SDataVector(diq)).value();
+    double id = m_idPrev = m_idIntTF.execute(did).value();
+    double iq = m_iqPrev = m_iqIntTF.execute(diq).value();
 
     double torque = 1.5 * m_polesPairs * ((m_magneticFlux * iq) + ((m_ld - m_lq) * id * iq ));
 
     double dw = (torque - (m_friction * m_wPrev) - m_brakeTorque) / m_inertia;
 
-    double w = m_wPrev = m_wIntTF.execute(SDataVector(dw)).value();
+    double w = m_wPrev = m_wIntTF.execute(dw).value();
 
-    SData d(0);
+    SData d;
     d.append(id);
     d.append(iq);
     d.append(w);

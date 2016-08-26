@@ -21,6 +21,8 @@ public:
     double m_r;
     double m_l;
 
+    int m_simulation;
+
 private:
     double m_t;
 

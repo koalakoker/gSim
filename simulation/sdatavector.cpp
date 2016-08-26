@@ -11,9 +11,9 @@ SDataVector::SDataVector(SData d)
     m_data.append(d);
 }
 
-SDataVector::SDataVector(double d) : m_data(QVector<SData>(1))
+SDataVector::SDataVector(double d) : m_data(QVector<SData>(0))
 {
-    setData(0,0,d);
+    m_data.append(SData(d));
 }
 
 SDataVector::SDataVector(double d1, double d2)

@@ -6,8 +6,6 @@ STFDiscreteFirstOrder::STFDiscreteFirstOrder(double b0, double b1, double a1) : 
 
 SDataVector STFDiscreteFirstOrder::execute(SDataVector in)
 {
-    SDataVector Out;
-
     double y;
     double x = in.value();
 
@@ -16,6 +14,5 @@ SDataVector STFDiscreteFirstOrder::execute(SDataVector in)
     m_yPrev = y;
     m_xPrev = x;
 
-    Out.setValue(y);
-    return Out;
+    return SDataVector(y);
 }

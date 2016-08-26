@@ -27,11 +27,13 @@ mainSimulator::mainSimulator()
 
     m_r = 1;
     m_l = 0.001;
+
+    m_simulation = 1;
 }
 
 void mainSimulator::startSimulation(void)
 {
-    int simulation = 0;
+    int simulation = m_simulation;
 
     switch (simulation) {
     case 0:
@@ -81,7 +83,7 @@ void mainSimulator::testSimulation0()
         SDataVector o1 = ssin.execute(m_t);
         SDataVector o2 = scos.execute(m_t);
         SDataVector o3 = ssum.execute(o1, o2);
-        SDataVector o4Mux = SDataVector(o1, o2, o3);
+        SDataVector o4Mux = SDataVector(o3, o1, o2);
         //o3 = smux.execute(SDataVector(o1, o2, o3));
         sscope.execute(m_t, o4Mux);
 //        o2 = sdemux.execute(o3);
@@ -213,15 +215,12 @@ void mainSimulator::testSimulation3()
             // Execution of control cycle
             double err;
             err = iTarg - iprev;
-            SDataVector errDV;
-            errDV.setValue(err);
-            sscope3.execute(m_t, errDV);
-            vin = stdpi.execute(errDV);
+            sscope3.execute(m_t, err);
+            vin = stdpi.execute(err);
             sscope2.execute(m_t, vin);
 
             err = iTarg - iprev2;
-            errDV.setValue(err);
-            vin2 = stpi.execute(errDV);
+            vin2 = stpi.execute(err);
         }
 
         SDataVector iRL = strl.execute(vin);
@@ -288,18 +287,14 @@ void mainSimulator::testSimulation4()
         {
             // Execution of control cycle
             double err;
-            SDataVector errDV;
             err = iTarg - iprev;
-            errDV.setValue(err);
-            vin = stpid.execute(errDV);
+            vin = stpid.execute(err);
 
             err = iTarg - iprev2;
-            errDV.setValue(err);
-            vin2 = stpid2.execute(errDV);
+            vin2 = stpid2.execute(err);
 
             err = iTarg - iprev3;
-            errDV.setValue(err);
-            vin3 = stpid3.execute(errDV);
+            vin3 = stpid3.execute(err);
 
         }
 
@@ -355,14 +350,11 @@ void mainSimulator::testSimulation5()
         {
             // Execution of control cycle
             double err;
-            SDataVector errDV;
             err = idTarg - idPrev;
-            errDV.setValue(err);
-            vdin = idpid.execute(errDV);
+            vdin = idpid.execute(err);
 
             err = iqTarg - iqPrev;
-            errDV.setValue(err);
-            vqin = iqpid.execute(errDV);
+            vqin = iqpid.execute(err);
         }
 
         SDataVector vin = SDataVector(vdin, vqin);
