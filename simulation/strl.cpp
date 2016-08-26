@@ -15,8 +15,6 @@ STRL::STRL(double r, double l, double ts)
 
 SDataVector STRL::execute(SDataVector in)
 {
-    SDataVector Out;
-
     double i;
 
     i = (in.value() + m_vPrev - (m_b * m_iPrev)) / m_a;
@@ -24,6 +22,5 @@ SDataVector STRL::execute(SDataVector in)
     m_vPrev = in.value();
     m_iPrev = i;
 
-    Out.setValue(i);
-    return Out;
+    return SDataVector(i);
 }

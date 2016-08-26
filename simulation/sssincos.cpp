@@ -10,7 +10,6 @@ SSSinCos::SSSinCos(trigType_t trigType, double frequency, double amplitude)
 
 SDataVector SSSinCos::execute(double t)
 {
-    SDataVector Out;
     double y = m_amplitude;
     double w = 2 * M_PI * m_frequency * t;
     if (m_trigType == sinType)
@@ -21,6 +20,5 @@ SDataVector SSSinCos::execute(double t)
     {
         y *= cos(w);
     }
-    Out.setData(0, 0, y);
-    return Out;
+    return SDataVector(y);
 }

@@ -11,26 +11,22 @@ SDataVector::SDataVector(SData d)
     m_data.append(d);
 }
 
-SDataVector::SDataVector(double d) : m_data(QVector<SData>(1))
+SDataVector::SDataVector(double d) : m_data(QVector<SData>(1,SData(d)))
 {
-    setData(0,0,d);
+//    m_data.append(SData(d));
 }
 
-SDataVector::SDataVector(double d1, double d2)
+SDataVector::SDataVector(double d1, double d2) : m_data(QVector<SData>(1,SData(d1, d2)))
 {
-    SData data = SData(d1);
-    data.append(d2);
-    m_data = QVector<SData>();
-    m_data.append(data);
+//    m_data.append(SData(d1, d2));
 }
 
-SDataVector::SDataVector(double d1, double d2, double d3)
+SDataVector::SDataVector(double d1, double d2, double d3) : m_data(QVector<SData>(1,SData(d1, d2, d3)))
 {
-    SData data = SData(d1);
-    data.append(d2);
-    data.append(d3);
-    m_data = QVector<SData>();
-    m_data.append(data);
+//    SData data = SData(d1);
+//    data.append(d2);
+//    data.append(d3);
+//    m_data.append(data);
 }
 
 void SDataVector::setData(int slot, SData data)

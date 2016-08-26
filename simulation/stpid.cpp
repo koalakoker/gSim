@@ -7,15 +7,10 @@ STPID::STPID(double kp, double ki, double kd, double n, double ts, DiscreteTimeT
 
 SDataVector STPID::execute(SDataVector in)
 {
-    SDataVector Out;
-
     double u;
     double err = in.value();
 
-    SDataVector errDV;
-    errDV.setValue(err);
-    u = (m_kp * err) + (m_ki * m_intTF.execute(errDV).value()) + (m_kd * m_derTF.execute(errDV).value());
+    u = (m_kp * err) + (m_ki * m_intTF.execute(err).value()) + (m_kd * m_derTF.execute(err).value());
 
-    Out.setValue(u);
-    return Out;
+    return SDataVector(u);
 }

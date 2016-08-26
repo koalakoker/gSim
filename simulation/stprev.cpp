@@ -2,6 +2,7 @@
 
 STPrev::STPrev()
 {
+    m_prevValue = SDataVector(0);
 }
 
 SDataVector STPrev::execute(SDataVector in)
