@@ -12,6 +12,7 @@
 #include "simulation/stpid.h"
 #include "simulation/stpmsmqd.h"
 #include "simulation/stfintegrator.h"
+#include "simulation/stdqtoabc.h"
 
 mainSimulator::mainSimulator()
 {
