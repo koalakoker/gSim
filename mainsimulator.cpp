@@ -83,9 +83,8 @@ void mainSimulator::testSimulation0()
         SDataVector o1 = ssin.execute(m_t);
         SDataVector o2 = scos.execute(m_t);
         SDataVector o3 = ssum.execute(o1, o2);
-        SDataVector o4Mux = SDataVector(o3, o1, o2);
-        //o3 = smux.execute(SDataVector(o1, o2, o3));
-        sscope.execute(m_t, o4Mux);
+        o3 = smux.execute(SDataVector(o1, o2, o3));
+        sscope.execute(m_t, o3);
 //        o2 = sdemux.execute(o3);
 //        sscope2.execute(m_t, o2.data(0));
 //        sscope3.execute(m_t, o2.data(1));
