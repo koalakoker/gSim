@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     simulation/stfdiscretefirstorder.cpp \
     simulation/stpmsmqd.cpp \
     simulation/stfintegrator.cpp \
-    simulation/stfderivatorfitered.cpp
+    simulation/stfderivatorfitered.cpp \
+    simulation/stdqtoabc.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
@@ -74,7 +75,8 @@ HEADERS  += gsim.h \
     simulation/stpmsmqd.h \
     simulation/stfintegrator.h \
     simulation/discretetimetransformtype.h \
-    simulation/stfderivatorfitered.h
+    simulation/stfderivatorfitered.h \
+    simulation/stdqtoabc.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \

@@ -4,7 +4,7 @@ STPMSMqd::STPMSMqd(double rs, double ld, double lq, double polesPairs, double ma
                    double brakeTorque,
                    DiscreteTimeTransformType_t transform) :
     m_rs(rs), m_ld(ld), m_lq(lq), m_polesPairs(polesPairs), m_magneticFlux(magnetFlux), m_inertia(inertia), m_friction(friction), m_brakeTorque(brakeTorque),
-    m_idPrev(0), m_iqPrev(0), m_wPrev(0), m_idIntTF(ts, transform), m_iqIntTF(ts, transform), m_wIntTF(ts, transform)
+    m_idPrev(0), m_iqPrev(0), m_wPrev(0), m_idIntTF(ts, transform), m_iqIntTF(ts, transform), m_wIntTF(ts, transform), m_thIntTF(ts, transform)
 {
 }
 
@@ -25,12 +25,16 @@ SDataVector STPMSMqd::execute(SDataVector in)
 
     double w = m_wPrev = m_wIntTF.execute(dw).value();
 
-    SData d;
-    d.append(id);
-    d.append(iq);
-    d.append(w);
-    d.append(torque);
-    return SDataVector(d);
+    double th = m_thIntTF.execute(w).value();
+
+    PMSMVars v;
+    v.Id = id;
+    v.Iq = iq;
+    v.Wm = w;
+    v.Th = th;
+    v.T = torque;
+
+    return v.toDataVector();
 }
 
 PMSMVars::PMSMVars() : SDataVector()
@@ -43,4 +47,10 @@ PMSMVars::PMSMVars(SDataVector dv) : SDataVector(dv)
     Iq = dv.data(0,1);
     T = dv.data(0,2);
     Wm = dv.data(0,3);
+    Th = dv.data(0,4);
+}
+
+SDataVector PMSMVars::toDataVector()
+{
+   return SDataVector(Id, Iq, T, Wm, Th);
 }
