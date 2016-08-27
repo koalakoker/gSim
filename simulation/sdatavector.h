@@ -28,7 +28,6 @@ public:
 //    SDataVector(SData d1, SData d2, SData d3, SData d4, SData d5, SData d6, SData d7, SData d8, SData d9, SData d10) :
 //        SDataVector(d1.value(), d2.value(), d3.value(), d4.value(), d5.value(), d6.value(), d7.value(), d8.value(), d9.value(), d10.value()) {}
 
-
     SDataVector(double d);
     SDataVector(double d1, double d2);
     SDataVector(double d1, double d2, double d3);
