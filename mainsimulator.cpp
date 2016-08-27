@@ -338,8 +338,8 @@ void mainSimulator::testSimulation5()
     double idPrev = 0;
     double idTarg = 0;
     SDataVector vqin, vdin;
-    SSScope sscope("PMSM Speed",2);
-    SSScope sscope2("V",2);
+    SSScope sscope("Iqd",2);
+    SSScope sscope2("Speed - Theta", 4);
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
@@ -359,13 +359,12 @@ void mainSimulator::testSimulation5()
 
         SDataVector vin = SDataVector(vdin, vqin);
         PMSMVars iW = motor.execute(vin);
-        //sscope.execute(m_t, (SDataVector)iW);
         sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
 
         idPrev = iW.data(0,0);
         iqPrev = iW.data(0,1);
 
-        sscope2.execute(m_t, vin);
+        sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
 
         // Update of simutaion variables
         m_t += m_ts;

@@ -25,13 +25,19 @@ SDataVector STPMSMqd::execute(SDataVector in)
 
     double w = m_wPrev = m_wIntTF.execute(dw).value();
 
-    double th = m_thIntTF.execute(w).value();
+    double mechAngle = m_thIntTF.execute(w).value();
+    int p = (int)(mechAngle / M_PI);
+    mechAngle -= p * M_PI;
+    double elAngle = mechAngle * m_polesPairs;
+    p = (int)(elAngle / M_PI);
+    elAngle -= p * M_PI;
 
     PMSMVars v;
     v.Id = id;
     v.Iq = iq;
     v.Wm = w;
-    v.Th = th;
+    v.We = w * m_polesPairs;
+    v.ElAngle = mechAngle;
     v.T = torque;
 
     return v.toDataVector();
@@ -47,10 +53,12 @@ PMSMVars::PMSMVars(SDataVector dv) : SDataVector(dv)
     Iq = dv.data(0,1);
     T = dv.data(0,2);
     Wm = dv.data(0,3);
-    Th = dv.data(0,4);
+    We = dv.data(0,4);
+    MechAngle = dv.data(0,5);
+    ElAngle = dv.data(0,6);
 }
 
 SDataVector PMSMVars::toDataVector()
 {
-   return SDataVector(Id, Iq, T, Wm, Th);
+   return SDataVector(Id, Iq, T, Wm, We, MechAngle, ElAngle);
 }

@@ -47,7 +47,9 @@ public:
     double Id;
     double T;
     double Wm;
-    double Th;
+    double We;
+    double MechAngle;
+    double ElAngle;
 };
 
 #endif // STPMSMQD_H
