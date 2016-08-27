@@ -1,6 +1,6 @@
-#include "stpmsmqd.h"
+#include "stpmsmdq.h"
 
-STPMSMqd::STPMSMqd(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
+STPMSMdq::STPMSMdq(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
                    double brakeTorque,
                    DiscreteTimeTransformType_t transform) :
     m_rs(rs), m_ld(ld), m_lq(lq), m_polesPairs(polesPairs), m_magneticFlux(magnetFlux), m_inertia(inertia), m_friction(friction), m_brakeTorque(brakeTorque),
@@ -8,7 +8,7 @@ STPMSMqd::STPMSMqd(double rs, double ld, double lq, double polesPairs, double ma
 {
 }
 
-SDataVector STPMSMqd::execute(SDataVector in)
+SDataVector STPMSMdq::execute(SDataVector in)
 {
     double vd = in.data(0,0);
     double vq = in.data(0,1);
@@ -35,10 +35,11 @@ SDataVector STPMSMqd::execute(SDataVector in)
     PMSMVars v;
     v.Id = id;
     v.Iq = iq;
+    v.T = torque;
     v.Wm = w;
     v.We = w * m_polesPairs;
-    v.ElAngle = mechAngle;
-    v.T = torque;
+    v.MechAngle = mechAngle;
+    v.ElAngle = elAngle;
 
     return v.toDataVector();
 }

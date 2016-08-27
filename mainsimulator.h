@@ -36,6 +36,7 @@ private:
     void testSimulation3();
     void testSimulation4();
     void testSimulation5();
+    void testSimulation6();
 };
 
 #endif // MAINSIMULATOR_H

@@ -40,10 +40,12 @@ SOURCES += main.cpp\
     simulation/stdpi.cpp \
     simulation/stpid.cpp \
     simulation/stfdiscretefirstorder.cpp \
-    simulation/stpmsmqd.cpp \
     simulation/stfintegrator.cpp \
     simulation/stfderivatorfitered.cpp \
-    simulation/stdqtoabc.cpp
+    simulation/stdqtoabc.cpp \
+    simulation/stpmsmabc.cpp \
+    simulation/stpmsmdq.cpp \
+    simulation/stabctodq.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
@@ -72,11 +74,13 @@ HEADERS  += gsim.h \
     simulation/stdpi.h \
     simulation/stpid.h \
     simulation/stfdiscretefirstorder.h \
-    simulation/stpmsmqd.h \
     simulation/stfintegrator.h \
     simulation/discretetimetransformtype.h \
     simulation/stfderivatorfitered.h \
-    simulation/stdqtoabc.h
+    simulation/stdqtoabc.h \
+    simulation/stpmsmabc.h \
+    simulation/stpmsmdq.h \
+    simulation/stabctodq.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \

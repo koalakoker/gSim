@@ -1,13 +1,13 @@
-#ifndef STPMSMQD_H
-#define STPMSMQD_H
+#ifndef STPMSMDQ_H
+#define STPMSMDQ_H
 
 #include "simulation/stransfer.h"
 #include "simulation/stfintegrator.h"
 
-class STPMSMqd : public STransfer
+class STPMSMdq : public STransfer
 {
 public:
-    STPMSMqd(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
+    STPMSMdq(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
              double brakeTorque = 0,
              DiscreteTimeTransformType_t transform = BackwardEuler);
 
@@ -52,4 +52,4 @@ public:
     double ElAngle;
 };
 
-#endif // STPMSMQD_H
+#endif // STPMSMDQ_H

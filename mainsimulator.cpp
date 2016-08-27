@@ -10,9 +10,11 @@
 #include "simulation/stpi.h"
 #include "simulation/stdpi.h"
 #include "simulation/stpid.h"
-#include "simulation/stpmsmqd.h"
+#include "simulation/stpmsmdq.h"
+#include "simulation/stpmsmabc.h"
 #include "simulation/stfintegrator.h"
 #include "simulation/stdqtoabc.h"
+#include "simulation/stabctodq.h"
 
 mainSimulator::mainSimulator()
 {
@@ -29,7 +31,7 @@ mainSimulator::mainSimulator()
     m_r = 1;
     m_l = 0.001;
 
-    m_simulation = 1;
+    m_simulation = 6;
 }
 
 void mainSimulator::startSimulation(void)
@@ -54,6 +56,9 @@ void mainSimulator::startSimulation(void)
         break;
     case 5:
         testSimulation5();
+        break;
+    case 6:
+        testSimulation6();
         break;
     default:
         break;
@@ -330,7 +335,7 @@ void mainSimulator::testSimulation5()
 
     // Init sink-source-transfer
 
-    STPMSMqd motor(0.2, 0.0085, 0.0085, 4, 0.175, 0.089, 0.05, m_ts, 4);
+    STPMSMdq motor(0.2, 0.0085, 0.0085, 4, 0.175, 0.089, 0.05, m_ts, 4);
     STPID idpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
     STPID iqpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
     double iqPrev = 0;
@@ -372,5 +377,70 @@ void mainSimulator::testSimulation5()
 
     sscope.scopeUpdate(m_ts);
     sscope2.scopeUpdate(m_ts);
-//    sscope3.scopeUpdate(m_ts);
+}
+
+void mainSimulator::testSimulation6()
+{
+    // Test specific initialization
+
+    // Init simulation vars
+    m_t = 0;
+    int m_step = (int)(m_duration / m_ts);
+    int m_controlStepRatio = (int)(m_tc / m_ts);
+
+    // Init sink-source-transfer
+
+    STPMSMabc motor(0.2, 0.0085, 0.0085, 4, 0.175, 0.089, 0.05, m_ts, 4);
+    STPID idpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
+    STPID iqpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
+    STabctodq abctodq;
+    STdqtoabc dqtoabc;
+    double elAnglePrev = 0;
+    double iaPrev = 0, ibPrev = 0;
+    double iqPrev = 0;
+    double iqTarg = 4.76;
+    double idPrev = 0;
+    double idTarg = 0;
+    SDataVector vqin, vdin;
+    SSScope sscope("Iqd",2);
+    SSScope sscope2("Speed - Theta", 4);
+
+    // Main cycle
+    for (int i = 0; i < m_step; i++)
+    {
+        // Execution of sink and source
+
+        if ((i % m_controlStepRatio) == 0)
+        {
+            // Execution of control cycle
+            SDataVector idq = abctodq.execute(SDataVector(iaPrev, ibPrev, elAnglePrev));
+
+            idPrev = idq.data(0, 0);
+            iqPrev = idq.data(0, 1);
+
+            double err;
+            err = idTarg - idPrev;
+            vdin = idpid.execute(err);
+
+            err = iqTarg - iqPrev;
+            vqin = iqpid.execute(err);
+        }
+
+        SDataVector vin = SDataVector(vdin, vqin, elAnglePrev);
+        vin = dqtoabc.execute(vin);
+
+        PMSMVars iW = motor.execute(vin);
+        sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
+
+        idPrev = iW.data(0,0);
+        iqPrev = iW.data(0,1);
+
+        sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
+
+        // Update of simutaion variables
+        m_t += m_ts;
+    }
+
+    sscope.scopeUpdate(m_ts);
+    sscope2.scopeUpdate(m_ts);
 }
