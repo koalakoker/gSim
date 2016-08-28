@@ -18,10 +18,11 @@ public:
 
 private slots:
     void on_startSimulation_clicked();
+    void updateProgress(double percentage);
 
 private:
     Ui::gSim *ui;
-    mainSimulator sim;
+    mainSimulator m_sim;
 };
 
 #endif // GSIM_H

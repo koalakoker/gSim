@@ -428,6 +428,9 @@ void mainSimulator::testSimulation6()
 
         // Update of simutaion variables
         m_t += m_ts;
+
+        // Update progress
+        emit updateProgress((double)(i+1)/(double)m_step);
     }
 
     sscope.scopeUpdate(m_ts);

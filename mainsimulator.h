@@ -1,11 +1,15 @@
 #ifndef MAINSIMULATOR_H
 #define MAINSIMULATOR_H
 
-class mainSimulator
+#include <QObject>
+
+class mainSimulator : public QObject
 {
+    Q_OBJECT
+
 public:
     mainSimulator();
-    void startSimulation(void);
+
     double duration(){return m_duration;}
     void setDuration(double duration){m_duration = duration;}
     double simulationTime(){return m_ts;}
@@ -37,6 +41,12 @@ private:
     void testSimulation4();
     void testSimulation5();
     void testSimulation6();
+
+public slots:
+    void startSimulation(void);
+
+signals:
+    void updateProgress(double percentage);
 };
 
 #endif // MAINSIMULATOR_H
