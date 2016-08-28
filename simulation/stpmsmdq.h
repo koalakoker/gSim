@@ -3,6 +3,7 @@
 
 #include "simulation/stransfer.h"
 #include "simulation/stfintegrator.h"
+#include "simulation/pmsmvars.h"
 
 class STPMSMdq : public STransfer
 {
@@ -12,6 +13,8 @@ public:
              DiscreteTimeTransformType_t transform = BackwardEuler);
 
     SDataVector execute(SDataVector in); // in have single inputs (slot) with two value vd [0,0] and vq [0,1]
+
+    PMSMVars& vars() {return m_vars;}
 
 private:
     double m_rs;
@@ -23,33 +26,14 @@ private:
     double m_friction;
     double m_brakeTorque;
 
-    // State variables
-    double m_idPrev;
-    double m_iqPrev;
-    double m_wPrev;
+    // Vars
+    PMSMVars m_vars;
 
     // Integrators
     STFIntegrator m_idIntTF;
     STFIntegrator m_iqIntTF;
     STFIntegrator m_wIntTF;
     STFIntegrator m_thIntTF;
-};
-
-class PMSMVars : public SDataVector
-{
-public:
-    PMSMVars();
-    PMSMVars(SDataVector dv);
-
-    SDataVector toDataVector();
-
-    double Iq;
-    double Id;
-    double T;
-    double Wm;
-    double We;
-    double MechAngle;
-    double ElAngle;
 };
 
 #endif // STPMSMDQ_H

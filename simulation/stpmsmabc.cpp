@@ -3,7 +3,7 @@
 STPMSMabc::STPMSMabc(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
                      double brakeTorque,
                      DiscreteTimeTransformType_t transform) :
-                     m_PMSMdq(rs, ld, lq, polesPairs, magnetFlux, inertia, friction, ts, brakeTorque, transform), m_elAnglePrev(0)
+                     m_PMSMdq(rs, ld, lq, polesPairs, magnetFlux, inertia, friction, ts, brakeTorque, transform)
 {
 
 }
@@ -14,11 +14,12 @@ SDataVector STPMSMabc::execute(SDataVector in) // in have single inputs (slot) w
     double vb = in.data(0,1);
     //double vc = in.data(0,2);
 
-    SDataVector vdq = m_abctodq.execute(SDataVector(va, vb, m_elAnglePrev));
-    PMSMVars v = m_PMSMdq.execute(vdq);
-    m_elAnglePrev = v.ElAngle;
-    SDataVector idq = SDataVector(v.Id, v.Iq, m_elAnglePrev);
+    SDataVector vdq = m_abctodq.execute(SDataVector(va, vb, m_vars.ElAngle));
+    m_vars = m_PMSMdq.execute(vdq);
+    SDataVector idq = SDataVector(m_vars.Id, m_vars.Iq, m_vars.ElAngle);
     SDataVector iabc = m_dqtoabc.execute(idq);
+    m_vars.Ia = iabc.data(0, 0);
+    m_vars.Ib = iabc.data(0, 1);
 
-    return iabc;
+    return m_vars.toDataVector();
 }

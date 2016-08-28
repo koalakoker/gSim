@@ -5,6 +5,7 @@
 #include "simulation/stpmsmdq.h"
 #include "simulation/stabctodq.h"
 #include "simulation/stdqtoabc.h"
+#include "simulation/pmsmvars.h"
 
 class STPMSMabc : public STransfer
 {
@@ -15,10 +16,11 @@ public:
 
     SDataVector execute(SDataVector in); // in have single inputs (slot) with three value va [0,0], vb [0,1] and vb [0,2]
 
+    PMSMVars& vars() {return m_vars;}
+
 private:
     STPMSMdq m_PMSMdq;
-
-    double m_elAnglePrev;
+    PMSMVars m_vars;
 
     STabctodq m_abctodq;
     STdqtoabc m_dqtoabc;

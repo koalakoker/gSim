@@ -395,15 +395,11 @@ void mainSimulator::testSimulation6()
     STPID iqpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
     STabctodq abctodq;
     STdqtoabc dqtoabc;
-    double elAnglePrev = 0;
-    double iaPrev = 0, ibPrev = 0;
-    double iqPrev = 0;
-    double iqTarg = 4.76;
-    double idPrev = 0;
     double idTarg = 0;
-    SDataVector vqin, vdin;
+    double iqTarg = 4.76;
     SSScope sscope("Iqd",2);
     SSScope sscope2("Speed - Theta", 4);
+    SDataVector vqin, vdin;
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
@@ -413,28 +409,27 @@ void mainSimulator::testSimulation6()
         if ((i % m_controlStepRatio) == 0)
         {
             // Execution of control cycle
-            SDataVector idq = abctodq.execute(SDataVector(iaPrev, ibPrev, elAnglePrev));
+            double id;
+            double iq;
 
-            idPrev = idq.data(0, 0);
-            iqPrev = idq.data(0, 1);
+            SDataVector idq = abctodq.execute(SDataVector(motor.vars().Ia, motor.vars().Ib, motor.vars().ElAngle));
+
+            id = idq.data(0, 0);
+            iq = idq.data(0, 1);
 
             double err;
-            err = idTarg - idPrev;
+            err = idTarg - id;
             vdin = idpid.execute(err);
 
-            err = iqTarg - iqPrev;
+            err = iqTarg - iq;
             vqin = iqpid.execute(err);
         }
 
-        SDataVector vin = SDataVector(vdin, vqin, elAnglePrev);
+        SDataVector vin = SDataVector(vdin, vqin, motor.vars().ElAngle);
         vin = dqtoabc.execute(vin);
 
         PMSMVars iW = motor.execute(vin);
         sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
-
-        idPrev = iW.data(0,0);
-        iqPrev = iW.data(0,1);
-
         sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
 
         // Update of simutaion variables
