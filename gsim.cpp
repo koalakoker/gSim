@@ -1,3 +1,4 @@
+#include <QTime>
 #include "gsim.h"
 #include "ui_gsim.h"
 
@@ -31,6 +32,9 @@ gSim::~gSim()
 
 void gSim::on_startSimulation_clicked()
 {
+    QTime t;
+    t.start();
+
     m_sim.setDuration(ui->duration->value());
     m_sim.setSimulationTime(ui->stepTime->value());
     m_sim.setControlTime(ui->controlTime->value());
@@ -42,6 +46,8 @@ void gSim::on_startSimulation_clicked()
     m_sim.m_l = ui->L->value();
     m_sim.m_simulation = ui->simulation->value();
     m_sim.startSimulation();
+
+    ui->simInfo->setText(QString("Time elapsed: %1 s").arg((double)t.elapsed()/1000));
 }
 
 void gSim::updateProgress(double percentage)

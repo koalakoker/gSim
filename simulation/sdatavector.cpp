@@ -2,7 +2,7 @@
 
 SDataVector::SDataVector()
 {
-    m_data = QVector<SData>(1);
+    m_data = QVector<SData>(0);
 }
 
 SDataVector::SDataVector(SData d)
