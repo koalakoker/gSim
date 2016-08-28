@@ -11,8 +11,7 @@ public:
     SDataVector execute(SDataVector in);
 
 private:
-    double m_s23;
-    double m_23p;
+    double m_s3_2;
 };
 
 #endif // STDQTOABC_H

@@ -6,7 +6,7 @@
 class PMSMVars : public SDataVector
 {
 public:
-    PMSMVars();
+    PMSMVars() : SDataVector(), Ia(0), Ib(0), Iq(0), Id(0), T(0), Wm(0), We(0), MechAngle(0), ElAngle(0) {}
     PMSMVars(SDataVector dv);
 
     SDataVector toDataVector();

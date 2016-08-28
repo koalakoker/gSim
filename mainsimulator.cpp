@@ -338,9 +338,7 @@ void mainSimulator::testSimulation5()
     STPMSMdq motor(0.2, 0.0085, 0.0085, 4, 0.175, 0.089, 0.05, m_ts, 4);
     STPID idpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
     STPID iqpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
-    double iqPrev = 0;
     double iqTarg = 4.76;
-    double idPrev = 0;
     double idTarg = 0;
     SDataVector vqin, vdin;
     SSScope sscope("Iqd",2);
@@ -355,20 +353,16 @@ void mainSimulator::testSimulation5()
         {
             // Execution of control cycle
             double err;
-            err = idTarg - idPrev;
+            err = idTarg - motor.vars().Id;
             vdin = idpid.execute(err);
 
-            err = iqTarg - iqPrev;
+            err = iqTarg - motor.vars().Iq;
             vqin = iqpid.execute(err);
         }
 
         SDataVector vin = SDataVector(vdin, vqin);
         PMSMVars iW = motor.execute(vin);
         sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
-
-        idPrev = iW.data(0,0);
-        iqPrev = iW.data(0,1);
-
         sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
 
         // Update of simutaion variables
