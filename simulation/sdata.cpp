@@ -2,25 +2,21 @@
 
 SData::SData()
 {
-    m_data = QVector<double>(0);
 }
 
 SData::SData(double d)
 {
-    m_data = QVector<double>(0);
     m_data.append(d);
 }
 
 SData::SData(double d1, double d2)
 {
-    m_data = QVector<double>(0);
     m_data.append(d1);
     m_data.append(d2);
 }
 
 SData::SData(double d1, double d2, double d3)
 {
-    m_data = QVector<double>(0);
     m_data.append(d1);
     m_data.append(d2);
     m_data.append(d3);
@@ -28,7 +24,6 @@ SData::SData(double d1, double d2, double d3)
 
 SData::SData(double d1, double d2, double d3, double d4)
 {
-    m_data = QVector<double>(0);
     m_data.append(d1);
     m_data.append(d2);
     m_data.append(d3);
@@ -37,7 +32,6 @@ SData::SData(double d1, double d2, double d3, double d4)
 
 SData::SData(double d1, double d2, double d3, double d4, double d5)
 {
-    m_data = QVector<double>(0);
     m_data.append(d1);
     m_data.append(d2);
     m_data.append(d3);
@@ -47,7 +41,6 @@ SData::SData(double d1, double d2, double d3, double d4, double d5)
 
 SData::SData(double d1, double d2, double d3, double d4, double d5, double d6)
 {
-    m_data = QVector<double>(0);
     m_data.append(d1);
     m_data.append(d2);
     m_data.append(d3);
@@ -58,7 +51,6 @@ SData::SData(double d1, double d2, double d3, double d4, double d5, double d6)
 
 SData::SData(double d1, double d2, double d3, double d4, double d5, double d6, double d7)
 {
-    m_data = QVector<double>(0);
     m_data.append(d1);
     m_data.append(d2);
     m_data.append(d3);
@@ -70,7 +62,6 @@ SData::SData(double d1, double d2, double d3, double d4, double d5, double d6, d
 
 SData::SData(double d1, double d2, double d3, double d4, double d5, double d6, double d7, double d8)
 {
-    m_data = QVector<double>(0);
     m_data.append(d1);
     m_data.append(d2);
     m_data.append(d3);
@@ -83,7 +74,6 @@ SData::SData(double d1, double d2, double d3, double d4, double d5, double d6, d
 
 SData::SData(double d1, double d2, double d3, double d4, double d5, double d6, double d7, double d8, double d9)
 {
-    m_data = QVector<double>(0);
     m_data.append(d1);
     m_data.append(d2);
     m_data.append(d3);
@@ -97,7 +87,6 @@ SData::SData(double d1, double d2, double d3, double d4, double d5, double d6, d
 
 SData::SData(double d1, double d2, double d3, double d4, double d5, double d6, double d7, double d8, double d9, double d10)
 {
-    m_data = QVector<double>(0);
     m_data.append(d1);
     m_data.append(d2);
     m_data.append(d3);

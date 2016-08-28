@@ -15,11 +15,10 @@ SDataVector STdqtoabc::execute(SDataVector in)
     double s = sin(th);
     double c = cos(th);
 
-    double xalpha = (c * xd) - (s * xq);
+    double xa = (c * xd) - (s * xq);
     double xbeta = (s * xd) + (c * xq);
 
-    double xa = xalpha;
-    double xb = ((-0.5) * xalpha) + ((m_s3_2) * xbeta);
+    double xb = ((-0.5) * xa) + ((m_s3_2) * xbeta);
     double xc = - xa - xb;
 
     return (SDataVector(xa, xb, xc));

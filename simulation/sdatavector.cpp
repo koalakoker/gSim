@@ -2,12 +2,10 @@
 
 SDataVector::SDataVector()
 {
-    m_data = QVector<SData>(0);
 }
 
 SDataVector::SDataVector(SData d)
 {
-    m_data = QVector<SData>();
     m_data.append(d);
 }
 
