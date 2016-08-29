@@ -46,7 +46,8 @@ SOURCES += main.cpp\
     simulation/stpmsmabc.cpp \
     simulation/stpmsmdq.cpp \
     simulation/stabctodq.cpp \
-    simulation/pmsmvars.cpp
+    simulation/pmsmvars.cpp \
+    simulation/smotor.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
@@ -82,7 +83,8 @@ HEADERS  += gsim.h \
     simulation/stpmsmabc.h \
     simulation/stpmsmdq.h \
     simulation/stabctodq.h \
-    simulation/pmsmvars.h
+    simulation/pmsmvars.h \
+    simulation/smotor.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \

@@ -378,7 +378,8 @@ void mainSimulator::testSimulation5()
         }
 
         SDataVector vin = SDataVector(vdin, vqin);
-        PMSMVars iW = motor.execute(vin);
+        motor.execute(vin);
+        PMSMVars iW = motor.vars();
         sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
         sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
 
@@ -442,7 +443,8 @@ void mainSimulator::testSimulation6()
         SDataVector vin = SDataVector(vdin, vqin, motor.vars().ElAngle);
         vin = dqtoabc.execute(vin);
 
-        PMSMVars iW = motor.execute(vin);
+        motor.execute(vin);
+        PMSMVars iW = motor.vars();
         sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
         sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
 

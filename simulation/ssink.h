@@ -3,7 +3,6 @@
 
 #include "selement.h"
 
-
 class SSink : public SElement
 {
 public:

@@ -8,7 +8,7 @@ STPMSMdq::STPMSMdq(double rs, double ld, double lq, double polesPairs, double ma
 {
 }
 
-SDataVector STPMSMdq::execute(SDataVector in)
+void STPMSMdq::execute(SDataVector in)
 {
     double vd = in.data(0,0);
     double vq = in.data(0,1);
@@ -30,11 +30,11 @@ SDataVector STPMSMdq::execute(SDataVector in)
     wm = m_vars.Wm = m_wIntTF.execute(dw).value();
 
     double mechAngle = m_thIntTF.execute(wm).value();
-    int p = (int)(mechAngle / M_PI);
-    mechAngle -= p * M_PI;
+    int p = (int)(mechAngle / (2 * M_PI));
+    mechAngle -= p * (2 * M_PI);
     double elAngle = mechAngle * m_polesPairs;
-    p = (int)(elAngle / M_PI);
-    elAngle -= p * M_PI;
+    p = (int)(elAngle / (2 * M_PI));
+    elAngle -= p * (2 * M_PI);
 
     m_vars.Id = id;
     m_vars.Iq = iq;
@@ -43,6 +43,4 @@ SDataVector STPMSMdq::execute(SDataVector in)
     m_vars.We = wm * m_polesPairs;
     m_vars.MechAngle = mechAngle;
     m_vars.ElAngle = elAngle;
-
-    return m_vars.toDataVector();
 }

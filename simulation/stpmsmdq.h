@@ -1,18 +1,18 @@
 #ifndef STPMSMDQ_H
 #define STPMSMDQ_H
 
-#include "simulation/stransfer.h"
+#include "simulation/smotor.h"
 #include "simulation/stfintegrator.h"
 #include "simulation/pmsmvars.h"
 
-class STPMSMdq : public STransfer
+class STPMSMdq : public SMotor
 {
 public:
     STPMSMdq(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
              double brakeTorque = 0,
              DiscreteTimeTransformType_t transform = BackwardEuler);
 
-    SDataVector execute(SDataVector in); // in have single inputs (slot) with two value vd [0,0] and vq [0,1]
+    void execute(SDataVector in); // in have single inputs (slot) with two value vd [0,0] and vq [0,1]
 
     PMSMVars& vars() {return m_vars;}
 
