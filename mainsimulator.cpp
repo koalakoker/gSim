@@ -482,12 +482,14 @@ void mainSimulator::testSimulation7()
     STPID iqpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
     STabctodq abctodq;
     STdqtoalphabeta dqtoalphabeta;
+    STdqtoabc dqtoabc;
     STSVM svm;
     double idTarg = 0;
     double iqTarg = 4.76;
     SSScope sscope("Iqd",2);
     SSScope sscope2("Speed - Theta", 4);
-    SSScope sscope3("Vabc", 3);
+    SSScope sscope3("Vabc SVM", 3);
+    SSScope sscope4("Vabc", 3);
     SDataVector vqin, vdin;
 
     // Main cycle
@@ -517,7 +519,9 @@ void mainSimulator::testSimulation7()
         SDataVector vdq = SDataVector(vdin, vqin, motor.vars().ElAngle);
         SDataVector valphabeta = dqtoalphabeta.execute(vdq); // Rev Park
         SDataVector vabc = svm.execute(valphabeta);
-        motor.execute(vabc);
+        SDataVector vabc2 = dqtoabc.execute(vdq);
+        sscope4.execute(m_t, vabc2);
+        motor.execute(vabc2);
         sscope3.execute(m_t, vabc);
         PMSMVars iW = motor.vars();
         sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
@@ -533,4 +537,5 @@ void mainSimulator::testSimulation7()
     sscope.scopeUpdate(m_ts);
     sscope2.scopeUpdate(m_ts);
     sscope3.scopeUpdate(m_ts);
+    sscope4.scopeUpdate(m_ts);
 }
