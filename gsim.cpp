@@ -6,8 +6,13 @@ gSim::gSim(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::gSim)
 {
+    // Create all possible specific parameters to be shown in the Dyamic Layout
     sspEmpty = new SpecificSimParamsEmpty();
+
     sspT8 = new SpecificSimParamsTest8();
+    sspT8->setExcFreq(m_sim.m_t8_exc_freq);
+    sspT8->setExcAmpl(m_sim.m_t8_exc_ampl);
+
     lastSetWidget = NULL;
 
     ui->setupUi(this);
@@ -15,15 +20,6 @@ gSim::gSim(QWidget *parent) :
     ui->duration->setValue(m_sim.duration());
     ui->stepTime->setValue(m_sim.simulationTime());
     ui->controlTime->setValue(m_sim.controlTime());
-
-//    ui->kp->setValue(m_sim.m_pi_kp);
-//    ui->ki->setValue(m_sim.m_pi_ki);
-//    ui->kd->setValue(m_sim.m_pi_kd);
-//    ui->N->setValue(m_sim.m_pi_n);
-
-//    ui->R->setValue(m_sim.m_r);
-//    ui->L->setValue(m_sim.m_l);
-
     ui->simulation->setValue(m_sim.m_simulation);
 
     connect(&m_sim, SIGNAL(updateProgress(double)), this, SLOT(updateProgress(double)));
@@ -42,12 +38,11 @@ void gSim::on_startSimulation_clicked()
     m_sim.setDuration(ui->duration->value());
     m_sim.setSimulationTime(ui->stepTime->value());
     m_sim.setControlTime(ui->controlTime->value());
-//    m_sim.m_pi_kp = ui->kp->value();
-//    m_sim.m_pi_ki = ui->ki->value();
-//    m_sim.m_pi_kd = ui->kd->value();
-//    m_sim.m_pi_n = ui->N->value();
-//    m_sim.m_r = ui->R->value();
-//    m_sim.m_l = ui->L->value();
+
+    // Update specific params for Test 8
+    m_sim.m_t8_exc_freq = sspT8->getExcFreq();
+    m_sim.m_t8_exc_ampl = sspT8->getExcAmpl();
+
     m_sim.m_simulation = ui->simulation->value();
     m_sim.startSimulation();
 

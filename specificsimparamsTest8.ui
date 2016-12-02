@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SpecificSimParams</class>
- <widget class="QWidget" name="SpecificSimParams">
+ <class>SpecificSimParamsTest8</class>
+ <widget class="QWidget" name="SpecificSimParamsTest8">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,9 +16,6 @@
   <layout class="QFormLayout" name="formLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="1">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
-     </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
@@ -27,7 +24,14 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSpinBox" name="spinBox"/>
+      <widget class="QSpinBox" name="excFreq">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>30000</number>
+       </property>
+      </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_3">
@@ -54,6 +58,16 @@
       <widget class="QLabel" name="label_5">
        <property name="text">
         <string>Vpk</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QSpinBox" name="excAmp">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>25</number>
        </property>
       </widget>
      </item>
