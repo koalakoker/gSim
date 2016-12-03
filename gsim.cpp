@@ -1,6 +1,8 @@
 #include <QTime>
 #include "gsim.h"
 #include "ui_gsim.h"
+#include "simulationTemplates/simulationModel7.h"
+#include "simulationTemplates/simulationView7.h"
 #include "simulationTemplates/simulationModel8.h"
 #include "simulationTemplates/simulationView8.h"
 
@@ -17,11 +19,6 @@ gSim::gSim(QWidget *parent) :
     ui->setupUi(this);
 
     setSimulation(DEFAULT_SIMULATION); /* To be called after UI setup */
-
-    ui->duration->setValue(m_simModel->duration());
-    ui->stepTime->setValue(m_simModel->simulationTime());
-    ui->controlTime->setValue(m_simModel->controlTime());
-    ui->simulation->setValue(m_simModel->m_simulation);
 
     connect(m_simModel, SIGNAL(updateProgress(double)), this, SLOT(updateProgress(double)));
 }
@@ -89,6 +86,14 @@ void gSim::setSimulation(int arg)
 
         switch (arg)
         {
+        case 7:
+        {
+            m_simModel = new simulationModel7(); /* Create simulation model */
+            m_simView = new simulationView7(); /* Create simulation view */
+            m_simView->setSimulationModel(m_simModel); /* Set simulation model */
+            m_simView->updateView(); /* Update view values according model */
+        }
+            break;
         case 8:
         {
             m_simModel = new simulationModel8(); /* Create simulation model */
@@ -107,5 +112,10 @@ void gSim::setSimulation(int arg)
         lastSetWidget = m_simView;
         ui->dynamicLayout->addWidget(lastSetWidget);
         lastSetWidget->show();
+
+        /* Update common settings */
+        ui->duration->setValue(m_simModel->duration());
+        ui->stepTime->setValue(m_simModel->simulationTime());
+        ui->controlTime->setValue(m_simModel->controlTime());
     }
 }

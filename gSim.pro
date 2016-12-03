@@ -53,7 +53,9 @@ SOURCES += main.cpp\
     simulationTemplates/baseSimualtionView.cpp \
     simulationTemplates/baseSimulationModel.cpp \
     simulationTemplates/simulationModel8.cpp \
-    simulationTemplates/simulationView8.cpp
+    simulationTemplates/simulationView8.cpp \
+    simulationTemplates/simulationModel7.cpp \
+    simulationTemplates/simulationView7.cpp
 
 HEADERS  += gsim.h \
     qcustomplot.h \
@@ -96,14 +98,17 @@ HEADERS  += gsim.h \
     simulationTemplates/baseSimulationModel.h \
     simulationTemplates/baseSimulationView.h \
     simulationTemplates/simulationModel8.h \
-    simulationTemplates/simulationView8.h
+    simulationTemplates/simulationView8.h \
+    simulationTemplates/simulationModel7.h \
+    simulationTemplates/simulationView7.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \
     wscope/waxisctrl.ui \
     wscope/wcursorctrl.ui \
     simulationTemplates/simulationView8.ui \
-    simulationTemplates/baseSimulationView.ui
+    simulationTemplates/baseSimulationView.ui \
+    simulationTemplates/simulationView7.ui
 
 RESOURCES += \
     resource.qrc
