@@ -19,8 +19,6 @@ gSim::gSim(QWidget *parent) :
     ui->setupUi(this);
 
     setSimulation(DEFAULT_SIMULATION); /* To be called after UI setup */
-
-    connect(m_simModel, SIGNAL(updateProgress(double)), this, SLOT(updateProgress(double)));
 }
 
 gSim::~gSim()
@@ -117,5 +115,7 @@ void gSim::setSimulation(int arg)
         ui->duration->setValue(m_simModel->duration());
         ui->stepTime->setValue(m_simModel->simulationTime());
         ui->controlTime->setValue(m_simModel->controlTime());
+
+        connect(m_simModel, SIGNAL(updateProgress(double)), this, SLOT(updateProgress(double)));
     }
 }
