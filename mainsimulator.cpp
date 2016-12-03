@@ -489,7 +489,11 @@ void mainSimulator::testSimulation7()
     SSScope sscope("Iqd",2);
     SSScope sscope2("Speed - Theta", 4);
     SSScope sscope3("Vabc SVM", 3);
+    SSScope sscope3_2("Vabc SVM", 3);
     SSScope sscope4("Vabc", 3);
+    SSScope sscope5("Vdq", 2);
+    SSScope sscope6("Vdq svm", 2);
+    SSScope sscope7("V0", 1);
     SDataVector vqin, vdin;
 
     // Main cycle
@@ -517,12 +521,30 @@ void mainSimulator::testSimulation7()
         }
 
         SDataVector vdq = SDataVector(vdin, vqin, motor.vars().ElAngle);
+        sscope5.execute(m_t, SDataVector(vdin, vqin));
+
         SDataVector valphabeta = dqtoalphabeta.execute(vdq); // Rev Park
         SDataVector vabc = svm.execute(valphabeta);
+        sscope3.execute(m_t, vabc);
+
+        double Va = vabc.data(0, 0);
+        double Vb = vabc.data(0, 1);
+        double Vc = vabc.data(0, 2);
+        double Vo = Va + Vb + Vc;
+        double va = Va - Vo;
+        double vb = Vb - Vo;
+        double vc = Vc - Vo;
+        sscope7.execute(m_t, Vo);
+        sscope3_2.execute(m_t, SDataVector(va, vb, vc));
+
+        SDataVector vdqsvm = abctodq.execute(SDataVector(vabc.data(0, 0) - Vo, vabc.data(0, 1) - Vo, motor.vars().ElAngle));
+        sscope6.execute(m_t, vdqsvm);
+
         SDataVector vabc2 = dqtoabc.execute(vdq);
         sscope4.execute(m_t, vabc2);
+
         motor.execute(vabc2);
-        sscope3.execute(m_t, vabc);
+
         PMSMVars iW = motor.vars();
         sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
         sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
@@ -537,5 +559,9 @@ void mainSimulator::testSimulation7()
     sscope.scopeUpdate(m_ts);
     sscope2.scopeUpdate(m_ts);
     sscope3.scopeUpdate(m_ts);
+    sscope3_2.scopeUpdate(m_ts);
     sscope4.scopeUpdate(m_ts);
+    sscope5.scopeUpdate(m_ts);
+    sscope6.scopeUpdate(m_ts);
+    sscope7.scopeUpdate(m_ts);
 }
