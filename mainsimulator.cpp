@@ -602,12 +602,18 @@ void mainSimulator::initSimulation8()
     /* Specific params for simulation 8 */
     m_t8_exc_freq = 1000;
     m_t8_exc_ampl = 15;
+    m_t8_motSpeedRads = 400;
+    m_t8_sin_att = 0.8;
+    m_t8_sin_delay = 0.0;
+    m_t8_sin_offset = 0.0;
+    m_t8_cos_att = 0.8;
+    m_t8_cos_delay = 0.0;
+    m_t8_cos_offset = 0.0;
 }
 
 void mainSimulator::testSimulation8()
 {
     // Test specific initialization
-    double m_t8_exc_att = 0.8;
     double theta = 0;
 
     // Init simulation vars
@@ -617,22 +623,22 @@ void mainSimulator::testSimulation8()
     // Init sink-source-transfer
     SSScope sscope("Exciting signal",1);
     SSScope sscope2("Output signals",2);
-    SSScope sscope3("Theta",1);
+    //SSScope sscope3("Theta",1);
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
     {
         // Execution of sink and source
-        theta = m_t * 100;
+        theta = m_t * m_t8_motSpeedRads;
         double exc_sinwt = m_t8_exc_ampl * sin(2 * M_PI * m_t8_exc_freq * m_t);
-        double sinTheta = sin(theta);
-        double cosTheta = cos(theta);
-        double secondarySin = m_t8_exc_att * exc_sinwt * sinTheta;
-        double secondaryCos = m_t8_exc_att * exc_sinwt * cosTheta;
+        double sinTheta = sin(theta + m_t8_sin_delay);
+        double cosTheta = cos(theta + m_t8_sin_delay);
+        double secondarySin = (m_t8_sin_att * exc_sinwt * sinTheta) + m_t8_sin_offset;
+        double secondaryCos = (m_t8_cos_att * exc_sinwt * cosTheta) + m_t8_sin_offset;
 
         sscope.execute(m_t, SDataVector(exc_sinwt));
         sscope2.execute(m_t, SDataVector(secondarySin, secondaryCos));
-        sscope3.execute(m_t, SDataVector(theta));
+        //sscope3.execute(m_t, SDataVector(theta));
 
 
         // Update of simutaion variables
@@ -644,5 +650,5 @@ void mainSimulator::testSimulation8()
 
     sscope.scopeUpdate(m_ts);
     sscope2.scopeUpdate(m_ts);
-    sscope3.scopeUpdate(m_ts);
+    //sscope3.scopeUpdate(m_ts);
 }

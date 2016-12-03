@@ -27,8 +27,15 @@ public:
     double m_l;
 
     /* Specific params for simulation 8 */
+    double m_t8_motSpeedRads;
     double m_t8_exc_freq;
     double m_t8_exc_ampl;
+    double m_t8_sin_att;
+    double m_t8_sin_delay;
+    double m_t8_sin_offset;
+    double m_t8_cos_att;
+    double m_t8_cos_delay;
+    double m_t8_cos_offset;
 
     int m_simulation;
 

@@ -16,14 +16,113 @@
   <layout class="QFormLayout" name="formLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="0">
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Hz</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>cos offset</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Exciting freq</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>Exciting amplitude</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
+     <item row="5" column="1">
+      <widget class="QDoubleSpinBox" name="sinDelay"/>
+     </item>
+     <item row="8" column="1">
+      <widget class="QDoubleSpinBox" name="cosDelay"/>
+     </item>
+     <item row="9" column="1">
+      <widget class="QDoubleSpinBox" name="cosOffset"/>
+     </item>
+     <item row="6" column="1">
+      <widget class="QDoubleSpinBox" name="sinOffset"/>
+     </item>
+     <item row="5" column="2">
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>rad</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="2">
+      <widget class="QLabel" name="label_13">
+       <property name="text">
+        <string>V</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="2">
+      <widget class="QLabel" name="label_14">
+       <property name="text">
+        <string>rad</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="2">
+      <widget class="QLabel" name="label_15">
+       <property name="text">
+        <string>V</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Vpk</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>cos delay</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QSpinBox" name="excAmp">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>25</number>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>sin attenuation</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Motor speed</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
       <widget class="QSpinBox" name="excFreq">
        <property name="minimum">
         <number>1</number>
@@ -33,43 +132,46 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Exciting freq</string>
+     <item row="0" column="1">
+      <widget class="QSpinBox" name="motSpeedRads">
+       <property name="maximum">
+        <number>10000</number>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label">
+     <item row="4" column="1">
+      <widget class="QDoubleSpinBox" name="sinAttenuation"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>TextLabel</string>
+        <string>sin delay</string>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>Hz</string>
+        <string>rad/s</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QLabel" name="label_5">
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_9">
        <property name="text">
-        <string>Vpk</string>
+        <string>sin offset</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QSpinBox" name="excAmp">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>25</number>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_16">
+       <property name="text">
+        <string>cos attenuation</string>
        </property>
       </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QDoubleSpinBox" name="cosAttenuation"/>
      </item>
     </layout>
    </item>

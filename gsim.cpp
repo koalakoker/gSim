@@ -10,8 +10,15 @@ gSim::gSim(QWidget *parent) :
     sspEmpty = new SpecificSimParamsEmpty();
 
     sspT8 = new SpecificSimParamsTest8();
+    sspT8->setMotSpeedRads(m_sim.m_t8_motSpeedRads);
     sspT8->setExcFreq(m_sim.m_t8_exc_freq);
     sspT8->setExcAmpl(m_sim.m_t8_exc_ampl);
+    sspT8->setSinAttenuation(m_sim.m_t8_sin_att);
+    sspT8->setSinDelay(m_sim.m_t8_sin_delay);
+    sspT8->setSinOffset(m_sim.m_t8_sin_offset);
+    sspT8->setCosAttenuation(m_sim.m_t8_cos_att);
+    sspT8->setCosDelay(m_sim.m_t8_cos_delay);
+    sspT8->setCosOffset(m_sim.m_t8_cos_offset);
 
     lastSetWidget = NULL;
 
@@ -40,8 +47,15 @@ void gSim::on_startSimulation_clicked()
     m_sim.setControlTime(ui->controlTime->value());
 
     // Update specific params for Test 8
+    m_sim.m_t8_motSpeedRads = sspT8->getMotSpeedRads();
     m_sim.m_t8_exc_freq = sspT8->getExcFreq();
     m_sim.m_t8_exc_ampl = sspT8->getExcAmpl();
+    m_sim.m_t8_sin_att = sspT8->getSinAttenuation();
+    m_sim.m_t8_sin_delay = sspT8->getSinDelay();
+    m_sim.m_t8_sin_offset = sspT8->getSinOffset();
+    m_sim.m_t8_cos_att = sspT8->getCosAttenuation();
+    m_sim.m_t8_cos_delay = sspT8->getCosDelay();
+    m_sim.m_t8_cos_offset = sspT8->getCosOffset();
 
     m_sim.m_simulation = ui->simulation->value();
     m_sim.startSimulation();
