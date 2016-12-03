@@ -1,9 +1,9 @@
 #ifndef STFDERIVATORFITERED_H
 #define STFDERIVATORFITERED_H
 
-#include "simulation/stransfer.h"
-#include "simulation/stfdiscretefirstorder.h"
-#include "simulation/discretetimetransformtype.h"
+#include "simulationModules/stransfer.h"
+#include "simulationModules/stfdiscretefirstorder.h"
+#include "simulationModules/discretetimetransformtype.h"
 
 class STFDerivatorFitered : public STransfer
 {

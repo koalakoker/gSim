@@ -2,9 +2,8 @@
 #define GSIM_H
 
 #include <QMainWindow>
-#include "mainsimulation.h"
-#include "specificsimparamsempty.h"
-#include "specificsimparamsTest8.h"
+#include "simulationTemplates/baseSimulationModel.h"
+#include "simulationTemplates/baseSimulationView.h"
 
 namespace Ui {
 class gSim;
@@ -26,13 +25,13 @@ private slots:
 
 private:
     Ui::gSim *ui;
-    mainSimulation* m_sim;
 
-    SpecificSimParamsEmpty* sspEmpty;
-    SpecificSimParamsTest8* sspT8;
+    baseSimulationModel* m_simModel;
+    baseSimulationView* m_simView;
+
     QWidget* lastSetWidget;
 
-    void updateSpecificSimParams(QWidget* newWid);
+    void setSimulation(int arg);
 
 };
 

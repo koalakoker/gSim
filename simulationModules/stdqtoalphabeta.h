@@ -1,7 +1,7 @@
 #ifndef STDQTOALPHABETA_H
 #define STDQTOALPHABETA_H
 
-#include "simulation/stransfer.h"
+#include "simulationModules/stransfer.h"
 
 class STdqtoalphabeta : public STransfer
 {

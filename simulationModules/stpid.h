@@ -1,9 +1,9 @@
 #ifndef STPID_H
 #define STPID_H
 
-#include "simulation/stransfer.h"
-#include "simulation/stfintegrator.h"
-#include "simulation/stfderivatorfitered.h"
+#include "simulationModules/stransfer.h"
+#include "simulationModules/stfintegrator.h"
+#include "simulationModules/stfderivatorfitered.h"
 
 class STPID : public STransfer
 {

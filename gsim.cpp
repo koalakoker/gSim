@@ -1,31 +1,28 @@
 #include <QTime>
 #include "gsim.h"
 #include "ui_gsim.h"
-#include "simulation8.h"
+#include "simulationTemplates/simulationModel8.h"
+#include "simulationTemplates/simulationView8.h"
+
+#define DEFAULT_SIMULATION 0
 
 gSim::gSim(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::gSim)
 {
-    m_sim = new simulation8(); /* Create simulation model */
-
-    // Create all possible specific parameters to be shown in the Dyamic Layout
-    sspEmpty = new SpecificSimParamsEmpty();
-
-    sspT8 = new SpecificSimParamsTest8(); /* Create simulation view */
-    sspT8->setSimulationModel(m_sim); /* Set simulation model */
-    sspT8->updateView(); /* Update view values according model */
-
+    m_simModel = NULL;
     lastSetWidget = NULL;
 
     ui->setupUi(this);
 
-    ui->duration->setValue(m_sim->duration());
-    ui->stepTime->setValue(m_sim->simulationTime());
-    ui->controlTime->setValue(m_sim->controlTime());
-    ui->simulation->setValue(m_sim->m_simulation);
+    setSimulation(DEFAULT_SIMULATION); /* To be called after UI setup */
 
-    connect(m_sim, SIGNAL(updateProgress(double)), this, SLOT(updateProgress(double)));
+    ui->duration->setValue(m_simModel->duration());
+    ui->stepTime->setValue(m_simModel->simulationTime());
+    ui->controlTime->setValue(m_simModel->controlTime());
+    ui->simulation->setValue(m_simModel->m_simulation);
+
+    connect(m_simModel, SIGNAL(updateProgress(double)), this, SLOT(updateProgress(double)));
 }
 
 gSim::~gSim()
@@ -38,15 +35,15 @@ void gSim::on_startSimulation_clicked()
     QTime t;
     t.start();
 
-    m_sim->setDuration(ui->duration->value());
-    m_sim->setSimulationTime(ui->stepTime->value());
-    m_sim->setControlTime(ui->controlTime->value());
+    m_simModel->setDuration(ui->duration->value());
+    m_simModel->setSimulationTime(ui->stepTime->value());
+    m_simModel->setControlTime(ui->controlTime->value());
 
-    // Update specific params for Test 8
-    sspT8->updateModel(); /* Update model before to start simulation */
+    // Update specific params
+    m_simView->updateModel(); /* Update model before to start simulation */
 
-    m_sim->m_simulation = ui->simulation->value();
-    m_sim->startSimulation();
+    m_simModel->m_simulation = ui->simulation->value();
+    m_simModel->startSimulation();
 
     ui->simInfo->setText(QString("Time elapsed: %1 s").arg((double)t.elapsed()/1000));
 }
@@ -58,28 +55,40 @@ void gSim::updateProgress(double percentage)
 
 void gSim::on_simulation_valueChanged(int arg1)
 {
-    switch (arg1) {
-    case 8:
-        {
-            updateSpecificSimParams(sspT8);
-        }
-        break;
-    default:
-    {
-        updateSpecificSimParams(sspEmpty);
-    }
-        break;
-    }
+    setSimulation(arg1);
 }
 
-void gSim::updateSpecificSimParams(QWidget* newWid)
+void gSim::setSimulation(int arg)
 {
     if (lastSetWidget != NULL)
     {
         ui->dynamicLayout->removeWidget(lastSetWidget);
         lastSetWidget->hide();
     }
-    lastSetWidget = newWid;
+
+    if (m_simModel)
+    {
+        delete m_simModel;
+    }
+
+    switch (arg)
+    {
+    case 8:
+    {
+        m_simModel = new simulationModel8(); /* Create simulation model */
+        m_simView = new simulationView8(); /* Create simulation view */
+        m_simView->setSimulationModel(m_simModel); /* Set simulation model */
+        m_simView->updateView(); /* Update view values according model */
+    }
+        break;
+    default:
+    {
+        m_simModel = new baseSimulationModel(); /* Create simulation model */
+        m_simView = new baseSimulationView(); /* Create simulation view */
+    }
+    }
+
+    lastSetWidget = m_simView;
     ui->dynamicLayout->addWidget(lastSetWidget);
     lastSetWidget->show();
 }

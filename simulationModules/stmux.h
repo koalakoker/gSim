@@ -1,7 +1,7 @@
 #ifndef STMUX_H
 #define STMUX_H
 
-#include "simulation/stransfer.h"
+#include "simulationModules/stransfer.h"
 
 class STMux : public STransfer
 {

@@ -1,9 +1,9 @@
 #ifndef STPMSMDQ_H
 #define STPMSMDQ_H
 
-#include "simulation/smotor.h"
-#include "simulation/stfintegrator.h"
-#include "simulation/pmsmvars.h"
+#include "simulationModules/smotor.h"
+#include "simulationModules/stfintegrator.h"
+#include "simulationModules/pmsmvars.h"
 
 class STPMSMdq : public SMotor
 {

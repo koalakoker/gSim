@@ -1,7 +1,7 @@
 #ifndef STARITMETIC_H
 #define STARITMETIC_H
 
-#include "simulation/stransferbinary.h"
+#include "simulationModules/stransferbinary.h"
 
 class STAritmetic : public STransferBinary
 {
