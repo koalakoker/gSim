@@ -11,6 +11,7 @@ gSim::gSim(QWidget *parent) :
     ui(new Ui::gSim)
 {
     m_simModel = NULL;
+    m_simView = NULL;
     lastSetWidget = NULL;
 
     ui->setupUi(this);
@@ -60,35 +61,51 @@ void gSim::on_simulation_valueChanged(int arg1)
 
 void gSim::setSimulation(int arg)
 {
-    if (lastSetWidget != NULL)
-    {
-        ui->dynamicLayout->removeWidget(lastSetWidget);
-        lastSetWidget->hide();
-    }
-
+    bool change = true;
     if (m_simModel)
     {
-        delete m_simModel;
+        if (arg == m_simModel->m_simulation)
+        {
+            change = false;
+        }
     }
+    if (change)
+    {
+        if (lastSetWidget != NULL)
+        {
+            ui->dynamicLayout->removeWidget(lastSetWidget);
+            lastSetWidget->hide();
+        }
 
-    switch (arg)
-    {
-    case 8:
-    {
-        m_simModel = new simulationModel8(); /* Create simulation model */
-        m_simView = new simulationView8(); /* Create simulation view */
-        m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-        m_simView->updateView(); /* Update view values according model */
-    }
-        break;
-    default:
-    {
-        m_simModel = new baseSimulationModel(); /* Create simulation model */
-        m_simView = new baseSimulationView(); /* Create simulation view */
-    }
-    }
+        if (m_simModel)
+        {
+            delete m_simModel;
+        }
 
-    lastSetWidget = m_simView;
-    ui->dynamicLayout->addWidget(lastSetWidget);
-    lastSetWidget->show();
+        if (m_simView)
+        {
+            delete m_simView;
+        }
+
+        switch (arg)
+        {
+        case 8:
+        {
+            m_simModel = new simulationModel8(); /* Create simulation model */
+            m_simView = new simulationView8(); /* Create simulation view */
+            m_simView->setSimulationModel(m_simModel); /* Set simulation model */
+            m_simView->updateView(); /* Update view values according model */
+        }
+            break;
+        default:
+        {
+            m_simModel = new baseSimulationModel(); /* Create simulation model */
+            m_simView = new baseSimulationView(); /* Create simulation view */
+        }
+        }
+
+        lastSetWidget = m_simView;
+        ui->dynamicLayout->addWidget(lastSetWidget);
+        lastSetWidget->show();
+    }
 }
