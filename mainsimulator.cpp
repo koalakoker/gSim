@@ -20,20 +20,24 @@
 
 mainSimulator::mainSimulator()
 {
-    m_t = 0;
-    m_ts = 0.00005;
-    m_tc = 0.00005;
-    m_duration = 2;
+    // Select the simulation
+    m_simulation = 8;
 
-    m_pi_kp = 2.90663474828051;
-    m_pi_ki = 2113.6708113218;
-    m_pi_kd = 0;
-    m_pi_n = 0;
+    switch (m_simulation) {
+    case 7:
+        {
+            initSimulation7();
+        }
+        break;
+    case 8:
+        {
+            initSimulation8();
+        }
+        break;
+    default:
+        break;
+    }
 
-    m_r = 1;
-    m_l = 0.001;
-
-    m_simulation = 7;
 }
 
 void mainSimulator::startSimulation(void)
@@ -64,6 +68,9 @@ void mainSimulator::startSimulation(void)
         break;
     case 7:
         testSimulation7();
+        break;
+    case 8:
+        testSimulation8();
         break;
     default:
         break;
@@ -466,6 +473,24 @@ void mainSimulator::testSimulation6()
     sscope3.scopeUpdate(m_ts);
 }
 
+void mainSimulator::initSimulation7()
+{
+    // Parametri di default della simulazione
+    m_t = 0;
+    m_ts = 0.00005;
+    m_tc = 0.00005;
+    m_duration = 2;
+
+    // Parametri specifici della simulazione 7
+    m_pi_kp = 2.90663474828051;
+    m_pi_ki = 2113.6708113218;
+    m_pi_kd = 0;
+    m_pi_n = 0;
+
+    m_r = 1;
+    m_l = 0.001;
+}
+
 void mainSimulator::testSimulation7()
 {
     // Test specific initialization
@@ -564,4 +589,60 @@ void mainSimulator::testSimulation7()
     sscope5.scopeUpdate(m_ts);
     sscope6.scopeUpdate(m_ts);
     sscope7.scopeUpdate(m_ts);
+}
+
+void mainSimulator::initSimulation8()
+{
+    /* Default common params */
+    m_t = 0;
+    m_ts = 0.00005;
+    m_tc = 0.00005;
+    m_duration = 0.02;
+
+    /* Specific params for simulation 8 */
+    m_t8_exc_freq = 1000;
+    m_t8_exc_ampl = 15;
+}
+
+void mainSimulator::testSimulation8()
+{
+    // Test specific initialization
+    double m_t8_exc_att = 0.8;
+    double theta = 0;
+
+    // Init simulation vars
+    m_t = 0;
+    int m_step = (int)(m_duration / m_ts);
+
+    // Init sink-source-transfer
+    SSScope sscope("Exciting signal",1);
+    SSScope sscope2("Output signals",2);
+    SSScope sscope3("Theta",1);
+
+    // Main cycle
+    for (int i = 0; i < m_step; i++)
+    {
+        // Execution of sink and source
+        theta = m_t * 100;
+        double exc_sinwt = m_t8_exc_ampl * sin(2 * M_PI * m_t8_exc_freq * m_t);
+        double sinTheta = sin(theta);
+        double cosTheta = cos(theta);
+        double secondarySin = m_t8_exc_att * exc_sinwt * sinTheta;
+        double secondaryCos = m_t8_exc_att * exc_sinwt * cosTheta;
+
+        sscope.execute(m_t, SDataVector(exc_sinwt));
+        sscope2.execute(m_t, SDataVector(secondarySin, secondaryCos));
+        sscope3.execute(m_t, SDataVector(theta));
+
+
+        // Update of simutaion variables
+        m_t += m_ts;
+
+        // Update progress
+        emit updateProgress((double)(i+1)/(double)m_step);
+    }
+
+    sscope.scopeUpdate(m_ts);
+    sscope2.scopeUpdate(m_ts);
+    sscope3.scopeUpdate(m_ts);
 }

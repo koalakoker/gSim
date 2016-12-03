@@ -50,7 +50,9 @@ SOURCES += main.cpp\
     simulation/smotor.cpp \
     simulation/stdqtoalphabeta.cpp \
     simulation/svm.cpp \
-    simulation/stsvm.cpp
+    simulation/stsvm.cpp \
+    specificsimparamsTest8.cpp \
+    specificsimparamsempty.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
@@ -90,12 +92,16 @@ HEADERS  += gsim.h \
     simulation/smotor.h \
     simulation/stdqtoalphabeta.h \
     simulation/svm.h \
-    simulation/stsvm.h
+    simulation/stsvm.h \
+    specificsimparamsTest8.h \
+    specificsimparamsempty.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \
     wscope/waxisctrl.ui \
-    wscope/wcursorctrl.ui
+    wscope/wcursorctrl.ui \
+    specificsimparamsTest8.ui \
+    specificsimparamsempty.ui
 
 DISTFILES +=
 

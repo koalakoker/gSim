@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "mainsimulator.h"
+#include "specificsimparamsempty.h"
+#include "specificsimparamsTest8.h"
 
 namespace Ui {
 class gSim;
@@ -20,9 +22,18 @@ private slots:
     void on_startSimulation_clicked();
     void updateProgress(double percentage);
 
+    void on_simulation_valueChanged(int arg1);
+
 private:
     Ui::gSim *ui;
     mainSimulator m_sim;
+
+    SpecificSimParamsEmpty* sspEmpty;
+    SpecificSimParamsTest8* sspT8;
+    QWidget* lastSetWidget;
+
+    void updateSpecificSimParams(QWidget* newWid);
+
 };
 
 #endif // GSIM_H

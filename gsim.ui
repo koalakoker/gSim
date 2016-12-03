@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>522</height>
+    <height>544</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -79,115 +79,13 @@
     <item>
      <widget class="QGroupBox" name="PIParams">
       <property name="title">
-       <string>PI params</string>
+       <string>Simulation specific params</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <layout class="QFormLayout" name="formLayout_2">
+        <layout class="QFormLayout" name="dynamicLayout">
          <item row="0" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Kp</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Ki</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QDoubleSpinBox" name="kp">
-           <property name="decimals">
-            <number>10</number>
-           </property>
-           <property name="maximum">
-            <double>9999999999.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QDoubleSpinBox" name="ki">
-           <property name="decimals">
-            <number>10</number>
-           </property>
-           <property name="maximum">
-            <double>9999999999.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_8">
-           <property name="text">
-            <string>Kd</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_9">
-           <property name="text">
-            <string>N</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QDoubleSpinBox" name="kd">
-           <property name="decimals">
-            <number>10</number>
-           </property>
-           <property name="maximum">
-            <double>9999999999.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QDoubleSpinBox" name="N">
-           <property name="decimals">
-            <number>10</number>
-           </property>
-           <property name="maximum">
-            <double>9999999999.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QGroupBox" name="RLParams">
-      <property name="title">
-       <string>GroupBox</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <layout class="QFormLayout" name="formLayout_3">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>R</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>L</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QDoubleSpinBox" name="R"/>
-         </item>
-         <item row="1" column="1">
-          <widget class="QDoubleSpinBox" name="L">
-           <property name="decimals">
-            <number>5</number>
-           </property>
-          </widget>
+          <widget class="QWidget" name="specificForm" native="true"/>
          </item>
         </layout>
        </item>
