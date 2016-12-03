@@ -16,7 +16,6 @@ SOURCES += main.cpp\
         gsim.cpp \
         qcustomplot.cpp \
     wscope/wscope.cpp \
-    mainsimulator.cpp \
     mathfunction.cpp \
     wscope/waxisctrl.cpp \
     wscope/wcursorctrl.cpp \
@@ -52,12 +51,13 @@ SOURCES += main.cpp\
     simulation/svm.cpp \
     simulation/stsvm.cpp \
     specificsimparamsTest8.cpp \
-    specificsimparamsempty.cpp
+    specificsimparamsempty.cpp \
+    simulation8.cpp \
+    mainsimulation.cpp
 
 HEADERS  += gsim.h \
         qcustomplot.h \
     wscope/wscope.h \
-    mainsimulator.h \
     mathfunction.h \
     wscope/waxisctrl.h \
     wscope/wcursorctrl.h \
@@ -94,7 +94,9 @@ HEADERS  += gsim.h \
     simulation/svm.h \
     simulation/stsvm.h \
     specificsimparamsTest8.h \
-    specificsimparamsempty.h
+    specificsimparamsempty.h \
+    simulation8.h \
+    mainsimulation.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \

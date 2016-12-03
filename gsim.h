@@ -2,7 +2,7 @@
 #define GSIM_H
 
 #include <QMainWindow>
-#include "mainsimulator.h"
+#include "mainsimulation.h"
 #include "specificsimparamsempty.h"
 #include "specificsimparamsTest8.h"
 
@@ -26,7 +26,7 @@ private slots:
 
 private:
     Ui::gSim *ui;
-    mainSimulator m_sim;
+    mainSimulation* m_sim;
 
     SpecificSimParamsEmpty* sspEmpty;
     SpecificSimParamsTest8* sspT8;

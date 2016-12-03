@@ -1,15 +1,15 @@
-#ifndef MAINSIMULATOR_H
-#define MAINSIMULATOR_H
+#ifndef MAINSIMULATION_H
+#define MAINSIMULATION_H
 
 #include <QObject>
 
-class mainSimulator : public QObject
+class mainSimulation : public QObject
 {
     Q_OBJECT
 
 public:
-    mainSimulator();
-    void startSimulation(void);
+    mainSimulation();
+    virtual void startSimulation(void) = 0;
     double duration(){return m_duration;}
     void setDuration(double duration){m_duration = duration;}
     double simulationTime(){return m_ts;}
@@ -26,27 +26,15 @@ public:
     double m_r;
     double m_l;
 
-    /* Specific params for simulation 8 */
-    double m_t8_motSpeedRads;
-    double m_t8_exc_freq;
-    double m_t8_exc_ampl;
-    double m_t8_sin_att;
-    double m_t8_sin_delay;
-    double m_t8_sin_offset;
-    double m_t8_cos_att;
-    double m_t8_cos_delay;
-    double m_t8_cos_offset;
-
     int m_simulation;
 
-private:
+protected:
     double m_t;
-
     double m_ts;
     double m_tc;
     double m_duration;
 
-
+private:
     void testSimulation0();
     void testSimulation1();
     void testSimulation2();
@@ -56,11 +44,9 @@ private:
     void testSimulation6();
     void initSimulation7();
     void testSimulation7();
-    void initSimulation8();
-    void testSimulation8();
 
 signals:
     void updateProgress(double percentage);
 };
 
-#endif // MAINSIMULATOR_H
+#endif // MAINSIMULATION_H

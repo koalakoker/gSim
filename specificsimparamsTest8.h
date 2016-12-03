@@ -1,41 +1,26 @@
-#ifndef SPECIFICSIMPARAMS_H
-#define SPECIFICSIMPARAMS_H
+#ifndef SPECIFICSIMPARAMST8_H
+#define SPECIFICSIMPARAMST8_H
 
 #include <QWidget>
+#include "specificsimparamsempty.h"
 
 namespace Ui {
 class SpecificSimParamsTest8;
 }
 
-class SpecificSimParamsTest8 : public QWidget
+class SpecificSimParamsTest8 : public SpecificSimParamsEmpty
 {
     Q_OBJECT
 
 public:
-    explicit SpecificSimParamsTest8(QWidget *parent = 0);
+    explicit SpecificSimParamsTest8();
     ~SpecificSimParamsTest8();
 
-    double getMotSpeedRads();
-    double getExcFreq();
-    double getExcAmpl();
-    double getSinAttenuation();
-    double getSinDelay();
-    double getSinOffset();
-    double getCosAttenuation();
-    double getCosDelay();
-    double getCosOffset();
-    void setMotSpeedRads(double rads);
-    void setExcFreq(double freq);
-    void setExcAmpl(double ampl);
-    void setSinAttenuation(double att);
-    void setSinDelay(double rad);
-    void setSinOffset(double off);
-    void setCosAttenuation(double att);
-    void setCosDelay(double rad);
-    void setCosOffset(double off);
+    void updateView(void);
+    void updateModel(void);
 
 private:
     Ui::SpecificSimParamsTest8 *ui;
 };
 
-#endif // SPECIFICSIMPARAMS_H
+#endif // SPECIFICSIMPARAMST8_H

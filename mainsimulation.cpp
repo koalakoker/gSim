@@ -1,4 +1,4 @@
-#include "mainsimulator.h"
+#include "mainsimulation.h"
 #include "simulation/sssincos.h"
 #include "simulation/ssscope.h"
 #include "simulation/staritmetic.h"
@@ -18,66 +18,9 @@
 #include "simulation/stabctodq.h"
 #include "simulation/stsvm.h"
 
-mainSimulator::mainSimulator()
-{
-    // Select the simulation
-    m_simulation = 8;
+mainSimulation::mainSimulation() {}
 
-    switch (m_simulation) {
-    case 7:
-        {
-            initSimulation7();
-        }
-        break;
-    case 8:
-        {
-            initSimulation8();
-        }
-        break;
-    default:
-        break;
-    }
-
-}
-
-void mainSimulator::startSimulation(void)
-{
-    int simulation = m_simulation;
-
-    switch (simulation) {
-    case 0:
-        testSimulation0();
-        break;
-    case 1:
-        testSimulation1();
-        break;
-    case 2:
-        testSimulation2();
-        break;
-    case 3:
-        testSimulation3();
-        break;
-    case 4:
-        testSimulation4();
-        break;
-    case 5:
-        testSimulation5();
-        break;
-    case 6:
-        testSimulation6();
-        break;
-    case 7:
-        testSimulation7();
-        break;
-    case 8:
-        testSimulation8();
-        break;
-    default:
-        break;
-    }
-}
-
-void mainSimulator::testSimulation0()
+void mainSimulation::testSimulation0()
 {
     // Init simulation vars
     m_t = 0;
@@ -123,7 +66,7 @@ void mainSimulator::testSimulation0()
     sscope4.scopeUpdate(m_ts);
 }
 
-void mainSimulator::testSimulation1()
+void mainSimulation::testSimulation1()
 {
     // Init simulation vars
     m_t = 0;
@@ -165,7 +108,7 @@ void mainSimulator::testSimulation1()
     sscope.scopeUpdate(m_ts);
 }
 
-void mainSimulator::testSimulation2()
+void mainSimulation::testSimulation2()
 {
     // Init simulation vars
     m_t = 0;
@@ -198,7 +141,7 @@ void mainSimulator::testSimulation2()
     sscope.scopeUpdate(m_ts);
 }
 
-void mainSimulator::testSimulation3()
+void mainSimulation::testSimulation3()
 {
     // Test specific initialization
     m_ts = 0.00005;
@@ -273,7 +216,7 @@ void mainSimulator::testSimulation3()
     //sscope5.scopeUpdate(m_ts);
 }
 
-void mainSimulator::testSimulation4()
+void mainSimulation::testSimulation4()
 {
     // Test specific initialization
     m_ts = 0.00005;
@@ -353,7 +296,7 @@ void mainSimulator::testSimulation4()
     sscope3.scopeUpdate(m_ts);
 }
 
-void mainSimulator::testSimulation5()
+void mainSimulation::testSimulation5()
 {
     // Test specific initialization
 
@@ -406,7 +349,7 @@ void mainSimulator::testSimulation5()
     sscope2.scopeUpdate(m_ts);
 }
 
-void mainSimulator::testSimulation6()
+void mainSimulation::testSimulation6()
 {
     // Test specific initialization
 
@@ -473,7 +416,7 @@ void mainSimulator::testSimulation6()
     sscope3.scopeUpdate(m_ts);
 }
 
-void mainSimulator::initSimulation7()
+void mainSimulation::initSimulation7()
 {
     // Parametri di default della simulazione
     m_t = 0;
@@ -491,7 +434,7 @@ void mainSimulator::initSimulation7()
     m_l = 0.001;
 }
 
-void mainSimulator::testSimulation7()
+void mainSimulation::testSimulation7()
 {
     // Test specific initialization
 
@@ -589,66 +532,4 @@ void mainSimulator::testSimulation7()
     sscope5.scopeUpdate(m_ts);
     sscope6.scopeUpdate(m_ts);
     sscope7.scopeUpdate(m_ts);
-}
-
-void mainSimulator::initSimulation8()
-{
-    /* Default common params */
-    m_t = 0;
-    m_ts = 0.00005;
-    m_tc = 0.00005;
-    m_duration = 0.02;
-
-    /* Specific params for simulation 8 */
-    m_t8_exc_freq = 1000;
-    m_t8_exc_ampl = 15;
-    m_t8_motSpeedRads = 400;
-    m_t8_sin_att = 0.8;
-    m_t8_sin_delay = 0.0;
-    m_t8_sin_offset = 0.0;
-    m_t8_cos_att = 0.8;
-    m_t8_cos_delay = 0.0;
-    m_t8_cos_offset = 0.0;
-}
-
-void mainSimulator::testSimulation8()
-{
-    // Test specific initialization
-    double theta = 0;
-
-    // Init simulation vars
-    m_t = 0;
-    int m_step = (int)(m_duration / m_ts);
-
-    // Init sink-source-transfer
-    SSScope sscope("Exciting signal",1);
-    SSScope sscope2("Output signals",2);
-    //SSScope sscope3("Theta",1);
-
-    // Main cycle
-    for (int i = 0; i < m_step; i++)
-    {
-        // Execution of sink and source
-        theta = m_t * m_t8_motSpeedRads;
-        double exc_sinwt = m_t8_exc_ampl * sin(2 * M_PI * m_t8_exc_freq * m_t);
-        double sinTheta = sin(theta + m_t8_sin_delay);
-        double cosTheta = cos(theta + m_t8_sin_delay);
-        double secondarySin = (m_t8_sin_att * exc_sinwt * sinTheta) + m_t8_sin_offset;
-        double secondaryCos = (m_t8_cos_att * exc_sinwt * cosTheta) + m_t8_sin_offset;
-
-        sscope.execute(m_t, SDataVector(exc_sinwt));
-        sscope2.execute(m_t, SDataVector(secondarySin, secondaryCos));
-        //sscope3.execute(m_t, SDataVector(theta));
-
-
-        // Update of simutaion variables
-        m_t += m_ts;
-
-        // Update progress
-        emit updateProgress((double)(i+1)/(double)m_step);
-    }
-
-    sscope.scopeUpdate(m_ts);
-    sscope2.scopeUpdate(m_ts);
-    //sscope3.scopeUpdate(m_ts);
 }

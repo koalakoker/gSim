@@ -1,8 +1,8 @@
 #include "specificsimparamsTest8.h"
 #include "ui_specificsimparamsTest8.h"
+#include "simulation8.h"
 
-SpecificSimParamsTest8::SpecificSimParamsTest8(QWidget *parent) :
-    QWidget(parent),
+SpecificSimParamsTest8::SpecificSimParamsTest8() :
     ui(new Ui::SpecificSimParamsTest8)
 {
     ui->setupUi(this);
@@ -13,92 +13,30 @@ SpecificSimParamsTest8::~SpecificSimParamsTest8()
     delete ui;
 }
 
-double SpecificSimParamsTest8::getMotSpeedRads()
+void SpecificSimParamsTest8::updateView(void)
 {
-    return ui->motSpeedRads->value();
+    simulation8* sim = (simulation8*) m_sim;
+    ui->motSpeedRads->setValue(sim->m_motSpeedRads);
+    ui->excFreq->setValue(sim->m_exc_freq);
+    ui->excAmp->setValue(sim->m_exc_ampl);
+    ui->sinAttenuation->setValue(sim->m_sin_att);
+    ui->sinDelay->setValue(sim->m_sin_delay);
+    ui->sinOffset->setValue(sim->m_sin_offset);
+    ui->cosAttenuation->setValue(sim->m_cos_att);
+    ui->cosDelay->setValue(sim->m_cos_delay);
+    ui->cosOffset->setValue(sim->m_cos_offset);
 }
 
-double SpecificSimParamsTest8::getExcFreq()
+void SpecificSimParamsTest8::updateModel(void)
 {
-    return ui->excFreq->value();
-}
-
-double SpecificSimParamsTest8::getExcAmpl()
-{
-   return ui->excAmp->value();
-}
-
-double SpecificSimParamsTest8::getSinAttenuation()
-{
-    return ui->sinAttenuation->value();
-}
-
-double SpecificSimParamsTest8::getSinDelay()
-{
-    return ui->sinDelay->value();
-}
-
-double SpecificSimParamsTest8::getSinOffset()
-{
-    return ui->sinOffset->value();
-}
-
-double SpecificSimParamsTest8::getCosAttenuation()
-{
-    return ui->cosAttenuation->value();
-}
-
-double SpecificSimParamsTest8::getCosDelay()
-{
-    return ui->cosDelay->value();
-}
-
-double SpecificSimParamsTest8::getCosOffset()
-{
-    return ui->cosOffset->value();
-}
-
-void SpecificSimParamsTest8::setMotSpeedRads(double rads)
-{
-    ui->motSpeedRads->setValue(rads);
-}
-
-void SpecificSimParamsTest8::setExcFreq(double freq)
-{
-    ui->excFreq->setValue(freq);
-}
-
-void SpecificSimParamsTest8::setExcAmpl(double ampl)
-{
-    ui->excAmp->setValue(ampl);
-}
-
-void SpecificSimParamsTest8::setSinAttenuation(double att)
-{
-    ui->sinAttenuation->setValue(att);
-}
-
-void SpecificSimParamsTest8::setSinDelay(double rad)
-{
-    ui->sinDelay->setValue(rad);
-}
-
-void SpecificSimParamsTest8::setSinOffset(double off)
-{
-    ui->sinOffset->setValue(off);
-}
-
-void SpecificSimParamsTest8::setCosAttenuation(double att)
-{
-    ui->cosAttenuation->setValue(att);
-}
-
-void SpecificSimParamsTest8::setCosDelay(double rad)
-{
-    ui->sinDelay->setValue(rad);
-}
-
-void SpecificSimParamsTest8::setCosOffset(double off)
-{
-    ui->sinOffset->setValue(off);
+    simulation8* sim = (simulation8*) m_sim;
+    sim->m_motSpeedRads = ui->motSpeedRads->value();
+    sim->m_exc_freq = ui->excFreq->value();
+    sim->m_exc_ampl = ui->excAmp->value();
+    sim->m_sin_att = ui->sinAttenuation->value();
+    sim->m_sin_delay = ui->sinDelay->value();
+    sim->m_sin_offset = ui->sinOffset->value();
+    sim->m_cos_att = ui->cosAttenuation->value();
+    sim->m_cos_delay = ui->cosDelay->value();
+    sim->m_cos_offset = ui->cosOffset->value();
 }
