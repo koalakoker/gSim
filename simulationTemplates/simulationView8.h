@@ -13,7 +13,7 @@ class simulationView8 : public baseSimulationView
     Q_OBJECT
 
 public:
-    explicit simulationView8();
+    explicit simulationView8(QWidget *parent = 0);
     ~simulationView8();
 
     void updateView(void);

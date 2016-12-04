@@ -2,7 +2,8 @@
 #include "ui_simulationView7.h"
 #include "simulationmodel7.h"
 
-simulationView7::simulationView7() :
+simulationView7::simulationView7(QWidget *parent) :
+    baseSimulationView(parent),
     ui(new Ui::simulationView7)
 {
     ui->setupUi(this);

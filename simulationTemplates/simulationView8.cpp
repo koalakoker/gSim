@@ -2,7 +2,8 @@
 #include "ui_simulationView8.h"
 #include "simulationModel8.h"
 
-simulationView8::simulationView8() :
+simulationView8::simulationView8(QWidget *parent) :
+    baseSimulationView(parent),
     ui(new Ui::SpecificSimParamsTest8)
 {
     ui->setupUi(this);

@@ -13,7 +13,7 @@ class simulationView7 : public baseSimulationView
     Q_OBJECT
 
 public:
-    explicit simulationView7();
+    explicit simulationView7(QWidget *parent = 0);
     ~simulationView7();
 
     void updateView(void);
