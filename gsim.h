@@ -5,6 +5,9 @@
 #include "simulationTemplates/baseSimulationModel.h"
 #include "simulationTemplates/baseSimulationView.h"
 
+#include <QTimer>
+#define SIM_TEST 100
+
 namespace Ui {
 class gSim;
 }
@@ -23,6 +26,9 @@ private slots:
 
     void on_simulation_valueChanged(int arg1);
 
+    // Test
+    void testTimeout(void);
+
 private:
     Ui::gSim *ui;
 
@@ -30,6 +36,9 @@ private:
     baseSimulationView* m_simView;
 
     void setSimulation(int arg);
+
+    // Test
+    QTimer testTim;
 
 };
 

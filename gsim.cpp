@@ -27,6 +27,10 @@ gSim::gSim(QWidget *parent) :
     ui->setupUi(this);
 
     setSimulation(DEFAULT_SIMULATION); /* To be called after UI setup */
+
+    // Test
+    connect(&testTim, SIGNAL(timeout()), this, SLOT(testTimeout()));
+    testTim.start(SIM_TEST);
 }
 
 gSim::~gSim()
@@ -167,4 +171,11 @@ void gSim::setSimulation(int arg)
 
         connect(m_simModel, SIGNAL(updateProgress(double)), this, SLOT(updateProgress(double)));
     }
+}
+
+void gSim::testTimeout(void)
+{
+    testTim.start(SIM_TEST);
+    int last = qrand()%12;
+    ui->simulation->setValue(last);
 }
