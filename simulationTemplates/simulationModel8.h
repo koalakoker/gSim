@@ -19,6 +19,11 @@ public:
     double m_cos_delay;
     double m_cos_offset;
 
+    /* Plots */
+    bool excitingPlot;
+    bool outputsPlot;
+    bool thetaPlot;
+
     void startSimulation(void);
 };
 

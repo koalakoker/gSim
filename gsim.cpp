@@ -77,20 +77,22 @@ void gSim::setSimulation(int arg)
     }
     if (change)
     {
-        if (lastSetWidget != NULL)
-        {
-            ui->dynamicLayout->removeWidget(lastSetWidget);
-            lastSetWidget->hide();
-        }
+//        if (lastSetWidget != NULL)
+//        {
+//            ui->dynamicLayout->removeWidget(lastSetWidget);
+//            lastSetWidget->hide();
+//        }
 
         if (m_simModel)
         {
             delete m_simModel;
+            m_simModel = NULL;
         }
 
         if (m_simView)
         {
             delete m_simView;
+            m_simView = NULL;
         }
 
         switch (arg)

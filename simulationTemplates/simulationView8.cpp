@@ -25,6 +25,9 @@ void simulationView8::updateView(void)
     ui->cosAttenuation->setValue(sim->m_cos_att);
     ui->cosDelay->setValue(sim->m_cos_delay);
     ui->cosOffset->setValue(sim->m_cos_offset);
+    ui->excitingPlot->setChecked(sim->excitingPlot);
+    ui->outputPlot->setChecked(sim->outputsPlot);
+    ui->thetaPlot->setChecked(sim->thetaPlot);
 }
 
 void simulationView8::updateModel(void)
@@ -39,4 +42,7 @@ void simulationView8::updateModel(void)
     sim->m_cos_att = ui->cosAttenuation->value();
     sim->m_cos_delay = ui->cosDelay->value();
     sim->m_cos_offset = ui->cosOffset->value();
+    sim->excitingPlot = ui->excitingPlot->isChecked();
+    sim->outputsPlot = ui->outputPlot->isChecked();
+    sim->thetaPlot = ui->thetaPlot->isChecked();
 }
