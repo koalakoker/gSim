@@ -12,6 +12,7 @@ simulationModel7::simulationModel7()
 {
     /* Set simulation number */
     m_simulation = 7;
+    m_description = "Space vector modulation simulation";
 
      /* Default common params */
     m_t = 0;

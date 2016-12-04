@@ -5,6 +5,7 @@ simulationModel8::simulationModel8()
 {
     /* Set simulation number */
     m_simulation = 8;
+    m_description = "Resolver simulation";
 
     /* Default common params */
     m_t = 0;

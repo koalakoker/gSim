@@ -8,6 +8,7 @@ simulationModel6::simulationModel6()
 {
     /* Set simulation number */
     m_simulation = 6;
+    m_description = "PMSM abc simulation";
 
     /* Default common params */
     m_ts = 0.00005;

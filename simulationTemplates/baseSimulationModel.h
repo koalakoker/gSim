@@ -18,6 +18,7 @@ public:
     void setControlTime(double tc){m_tc = tc;}
 
     int m_simulation;
+    QString m_description;
 
 protected:
     double m_t;

@@ -10,6 +10,7 @@ simulationModel0::simulationModel0()
 {
     /* Set simulation number */
     m_simulation = 0;
+    m_description = "Sin-cos-artitmetic-mux  simulation";
 
     /* Default common params */
     m_t = 0;

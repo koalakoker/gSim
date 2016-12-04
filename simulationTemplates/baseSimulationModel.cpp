@@ -4,6 +4,7 @@ baseSimulationModel::baseSimulationModel()
 {
     /* Set simulation number */
     m_simulation = 0;
+    m_description = "";
 
     /* Default common params */
     m_t = 0;

@@ -10,6 +10,7 @@ simulationModel2::simulationModel2()
 {
     /* Set simulation number */
     m_simulation = 2;
+    m_description = "Previous value simulation";
 }
 
 void simulationModel2::startSimulation(void)

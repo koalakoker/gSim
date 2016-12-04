@@ -10,6 +10,7 @@ simulationModel3::simulationModel3()
 {
     /* Set simulation number */
     m_simulation = 3;
+    m_description = "PI on RL simulation";
 }
 
 void simulationModel3::startSimulation(void)

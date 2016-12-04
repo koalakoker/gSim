@@ -9,6 +9,7 @@ simulationModel1::simulationModel1()
 {
     /* Set simulation number */
     m_simulation = 1;
+    m_description = "Sin variable-ramp  simulation";
 }
 
 void simulationModel1::startSimulation(void)

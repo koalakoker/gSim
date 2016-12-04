@@ -8,6 +8,7 @@ simulationModel5::simulationModel5()
 {
     /* Set simulation number */
     m_simulation = 5;
+    m_description = "PMSM qd simulation";
 
     /* Default common params */
     m_ts = 0.00005;

@@ -8,6 +8,7 @@ simulationModel4::simulationModel4()
 {
     /* Set simulation number */
     m_simulation = 4;
+    m_description = "PI (different types) on RL simulation";
 }
 
 void simulationModel4::startSimulation(void)

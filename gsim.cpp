@@ -161,6 +161,7 @@ void gSim::setSimulation(int arg)
         }
 
         /* Update common settings */
+        ui->description->setText(m_simModel->m_description);
         ui->duration->setValue(m_simModel->duration());
         ui->stepTime->setValue(m_simModel->simulationTime());
         ui->controlTime->setValue(m_simModel->controlTime());
