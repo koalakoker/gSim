@@ -23,7 +23,6 @@ gSim::gSim(QWidget *parent) :
 {
     m_simModel = NULL;
     m_simView = NULL;
-    lastSetWidget = NULL;
 
     ui->setupUi(this);
 
@@ -77,12 +76,6 @@ void gSim::setSimulation(int arg)
     }
     if (change)
     {
-//        if (lastSetWidget != NULL)
-//        {
-//            ui->dynamicLayout->removeWidget(lastSetWidget);
-//            lastSetWidget->hide();
-//        }
-
         if (m_simModel)
         {
             delete m_simModel;
@@ -163,9 +156,8 @@ void gSim::setSimulation(int arg)
 
         if (m_simView)
         {
-            lastSetWidget = m_simView;
-            ui->dynamicLayout->addWidget(lastSetWidget);
-            lastSetWidget->show();
+            ui->dynamicLayout->addWidget(m_simView);
+            m_simView->show();
         }
 
         /* Update common settings */

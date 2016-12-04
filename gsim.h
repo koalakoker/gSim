@@ -29,8 +29,6 @@ private:
     baseSimulationModel* m_simModel;
     baseSimulationView* m_simView;
 
-    QWidget* lastSetWidget;
-
     void setSimulation(int arg);
 
 };
