@@ -50,7 +50,6 @@ void gSim::on_startSimulation_clicked()
         m_simView->updateModel(); /* Update model before to start simulation */
     }
 
-    m_simModel->m_simulation = ui->simulation->value();
     m_simModel->startSimulation();
 
     ui->simInfo->setText(QString("Time elapsed: %1 s").arg((double)t.elapsed()/1000));
@@ -99,57 +98,42 @@ void gSim::setSimulation(int arg)
         case 0:
         {
             m_simModel = new simulationModel0(); /* Create simulation model */
-            //m_simView = new simulationView7(); /* Create simulation view */
-            //m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            //m_simView->updateView(); /* Update view values according model */
         }
             break;
         case 1:
         {
             m_simModel = new simulationModel1(); /* Create simulation model */
-            //m_simView = new simulationView7(); /* Create simulation view */
-            //m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            //m_simView->updateView(); /* Update view values according model */
         }
             break;
         case 2:
         {
             m_simModel = new simulationModel2(); /* Create simulation model */
-            //m_simView = new simulationView7(); /* Create simulation view */
-            //m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            //m_simView->updateView(); /* Update view values according model */
         }
             break;
         case 3:
         {
             m_simModel = new simulationModel3(); /* Create simulation model */
-            //m_simView = new simulationView7(); /* Create simulation view */
-            //m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            //m_simView->updateView(); /* Update view values according model */
         }
             break;
         case 4:
         {
             m_simModel = new simulationModel4(); /* Create simulation model */
-            //m_simView = new simulationView7(); /* Create simulation view */
-            //m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            //m_simView->updateView(); /* Update view values according model */
         }
             break;
         case 5:
         {
             m_simModel = new simulationModel5(); /* Create simulation model */
-            //m_simView = new simulationView7(); /* Create simulation view */
-            //m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            //m_simView->updateView(); /* Update view values according model */
+            m_simView = new simulationView7(); /* Create simulation view */
+            m_simView->setSimulationModel(m_simModel); /* Set simulation model */
+            m_simView->updateView(); /* Update view values according model */
         }
             break;
         case 6:
         {
             m_simModel = new simulationModel6(); /* Create simulation model */
-            //m_simView = new simulationView7(); /* Create simulation view */
-            //m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            //m_simView->updateView(); /* Update view values according model */
+            m_simView = new simulationView7(); /* Create simulation view */
+            m_simView->setSimulationModel(m_simModel); /* Set simulation model */
+            m_simView->updateView(); /* Update view values according model */
         }
             break;
         case 7:

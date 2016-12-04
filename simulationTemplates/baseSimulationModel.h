@@ -29,10 +29,6 @@ private:
     void testSimulation0();
     void testSimulation1();
     void testSimulation2();
-//    void testSimulation3();
-//    void testSimulation4();
-//    void testSimulation5();
-//    void testSimulation6();
 
 signals:
     void updateProgress(double percentage);
