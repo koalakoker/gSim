@@ -55,7 +55,14 @@ SOURCES += main.cpp\
     simulationTemplates/simulationModel8.cpp \
     simulationTemplates/simulationView8.cpp \
     simulationTemplates/simulationModel7.cpp \
-    simulationTemplates/simulationView7.cpp
+    simulationTemplates/simulationView7.cpp \
+    simulationTemplates/simulationModel0.cpp \
+    simulationTemplates/simulationModel1.cpp \
+    simulationTemplates/simulationModel2.cpp \
+    simulationTemplates/simulationModel3.cpp \
+    simulationTemplates/simulationModel4.cpp \
+    simulationTemplates/simulationModel5.cpp \
+    simulationTemplates/simulationModel6.cpp
 
 HEADERS  += gsim.h \
     qcustomplot.h \
@@ -100,7 +107,14 @@ HEADERS  += gsim.h \
     simulationTemplates/simulationModel8.h \
     simulationTemplates/simulationView8.h \
     simulationTemplates/simulationModel7.h \
-    simulationTemplates/simulationView7.h
+    simulationTemplates/simulationView7.h \
+    simulationTemplates/simulationModel0.h \
+    simulationTemplates/simulationModel1.h \
+    simulationTemplates/simulationModel2.h \
+    simulationTemplates/simulationModel3.h \
+    simulationTemplates/simulationModel4.h \
+    simulationTemplates/simulationModel5.h \
+    simulationTemplates/simulationModel6.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \

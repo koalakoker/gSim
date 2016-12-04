@@ -3,7 +3,6 @@
 
 #include "baseSimulationModel.h"
 
-
 class simulationModel8 : public baseSimulationModel
 {
 public:
