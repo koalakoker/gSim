@@ -2,7 +2,7 @@
 #include "gsim.h"
 #include "ui_gsim.h"
 
-#define DEFAULT_SIMULATION 0
+#define DEFAULT_SIMULATION 8
 
 gSim::gSim(QWidget *parent) :
     QMainWindow(parent),
@@ -156,6 +156,9 @@ void gSim::setSimulation(int arg)
         }
 
         /* Update common settings */
+        bool oldState = ui->simulation->blockSignals(true);
+        ui->simulation->setValue(m_simModel->m_simulation);
+        ui->simulation->blockSignals(oldState);
         ui->description->setText(m_simModel->m_description);
         ui->duration->setValue(m_simModel->duration());
         ui->stepTime->setValue(m_simModel->simulationTime());
