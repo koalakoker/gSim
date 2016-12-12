@@ -25,6 +25,19 @@ public:
     bool thetaPlot;
 
     void startSimulation(void);
+
+    // Resolver simulation
+    void resolverInit(void);
+    void resolverExec(void);
+    double phi; // Tracked angle
+    double omega; // Tracked speed
+    // PI
+    double PI_KP;
+    double PI_KI;
+    // Filter
+    double lpf(double rawData);
+    double smoothData;
+    double LPF_Beta;
 };
 
 #endif // SIMULATIONMODEL8_H

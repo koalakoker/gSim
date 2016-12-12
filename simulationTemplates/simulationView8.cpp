@@ -29,6 +29,10 @@ void simulationView8::updateView(void)
     ui->excitingPlot->setChecked(sim->excitingPlot);
     ui->outputPlot->setChecked(sim->outputsPlot);
     ui->thetaPlot->setChecked(sim->thetaPlot);
+
+    ui->PI_KP->setValue(sim->PI_KP);
+    ui->PI_KI->setValue(sim->PI_KI);
+    ui->LP_Beta->setValue(sim->LPF_Beta);
 }
 
 void simulationView8::updateModel(void)
@@ -46,4 +50,8 @@ void simulationView8::updateModel(void)
     sim->excitingPlot = ui->excitingPlot->isChecked();
     sim->outputsPlot = ui->outputPlot->isChecked();
     sim->thetaPlot = ui->thetaPlot->isChecked();
+
+    sim->PI_KP = ui->PI_KP->value();
+    sim->PI_KI = ui->PI_KI->value();
+    sim->LPF_Beta = ui->LP_Beta->value();
 }

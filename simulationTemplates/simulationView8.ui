@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>565</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,19 @@
   <layout class="QFormLayout" name="formLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="8" column="1">
-      <widget class="QDoubleSpinBox" name="cosDelay"/>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Motor speed</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QSpinBox" name="motSpeedRads">
+       <property name="maximum">
+        <number>10000</number>
+       </property>
+      </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_2">
@@ -25,6 +36,9 @@
         <string>Exciting amplitude</string>
        </property>
       </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QDoubleSpinBox" name="cosDelay"/>
      </item>
      <item row="9" column="1">
       <widget class="QDoubleSpinBox" name="cosOffset"/>
@@ -101,22 +115,8 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QSpinBox" name="motSpeedRads">
-       <property name="maximum">
-        <number>10000</number>
-       </property>
-      </widget>
-     </item>
      <item row="4" column="1">
       <widget class="QDoubleSpinBox" name="sinAttenuation"/>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Motor speed</string>
-       </property>
-      </widget>
      </item>
      <item row="1" column="1">
       <widget class="QSpinBox" name="excFreq">
@@ -159,14 +159,14 @@
      <item row="7" column="1">
       <widget class="QDoubleSpinBox" name="cosAttenuation"/>
      </item>
-     <item row="11" column="0">
+     <item row="15" column="0">
       <widget class="QCheckBox" name="outputPlot">
        <property name="text">
         <string>Outputs</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="0">
+     <item row="14" column="0">
       <widget class="QCheckBox" name="excitingPlot">
        <property name="text">
         <string>Exciting signal</string>
@@ -187,10 +187,65 @@
        </property>
       </widget>
      </item>
-     <item row="12" column="0">
+     <item row="16" column="0">
       <widget class="QCheckBox" name="thetaPlot">
        <property name="text">
         <string>Theta</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0">
+      <widget class="QLabel" name="label_17">
+       <property name="text">
+        <string>Resolver params</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="0">
+      <widget class="QLabel" name="label_18">
+       <property name="text">
+        <string>PI KP</string>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="0">
+      <widget class="QLabel" name="label_19">
+       <property name="text">
+        <string>PI KI</string>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="0">
+      <widget class="QLabel" name="label_20">
+       <property name="text">
+        <string>LP Beta</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="1">
+      <widget class="QDoubleSpinBox" name="PI_KP">
+       <property name="decimals">
+        <number>4</number>
+       </property>
+       <property name="maximum">
+        <double>999999.989999999990687</double>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="1">
+      <widget class="QDoubleSpinBox" name="PI_KI">
+       <property name="decimals">
+        <number>4</number>
+       </property>
+       <property name="maximum">
+        <double>999999.989999999990687</double>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="1">
+      <widget class="QDoubleSpinBox" name="LP_Beta">
+       <property name="decimals">
+        <number>3</number>
        </property>
       </widget>
      </item>

@@ -1,5 +1,7 @@
 #include "simulationModel8.h"
 #include "simulationModules/ssscope.h"
+#include "simulationModules/stfintegrator.h"
+#include "simulationModules/stpid.h"
 
 simulationModel8::simulationModel8()
 {
@@ -11,10 +13,10 @@ simulationModel8::simulationModel8()
     m_t = 0;
     m_ts = 0.00005;
     m_tc = 0.00005;
-    m_duration = 0.02;
+    m_duration = 0.2;
 
     /* Specific params for simulation 8 */
-    m_exc_freq = 1000;
+    m_exc_freq = 4000;
     m_exc_ampl = 15;
     m_motSpeedRads = 400;
     m_sin_att = 0.8;
@@ -26,8 +28,13 @@ simulationModel8::simulationModel8()
 
     /* Plots */
     excitingPlot = false;
-    outputsPlot = true;
+    outputsPlot = false;
     thetaPlot = false;
+
+    //
+    PI_KP = 200.0;
+    PI_KI = 10000.0000;
+    LPF_Beta = 0.025;
 }
 
 void simulationModel8::startSimulation(void)
@@ -43,6 +50,16 @@ void simulationModel8::startSimulation(void)
     SSScope sscope("Exciting signal",1);
     SSScope sscope2("Output signals",2);
     SSScope sscope3("Theta",1);
+
+    SSScope sscope4("Omega",1);
+    SSScope sscope5("Phi",1);
+    //SSScope sscope6("m",1);
+    SSScope sscope7("mf",1);
+    SSScope sscope8("dAngle",1);
+
+    STPID stpid(PI_KP, PI_KI, 0, 0, m_tc, BackwardEuler);
+    STFIntegrator stfInt(m_ts, Trapezoidal);
+    resolverInit();
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
@@ -70,6 +87,23 @@ void simulationModel8::startSimulation(void)
             sscope3.execute(m_t, SDataVector(theta));
         }
 
+        // Resolver exe to be moved in the function
+        double s = secondarySin * cos(phi); /* Vs * cos(phi) */
+        double c = secondaryCos * sin(phi); /* Vc * sen(phi) */
+        double d = s - c; /* (Vs * cos(phi)) - (Vc * sen(phi)) */
+        double m = d * (exc_sinwt / m_exc_ampl); /* (Vs * cos(phi)) - (Vc * sen(phi)) * sin(omegaHF) */
+        double mf = lpf(m); /* LP filter */
+        //omega = stpid.execute(theta - phi).value(); /* mf is the error at the imput of the PI (teta - phi) */ /* The output is the tracked angular speed of the motor */
+        omega = stpid.execute(mf).value(); /* mf is the error at the imput of the PI (teta - phi) */ /* The output is the tracked angular speed of the motor */
+
+        sscope8.execute(m_t, SDataVector(theta - phi));
+        phi = stfInt.execute(omega).value(); /* Integrator to get the tracked angle */
+
+        sscope4.execute(m_t, SDataVector(omega));
+        sscope5.execute(m_t, SDataVector(phi));
+        //sscope6.execute(m_t, SDataVector(m));
+        sscope7.execute(m_t, SDataVector(mf));
+
         // Update of simutaion variables
         m_t += m_ts;
 
@@ -89,5 +123,28 @@ void simulationModel8::startSimulation(void)
     {
         sscope3.scopeUpdate(m_ts);
     }
+
+    sscope4.scopeUpdate(m_ts);
+    sscope5.scopeUpdate(m_ts);
+    //sscope6.scopeUpdate(m_ts);
+    sscope7.scopeUpdate(m_ts);
+    sscope8.scopeUpdate(m_ts);
 }
 
+void simulationModel8::resolverInit(void)
+{
+    phi = 0;
+    omega = 0;
+    smoothData = 0;
+}
+
+void simulationModel8::resolverExec(void)
+{
+
+}
+
+double simulationModel8::lpf(double rawData)
+{
+    smoothData -= LPF_Beta * (smoothData - rawData);
+    return smoothData;
+}
