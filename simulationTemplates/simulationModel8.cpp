@@ -12,8 +12,8 @@ simulationModel8::simulationModel8()
 
     /* Default common params */
     m_t = 0;
-    m_ts = 0.00005;
-    m_tc = 0.00005;
+    m_ts = 0.0000125;
+    m_tc = 0.0000125;
     m_duration = 4.0;
 
     /* Specific params for simulation 8 */
