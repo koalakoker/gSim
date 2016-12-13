@@ -64,7 +64,8 @@ SOURCES += main.cpp\
     simulationTemplates/simulationModel5.cpp \
     simulationTemplates/simulationModel6.cpp \
     simulationModules/motormechvars.cpp \
-    simulationModules/stmotormech.cpp
+    simulationModules/stmotormech.cpp \
+    simulationModules/stdelay.cpp
 
 HEADERS  += gsim.h \
     qcustomplot.h \
@@ -118,7 +119,8 @@ HEADERS  += gsim.h \
     simulationTemplates/simulationModel5.h \
     simulationTemplates/simulationModel6.h \
     simulationModules/motormechvars.h \
-    simulationModules/stmotormech.h
+    simulationModules/stmotormech.h \
+    simulationModules/stdelay.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \

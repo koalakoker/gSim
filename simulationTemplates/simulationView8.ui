@@ -98,27 +98,10 @@
        <layout class="QGridLayout" name="gridLayout_7">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_6">
-          <item row="0" column="1">
-           <widget class="QDoubleSpinBox" name="PI_KP">
-            <property name="decimals">
-             <number>4</number>
-            </property>
-            <property name="maximum">
-             <double>999999.989999999990687</double>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_18">
             <property name="text">
              <string>PI KP</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_19">
-            <property name="text">
-             <string>PI KI</string>
             </property>
            </widget>
           </item>
@@ -132,17 +115,20 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_20">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_19">
             <property name="text">
-             <string>LP Beta</string>
+             <string>PI KI</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QDoubleSpinBox" name="LP_Beta">
+          <item row="0" column="1">
+           <widget class="QDoubleSpinBox" name="PI_KP">
             <property name="decimals">
-             <number>3</number>
+             <number>4</number>
+            </property>
+            <property name="maximum">
+             <double>999999.989999999990687</double>
             </property>
            </widget>
           </item>
@@ -265,7 +251,11 @@
            <widget class="QDoubleSpinBox" name="sinAttenuation"/>
           </item>
           <item row="3" column="1">
-           <widget class="QDoubleSpinBox" name="sinDelay"/>
+           <widget class="QDoubleSpinBox" name="sinDelay">
+            <property name="decimals">
+             <number>7</number>
+            </property>
+           </widget>
           </item>
           <item row="1" column="1">
            <widget class="QSpinBox" name="excAmp">
@@ -294,7 +284,7 @@
           <item row="3" column="2">
            <widget class="QLabel" name="label_12">
             <property name="text">
-             <string>rad</string>
+             <string>s</string>
             </property>
            </widget>
           </item>
@@ -321,7 +311,7 @@
           <item row="6" column="2">
            <widget class="QLabel" name="label_14">
             <property name="text">
-             <string>rad</string>
+             <string>s</string>
             </property>
            </widget>
           </item>
@@ -388,7 +378,11 @@
            </widget>
           </item>
           <item row="6" column="1">
-           <widget class="QDoubleSpinBox" name="cosDelay"/>
+           <widget class="QDoubleSpinBox" name="cosDelay">
+            <property name="decimals">
+             <number>7</number>
+            </property>
+           </widget>
           </item>
           <item row="5" column="0">
            <widget class="QLabel" name="label_16">

@@ -17,8 +17,11 @@ public:
     double m_cos_att;
     double m_cos_delay;
     double m_cos_offset;
-    double resSinDem, resCosDem;
-    int k;
+
+    /* Demodulated signals sin/cos */
+    double m_resSinDem;
+    double m_resCosDem;
+    int k; /* Sampling point selection k = 0,1, ...*/
 
     /* Motor params */
     double m_torque;
@@ -44,10 +47,7 @@ public:
     // PI
     double PI_KP;
     double PI_KI;
-    // Filter
-    double lpf(double rawData);
-    double smoothData;
-    double LPF_Beta;
+
 };
 
 #endif // SIMULATIONMODEL8_H

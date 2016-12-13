@@ -38,7 +38,6 @@ void simulationView8::updateView(void)
 
     ui->PI_KP->setValue(sim->PI_KP);
     ui->PI_KI->setValue(sim->PI_KI);
-    ui->LP_Beta->setValue(sim->LPF_Beta);
 }
 
 void simulationView8::updateModel(void)
@@ -65,5 +64,4 @@ void simulationView8::updateModel(void)
 
     sim->PI_KP = ui->PI_KP->value();
     sim->PI_KI = ui->PI_KI->value();
-    sim->LPF_Beta = ui->LP_Beta->value();
 }
