@@ -29,9 +29,11 @@ void simulationView8::updateView(void)
     ui->inertia->setValue(sim->m_inertia);
     ui->friction->setValue(sim->m_friction);
 
-    ui->excitingPlot->setChecked(sim->excitingPlot);
-    ui->outputPlot->setChecked(sim->outputsPlot);
-    ui->thetaPlot->setChecked(sim->thetaPlot);
+    ui->excitingPlot->setChecked(sim->m_excitingPlot);
+    ui->outputPlot->setChecked(sim->m_outputsPlot);
+    ui->thetaPlot->setChecked(sim->m_thetaPlot);
+    ui->omegaPlot->setChecked(sim->m_omegaPlot);
+    ui->deltaAngle->setChecked(sim->m_deltaAngle);
 
     ui->PI_KP->setValue(sim->PI_KP);
     ui->PI_KI->setValue(sim->PI_KI);
@@ -53,9 +55,11 @@ void simulationView8::updateModel(void)
     sim->m_inertia = ui->inertia->value();
     sim->m_friction = ui->friction->value();
 
-    sim->excitingPlot = ui->excitingPlot->isChecked();
-    sim->outputsPlot = ui->outputPlot->isChecked();
-    sim->thetaPlot = ui->thetaPlot->isChecked();
+    sim->m_excitingPlot = ui->excitingPlot->isChecked();
+    sim->m_outputsPlot = ui->outputPlot->isChecked();
+    sim->m_thetaPlot = ui->thetaPlot->isChecked();
+    sim->m_omegaPlot = ui->omegaPlot->isChecked();
+    sim->m_deltaAngle = ui->deltaAngle->isChecked();
 
     sim->PI_KP = ui->PI_KP->value();
     sim->PI_KI = ui->PI_KI->value();

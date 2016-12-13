@@ -25,9 +25,11 @@ public:
     double m_friction;
 
     /* Plots */
-    bool excitingPlot;
-    bool outputsPlot;
-    bool thetaPlot;
+    bool m_excitingPlot;
+    bool m_outputsPlot;
+    bool m_thetaPlot;
+    bool m_omegaPlot;
+    bool m_deltaAngle;
 
     void startSimulation(void);
 

@@ -91,12 +91,24 @@
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="PIParams">
+     <widget class="QGroupBox" name="SimulationSpecificParams">
       <property name="title">
        <string>Simulation specific params</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
         <layout class="QFormLayout" name="dynamicLayout">
          <item row="0" column="0">
           <widget class="QWidget" name="specificForm" native="true"/>

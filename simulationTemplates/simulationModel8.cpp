@@ -33,9 +33,11 @@ simulationModel8::simulationModel8()
     m_torque = 1.0;
 
     /* Plots */
-    excitingPlot = false;
-    outputsPlot = false;
-    thetaPlot = false;
+    m_excitingPlot = false;
+    m_outputsPlot = false;
+    m_thetaPlot = true;
+    m_omegaPlot = true;
+    m_deltaAngle = false;
 
     //
     PI_KP = 200.0;
@@ -54,16 +56,10 @@ void simulationModel8::startSimulation(void)
 
     // Init sink-source-transfer
     SSScope sscope("Exciting signal",1);
-    SSScope sscope2("Output signals",2);
-    SSScope sscope3("Theta",1);
-
-    SSScope sscope4("Omega",1);
-    SSScope sscope5("Phi",1);
-
-    SSScope sscope7("mf",1);
-    SSScope sscope8("dAngle",1);
-
-    SSScope sscope9("Motor Vars",2);
+    SSScope sscope2("Sin/Cos signals",2);
+    SSScope sscope3("Mechanical angle: real (black) tracked (blue)",2);
+    SSScope sscope4("Mechanical speed: real (black) tracked (blue)",2);
+    SSScope sscope8("Delta angle",1);
 
     STPID stpid(PI_KP, PI_KI, 0, 0, m_tc, BackwardEuler);
     STFIntegrator stfInt(m_ts, Trapezoidal);
@@ -88,7 +84,6 @@ void simulationModel8::startSimulation(void)
         }
         motor.execute(m_torque);
         MotorMechVars iW = motor.vars();
-        sscope9.execute(m_t, SDataVector(iW.Wm, iW.MechAngle));
 
         /* Execute resolver update */
         theta = iW.MechAngle;
@@ -100,17 +95,17 @@ void simulationModel8::startSimulation(void)
         double secondarySin = (m_sin_att * sin_sinwt * sinTheta) + m_sin_offset;
         double secondaryCos = (m_cos_att * cos_sinwt * cosTheta) + m_cos_offset;
 
-        if (excitingPlot)
+        if (m_excitingPlot)
         {
             sscope.execute(m_t, SDataVector(exc_sinwt));
         }
-        if (outputsPlot)
+        if (m_outputsPlot)
         {
             sscope2.execute(m_t, SDataVector(secondarySin, secondaryCos));
         }
-        if (thetaPlot)
+        if (m_thetaPlot)
         {
-            sscope3.execute(m_t, SDataVector(theta));
+            sscope3.execute(m_t, SDataVector(theta, phi));
         }
 
         /* Resolver decoding */
@@ -119,15 +114,19 @@ void simulationModel8::startSimulation(void)
         double d = s - c; /* (Vs * cos(phi)) - (Vc * sen(phi)) */
         double m = d * (exc_sinwt / m_exc_ampl); /* (Vs * cos(phi)) - (Vc * sen(phi)) * sin(omegaHF) */
         double mf = lpf(m); /* LP filter */
-        //omega = stpid.execute(theta - phi).value(); /* mf is the error at the imput of the PI (teta - phi) */ /* The output is the tracked angular speed of the motor */
         omega = stpid.execute(mf).value(); /* mf is the error at the imput of the PI (teta - phi) */ /* The output is the tracked angular speed of the motor */
 
-        sscope8.execute(m_t, SDataVector(theta - phi));
+        if (m_deltaAngle)
+        {
+            sscope8.execute(m_t, SDataVector(theta - phi));
+        }
+
         phi = stfInt.execute(omega).value(); /* Integrator to get the tracked angle */
 
-        sscope4.execute(m_t, SDataVector(omega));
-        sscope5.execute(m_t, SDataVector(phi));
-        sscope7.execute(m_t, SDataVector(mf));
+        if (m_omegaPlot)
+        {
+            sscope4.execute(m_t, SDataVector(iW.Wm, omega));
+        }
 
         // Update of simutaion variables
         m_t += m_ts;
@@ -136,24 +135,26 @@ void simulationModel8::startSimulation(void)
         emit updateProgress((double)(i+1)/(double)m_step);
     }
 
-    if (excitingPlot)
+    if (m_excitingPlot)
     {
         sscope.scopeUpdate(m_ts);
     }
-    if (outputsPlot)
+    if (m_outputsPlot)
     {
         sscope2.scopeUpdate(m_ts);
     }
-    if (thetaPlot)
+    if (m_thetaPlot)
     {
         sscope3.scopeUpdate(m_ts);
     }
-
-    sscope4.scopeUpdate(m_ts);
-    sscope5.scopeUpdate(m_ts);
-    sscope7.scopeUpdate(m_ts);
-    sscope8.scopeUpdate(m_ts);
-    sscope9.scopeUpdate(m_ts);
+    if (m_omegaPlot)
+    {
+        sscope4.scopeUpdate(m_ts);
+    }
+    if (m_deltaAngle)
+    {
+        sscope8.scopeUpdate(m_ts);
+    }
 }
 
 void simulationModel8::resolverInit(void)
