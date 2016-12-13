@@ -12,12 +12,12 @@ simulationModel8::simulationModel8()
 
     /* Default common params */
     m_t = 0;
-    m_ts = 0.0000125;
-    m_tc = 0.0000125;
-    m_duration = 4.0;
+    m_ts = 0.00000625;
+    m_duration = 0.01; //4.0;
 
     /* Specific params for simulation 8 */
     m_exc_freq = 4000;
+    m_tc = 1/m_exc_freq;
     m_exc_ampl = 15;
     m_sin_att = 0.8;
     m_sin_delay = 0.0;
@@ -35,8 +35,9 @@ simulationModel8::simulationModel8()
     /* Plots */
     m_excitingPlot = false;
     m_outputsPlot = false;
-    m_thetaPlot = true;
-    m_omegaPlot = true;
+    m_demuxOutputsPlot = true;
+    m_thetaPlot = false;
+    m_omegaPlot = false;
     m_deltaAngle = false;
 
     //
@@ -54,9 +55,14 @@ void simulationModel8::startSimulation(void)
     m_t = 0;
     int m_step = (int)(m_duration / m_ts);
 
+    resSinDem = 0;
+    resCosDem = 0;
+    k = 0;
+
     // Init sink-source-transfer
     SSScope sscope("Exciting signal",1);
     SSScope sscope2("Sin/Cos signals",2);
+    SSScope sscope5("Sin/Cos demodulated signals",2);
     SSScope sscope3("Mechanical angle: real (black) tracked (blue)",2);
     SSScope sscope4("Mechanical speed: real (black) tracked (blue)",2);
     SSScope sscope8("Delta angle",1);
@@ -99,10 +105,26 @@ void simulationModel8::startSimulation(void)
         {
             sscope.execute(m_t, SDataVector(exc_sinwt));
         }
+
+        double tc = (0.25 + k) * m_tc; /* tc = (1/4 + k) * DThf */
+        if ((m_t <= tc) && (tc < (m_t + m_ts)))
+        {
+            // Sampling inputs
+            resSinDem = secondarySin;
+            resCosDem = secondaryCos;
+            k++;
+
+            if (m_demuxOutputsPlot)
+            {
+                sscope5.execute(m_t, SDataVector(resSinDem, resCosDem));
+            }
+        }
+
         if (m_outputsPlot)
         {
             sscope2.execute(m_t, SDataVector(secondarySin, secondaryCos));
         }
+
         if (m_thetaPlot)
         {
             sscope3.execute(m_t, SDataVector(theta, phi));
@@ -150,6 +172,10 @@ void simulationModel8::startSimulation(void)
     if (m_omegaPlot)
     {
         sscope4.scopeUpdate(m_ts);
+    }
+    if (m_demuxOutputsPlot)
+    {
+        sscope5.scopeUpdate(m_ts);
     }
     if (m_deltaAngle)
     {

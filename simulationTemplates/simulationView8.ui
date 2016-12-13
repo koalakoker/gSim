@@ -175,14 +175,21 @@
        <layout class="QGridLayout" name="gridLayout_9">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_8">
-          <item row="3" column="0">
+          <item row="5" column="0">
+           <widget class="QCheckBox" name="deltaAngle">
+            <property name="text">
+             <string>Delta angle</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
            <widget class="QCheckBox" name="omegaPlot">
             <property name="text">
              <string>Mechanical speed</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QCheckBox" name="thetaPlot">
             <property name="text">
              <string>Mechanical angle</string>
@@ -203,10 +210,10 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
-           <widget class="QCheckBox" name="deltaAngle">
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="outputDemuxPlot">
             <property name="text">
-             <string>Delta angle</string>
+             <string>Sin/Cos signal demodulated</string>
             </property>
            </widget>
           </item>

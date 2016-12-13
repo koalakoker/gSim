@@ -17,6 +17,8 @@ public:
     double m_cos_att;
     double m_cos_delay;
     double m_cos_offset;
+    double resSinDem, resCosDem;
+    int k;
 
     /* Motor params */
     double m_torque;
@@ -27,6 +29,7 @@ public:
     /* Plots */
     bool m_excitingPlot;
     bool m_outputsPlot;
+    bool m_demuxOutputsPlot;
     bool m_thetaPlot;
     bool m_omegaPlot;
     bool m_deltaAngle;

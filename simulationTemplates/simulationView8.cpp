@@ -31,6 +31,7 @@ void simulationView8::updateView(void)
 
     ui->excitingPlot->setChecked(sim->m_excitingPlot);
     ui->outputPlot->setChecked(sim->m_outputsPlot);
+    ui->outputDemuxPlot->setChecked(sim->m_demuxOutputsPlot);
     ui->thetaPlot->setChecked(sim->m_thetaPlot);
     ui->omegaPlot->setChecked(sim->m_omegaPlot);
     ui->deltaAngle->setChecked(sim->m_deltaAngle);
@@ -57,6 +58,7 @@ void simulationView8::updateModel(void)
 
     sim->m_excitingPlot = ui->excitingPlot->isChecked();
     sim->m_outputsPlot = ui->outputPlot->isChecked();
+    sim->m_demuxOutputsPlot = ui->outputDemuxPlot->isChecked();
     sim->m_thetaPlot = ui->thetaPlot->isChecked();
     sim->m_omegaPlot = ui->omegaPlot->isChecked();
     sim->m_deltaAngle = ui->deltaAngle->isChecked();
