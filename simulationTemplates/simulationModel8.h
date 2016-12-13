@@ -9,7 +9,6 @@ public:
     simulationModel8();
 
     /* Specific params for simulation 8 */
-    double m_motSpeedRads;
     double m_exc_freq;
     double m_exc_ampl;
     double m_sin_att;

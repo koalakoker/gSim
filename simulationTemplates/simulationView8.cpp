@@ -17,7 +17,6 @@ simulationView8::~simulationView8()
 void simulationView8::updateView(void)
 {
     simulationModel8* sim = (simulationModel8*) m_sim;
-    ui->motSpeedRads->setValue(sim->m_motSpeedRads);
     ui->excFreq->setValue(sim->m_exc_freq);
     ui->excAmp->setValue(sim->m_exc_ampl);
     ui->sinAttenuation->setValue(sim->m_sin_att);
@@ -26,6 +25,10 @@ void simulationView8::updateView(void)
     ui->cosAttenuation->setValue(sim->m_cos_att);
     ui->cosDelay->setValue(sim->m_cos_delay);
     ui->cosOffset->setValue(sim->m_cos_offset);
+
+    ui->inertia->setValue(sim->m_inertia);
+    ui->friction->setValue(sim->m_friction);
+
     ui->excitingPlot->setChecked(sim->excitingPlot);
     ui->outputPlot->setChecked(sim->outputsPlot);
     ui->thetaPlot->setChecked(sim->thetaPlot);
@@ -38,7 +41,6 @@ void simulationView8::updateView(void)
 void simulationView8::updateModel(void)
 {
     simulationModel8* sim = (simulationModel8*) m_sim;
-    sim->m_motSpeedRads = ui->motSpeedRads->value();
     sim->m_exc_freq = ui->excFreq->value();
     sim->m_exc_ampl = ui->excAmp->value();
     sim->m_sin_att = ui->sinAttenuation->value();
@@ -47,6 +49,10 @@ void simulationView8::updateModel(void)
     sim->m_cos_att = ui->cosAttenuation->value();
     sim->m_cos_delay = ui->cosDelay->value();
     sim->m_cos_offset = ui->cosOffset->value();
+
+    sim->m_inertia = ui->inertia->value();
+    sim->m_friction = ui->friction->value();
+
     sim->excitingPlot = ui->excitingPlot->isChecked();
     sim->outputsPlot = ui->outputPlot->isChecked();
     sim->thetaPlot = ui->thetaPlot->isChecked();

@@ -14,12 +14,11 @@ simulationModel8::simulationModel8()
     m_t = 0;
     m_ts = 0.00005;
     m_tc = 0.00005;
-    m_duration = 10.0;
+    m_duration = 4.0;
 
     /* Specific params for simulation 8 */
     m_exc_freq = 4000;
     m_exc_ampl = 15;
-    m_motSpeedRads = 400;
     m_sin_att = 0.8;
     m_sin_delay = 0.0;
     m_sin_offset = 0.0;
@@ -29,9 +28,9 @@ simulationModel8::simulationModel8()
 
     /* Motor deafult values */
     m_polesPairs = 4.0;
-    m_inertia = 0.089;
-    m_friction = 0.05;
-    m_torque = 0.4;
+    m_inertia = 0.0010;
+    m_friction = 0.0050;
+    m_torque = 1.0;
 
     /* Plots */
     excitingPlot = false;
@@ -77,6 +76,16 @@ void simulationModel8::startSimulation(void)
         // Execution of sink and source
 
         /* Motor update */
+
+        /* Execute two torque steps */
+        if (m_t < 2.0)
+        {
+            m_torque = 1.0;
+        }
+        else
+        {
+            m_torque = -1.0;
+        }
         motor.execute(m_torque);
         MotorMechVars iW = motor.vars();
         sscope9.execute(m_t, SDataVector(iW.Wm, iW.MechAngle));
