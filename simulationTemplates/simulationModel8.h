@@ -19,6 +19,12 @@ public:
     double m_cos_delay;
     double m_cos_offset;
 
+    /* Motor params */
+    double m_torque;
+    double m_polesPairs;
+    double m_inertia;
+    double m_friction;
+
     /* Plots */
     bool excitingPlot;
     bool outputsPlot;

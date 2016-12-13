@@ -62,7 +62,9 @@ SOURCES += main.cpp\
     simulationTemplates/simulationModel3.cpp \
     simulationTemplates/simulationModel4.cpp \
     simulationTemplates/simulationModel5.cpp \
-    simulationTemplates/simulationModel6.cpp
+    simulationTemplates/simulationModel6.cpp \
+    simulationModules/motormechvars.cpp \
+    simulationModules/stmotormech.cpp
 
 HEADERS  += gsim.h \
     qcustomplot.h \
@@ -114,7 +116,9 @@ HEADERS  += gsim.h \
     simulationTemplates/simulationModel3.h \
     simulationTemplates/simulationModel4.h \
     simulationTemplates/simulationModel5.h \
-    simulationTemplates/simulationModel6.h
+    simulationTemplates/simulationModel6.h \
+    simulationModules/motormechvars.h \
+    simulationModules/stmotormech.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \

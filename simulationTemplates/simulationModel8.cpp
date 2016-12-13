@@ -2,6 +2,7 @@
 #include "simulationModules/ssscope.h"
 #include "simulationModules/stfintegrator.h"
 #include "simulationModules/stpid.h"
+#include "simulationModules/stmotormech.h"
 
 simulationModel8::simulationModel8()
 {
@@ -13,7 +14,7 @@ simulationModel8::simulationModel8()
     m_t = 0;
     m_ts = 0.00005;
     m_tc = 0.00005;
-    m_duration = 0.2;
+    m_duration = 10.0;
 
     /* Specific params for simulation 8 */
     m_exc_freq = 4000;
@@ -25,6 +26,12 @@ simulationModel8::simulationModel8()
     m_cos_att = 0.8;
     m_cos_delay = 0.0;
     m_cos_offset = 0.0;
+
+    /* Motor deafult values */
+    m_polesPairs = 4.0;
+    m_inertia = 0.089;
+    m_friction = 0.05;
+    m_torque = 0.4;
 
     /* Plots */
     excitingPlot = false;
@@ -53,19 +60,29 @@ void simulationModel8::startSimulation(void)
 
     SSScope sscope4("Omega",1);
     SSScope sscope5("Phi",1);
-    //SSScope sscope6("m",1);
+
     SSScope sscope7("mf",1);
     SSScope sscope8("dAngle",1);
+
+    SSScope sscope9("Motor Vars",2);
 
     STPID stpid(PI_KP, PI_KI, 0, 0, m_tc, BackwardEuler);
     STFIntegrator stfInt(m_ts, Trapezoidal);
     resolverInit();
+    STMotorMech motor(m_polesPairs, m_inertia, m_friction, m_ts, false);
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
     {
         // Execution of sink and source
-        theta = m_t * m_motSpeedRads;
+
+        /* Motor update */
+        motor.execute(m_torque);
+        MotorMechVars iW = motor.vars();
+        sscope9.execute(m_t, SDataVector(iW.Wm, iW.MechAngle));
+
+        /* Execute resolver update */
+        theta = iW.MechAngle;
         double exc_sinwt = m_exc_ampl * sin(2 * M_PI * m_exc_freq * m_t);
         double sin_sinwt = m_exc_ampl * sin(2 * M_PI * m_exc_freq * m_t + m_sin_delay);
         double cos_sinwt = m_exc_ampl * sin(2 * M_PI * m_exc_freq * m_t + m_cos_delay);
@@ -87,7 +104,7 @@ void simulationModel8::startSimulation(void)
             sscope3.execute(m_t, SDataVector(theta));
         }
 
-        // Resolver exe to be moved in the function
+        /* Resolver decoding */
         double s = secondarySin * cos(phi); /* Vs * cos(phi) */
         double c = secondaryCos * sin(phi); /* Vc * sen(phi) */
         double d = s - c; /* (Vs * cos(phi)) - (Vc * sen(phi)) */
@@ -101,7 +118,6 @@ void simulationModel8::startSimulation(void)
 
         sscope4.execute(m_t, SDataVector(omega));
         sscope5.execute(m_t, SDataVector(phi));
-        //sscope6.execute(m_t, SDataVector(m));
         sscope7.execute(m_t, SDataVector(mf));
 
         // Update of simutaion variables
@@ -126,9 +142,9 @@ void simulationModel8::startSimulation(void)
 
     sscope4.scopeUpdate(m_ts);
     sscope5.scopeUpdate(m_ts);
-    //sscope6.scopeUpdate(m_ts);
     sscope7.scopeUpdate(m_ts);
     sscope8.scopeUpdate(m_ts);
+    sscope9.scopeUpdate(m_ts);
 }
 
 void simulationModel8::resolverInit(void)
