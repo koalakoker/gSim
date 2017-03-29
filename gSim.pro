@@ -65,7 +65,9 @@ SOURCES += main.cpp\
     simulationTemplates/simulationModel6.cpp \
     simulationModules/motormechvars.cpp \
     simulationModules/stmotormech.cpp \
-    simulationModules/stdelay.cpp
+    simulationModules/stdelay.cpp \
+    simulationTemplates/simulationModel9.cpp \
+    simulationTemplates/simulationView9.cpp
 
 HEADERS  += gsim.h \
     qcustomplot.h \
@@ -120,7 +122,9 @@ HEADERS  += gsim.h \
     simulationTemplates/simulationModel6.h \
     simulationModules/motormechvars.h \
     simulationModules/stmotormech.h \
-    simulationModules/stdelay.h
+    simulationModules/stdelay.h \
+    simulationTemplates/simulationModel9.h \
+    simulationTemplates/simulationView9.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \
@@ -128,7 +132,8 @@ FORMS    += gsim.ui \
     wscope/wcursorctrl.ui \
     simulationTemplates/simulationView8.ui \
     simulationTemplates/baseSimulationView.ui \
-    simulationTemplates/simulationView7.ui
+    simulationTemplates/simulationView7.ui \
+    simulationTemplates/simulationView9.ui
 
 RESOURCES += \
     resource.qrc

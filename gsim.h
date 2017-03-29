@@ -19,6 +19,9 @@
 #include "simulationTemplates/simulationModel8.h"
 #include "simulationTemplates/simulationView8.h"
 
+#include "simulationTemplates/simulationModel9.h"
+#include "simulationTemplates/simulationView9.h"
+
 #include <QTimer>
 //#define TEST
 #define SIM_TEST 100
@@ -59,8 +62,10 @@ private:
     simulationModel6 m_simModel6;
     simulationModel7 m_simModel7;
     simulationModel8 m_simModel8;
+    simulationModel9 m_simModel9;
     simulationView7  m_simView7;
     simulationView8  m_simView8;
+    simulationView9  m_simView9;
 
     void setSimulation(int arg);
 

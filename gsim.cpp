@@ -2,7 +2,7 @@
 #include "gsim.h"
 #include "ui_gsim.h"
 
-#define DEFAULT_SIMULATION 8
+#define DEFAULT_SIMULATION 9
 
 gSim::gSim(QWidget *parent) :
     QMainWindow(parent),
@@ -137,6 +137,14 @@ void gSim::setSimulation(int arg)
         {
             m_simModel = &m_simModel8;
             m_simView = &m_simView8;
+            m_simView->setSimulationModel(m_simModel); /* Set simulation model */
+            m_simView->updateView(); /* Update view values according model */
+        }
+            break;
+        case 9:
+        {
+            m_simModel = &m_simModel9;
+            m_simView = &m_simView9;
             m_simView->setSimulationModel(m_simModel); /* Set simulation model */
             m_simView->updateView(); /* Update view values according model */
         }
