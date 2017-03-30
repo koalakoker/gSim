@@ -161,45 +161,10 @@
        <layout class="QGridLayout" name="gridLayout_9">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_8">
-          <item row="5" column="0">
-           <widget class="QCheckBox" name="deltaAngle">
-            <property name="text">
-             <string>Delta angle</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QCheckBox" name="omegaPlot">
-            <property name="text">
-             <string>Mechanical speed</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QCheckBox" name="thetaPlot">
-            <property name="text">
-             <string>Mechanical angle</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QCheckBox" name="outputPlot">
-            <property name="text">
-             <string>Sin/Cos signals</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
-           <widget class="QCheckBox" name="excitingPlot">
+           <widget class="QCheckBox" name="anglePlot">
             <property name="text">
-             <string>Exciting signal</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QCheckBox" name="outputDemuxPlot">
-            <property name="text">
-             <string>Sin/Cos signal demodulated</string>
+             <string>Angle</string>
             </property>
            </widget>
           </item>
@@ -236,7 +201,7 @@
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
        <property name="title">
-        <string>Resolver parameters</string>
+        <string>Trajectory parameters</string>
        </property>
        <property name="flat">
         <bool>false</bool>
@@ -247,147 +212,71 @@
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="2" column="1">
-           <widget class="QDoubleSpinBox" name="sinAttenuation"/>
-          </item>
-          <item row="3" column="1">
-           <widget class="QDoubleSpinBox" name="sinDelay">
-            <property name="decimals">
-             <number>7</number>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="excAmp">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="maximum">
-             <number>25</number>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_9">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>sin offset</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>Hz</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="2">
-           <widget class="QLabel" name="label_12">
-            <property name="text">
-             <string>s</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>sin attenuation</string>
+             <string>Curise speed</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="excFreq">
-            <property name="minimum">
-             <number>1</number>
-            </property>
+           <widget class="QDoubleSpinBox" name="acceleration">
             <property name="maximum">
-             <number>30000</number>
+             <double>9999999999.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>104.719999999999999</double>
             </property>
            </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QDoubleSpinBox" name="cosAttenuation"/>
-          </item>
-          <item row="6" column="2">
-           <widget class="QLabel" name="label_14">
-            <property name="text">
-             <string>s</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="label_10">
-            <property name="text">
-             <string>cos delay</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QDoubleSpinBox" name="sinOffset"/>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>Exciting freq</string>
+             <string>Acceleration</string>
             </property>
            </widget>
           </item>
-          <item row="7" column="0">
-           <widget class="QLabel" name="label_11">
-            <property name="text">
-             <string>cos offset</string>
+          <item row="1" column="1">
+           <widget class="QDoubleSpinBox" name="cruiseSpeed">
+            <property name="decimals">
+             <number>4</number>
             </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Exciting amplitude</string>
+            <property name="maximum">
+             <double>9999999999.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>52.359999999999999</double>
             </property>
            </widget>
           </item>
           <item row="1" column="2">
            <widget class="QLabel" name="label_5">
             <property name="text">
-             <string>Vpk</string>
+             <string>rad/s</string>
             </property>
            </widget>
           </item>
-          <item row="7" column="2">
-           <widget class="QLabel" name="label_15">
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_4">
             <property name="text">
-             <string>V</string>
+             <string>rad/s2</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_8">
+          <item row="2" column="0">
+           <widget class="QLabel" name="label">
             <property name="text">
-             <string>sin delay</string>
+             <string>Duration</string>
             </property>
            </widget>
           </item>
-          <item row="7" column="1">
-           <widget class="QDoubleSpinBox" name="cosOffset"/>
+          <item row="2" column="1">
+           <widget class="QDoubleSpinBox" name="duration"/>
           </item>
-          <item row="4" column="2">
-           <widget class="QLabel" name="label_13">
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>V</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QDoubleSpinBox" name="cosDelay">
-            <property name="decimals">
-             <number>7</number>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_16">
-            <property name="text">
-             <string>cos attenuation</string>
+             <string>s</string>
             </property>
            </widget>
           </item>
