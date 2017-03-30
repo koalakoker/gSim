@@ -28,6 +28,10 @@ void simulationView9::updateView(void)
 
     ui->cruiseSpeed->setValue(sim->m_cruiseSpeed);
     ui->duration->setValue(sim->m_movementDuration);
+    ui->angleStep->setValue(sim->m_angleStep);
+    ui->t1->setValue(sim->m_t1);
+    ui->acceleration->setValue(sim->m_acceleration);
+    ui->t2->setValue(sim->m_t2);
 }
 
 void simulationView9::updateModel(void)
@@ -42,7 +46,7 @@ void simulationView9::updateModel(void)
     sim->PI_KP = ui->PI_KP->value();
     sim->PI_KI = ui->PI_KI->value();
 
-    sim->m_acceleration = ui->acceleration->value();
     sim->m_cruiseSpeed = ui->cruiseSpeed->value();
     sim->m_movementDuration = ui->duration->value();
+    sim->m_angleStep = ui->angleStep->value();
 }

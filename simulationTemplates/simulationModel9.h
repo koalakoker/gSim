@@ -18,14 +18,20 @@ public:
 
     double m_acceleration;
     double m_cruiseSpeed;
+    double m_angleStep;
+    double m_movementDuration;
+
+    double m_t1;
+    double m_t2;
+    double m_teta0;
+    double m_teta1;
+    double m_teta2;
+
+    double m_omega;
+    double m_teta;
 
     /* Plots */
     bool m_anglePlot;
-    double m_t1;
-    double m_teta0;
-    double m_teta1;
-    double m_movementDuration;
-    double m_t2;
 
     void startSimulation(void);
 
