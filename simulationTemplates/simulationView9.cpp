@@ -26,6 +26,7 @@ void simulationView9::updateView(void)
     ui->PI_KP->setValue(sim->PI_KP);
     ui->PI_KI->setValue(sim->PI_KI);
 
+    ui->jerk->setValue(sim->m_jerk);
     ui->cruiseSpeed->setValue(sim->m_cruiseSpeed);
     ui->duration->setValue(sim->m_movementDuration);
     ui->angleStep->setValue(sim->m_angleStep);
@@ -46,6 +47,7 @@ void simulationView9::updateModel(void)
     sim->PI_KP = ui->PI_KP->value();
     sim->PI_KI = ui->PI_KI->value();
 
+    sim->m_jerk = ui->jerk->value();
     sim->m_cruiseSpeed = ui->cruiseSpeed->value();
     sim->m_movementDuration = ui->duration->value();
     sim->m_angleStep = ui->angleStep->value();
