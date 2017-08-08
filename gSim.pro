@@ -20,49 +20,49 @@ SOURCES += main.cpp\
     wscope/wscope.cpp \
     wscope/waxisctrl.cpp \
     wscope/wcursorctrl.cpp \
-    simulationModules/sdata.cpp \
-    simulationModules/sdatavector.cpp \
-    simulationModules/selement.cpp \
-    simulationModules/ssource.cpp \
-    simulationModules/ssink.cpp \
-    simulationModules/ssscope.cpp \
-    simulationModules/sssincos.cpp \
-    simulationModules/stransfer.cpp \
-    simulationModules/staritmetic.cpp \
-    simulationModules/stransferbinary.cpp \
-    simulationModules/stmux.cpp \
-    simulationModules/stdemux.cpp \
-    simulationModules/ssramp.cpp \
-    simulationModules/stprev.cpp \
-    simulationModules/stpi.cpp \
-    simulationModules/strl.cpp \
-    simulationModules/stdpi.cpp \
-    simulationModules/stpid.cpp \
-    simulationModules/stfdiscretefirstorder.cpp \
-    simulationModules/stfintegrator.cpp \
-    simulationModules/stfderivatorfitered.cpp \
-    simulationModules/stdqtoabc.cpp \
-    simulationModules/stpmsmabc.cpp \
-    simulationModules/stpmsmdq.cpp \
-    simulationModules/stabctodq.cpp \
-    simulationModules/pmsmvars.cpp \
-    simulationModules/smotor.cpp \
-    simulationModules/stdqtoalphabeta.cpp \
-    simulationModules/svm.cpp \
-    simulationModules/stsvm.cpp \
-    simulationTemplates/simModel/baseSimulationModel.cpp \
-    simulationTemplates/simModel/simulationModel0.cpp \
-    simulationTemplates/simModel/simulationModel1.cpp \
-    simulationTemplates/simModel/simulationModel2.cpp \
-    simulationTemplates/simModel/simulationModel3.cpp \
-    simulationTemplates/simModel/simulationModel4.cpp \
-    simulationTemplates/simModel/simulationModel5.cpp \
-    simulationTemplates/simModel/simulationModel6.cpp \
-    simulationTemplates/simModel/simulationModel7.cpp \
-    simulationTemplates/simModel/simulationModel8.cpp \
-    simulationTemplates/simView/baseSimualtionView.cpp \
-    simulationTemplates/simView/simulationView7.cpp \
-    simulationTemplates/simView/simulationView8.cpp
+    simModules/sdata.cpp \
+    simModules/sdatavector.cpp \
+    simModules/selement.cpp \
+    simModules/ssource.cpp \
+    simModules/ssink.cpp \
+    simModules/ssscope.cpp \
+    simModules/sssincos.cpp \
+    simModules/stransfer.cpp \
+    simModules/staritmetic.cpp \
+    simModules/stransferbinary.cpp \
+    simModules/stmux.cpp \
+    simModules/stdemux.cpp \
+    simModules/ssramp.cpp \
+    simModules/stprev.cpp \
+    simModules/stpi.cpp \
+    simModules/strl.cpp \
+    simModules/stdpi.cpp \
+    simModules/stpid.cpp \
+    simModules/stfdiscretefirstorder.cpp \
+    simModules/stfintegrator.cpp \
+    simModules/stfderivatorfitered.cpp \
+    simModules/stdqtoabc.cpp \
+    simModules/stpmsmabc.cpp \
+    simModules/stpmsmdq.cpp \
+    simModules/stabctodq.cpp \
+    simModules/pmsmvars.cpp \
+    simModules/smotor.cpp \
+    simModules/stdqtoalphabeta.cpp \
+    simModules/svm.cpp \
+    simModules/stsvm.cpp \
+    simTemplates/simModel/baseSimModel.cpp \
+    simTemplates/simModel/simModel0.cpp \
+    simTemplates/simModel/simModel1.cpp \
+    simTemplates/simModel/simModel2.cpp \
+    simTemplates/simModel/simModel3.cpp \
+    simTemplates/simModel/simModel4.cpp \
+    simTemplates/simModel/simModel5.cpp \
+    simTemplates/simModel/simModel6.cpp \
+    simTemplates/simModel/simModel7.cpp \
+    simTemplates/simModel/simModel8.cpp \
+    simTemplates/simView/baseSimView.cpp \
+    simTemplates/simView/simView7.cpp \
+    simTemplates/simView/simView8.cpp
 
 HEADERS  += gsim.h \
     qcustomplot.h \
@@ -71,58 +71,58 @@ HEADERS  += gsim.h \
     wscope/wscope.h \
     wscope/waxisctrl.h \
     wscope/wcursorctrl.h \
-    simulationModules/sdata.h \
-    simulationModules/sdatavector.h \
-    simulationModules/selement.h \
-    simulationModules/ssource.h \
-    simulationModules/ssink.h \
-    simulationModules/ssscope.h \
-    simulationModules/sssincos.h \
-    simulationModules/stransfer.h \
-    simulationModules/staritmetic.h \
-    simulationModules/stransferbinary.h \
-    simulationModules/stmux.h \
-    simulationModules/stdemux.h \
-    simulationModules/ssramp.h \
-    simulationModules/stprev.h \
-    simulationModules/stpi.h \
-    simulationModules/strl.h \
-    simulationModules/stdpi.h \
-    simulationModules/stpid.h \
-    simulationModules/stfdiscretefirstorder.h \
-    simulationModules/stfintegrator.h \
-    simulationModules/discretetimetransformtype.h \
-    simulationModules/stfderivatorfitered.h \
-    simulationModules/stdqtoabc.h \
-    simulationModules/stpmsmabc.h \
-    simulationModules/stpmsmdq.h \
-    simulationModules/stabctodq.h \
-    simulationModules/pmsmvars.h \
-    simulationModules/smotor.h \
-    simulationModules/stdqtoalphabeta.h \
-    simulationModules/svm.h \
-    simulationModules/stsvm.h \
-    simulationTemplates/simModel/baseSimulationModel.h \
-    simulationTemplates/simModel/simulationModel0.h \
-    simulationTemplates/simModel/simulationModel1.h \
-    simulationTemplates/simModel/simulationModel2.h \
-    simulationTemplates/simModel/simulationModel3.h \
-    simulationTemplates/simModel/simulationModel4.h \
-    simulationTemplates/simModel/simulationModel5.h \
-    simulationTemplates/simModel/simulationModel6.h \
-    simulationTemplates/simModel/simulationModel7.h \
-    simulationTemplates/simModel/simulationModel8.h \
-    simulationTemplates/simView/baseSimulationView.h \
-    simulationTemplates/simView/simulationView7.h \
-    simulationTemplates/simView/simulationView8.h
+    simModules/sdata.h \
+    simModules/sdatavector.h \
+    simModules/selement.h \
+    simModules/ssource.h \
+    simModules/ssink.h \
+    simModules/ssscope.h \
+    simModules/sssincos.h \
+    simModules/stransfer.h \
+    simModules/staritmetic.h \
+    simModules/stransferbinary.h \
+    simModules/stmux.h \
+    simModules/stdemux.h \
+    simModules/ssramp.h \
+    simModules/stprev.h \
+    simModules/stpi.h \
+    simModules/strl.h \
+    simModules/stdpi.h \
+    simModules/stpid.h \
+    simModules/stfdiscretefirstorder.h \
+    simModules/stfintegrator.h \
+    simModules/discretetimetransformtype.h \
+    simModules/stfderivatorfitered.h \
+    simModules/stdqtoabc.h \
+    simModules/stpmsmabc.h \
+    simModules/stpmsmdq.h \
+    simModules/stabctodq.h \
+    simModules/pmsmvars.h \
+    simModules/smotor.h \
+    simModules/stdqtoalphabeta.h \
+    simModules/svm.h \
+    simModules/stsvm.h \
+    simTemplates/simModel/baseSimModel.h \
+    simTemplates/simModel/simModel0.h \
+    simTemplates/simModel/simModel1.h \
+    simTemplates/simModel/simModel2.h \
+    simTemplates/simModel/simModel3.h \
+    simTemplates/simModel/simModel4.h \
+    simTemplates/simModel/simModel5.h \
+    simTemplates/simModel/simModel6.h \
+    simTemplates/simModel/simModel7.h \
+    simTemplates/simModel/simModel8.h \
+    simTemplates/simView/baseSimView.h \
+    simTemplates/simView/simView7.h \
+    simTemplates/simView/simView8.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \
     wscope/waxisctrl.ui \
     wscope/wcursorctrl.ui \
-    simulationTemplates/simView/baseSimulationView.ui \
-    simulationTemplates/simView/simulationView7.ui \
-    simulationTemplates/simView/simulationView8.ui
+    simTemplates/simView/baseSimView.ui \
+    simTemplates/simView/simView7.ui \
+    simTemplates/simView/simView8.ui
 
 RESOURCES += \
     resource.qrc

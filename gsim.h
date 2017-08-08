@@ -2,10 +2,10 @@
 #define GSIM_H
 
 #include <QMainWindow>
-#include "simulationTemplates/baseSimulationModel.h"
-#include "simulationTemplates/baseSimulationView.h"
+#include "simTemplates/simModel/baseSimModel.h"
+#include "simTemplates/simView/baseSimView.h"
 
-#include "simulationTemplates/simulationModel0.h"
+#include "simTemplates/simModel/simModel0.h"
 
 #include <QTimer>
 
@@ -22,18 +22,18 @@ public:
     ~gSim();
 
 private slots:
-    void on_startSimulation_clicked();
+    void on_startSim_clicked();
     void updateProgress(double percentage);
 
 private:
     Ui::gSim *ui;
 
-    baseSimulationModel* m_simModel;
-    baseSimulationView* m_simView;
+    baseSimModel* m_simModel;
+    baseSimView* m_simView;
 
-    simulationModel0 m_simModel0;
+    simModel0 m_simModel0;
 
-    void setSimulation(void);
+    void setSim(void);
 
     QTimer testTim;
 

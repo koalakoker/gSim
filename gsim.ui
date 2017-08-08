@@ -18,7 +18,7 @@
     <item>
      <widget class="QGroupBox" name="SimParams">
       <property name="title">
-       <string>Simulation params</string>
+       <string>Sim params</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
@@ -69,7 +69,7 @@
     <item>
      <widget class="QGroupBox" name="PIParams">
       <property name="title">
-       <string>Simulation specific params</string>
+       <string>Sim specific params</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
@@ -83,16 +83,16 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="startSimulation">
+     <widget class="QPushButton" name="startSim">
       <property name="text">
-       <string>Start simulation</string>
+       <string>Start sim</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
-       <string>Simulation info</string>
+       <string>Sim info</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
