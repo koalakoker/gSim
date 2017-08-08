@@ -50,19 +50,19 @@ SOURCES += main.cpp\
     simulationModules/stdqtoalphabeta.cpp \
     simulationModules/svm.cpp \
     simulationModules/stsvm.cpp \
-    simulationTemplates/baseSimualtionView.cpp \
-    simulationTemplates/baseSimulationModel.cpp \
-    simulationTemplates/simulationModel8.cpp \
-    simulationTemplates/simulationView8.cpp \
-    simulationTemplates/simulationModel7.cpp \
-    simulationTemplates/simulationView7.cpp \
-    simulationTemplates/simulationModel0.cpp \
-    simulationTemplates/simulationModel1.cpp \
-    simulationTemplates/simulationModel2.cpp \
-    simulationTemplates/simulationModel3.cpp \
-    simulationTemplates/simulationModel4.cpp \
-    simulationTemplates/simulationModel5.cpp \
-    simulationTemplates/simulationModel6.cpp
+    simulationTemplates/simModel/baseSimulationModel.cpp \
+    simulationTemplates/simModel/simulationModel0.cpp \
+    simulationTemplates/simModel/simulationModel1.cpp \
+    simulationTemplates/simModel/simulationModel2.cpp \
+    simulationTemplates/simModel/simulationModel3.cpp \
+    simulationTemplates/simModel/simulationModel4.cpp \
+    simulationTemplates/simModel/simulationModel5.cpp \
+    simulationTemplates/simModel/simulationModel6.cpp \
+    simulationTemplates/simModel/simulationModel7.cpp \
+    simulationTemplates/simModel/simulationModel8.cpp \
+    simulationTemplates/simView/baseSimualtionView.cpp \
+    simulationTemplates/simView/simulationView7.cpp \
+    simulationTemplates/simView/simulationView8.cpp
 
 HEADERS  += gsim.h \
     qcustomplot.h \
@@ -102,27 +102,27 @@ HEADERS  += gsim.h \
     simulationModules/stdqtoalphabeta.h \
     simulationModules/svm.h \
     simulationModules/stsvm.h \
-    simulationTemplates/baseSimulationModel.h \
-    simulationTemplates/baseSimulationView.h \
-    simulationTemplates/simulationModel8.h \
-    simulationTemplates/simulationView8.h \
-    simulationTemplates/simulationModel7.h \
-    simulationTemplates/simulationView7.h \
-    simulationTemplates/simulationModel0.h \
-    simulationTemplates/simulationModel1.h \
-    simulationTemplates/simulationModel2.h \
-    simulationTemplates/simulationModel3.h \
-    simulationTemplates/simulationModel4.h \
-    simulationTemplates/simulationModel5.h \
-    simulationTemplates/simulationModel6.h
+    simulationTemplates/simModel/baseSimulationModel.h \
+    simulationTemplates/simModel/simulationModel0.h \
+    simulationTemplates/simModel/simulationModel1.h \
+    simulationTemplates/simModel/simulationModel2.h \
+    simulationTemplates/simModel/simulationModel3.h \
+    simulationTemplates/simModel/simulationModel4.h \
+    simulationTemplates/simModel/simulationModel5.h \
+    simulationTemplates/simModel/simulationModel6.h \
+    simulationTemplates/simModel/simulationModel7.h \
+    simulationTemplates/simModel/simulationModel8.h \
+    simulationTemplates/simView/baseSimulationView.h \
+    simulationTemplates/simView/simulationView7.h \
+    simulationTemplates/simView/simulationView8.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \
     wscope/waxisctrl.ui \
     wscope/wcursorctrl.ui \
-    simulationTemplates/simulationView8.ui \
-    simulationTemplates/baseSimulationView.ui \
-    simulationTemplates/simulationView7.ui
+    simulationTemplates/simView/baseSimulationView.ui \
+    simulationTemplates/simView/simulationView7.ui \
+    simulationTemplates/simView/simulationView8.ui
 
 RESOURCES += \
     resource.qrc
