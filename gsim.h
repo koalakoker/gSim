@@ -5,7 +5,7 @@
 #include "simTemplates/simModel/baseSimModel.h"
 #include "simTemplates/simView/baseSimView.h"
 
-#include "simTemplates/simModel/simModel0.h"
+#include "simTemplates/simModel/simModel8.h"
 
 #include <QTimer>
 
@@ -31,7 +31,7 @@ private:
     baseSimModel* m_simModel;
     baseSimView* m_simView;
 
-    simModel0 m_simModel0;
+    simModel8 m_sim;
 
     void setSim(void);
 

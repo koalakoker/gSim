@@ -46,7 +46,7 @@ void gSim::updateProgress(double percentage)
 
 void gSim::setSim(void)
 {
-    m_simModel = &m_simModel0;
+    m_simModel = &m_sim;
 
     /* Update common settings */
     ui->duration->setValue(m_simModel->duration());
