@@ -2,15 +2,12 @@
 #include "gsim.h"
 #include "ui_gsim.h"
 
-#define DEFAULT_SIMULATION 0
-
 gSim::gSim(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::gSim)
 {
     m_simModel = NULL;
     m_simView = NULL;
-    m_lastSetWidget = NULL;
 
     ui->setupUi(this);
 

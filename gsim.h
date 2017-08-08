@@ -30,7 +30,6 @@ private:
 
     baseSimulationModel* m_simModel;
     baseSimulationView* m_simView;
-    QWidget* m_lastSetWidget;
 
     simulationModel0 m_simModel0;
 
