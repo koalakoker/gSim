@@ -16,8 +16,8 @@ private:
     double m_kp;
     double m_ki;
     double m_kd;
-    double m_ts;
-    double m_n;
+    //double m_ts;
+    //double m_n;
 
     STFIntegrator m_intTF;
     STFDerivatorFitered m_derTF;

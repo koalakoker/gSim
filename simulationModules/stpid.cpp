@@ -1,7 +1,7 @@
 #include "stpid.h"
 
 STPID::STPID(double kp, double ki, double kd, double n, double ts, DiscreteTimeTransformType_t transform) :
-    m_kp(kp), m_ki(ki), m_kd(kd), m_ts(ts), m_n(n), m_intTF(ts, transform), m_derTF(ts, n, transform)
+    m_kp(kp), m_ki(ki), m_kd(kd), m_intTF(ts, transform), m_derTF(ts, n, transform)
 {
 }
 

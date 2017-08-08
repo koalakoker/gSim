@@ -1,6 +1,6 @@
 #include "simulationView7.h"
 #include "ui_simulationView7.h"
-#include "simulationmodel7.h"
+#include "simulationModel7.h"
 
 simulationView7::simulationView7(QWidget *parent) :
     baseSimulationView(parent),

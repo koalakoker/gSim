@@ -1,4 +1,5 @@
 #include "stdqtoalphabeta.h"
+#include <math.h>
 
 STdqtoalphabeta::STdqtoalphabeta()
 {

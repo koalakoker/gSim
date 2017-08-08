@@ -1,5 +1,6 @@
 #include "wcursorctrl.h"
 #include "ui_wcursorctrl.h"
+#include <math.h>
 
 #define DTFACTOR 10
 

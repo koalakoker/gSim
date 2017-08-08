@@ -1,4 +1,5 @@
 #include "stpmsmdq.h"
+#include <math.h>
 
 STPMSMdq::STPMSMdq(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
                    double brakeTorque,

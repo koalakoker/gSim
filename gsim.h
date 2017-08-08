@@ -6,23 +6,8 @@
 #include "simulationTemplates/baseSimulationView.h"
 
 #include "simulationTemplates/simulationModel0.h"
-#include "simulationTemplates/simulationModel1.h"
-#include "simulationTemplates/simulationModel2.h"
-#include "simulationTemplates/simulationModel3.h"
-#include "simulationTemplates/simulationModel4.h"
-#include "simulationTemplates/simulationModel5.h"
-#include "simulationTemplates/simulationModel6.h"
-
-#include "simulationTemplates/simulationModel7.h"
-#include "simulationTemplates/simulationView7.h"
-
-#include "simulationTemplates/simulationModel8.h"
-#include "simulationTemplates/simulationView8.h"
 
 #include <QTimer>
-//#define TEST
-#define SIM_TEST 100
-#define MAX_TEST_NUM 12
 
 namespace Ui {
 class gSim;
@@ -40,9 +25,6 @@ private slots:
     void on_startSimulation_clicked();
     void updateProgress(double percentage);
 
-    void on_simulation_valueChanged(int arg1);
-    void testTimeout(void);
-
 private:
     Ui::gSim *ui;
 
@@ -51,18 +33,8 @@ private:
     QWidget* m_lastSetWidget;
 
     simulationModel0 m_simModel0;
-    simulationModel1 m_simModel1;
-    simulationModel2 m_simModel2;
-    simulationModel3 m_simModel3;
-    simulationModel4 m_simModel4;
-    simulationModel5 m_simModel5;
-    simulationModel6 m_simModel6;
-    simulationModel7 m_simModel7;
-    simulationModel8 m_simModel8;
-    simulationView7  m_simView7;
-    simulationView8  m_simView8;
 
-    void setSimulation(int arg);
+    void setSimulation(void);
 
     QTimer testTim;
 
