@@ -5,8 +5,6 @@
 #include "simTemplates/simModel/baseSimModel.h"
 #include "simTemplates/simView/baseSimView.h"
 
-#include "simTemplates/simModel/simModel8.h"
-
 #include <QTimer>
 
 namespace Ui {
@@ -20,6 +18,8 @@ class gSim : public QMainWindow
 public:
     explicit gSim(QWidget *parent = 0);
     ~gSim();
+    void setSimView(baseSimView* view);
+    void setSimModel(baseSimModel* model);
 
 private slots:
     void on_startSim_clicked();
@@ -30,10 +30,6 @@ private:
 
     baseSimModel* m_simModel;
     baseSimView* m_simView;
-
-    simModel8 m_sim;
-
-    void setSim(void);
 
     QTimer testTim;
 

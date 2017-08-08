@@ -10,8 +10,6 @@ gSim::gSim(QWidget *parent) :
     m_simView = NULL;
 
     ui->setupUi(this);
-
-    setSim(); /* To be called after UI setup */
 }
 
 gSim::~gSim()
@@ -44,9 +42,9 @@ void gSim::updateProgress(double percentage)
     ui->progressBar->setValue(percentage * 100);
 }
 
-void gSim::setSim(void)
+void gSim::setSimModel(baseSimModel* model)
 {
-    m_simModel = &m_sim;
+    m_simModel = model;
 
     /* Update common settings */
     ui->duration->setValue(m_simModel->duration());
@@ -54,4 +52,9 @@ void gSim::setSim(void)
     ui->controlTime->setValue(m_simModel->controlTime());
 
     connect(m_simModel, SIGNAL(updateProgress(double)), this, SLOT(updateProgress(double)));
+}
+
+void gSim::setSimView(baseSimView* view)
+{
+    m_simView = view;
 }

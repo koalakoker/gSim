@@ -11,7 +11,7 @@ simModel8::simModel8()
     m_t = 0;
     m_ts = 0.00005;
     m_tc = 0.00005;
-    m_duration = 0.02;
+    m_duration = 0.03;
 
     /* Specific params for sim 8 */
     m_exc_freq = 1000;
