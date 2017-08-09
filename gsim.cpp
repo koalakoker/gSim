@@ -1,6 +1,8 @@
 #include <QTime>
 #include "gsim.h"
 #include "ui_gsim.h"
+#include <QCloseEvent>
+#include <QDebug>
 
 gSim::gSim(QWidget *parent) :
     QMainWindow(parent),
@@ -15,6 +17,15 @@ gSim::gSim(QWidget *parent) :
 gSim::~gSim()
 {
     delete ui;
+}
+
+void gSim::closeEvent(QCloseEvent *event)
+{
+    if (m_simView)
+    {
+        m_simView->close();
+    }
+    event->accept();
 }
 
 void gSim::on_startSim_clicked()

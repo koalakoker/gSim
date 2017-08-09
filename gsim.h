@@ -33,6 +33,8 @@ private:
 
     QTimer testTim;
 
+
+    void closeEvent(QCloseEvent *event);
 };
 
 #endif // GSIM_H

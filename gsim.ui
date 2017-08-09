@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>544</height>
+    <height>351</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,22 +60,6 @@
             <number>5</number>
            </property>
           </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QGroupBox" name="PIParams">
-      <property name="title">
-       <string>Sim specific params</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <layout class="QFormLayout" name="dynamicLayout">
-         <item row="0" column="0">
-          <widget class="QWidget" name="specificForm" native="true"/>
          </item>
         </layout>
        </item>

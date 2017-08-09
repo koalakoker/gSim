@@ -13,11 +13,12 @@ int main(int argc, char *argv[])
 
     s.setSimModel(&m);
     s.updateView();
-    s.show();
 
     w.setSimModel(&m);
     w.setSimView(&s);
+
     w.show();
+    s.show();
 
     return a.exec();
 }
