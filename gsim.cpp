@@ -69,3 +69,8 @@ void gSim::setSimView(baseSimView* view)
 {
     m_simView = view;
 }
+
+void gSim::resetSimView(void)
+{
+    m_simView = NULL;
+}

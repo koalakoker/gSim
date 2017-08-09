@@ -1,5 +1,6 @@
 #include "baseSimView.h"
 #include "ui_baseSimView.h"
+#include <QCloseEvent>
 
 baseSimView::baseSimView(QWidget *parent) :
     QWidget(parent)

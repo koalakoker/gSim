@@ -17,6 +17,8 @@ public:
     ~baseSimView();
 
     void setSimModel(baseSimModel* sim);
+    void setMainWidget(QWidget* mainW);
+    void resetMainWidget(void);
     virtual void updateView(void);
     virtual void updateModel(void);
 

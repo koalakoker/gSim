@@ -19,6 +19,7 @@ public:
     explicit gSim(QWidget *parent = 0);
     ~gSim();
     void setSimView(baseSimView* view);
+    void resetSimView(void);
     void setSimModel(baseSimModel* model);
 
 private slots:

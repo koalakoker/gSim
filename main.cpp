@@ -9,16 +9,16 @@ int main(int argc, char *argv[])
 
     gSim w;
     simModel8 m;
-    simView8 s;
+    simView8 v;
 
-    s.setSimModel(&m);
-    s.updateView();
+    v.setSimModel(&m);
+    v.updateView();
 
     w.setSimModel(&m);
-    w.setSimView(&s);
+    w.setSimView(&v);
 
     w.show();
-    s.show();
+    v.show();
 
     return a.exec();
 }
