@@ -46,7 +46,9 @@ SOURCES += main.cpp\
     simModules/stpmsmdq.cpp \
     simModules/stabctodq.cpp \
     simModules/pmsmvars.cpp \
+    simModules/motormechvars.cpp \
     simModules/smotor.cpp \
+    simModules/smotormech.cpp \
     simModules/stdqtoalphabeta.cpp \
     simModules/svm.cpp \
     simModules/stsvm.cpp \
@@ -60,6 +62,7 @@ SOURCES += main.cpp\
     simTemplates/simModel/simModel6.cpp \
     simTemplates/simModel/simModel7.cpp \
     simTemplates/simModel/simModel8.cpp \
+    simTemplates/simModel/simModel9.cpp \
     simTemplates/simView/baseSimView.cpp \
     simTemplates/simView/simView7.cpp \
     simTemplates/simView/simView8.cpp
@@ -98,7 +101,9 @@ HEADERS  += gsim.h \
     simModules/stpmsmdq.h \
     simModules/stabctodq.h \
     simModules/pmsmvars.h \
+    simModules/motormechvars.h \
     simModules/smotor.h \
+    simModules/smotormech.h \
     simModules/stdqtoalphabeta.h \
     simModules/svm.h \
     simModules/stsvm.h \
@@ -112,6 +117,7 @@ HEADERS  += gsim.h \
     simTemplates/simModel/simModel6.h \
     simTemplates/simModel/simModel7.h \
     simTemplates/simModel/simModel8.h \
+    simTemplates/simModel/simModel9.h \
     simTemplates/simView/baseSimView.h \
     simTemplates/simView/simView7.h \
     simTemplates/simView/simView8.h

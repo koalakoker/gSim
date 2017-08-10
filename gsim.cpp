@@ -61,6 +61,7 @@ void gSim::setSimModel(baseSimModel* model)
     ui->duration->setValue(m_simModel->duration());
     ui->stepTime->setValue(m_simModel->simTime());
     ui->controlTime->setValue(m_simModel->controlTime());
+    ui->simName->setText(m_simModel->m_description);
 
     connect(m_simModel, SIGNAL(updateProgress(double)), this, SLOT(updateProgress(double)));
 }
