@@ -3,9 +3,8 @@
 
 #include <QWidget>
 #include <QDoubleSpinBox>
+#include <QList>
 #include "baseSimView.h"
-
-#define NELEM 5
 
 class simView9 : public baseSimView
 {
@@ -19,7 +18,7 @@ public:
     void updateModel(void);
 
 private:
-    QDoubleSpinBox* m_values[NELEM];
+    QList<QDoubleSpinBox*> m_values;
 };
 
 #endif // SIMVIEW9_H

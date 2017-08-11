@@ -9,7 +9,7 @@
 simView9::simView9(QWidget *parent) :
     baseSimView(parent)
 {
-    QString label[NELEM] = {
+    QList<QString> label = {
         "Inertia",
         "Fricrion",
         "Poles pairs",
@@ -21,7 +21,7 @@ simView9::simView9(QWidget *parent) :
     QGroupBox* mainGroup = new QGroupBox("Specific sim params");
     QVBoxLayout* mainGroupLayout = new QVBoxLayout();
 
-    for (int i = 0; i < NELEM; i++)
+    for (int i = 0; i < label.size(); i++)
     {
         QHBoxLayout* hLayout = new QHBoxLayout();
 
@@ -32,7 +32,7 @@ simView9::simView9(QWidget *parent) :
         doubleSpinBox->setDecimals(5);
 
         hLayout->addWidget(doubleSpinBox);
-        m_values[i] = doubleSpinBox;
+        m_values.append(doubleSpinBox);
 
         mainGroupLayout->addItem(hLayout);
     }
