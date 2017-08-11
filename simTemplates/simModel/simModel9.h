@@ -19,6 +19,7 @@ public:
     double m_f;
 
     bool m_wTetaPlot;
+    bool m_torquePlot;
 
     void startSim(void);
 };

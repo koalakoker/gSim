@@ -23,6 +23,7 @@ void simView9::updateView(void)
     ui->kp->setValue(sim->m_pi_kp);
     ui->ki->setValue(sim->m_pi_ki);
     ui->w_tetaPlot->setChecked(sim->m_wTetaPlot);
+    ui->torquePlot->setChecked(sim->m_wTetaPlot);
 }
 
 void simView9::updateModel(void)
@@ -34,4 +35,5 @@ void simView9::updateModel(void)
     sim->m_pi_kp = ui->kp->value();
     sim->m_pi_ki = ui->ki->value();
     sim->m_wTetaPlot = ui->w_tetaPlot->isChecked();
+    sim->m_torquePlot = ui->torquePlot->isChecked();
 }

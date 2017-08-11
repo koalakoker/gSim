@@ -62,8 +62,16 @@ void simModel9::startSim(void)
 
         motor.execute(tin);
         MotorMechVars iW = motor.vars();
-        sscope.execute(m_t, SDataVector(tin));
-        sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
+
+        if (m_wTetaPlot)
+        {
+            sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
+        }
+
+        if (m_torquePlot)
+        {
+            sscope.execute(m_t, SDataVector(tin));
+        }
 
         // Update of simutaion variables
         m_t += m_ts;
@@ -72,6 +80,13 @@ void simModel9::startSim(void)
         emit updateProgress((double)(i+1)/(double)m_step);
     }
 
-    sscope.scopeUpdate(m_ts);
-    sscope2.scopeUpdate(m_ts);
+    if (m_torquePlot)
+    {
+        sscope.scopeUpdate(m_ts);
+    }
+
+    if (m_wTetaPlot)
+    {
+        sscope2.scopeUpdate(m_ts);
+    }
 }
