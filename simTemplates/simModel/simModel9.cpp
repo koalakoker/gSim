@@ -22,7 +22,7 @@ simModel9::simModel9()
     m_pi_n = 0;
 
     m_pp = 4;
-    m_j = 0.089;
+    m_j = 0.09;
     m_f = 0.05;
 
     m_wTetaPlot = true;

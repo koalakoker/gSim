@@ -9,7 +9,6 @@ baseSimView::baseSimView(QWidget *parent) :
 
 baseSimView::~baseSimView()
 {
-    delete ui;
 }
 
 void baseSimView::setSimModel(baseSimModel* sim)

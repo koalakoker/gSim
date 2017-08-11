@@ -2,11 +2,10 @@
 #define SIMVIEW9_H
 
 #include <QWidget>
+#include <QDoubleSpinBox>
 #include "baseSimView.h"
 
-namespace Ui {
-class SpecificSimParamsTest9;
-}
+#define NELEM 5
 
 class simView9 : public baseSimView
 {
@@ -20,7 +19,7 @@ public:
     void updateModel(void);
 
 private:
-    Ui::SpecificSimParamsTest9 *ui;
+    QDoubleSpinBox* m_values[NELEM];
 };
 
 #endif // SIMVIEW9_H

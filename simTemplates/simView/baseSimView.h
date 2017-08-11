@@ -4,10 +4,6 @@
 #include <QWidget>
 #include "simTemplates/simModel/baseSimModel.h"
 
-namespace Ui {
-class SpecificSimParamsEmpty;
-}
-
 class baseSimView : public QWidget
 {
     Q_OBJECT
@@ -23,7 +19,6 @@ public:
     virtual void updateModel(void);
 
 private:
-    Ui::SpecificSimParamsEmpty *ui;
 
 protected:
     baseSimModel* m_sim;
