@@ -44,7 +44,7 @@ void simModel9::startSim(void)
     double speedTarg = 100;
 
     SDataVector tin;
-    //SSScope sscope("T",1);
+    SSScope sscope("T",1);
     SSScope sscope2("Speed - Theta", 4);
 
     // Main cycle
@@ -60,10 +60,9 @@ void simModel9::startSim(void)
             tin = speedpid.execute(err);
         }
 
-        //SDataVector tin = SDataVector(vdin, vqin);
         motor.execute(tin);
         MotorMechVars iW = motor.vars();
-        //sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
+        sscope.execute(m_t, SDataVector(tin));
         sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
 
         // Update of simutaion variables
@@ -73,6 +72,6 @@ void simModel9::startSim(void)
         emit updateProgress((double)(i+1)/(double)m_step);
     }
 
-    //sscope.scopeUpdate(m_ts);
+    sscope.scopeUpdate(m_ts);
     sscope2.scopeUpdate(m_ts);
 }
