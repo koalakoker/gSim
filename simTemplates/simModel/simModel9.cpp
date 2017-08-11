@@ -1,6 +1,6 @@
 #include "simModel9.h"
 
-#include "simModules/stpmsmdq.h"
+#include "simModules/smotormech.h"
 #include "simModules/stpid.h"
 #include "simModules/ssscope.h"
 
@@ -16,13 +16,16 @@ simModel9::simModel9()
     m_duration = 2;
 
     /* Specific params for sim 9 */
-    m_pi_kp = 2.90663474828051;
-    m_pi_ki = 2113.6708113218;
+    m_pi_kp = 3.0;
+    m_pi_ki = 2.0;
     m_pi_kd = 0;
     m_pi_n = 0;
 
-    m_r = 1;
-    m_l = 0.001;
+    m_pp = 4;
+    m_j = 0.089;
+    m_f = 0.05;
+
+    m_wTetaPlot = true;
 }
 
 void simModel9::startSim(void)
@@ -35,14 +38,13 @@ void simModel9::startSim(void)
     int m_controlStepRatio = (int)(m_tc / m_ts);
 
     // Init sink-source-transfer
+    SMotorMech motor(m_pp, m_j, m_f, m_ts);
+    STPID speedpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
 
-    STPMSMdq motor(0.2, 0.0085, 0.0085, 4, 0.175, 0.089, 0.05, m_ts, 4);
-    STPID idpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
-    STPID iqpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
-    double iqTarg = 4.76;
-    double idTarg = 0;
-    SDataVector vqin, vdin;
-    SSScope sscope("Iqd",2);
+    double speedTarg = 100;
+
+    SDataVector tin;
+    //SSScope sscope("T",1);
     SSScope sscope2("Speed - Theta", 4);
 
     // Main cycle
@@ -54,17 +56,14 @@ void simModel9::startSim(void)
         {
             // Execution of control cycle
             double err;
-            err = idTarg - motor.vars().Id;
-            vdin = idpid.execute(err);
-
-            err = iqTarg - motor.vars().Iq;
-            vqin = iqpid.execute(err);
+            err = speedTarg - motor.vars().Wm;
+            tin = speedpid.execute(err);
         }
 
-        SDataVector vin = SDataVector(vdin, vqin);
-        motor.execute(vin);
-        PMSMVars iW = motor.vars();
-        sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
+        //SDataVector tin = SDataVector(vdin, vqin);
+        motor.execute(tin);
+        MotorMechVars iW = motor.vars();
+        //sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
         sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
 
         // Update of simutaion variables
@@ -74,6 +73,6 @@ void simModel9::startSim(void)
         emit updateProgress((double)(i+1)/(double)m_step);
     }
 
-    sscope.scopeUpdate(m_ts);
+    //sscope.scopeUpdate(m_ts);
     sscope2.scopeUpdate(m_ts);
 }

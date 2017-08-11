@@ -1,6 +1,6 @@
 #include "gsim.h"
 #include "simTemplates/simModel/simModel9.h"
-//#include "simTemplates/simView/simView8.h"
+#include "simTemplates/simView/simView9.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -9,16 +9,16 @@ int main(int argc, char *argv[])
 
     gSim w;
     simModel9 m;
-//    simView8 v;
+    simView9 v;
 
-//    v.setSimModel(&m);
-//    v.updateView();
+    v.setSimModel(&m);
+    v.updateView();
 
     w.setSimModel(&m);
-//    w.setSimView(&v);
+    w.setSimView(&v);
 
     w.show();
-//    v.show();
+    v.show();
 
     return a.exec();
 }

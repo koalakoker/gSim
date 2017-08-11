@@ -14,8 +14,11 @@ public:
     double m_pi_kd;
     double m_pi_n;
 
-    double m_r;
-    double m_l;
+    double m_pp;
+    double m_j;
+    double m_f;
+
+    bool m_wTetaPlot;
 
     void startSim(void);
 };
