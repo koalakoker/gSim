@@ -2,6 +2,8 @@
 #define SIMMODEL9_H
 
 #include "baseSimModel.h"
+#include <QList>
+#include "simModelElement.h"
 
 class simModel9 : public baseSimModel
 {
@@ -20,6 +22,8 @@ public:
 
     bool m_wTetaPlot;
     bool m_torquePlot;
+
+    QList<simModelElement*> m_values;
 
     void startSim(void);
 };
