@@ -75,3 +75,11 @@ void gSim::resetSimView(void)
 {
     m_simView = NULL;
 }
+
+void gSim::on_params_clicked()
+{
+    if (m_simView)
+    {
+        m_simView->show();
+    }
+}

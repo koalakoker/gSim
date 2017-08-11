@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
     w.setSimView(&v);
 
     w.show();
-    v.show();
 
     return a.exec();
 }

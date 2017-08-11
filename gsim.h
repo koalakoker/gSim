@@ -26,6 +26,8 @@ private slots:
     void on_startSim_clicked();
     void updateProgress(double percentage);
 
+    void on_params_clicked();
+
 private:
     Ui::gSim *ui;
 
