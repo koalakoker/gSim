@@ -15,8 +15,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
     gsim.cpp \
     qcustomplot.cpp \
-    mathfunction.cpp \
-    sinfunction.cpp \
     wscope/wscope.cpp \
     wscope/waxisctrl.cpp \
     wscope/wcursorctrl.cpp \
@@ -71,8 +69,6 @@ SOURCES += main.cpp\
 
 HEADERS  += gsim.h \
     qcustomplot.h \
-    mathfunction.h \
-    sinfunction.h \
     wscope/wscope.h \
     wscope/waxisctrl.h \
     wscope/wcursorctrl.h \
