@@ -27,11 +27,11 @@ simModel9::simModel9()
 
     m_wTetaPlot = true;
 
-    m_values.append(new simModelElement("Inertia", SE_double, m_j));
-    m_values.append(new simModelElement("Friction", SE_double, m_f));
-    m_values.append(new simModelElement("Poles pairs", SE_double, m_pp));
-    m_values.append(new simModelElement("Kp", SE_double, m_pi_kp));
-    m_values.append(new simModelElement("Ki", SE_double, m_pi_ki));
+    m_userParams.append(new simModelElement("Inertia", SE_double, (void*)(&m_j)));
+    m_userParams.append(new simModelElement("Friction", SE_double, (void*)(&m_f)));
+    m_userParams.append(new simModelElement("Poles pairs", SE_double, (void*)(&m_pp)));
+    m_userParams.append(new simModelElement("Kp", SE_double, (void*)(&m_pi_kp)));
+    m_userParams.append(new simModelElement("Ki", SE_double, (void*)(&m_pi_ki)));
 }
 
 void simModel9::startSim(void)

@@ -7,9 +7,7 @@
 
 class simModel9 : public baseSimModel
 {
-public:
-    simModel9();
-
+private:
     /* Specific params for sim 9 */
     double m_pi_kp;
     double m_pi_ki;
@@ -20,10 +18,13 @@ public:
     double m_j;
     double m_f;
 
+public:
+    simModel9();
+
     bool m_wTetaPlot;
     bool m_torquePlot;
 
-    QList<simModelElement*> m_values;
+    QList<simModelElement*> m_userParams;
 
     void startSim(void);
 };
