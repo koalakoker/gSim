@@ -19,9 +19,10 @@ commonSimView::~commonSimView()
 
 void commonSimView::updateView(void)
 {
+    QVBoxLayout* mainLayout = new QVBoxLayout();
+
     if (m_simModel)
     {
-        QVBoxLayout* mainLayout = new QVBoxLayout();
         QGroupBox* mainGroup = new QGroupBox("Specific simulation params");
         QVBoxLayout* mainGroupLayout = new QVBoxLayout();
 
@@ -71,6 +72,12 @@ void commonSimView::updateView(void)
 
         mainGroup->setLayout(mainGroupLayout);
         mainLayout->addWidget(mainGroup);
+        setLayout(mainLayout);
+    }
+    else
+    {
+        QLabel* label = new QLabel("Model not set into the view!");
+        mainLayout->addWidget(label);
         setLayout(mainLayout);
     }
 }
