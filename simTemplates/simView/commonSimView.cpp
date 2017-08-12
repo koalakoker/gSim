@@ -1,4 +1,4 @@
-#include "simView9.h"
+#include "commonSimView.h"
 #include "simTemplates/simModel/simModel9.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -8,40 +8,37 @@
 #include <QSpinBox>
 #include <QGroupBox>
 
-simView9::simView9(QWidget *parent) :
+commonSimView::commonSimView(QWidget *parent) :
 baseSimView(parent)
 {
 }
 
-simView9::~simView9()
+commonSimView::~commonSimView()
 {
-
 }
 
-void simView9::updateView(void)
+void commonSimView::updateView(void)
 {
     if (m_simModel)
     {
-        simModel9* sim = (simModel9*) m_simModel;
-
         QVBoxLayout* mainLayout = new QVBoxLayout();
-        QGroupBox* mainGroup = new QGroupBox("Specific sim params");
+        QGroupBox* mainGroup = new QGroupBox("Specific simulation params");
         QVBoxLayout* mainGroupLayout = new QVBoxLayout();
 
-        for (int i = 0; i < sim->m_userParams.size(); i++)
+        for (int i = 0; i < m_simModel->m_userParams.size(); i++)
         {
             QHBoxLayout* hLayout = new QHBoxLayout();
 
-            QLabel* labelW = new QLabel(sim->m_userParams[i]->m_label);
+            QLabel* labelW = new QLabel(m_simModel->m_userParams[i]->m_label);
             hLayout->addWidget(labelW);
 
-            switch (sim->m_userParams[i]->m_type)
+            switch (m_simModel->m_userParams[i]->m_type)
             {
                 case SE_double:
                 {
                     QDoubleSpinBox* doubleSpinBox = new QDoubleSpinBox();
                     doubleSpinBox->setDecimals(5);
-                    doubleSpinBox->setValue(*(double*)(sim->m_userParams[i]->m_pValue));
+                    doubleSpinBox->setValue(*(double*)(m_simModel->m_userParams[i]->m_pValue));
 
                     hLayout->addWidget(doubleSpinBox);
                     m_widget.append(doubleSpinBox);
@@ -51,7 +48,7 @@ void simView9::updateView(void)
                 case SE_bool:
                 {
                     QCheckBox* checkBox = new QCheckBox();
-                    checkBox->setChecked(*(bool*)(sim->m_userParams[i]->m_pValue));
+                    checkBox->setChecked(*(bool*)(m_simModel->m_userParams[i]->m_pValue));
 
                     hLayout->addWidget(checkBox);
                     m_widget.append(checkBox);
@@ -61,7 +58,7 @@ void simView9::updateView(void)
                 case SE_int:
                 {
                     QSpinBox* spinBox = new QSpinBox();
-                    spinBox->setValue(*(int*)(sim->m_userParams[i]->m_pValue));
+                    spinBox->setValue(*(int*)(m_simModel->m_userParams[i]->m_pValue));
 
                     hLayout->addWidget(spinBox);
                     m_widget.append(spinBox);
@@ -78,22 +75,20 @@ void simView9::updateView(void)
     }
 }
 
-void simView9::updateModel(void)
+void commonSimView::updateModel(void)
 {
-    simModel9* sim = (simModel9*) m_simModel;
-
-    for (int i = 0; i < sim->m_userParams.size(); i++)
+    for (int i = 0; i < m_simModel->m_userParams.size(); i++)
     {
-        if (sim->m_userParams[i]->m_type == SE_double)
+        if (m_simModel->m_userParams[i]->m_type == SE_double)
         {
             QDoubleSpinBox* doubleSpinBox = (QDoubleSpinBox*)m_widget[i];
-            *(double*)(sim->m_userParams[i]->m_pValue) = doubleSpinBox->value();
+            *(double*)(m_simModel->m_userParams[i]->m_pValue) = doubleSpinBox->value();
         }
 
-        if (sim->m_userParams[i]->m_type == SE_bool)
+        if (m_simModel->m_userParams[i]->m_type == SE_bool)
         {
             QCheckBox* checkBox = (QCheckBox*)m_widget[i];
-            *(bool*)(sim->m_userParams[i]->m_pValue) = checkBox->isChecked();
+            *(bool*)(m_simModel->m_userParams[i]->m_pValue) = checkBox->isChecked();
         }
     }
 }

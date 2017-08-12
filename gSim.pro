@@ -64,8 +64,8 @@ SOURCES += main.cpp\
     simTemplates/simView/baseSimView.cpp \
     simTemplates/simView/simView7.cpp \
     simTemplates/simView/simView8.cpp \
-    simTemplates/simView/simView9.cpp \
-    simTemplates/simModel/simModelElement.cpp
+    simTemplates/simModel/simModelElement.cpp \
+    simTemplates/simView/commonSimView.cpp
 
 HEADERS  += gsim.h \
     qcustomplot.h \
@@ -119,8 +119,8 @@ HEADERS  += gsim.h \
     simTemplates/simView/baseSimView.h \
     simTemplates/simView/simView7.h \
     simTemplates/simView/simView8.h \
-    simTemplates/simView/simView9.h \
-    simTemplates/simModel/simModelElement.h
+    simTemplates/simModel/simModelElement.h \
+    simTemplates/simView/commonSimView.h
 
 FORMS    += gsim.ui \
     wscope/wscope.ui \
@@ -128,8 +128,7 @@ FORMS    += gsim.ui \
     wscope/wcursorctrl.ui \
     simTemplates/simView/baseSimView.ui \
     simTemplates/simView/simView7.ui \
-    simTemplates/simView/simView8.ui \
-    simTemplates/simView/simView9.ui
+    simTemplates/simView/simView8.ui
 
 RESOURCES += \
     resource.qrc

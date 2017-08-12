@@ -19,8 +19,6 @@ private:
     bool m_wTetaPlot;
     bool m_torquePlot;
 
-    int m_test;
-
 public:
     simModel9();
 

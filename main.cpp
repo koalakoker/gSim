@@ -1,15 +1,17 @@
 #include "gsim.h"
-#include "simTemplates/simModel/simModel9.h"
-#include "simTemplates/simView/simView9.h"
+#include "simTemplates/simView/commonSimView.h"
 #include <QApplication>
+
+#include "simTemplates/simModel/simModel9.h"    /* Update here for any new model */
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
     gSim w;
-    simModel9 m;
-    simView9 v;
+    commonSimView v;
+
+    simModel9 m;                                /* Update here for any new model */
 
     v.setSimModel(&m);
     v.updateView();
