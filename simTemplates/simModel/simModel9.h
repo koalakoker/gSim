@@ -2,8 +2,6 @@
 #define SIMMODEL9_H
 
 #include "baseSimModel.h"
-#include <QList>
-#include "simModelElement.h"
 
 class simModel9 : public baseSimModel
 {
@@ -18,13 +16,13 @@ private:
     double m_j;
     double m_f;
 
-public:
-    simModel9();
-
     bool m_wTetaPlot;
     bool m_torquePlot;
 
-    QList<simModelElement*> m_userParams;
+    int m_test;
+
+public:
+    simModel9();
 
     void startSim(void);
 };

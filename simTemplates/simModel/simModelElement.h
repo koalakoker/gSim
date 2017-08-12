@@ -5,6 +5,7 @@
 
 typedef enum
 {
+    SE_int,
     SE_double,
     SE_bool
 } simModelElementType;

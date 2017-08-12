@@ -2,6 +2,8 @@
 #define BASESIMMODEL_H
 
 #include <QObject>
+#include <QList>
+#include "simModelElement.h"
 
 class baseSimModel : public QObject
 {
@@ -19,6 +21,7 @@ public:
 
     int m_sim;
     QString m_description;
+    QList<simModelElement*> m_userParams;
 
 protected:
     double m_t;

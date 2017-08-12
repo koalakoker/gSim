@@ -5,10 +5,11 @@
 #include <QLabel>
 #include <QDoubleSpinBox>
 #include <QCheckBox>
+#include <QSpinBox>
 #include <QGroupBox>
 
 simView9::simView9(QWidget *parent) :
-    baseSimView(parent)
+baseSimView(parent)
 {
 }
 
@@ -34,25 +35,39 @@ void simView9::updateView(void)
             QLabel* labelW = new QLabel(sim->m_userParams[i]->m_label);
             hLayout->addWidget(labelW);
 
-            if (sim->m_userParams[i]->m_type == SE_double)
+            switch (sim->m_userParams[i]->m_type)
             {
-                QDoubleSpinBox* doubleSpinBox = new QDoubleSpinBox();
-                doubleSpinBox->setDecimals(5);
-                doubleSpinBox->setValue(*(double*)(sim->m_userParams[i]->m_pValue));
+                case SE_double:
+                {
+                    QDoubleSpinBox* doubleSpinBox = new QDoubleSpinBox();
+                    doubleSpinBox->setDecimals(5);
+                    doubleSpinBox->setValue(*(double*)(sim->m_userParams[i]->m_pValue));
 
-                hLayout->addWidget(doubleSpinBox);
-                m_widget.append(doubleSpinBox);
+                    hLayout->addWidget(doubleSpinBox);
+                    m_widget.append(doubleSpinBox);
+                }
+                break;
+
+                case SE_bool:
+                {
+                    QCheckBox* checkBox = new QCheckBox();
+                    checkBox->setChecked(*(bool*)(sim->m_userParams[i]->m_pValue));
+
+                    hLayout->addWidget(checkBox);
+                    m_widget.append(checkBox);
+                }
+                break;
+
+                case SE_int:
+                {
+                    QSpinBox* spinBox = new QSpinBox();
+                    spinBox->setValue(*(int*)(sim->m_userParams[i]->m_pValue));
+
+                    hLayout->addWidget(spinBox);
+                    m_widget.append(spinBox);
+                }
+                break;
             }
-
-            if (sim->m_userParams[i]->m_type == SE_bool)
-            {
-                QCheckBox* checkBox = new QCheckBox();
-                checkBox->setChecked(*(bool*)(sim->m_userParams[i]->m_pValue));
-
-                hLayout->addWidget(checkBox);
-                m_widget.append(checkBox);
-            }
-
 
             mainGroupLayout->addItem(hLayout);
         }
