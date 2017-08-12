@@ -21,7 +21,7 @@ public:
 private:
 
 protected:
-    baseSimModel* m_sim;
+    baseSimModel* m_simModel;
 };
 
 #endif // BASESIMVIEW_H

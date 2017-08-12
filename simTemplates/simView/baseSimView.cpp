@@ -13,7 +13,7 @@ baseSimView::~baseSimView()
 
 void baseSimView::setSimModel(baseSimModel* sim)
 {
-    m_sim = sim;
+    m_simModel = sim;
 }
 
 void baseSimView::updateView(void)

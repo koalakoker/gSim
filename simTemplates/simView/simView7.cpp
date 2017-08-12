@@ -16,7 +16,7 @@ simView7::~simView7()
 
 void simView7::updateView(void)
 {
-    simModel7* sim = (simModel7*) m_sim;
+    simModel7* sim = (simModel7*) m_simModel;
     ui->kp->setValue(sim->m_pi_kp);
     ui->ki->setValue(sim->m_pi_ki);
     ui->kd->setValue(sim->m_pi_kd);
@@ -27,7 +27,7 @@ void simView7::updateView(void)
 
 void simView7::updateModel(void)
 {
-    simModel7* sim = (simModel7*) m_sim;
+    simModel7* sim = (simModel7*) m_simModel;
     sim->m_pi_kp = ui->kp->value();
     sim->m_pi_ki = ui->ki->value();
     sim->m_pi_kd = ui->kd->value();

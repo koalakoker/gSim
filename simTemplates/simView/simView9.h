@@ -2,7 +2,6 @@
 #define SIMVIEW9_H
 
 #include <QWidget>
-#include <QDoubleSpinBox>
 #include <QList>
 #include "baseSimView.h"
 
@@ -18,7 +17,7 @@ public:
     void updateModel(void);
 
 private:
-    QList<QDoubleSpinBox*> m_values;
+    QList<QWidget*> m_widget;
 };
 
 #endif // SIMVIEW9_H

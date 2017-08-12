@@ -4,6 +4,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QDoubleSpinBox>
+#include <QCheckBox>
 #include <QGroupBox>
 
 simView9::simView9(QWidget *parent) :
@@ -18,9 +19,9 @@ simView9::~simView9()
 
 void simView9::updateView(void)
 {
-    if (m_sim)
+    if (m_simModel)
     {
-        simModel9* sim = (simModel9*) m_sim;
+        simModel9* sim = (simModel9*) m_simModel;
 
         QVBoxLayout* mainLayout = new QVBoxLayout();
         QGroupBox* mainGroup = new QGroupBox("Specific sim params");
@@ -40,8 +41,18 @@ void simView9::updateView(void)
                 doubleSpinBox->setValue(*(double*)(sim->m_userParams[i]->m_pValue));
 
                 hLayout->addWidget(doubleSpinBox);
-                m_values.append(doubleSpinBox);
+                m_widget.append(doubleSpinBox);
             }
+
+            if (sim->m_userParams[i]->m_type == SE_bool)
+            {
+                QCheckBox* checkBox = new QCheckBox();
+                checkBox->setChecked(*(bool*)(sim->m_userParams[i]->m_pValue));
+
+                hLayout->addWidget(checkBox);
+                m_widget.append(checkBox);
+            }
+
 
             mainGroupLayout->addItem(hLayout);
         }
@@ -54,13 +65,20 @@ void simView9::updateView(void)
 
 void simView9::updateModel(void)
 {
-    simModel9* sim = (simModel9*) m_sim;
+    simModel9* sim = (simModel9*) m_simModel;
 
     for (int i = 0; i < sim->m_userParams.size(); i++)
     {
         if (sim->m_userParams[i]->m_type == SE_double)
         {
-            *(double*)(sim->m_userParams[i]->m_pValue) = m_values[i]->value();
+            QDoubleSpinBox* doubleSpinBox = (QDoubleSpinBox*)m_widget[i];
+            *(double*)(sim->m_userParams[i]->m_pValue) = doubleSpinBox->value();
+        }
+
+        if (sim->m_userParams[i]->m_type == SE_bool)
+        {
+            QCheckBox* checkBox = (QCheckBox*)m_widget[i];
+            *(bool*)(sim->m_userParams[i]->m_pValue) = checkBox->isChecked();
         }
     }
 }

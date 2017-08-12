@@ -16,7 +16,7 @@ simView8::~simView8()
 
 void simView8::updateView(void)
 {
-    simModel8* sim = (simModel8*) m_sim;
+    simModel8* sim = (simModel8*) m_simModel;
     ui->motSpeedRads->setValue(sim->m_motSpeedRads);
     ui->excFreq->setValue(sim->m_exc_freq);
     ui->excAmp->setValue(sim->m_exc_ampl);
@@ -33,7 +33,7 @@ void simView8::updateView(void)
 
 void simView8::updateModel(void)
 {
-    simModel8* sim = (simModel8*) m_sim;
+    simModel8* sim = (simModel8*) m_simModel;
     sim->m_motSpeedRads = ui->motSpeedRads->value();
     sim->m_exc_freq = ui->excFreq->value();
     sim->m_exc_ampl = ui->excAmp->value();
