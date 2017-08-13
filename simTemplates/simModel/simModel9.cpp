@@ -28,11 +28,14 @@ simModel9::simModel9()
     m_wTetaPlot = true;
     m_torquePlot = false;
 
-    //m_userParams.append(new simModelElement("Specific simulation parameters", SE_group, NULL));
+    m_userParams.append(new simModelElement("Motor parameters", SE_group, NULL));
 
     m_userParams.append(new simModelElement("Inertia", SE_double, (void*)(&m_j)));
     m_userParams.append(new simModelElement("Friction", SE_double, (void*)(&m_f)));
     m_userParams.append(new simModelElement("Poles pairs", SE_double, (void*)(&m_pp)));
+
+    m_userParams.append(new simModelElement("PI parameters", SE_group, NULL));
+
     m_userParams.append(new simModelElement("Kp", SE_double, (void*)(&m_pi_kp)));
     m_userParams.append(new simModelElement("Ki", SE_double, (void*)(&m_pi_ki)));
 

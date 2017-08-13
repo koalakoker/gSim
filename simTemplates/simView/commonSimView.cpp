@@ -20,12 +20,25 @@ commonSimView::~commonSimView()
 void commonSimView::updateView(void)
 {
     QVBoxLayout* mainLayout = new QVBoxLayout();
-    QGroupBox* group = new QGroupBox("Specific simulation parameters"); //Fisrt params goes in this group
-    QVBoxLayout* groupLayout = new QVBoxLayout();
 
     if (m_simModel)
     {
-        for (int i = 0; i < m_simModel->m_userParams.size(); i++)
+        QString firstGroupName = "Specific simulation parameters";
+        int startingElement = 0;
+        bool isFirstGroup = (m_simModel->m_userParams[0]->m_type == SE_group);
+        if (isFirstGroup)
+        {
+            firstGroupName = m_simModel->m_userParams[0]->m_label;
+            startingElement = 1;
+        }
+        QGroupBox* group = new QGroupBox(firstGroupName);
+        QVBoxLayout* groupLayout = new QVBoxLayout();
+        if (isFirstGroup)
+        {
+            m_widget.append(group);
+        }
+
+        for (int i = startingElement; i < m_simModel->m_userParams.size(); i++)
         {
 
             switch (m_simModel->m_userParams[i]->m_type)
