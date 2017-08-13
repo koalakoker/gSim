@@ -37,3 +37,10 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build-simModules/release/ -lsimModules
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build-simModules/debug/ -lsimModules
+else:unix: LIBS += -L$$PWD/../build-simModules/ -lsimModules
+
+INCLUDEPATH += $$PWD/simModules
+DEPENDPATH += $$PWD/simModules

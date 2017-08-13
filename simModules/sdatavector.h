@@ -1,10 +1,12 @@
 #ifndef SDATAVECTOR_H
 #define SDATAVECTOR_H
 
+#include "simmodules_global.h"
+
 #include <QVector>
 #include "sdata.h"
 
-class SDataVector
+class SIMMODULESSHARED_EXPORT SDataVector
 {
 public:
     SDataVector();

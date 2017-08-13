@@ -1,11 +1,13 @@
 #ifndef SMOTORMECH_H
 #define SMOTORMECH_H
 
+#include "simmodules_global.h"
+
 #include "simModules/smotor.h"
 #include "simModules/stfintegrator.h"
 #include "simModules/motormechvars.h"
 
-class SMotorMech : public SMotor
+class SIMMODULESSHARED_EXPORT SMotorMech : public SMotor
 {
 public:
     SMotorMech(double polesPairs, double inertia, double friction, double ts,

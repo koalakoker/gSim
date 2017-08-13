@@ -1,11 +1,13 @@
 #ifndef STPID_H
 #define STPID_H
 
+#include "simmodules_global.h"
+
 #include "simModules/stransfer.h"
 #include "simModules/stfintegrator.h"
 #include "simModules/stfderivatorfitered.h"
 
-class STPID : public STransfer
+class SIMMODULESSHARED_EXPORT STPID : public STransfer
 {
 public:
     STPID(double kp, double ki, double kd, double n, double ts, DiscreteTimeTransformType_t transform = BackwardEuler);

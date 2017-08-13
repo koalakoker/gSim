@@ -1,5 +1,8 @@
 #include "simModel.h"
 
+#include "simModules/smotormech.h"
+#include "simModules/stpid.h"
+//#include "simModules/ssscope.h"
 
 simModel::simModel()
 {
@@ -25,7 +28,7 @@ simModel::simModel()
     m_wTetaPlot = true;
     m_torquePlot = false;
 
-    m_userParams.append(new simModelElement("Motor parameters", SE_group, NULL));
+    m_userParams.append(new simModelElement("Motor parameters_", SE_group, NULL));
 
     m_userParams.append(new simModelElement("Inertia", SE_double, (void*)(&m_j)));
     m_userParams.append(new simModelElement("Friction", SE_double, (void*)(&m_f)));
@@ -52,12 +55,12 @@ void simModel::startSim(void)
     int m_controlStepRatio = (int)(m_tc / m_ts);
 
     // Init sink-source-transfer
-    //SMotorMech motor(m_pp, m_j, m_f, m_ts);
-    //STPID speedpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
+    SMotorMech motor(m_pp, m_j, m_f, m_ts);
+    STPID speedpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
 
     double speedTarg = 100;
 
-    //SDataVector tin;
+    SDataVector tin;
     //SSScope sscope("T",1);
     //SSScope sscope2("Speed - Theta", 4);
 
@@ -70,12 +73,12 @@ void simModel::startSim(void)
         {
             // Execution of control cycle
             double err;
-            //err = speedTarg - motor.vars().Wm;
-            //tin = speedpid.execute(err);
+            err = speedTarg - motor.vars().Wm;
+            tin = speedpid.execute(err);
         }
 
-        //motor.execute(tin);
-        //MotorMechVars iW = motor.vars();
+        motor.execute(tin);
+        MotorMechVars iW = motor.vars();
 
         if (m_wTetaPlot)
         {
