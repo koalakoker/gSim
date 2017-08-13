@@ -7,7 +7,8 @@ typedef enum
 {
     SE_int,
     SE_double,
-    SE_bool
+    SE_bool,
+    SE_group
 } simModelElementType;
 
 class simModelElement : public QObject

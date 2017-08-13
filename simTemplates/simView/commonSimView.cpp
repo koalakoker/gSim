@@ -20,66 +20,94 @@ commonSimView::~commonSimView()
 void commonSimView::updateView(void)
 {
     QVBoxLayout* mainLayout = new QVBoxLayout();
+    QGroupBox* group = new QGroupBox("Specific simulation parameters"); //Fisrt params goes in this group
+    QVBoxLayout* groupLayout = new QVBoxLayout();
 
     if (m_simModel)
     {
-        QGroupBox* mainGroup = new QGroupBox("Specific simulation params");
-        QVBoxLayout* mainGroupLayout = new QVBoxLayout();
-
         for (int i = 0; i < m_simModel->m_userParams.size(); i++)
         {
-            QHBoxLayout* hLayout = new QHBoxLayout();
-
-            QLabel* labelW = new QLabel(m_simModel->m_userParams[i]->m_label);
-            hLayout->addWidget(labelW);
 
             switch (m_simModel->m_userParams[i]->m_type)
             {
                 case SE_double:
                 {
+                    QHBoxLayout* hLayout = new QHBoxLayout();
+
+                    QLabel* labelW = new QLabel(m_simModel->m_userParams[i]->m_label);
+                    hLayout->addWidget(labelW);
+
                     QDoubleSpinBox* doubleSpinBox = new QDoubleSpinBox();
                     doubleSpinBox->setDecimals(5);
                     doubleSpinBox->setValue(*(double*)(m_simModel->m_userParams[i]->m_pValue));
 
                     hLayout->addWidget(doubleSpinBox);
                     m_widget.append(doubleSpinBox);
+
+                    groupLayout->addItem(hLayout);
                 }
                 break;
 
                 case SE_bool:
                 {
+                    QHBoxLayout* hLayout = new QHBoxLayout();
+
+                    QLabel* labelW = new QLabel(m_simModel->m_userParams[i]->m_label);
+                    hLayout->addWidget(labelW);
+
                     QCheckBox* checkBox = new QCheckBox();
                     checkBox->setChecked(*(bool*)(m_simModel->m_userParams[i]->m_pValue));
 
                     hLayout->addWidget(checkBox);
                     m_widget.append(checkBox);
+
+                    groupLayout->addItem(hLayout);
                 }
                 break;
 
                 case SE_int:
                 {
+                    QHBoxLayout* hLayout = new QHBoxLayout();
+
+                    QLabel* labelW = new QLabel(m_simModel->m_userParams[i]->m_label);
+                    hLayout->addWidget(labelW);
+
                     QSpinBox* spinBox = new QSpinBox();
                     spinBox->setValue(*(int*)(m_simModel->m_userParams[i]->m_pValue));
 
                     hLayout->addWidget(spinBox);
                     m_widget.append(spinBox);
+
+                    groupLayout->addItem(hLayout);
+                }
+                break;
+
+                case SE_group:
+                {
+                    group->setLayout(groupLayout);
+                    mainLayout->addWidget(group);
+
+                    group = new QGroupBox(m_simModel->m_userParams[i]->m_label);
+                    groupLayout = new QVBoxLayout();
+
+                    m_widget.append(group);
                 }
                 break;
             }
-
-            mainGroupLayout->addItem(hLayout);
         }
 
-        mainGroup->setLayout(mainGroupLayout);
-        mainLayout->addWidget(mainGroup);
-        setLayout(mainLayout);
+        group->setLayout(groupLayout);
+        mainLayout->addWidget(group);
+
     }
     else
     {
         QLabel* label = new QLabel("Model not set into the view!");
         mainLayout->addWidget(label);
-        setLayout(mainLayout);
     }
+
+    setLayout(mainLayout);
+
 }
 
 void commonSimView::updateModel(void)
