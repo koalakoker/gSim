@@ -133,9 +133,9 @@ FORMS    += gsim.ui \
 RESOURCES += \
     resource.qrc
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build-gSim -lgSimModel.1.0.0
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build-gSim -lgSimModel.1.0.0
-else:unix: LIBS += -L$$PWD/../build-gSim -lgSimModel.1.0.0
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build-gSimModel/release/ -lgSimModel
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build-gSimModel/debug/ -lgSimModel
+else:unix: LIBS += -L$$PWD/../build-gSimModel/ -lgSimModel
 
 INCLUDEPATH += $$PWD/simModel
 DEPENDPATH += $$PWD/simModel
