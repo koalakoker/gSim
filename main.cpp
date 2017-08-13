@@ -2,7 +2,9 @@
 #include "simTemplates/simView/commonSimView.h"
 #include <QApplication>
 
-#include "simTemplates/simModel/simModel9.h"    /* Update here for any new model */
+//#include "simTemplates/simModel/simModel9.h"    /* Update here for any new model */
+#include "simModel/gsimmodel_global.h"
+#include "simModel/simModel.h"
 
 /****************** Legacy ******************/
 /*------------- Model 7 (SVM)  -------------*/
@@ -19,7 +21,8 @@ int main(int argc, char *argv[])
 
     gSim w;
     commonSimView v;
-    simModel9 m;                                /* Update here for any new model */
+//    simModel9 m;                                /* Update here for any new model */
+    simModel m;
 
 /****************** Legacy ******************/
 /*------------- Model 7 (SVM)  -------------*/
