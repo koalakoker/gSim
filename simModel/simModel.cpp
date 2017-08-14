@@ -2,7 +2,7 @@
 
 #include "simModules/smotormech.h"
 #include "simModules/stpid.h"
-//#include "simModules/ssscope.h"
+#include "simModules/ssscope.h"
 
 simModel::simModel()
 {
@@ -28,7 +28,7 @@ simModel::simModel()
     m_wTetaPlot = true;
     m_torquePlot = false;
 
-    m_userParams.append(new simModelElement("Motor parameters_", SE_group, NULL));
+    m_userParams.append(new simModelElement("Motor parameters", SE_group, NULL));
 
     m_userParams.append(new simModelElement("Inertia", SE_double, (void*)(&m_j)));
     m_userParams.append(new simModelElement("Friction", SE_double, (void*)(&m_f)));
@@ -61,8 +61,8 @@ void simModel::startSim(void)
     double speedTarg = 100;
 
     SDataVector tin;
-    //SSScope sscope("T",1);
-    //SSScope sscope2("Speed - Theta", 4);
+    SSScope sscope("T",1);
+    SSScope sscope2("Speed - Theta", 4);
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
@@ -82,12 +82,12 @@ void simModel::startSim(void)
 
         if (m_wTetaPlot)
         {
-            //sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
+            sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
         }
 
         if (m_torquePlot)
         {
-            //sscope.execute(m_t, SDataVector(tin));
+            sscope.execute(m_t, SDataVector(tin));
         }
 
         // Update of simutaion variables
@@ -99,11 +99,11 @@ void simModel::startSim(void)
 
     if (m_torquePlot)
     {
-        //sscope.scopeUpdate(m_ts);
+        sscope.scopeUpdate(m_ts);
     }
 
     if (m_wTetaPlot)
     {
-        //sscope2.scopeUpdate(m_ts);
+        sscope2.scopeUpdate(m_ts);
     }
 }

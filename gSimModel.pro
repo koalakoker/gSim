@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       -= gui
+QT       += widgets printsupport
 
 TARGET = gSimModel
 TEMPLATE = lib
