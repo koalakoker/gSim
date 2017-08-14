@@ -15,7 +15,10 @@ simModel::simModel()
     m_tc = 0.00005;
     m_duration = 2;
 
-    /* Specific params for sim 9 */
+    /********************* *********************/
+    /*        Parameters initialization        */
+    /********************* *********************/
+
     m_pi_kp = 3.0;
     m_pi_ki = 2.0;
     m_pi_kd = 0;
@@ -27,6 +30,12 @@ simModel::simModel()
 
     m_wTetaPlot = true;
     m_torquePlot = false;
+
+    /********************* *********************/
+
+    /********************* *********************/
+    /*      Setup parameters into the view     */
+    /********************* *********************/
 
     m_userParams.append(new simModelElement("Motor parameters", SE_group, NULL));
 
@@ -43,16 +52,20 @@ simModel::simModel()
 
     m_userParams.append(new simModelElement("wTetaPlot", SE_bool, (void*)(&m_wTetaPlot)));
     m_userParams.append(new simModelElement("torquePlot", SE_bool, (void*)(&m_torquePlot)));
+
+    /********************* *********************/
 }
 
 void simModel::startSim(void)
 {
-    // Test specific initialization
-
     // Init sim vars
     m_t = 0;
     int m_step = (int)(m_duration / m_ts);
     int m_controlStepRatio = (int)(m_tc / m_ts);
+
+    /********************* *********************/
+    /* Define here the behaviour of your model */
+    /********************* *********************/
 
     // Init sink-source-transfer
     SMotorMech motor(m_pp, m_j, m_f, m_ts);
@@ -106,4 +119,6 @@ void simModel::startSim(void)
     {
         sscope2.scopeUpdate(m_ts);
     }
+
+    /********************* *********************/
 }

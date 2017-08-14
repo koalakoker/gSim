@@ -7,7 +7,9 @@
 class GSIMMODELSHARED_EXPORT simModel : public baseSimModel
 {
 private:
-    /* Specific params for sim 9 */
+    /********************* *********************/
+    /*   Add here parameters for simulation    */
+    /********************* *********************/
     double m_pi_kp;
     double m_pi_ki;
     double m_pi_kd;
@@ -19,6 +21,8 @@ private:
 
     bool m_wTetaPlot;
     bool m_torquePlot;
+
+    /********************* *********************/
 
 public:
     simModel();
