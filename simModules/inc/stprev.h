@@ -1,7 +1,7 @@
 #ifndef STPREV_H
 #define STPREV_H
 
-#include "simModules/stransfer.h"
+#include "stransfer.h"
 
 class STPrev : public STransfer
 {

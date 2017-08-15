@@ -1,7 +1,7 @@
 #ifndef STRL_H
 #define STRL_H
 
-#include "simModules/stransfer.h"
+#include "stransfer.h"
 
 class STRL : public STransfer
 {

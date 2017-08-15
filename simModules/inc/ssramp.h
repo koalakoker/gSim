@@ -1,7 +1,7 @@
 #ifndef SSRAMP_H
 #define SSRAMP_H
 
-#include "simModules/ssource.h"
+#include "ssource.h"
 
 class SSRamp : public SSource
 {

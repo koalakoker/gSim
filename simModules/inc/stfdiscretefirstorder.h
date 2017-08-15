@@ -1,7 +1,7 @@
 #ifndef STFDISCRETEFIRSTORDER_H
 #define STFDISCRETEFIRSTORDER_H
 
-#include "simModules/stransfer.h"
+#include "stransfer.h"
 
 class STFDiscreteFirstOrder : public STransfer
 {

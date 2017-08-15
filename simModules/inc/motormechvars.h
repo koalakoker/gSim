@@ -1,7 +1,7 @@
 #ifndef MOTORMECHVARS_H
 #define MOTORMECHVARS_H
 
-#include "simModules/sdatavector.h"
+#include "sdatavector.h"
 
 class MotorMechVars : public SDataVector
 {

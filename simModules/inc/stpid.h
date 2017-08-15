@@ -3,9 +3,9 @@
 
 #include "simmodules_global.h"
 
-#include "simModules/stransfer.h"
-#include "simModules/stfintegrator.h"
-#include "simModules/stfderivatorfitered.h"
+#include "stransfer.h"
+#include "stfintegrator.h"
+#include "stfderivatorfitered.h"
 
 class SIMMODULESSHARED_EXPORT STPID : public STransfer
 {

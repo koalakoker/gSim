@@ -1,8 +1,8 @@
 #ifndef STPI_H
 #define STPI_H
 
-#include "simModules/stransfer.h"
-#include "simModules/discretetimetransformtype.h"
+#include "stransfer.h"
+#include "discretetimetransformtype.h"
 
 class STPI : public STransfer
 {

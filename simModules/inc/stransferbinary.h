@@ -1,7 +1,7 @@
 #ifndef STRANSFERBINARY_H
 #define STRANSFERBINARY_H
 
-#include "simModules/selement.h"
+#include "selement.h"
 
 class STransferBinary : public SElement
 {

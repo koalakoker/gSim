@@ -1,7 +1,7 @@
 #ifndef STDEMUX_H
 #define STDEMUX_H
 
-#include "simModules/stransfer.h"
+#include "stransfer.h"
 
 class STDemux : public STransfer
 {

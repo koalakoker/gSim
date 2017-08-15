@@ -1,7 +1,7 @@
 #ifndef STABCTODQ_H
 #define STABCTODQ_H
 
-#include "simModules/stransfer.h"
+#include "stransfer.h"
 
 class STabctodq : public STransfer
 {

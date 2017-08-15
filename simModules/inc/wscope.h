@@ -6,7 +6,7 @@
 #include <QMouseEvent>
 #include <QString>
 #include "qcustomplot.h"
-#include "simModules/sdata.h"
+#include "sdata.h"
 
 #define ELEMENT 100
 #define CURSOR_NUMBER 2

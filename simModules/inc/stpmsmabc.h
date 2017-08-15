@@ -1,11 +1,11 @@
 #ifndef STPMSMABC_H
 #define STPMSMABC_H
 
-#include "simModules/smotor.h"
-#include "simModules/stpmsmdq.h"
-#include "simModules/stabctodq.h"
-#include "simModules/stdqtoabc.h"
-#include "simModules/pmsmvars.h"
+#include "smotor.h"
+#include "stpmsmdq.h"
+#include "stabctodq.h"
+#include "stdqtoabc.h"
+#include "pmsmvars.h"
 
 class STPMSMabc : public SMotor
 {

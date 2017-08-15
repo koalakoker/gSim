@@ -1,7 +1,7 @@
 #ifndef PMSMVARS_H
 #define PMSMVARS_H
 
-#include "simModules/sdatavector.h"
+#include "sdatavector.h"
 
 class PMSMVars : public SDataVector
 {

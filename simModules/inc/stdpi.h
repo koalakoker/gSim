@@ -1,7 +1,7 @@
 #ifndef STDPI_H
 #define STDPI_H
 
-#include "simModules/stransfer.h"
+#include "stransfer.h"
 
 class STDPI : public STransfer
 {

@@ -3,9 +3,9 @@
 
 #include "simmodules_global.h"
 
-#include "simModules/smotor.h"
-#include "simModules/stfintegrator.h"
-#include "simModules/motormechvars.h"
+#include "smotor.h"
+#include "stfintegrator.h"
+#include "motormechvars.h"
 
 class SIMMODULESSHARED_EXPORT SMotorMech : public SMotor
 {

@@ -1,7 +1,7 @@
 #ifndef STDQTOABC_H
 #define STDQTOABC_H
 
-#include "simModules/stransfer.h"
+#include "stransfer.h"
 
 class STdqtoabc : public STransfer
 {

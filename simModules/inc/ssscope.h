@@ -3,7 +3,7 @@
 
 #include <QString>
 #include "ssink.h"
-#include "wscope/wscope.h"
+#include "wscope.h"
 
 class SSScope : public SSink
 {
