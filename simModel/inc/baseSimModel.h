@@ -1,11 +1,13 @@
 #ifndef BASESIMMODEL_H
 #define BASESIMMODEL_H
 
+#include "gsimmodel_global.h"
+
 #include <QObject>
 #include <QList>
 #include "simModelElement.h"
 
-class baseSimModel : public QObject
+class GSIMMODELSHARED_EXPORT baseSimModel : public QObject
 {
     Q_OBJECT
 
