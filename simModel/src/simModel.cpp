@@ -1,8 +1,8 @@
 #include "simModel.h"
 
-#include "simModules/smotormech.h"
-#include "simModules/stpid.h"
-#include "simModules/ssscope.h"
+#include "smotormech.h"
+#include "stpid.h"
+#include "ssscope.h"
 
 simModel::simModel()
 {

@@ -24,15 +24,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    simModel/simModel.cpp \
-    simTemplates/simModel/baseSimModel.cpp \
-    simTemplates/simModel/simModelElement.cpp
+    simModel/src/simModel.cpp \
+    simModel/src/baseSimModel.cpp \
+    simModel/src/simModelElement.cpp
 
 HEADERS += \
-    simModel/simModel.h \
-    simModel/gsimmodel_global.h \
-    simTemplates/simModel/baseSimModel.h \
-    simTemplates/simModel/simModelElement.h
+    simModel/inc/simModel.h \
+    simModel/inc/gsimmodel_global.h \
+    simModel/inc/baseSimModel.h \
+    simModel/inc/simModelElement.h
 
 unix {
     target.path = /usr/lib
@@ -43,5 +43,7 @@ win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build-simModules/releas
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build-simModules/debug/ -lsimModules
 else:unix: LIBS += -L$$PWD/../build-simModules/ -lsimModules
 
+INCLUDEPATH += simModules/inc
+INCLUDEPATH += simModel/inc/
 INCLUDEPATH += $$PWD/simModules
 DEPENDPATH += $$PWD/simModules

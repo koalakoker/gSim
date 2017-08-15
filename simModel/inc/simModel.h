@@ -2,7 +2,7 @@
 #define SIMMODEL_H
 
 #include "gsimmodel_global.h"
-#include"simTemplates/simModel/baseSimModel.h"
+#include"baseSimModel.h"
 
 class GSIMMODELSHARED_EXPORT simModel : public baseSimModel
 {
