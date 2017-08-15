@@ -1,5 +1,4 @@
 #include "commonSimView.h"
-#include "simTemplates/simModel/simModel9.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>

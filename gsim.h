@@ -2,7 +2,7 @@
 #define GSIM_H
 
 #include <QMainWindow>
-#include "simTemplates/simModel/baseSimModel.h"
+#include "simModel/inc/baseSimModel.h"
 #include "simTemplates/simView/baseSimView.h"
 
 #include <QTimer>

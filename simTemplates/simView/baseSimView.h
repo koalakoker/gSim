@@ -2,7 +2,7 @@
 #define BASESIMVIEW_H
 
 #include <QWidget>
-#include "simTemplates/simModel/baseSimModel.h"
+#include "simModel/inc/baseSimModel.h"
 
 class baseSimView : public QWidget
 {
