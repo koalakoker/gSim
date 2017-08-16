@@ -1,14 +1,21 @@
-#ifndef SIMMODEL1_H
-#define SIMMODEL1_H
+#ifndef SIMMODEL_H
+#define SIMMODEL_H
 
-#include "baseSimModel.h"
+#include "gsimmodel_global.h"
+#include"baseSimModel.h"
 
-class simModel1 : public baseSimModel
+class GSIMMODELSHARED_EXPORT simModel : public baseSimModel
 {
-public:
-    simModel1();
+private:
+    /********************* *********************/
+    /*   Add here parameters for simulation    */
+    /********************* *********************/
 
+    /********************* *********************/
+
+public:
+    simModel();
     void startSim(void);
 };
 
-#endif // SIMMODEL1_H
+#endif // SIMMODEL_H

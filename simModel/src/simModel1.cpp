@@ -1,22 +1,30 @@
-#include "simModel1.h"
+#include "simModel.h"
 
-#include "simModules/stmux.h"
-#include "simModules/sssincos.h"
-#include "simModules/ssscope.h"
-#include "simModules/ssramp.h"
+#include "stmux.h"
+#include "sssincos.h"
+#include "ssscope.h"
+#include "ssramp.h"
 
-simModel1::simModel1()
+simModel::simModel()
 {
     /* Set sim number */
     m_sim = 1;
     m_description = "Sin variable-ramp  sim";
+
+    /* Default common params */
+    m_ts = 0.00005;
+    m_tc = 0.00005;
+    m_duration = 2;
 }
 
-void simModel1::startSim(void)
+void simModel::startSim(void)
 {
     // Init sim vars
     m_t = 0;
     int m_step = (int)(m_duration / m_ts);
+    /********************* *********************/
+    /* Define here the behaviour of your model */
+    /********************* *********************/
 
     // Init sink-source-transfer
     STMux smux;
