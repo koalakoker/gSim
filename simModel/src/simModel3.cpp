@@ -1,19 +1,24 @@
-#include "simModel3.h"
+#include "simModel.h"
 
-#include "simModules/ssscope.h"
-#include "simModules/strl.h"
-#include "simModules/stpi.h"
-#include "simModules/stdpi.h"
-#include "simModules/staritmetic.h"
+#include "ssscope.h"
+#include "strl.h"
+#include "stpi.h"
+#include "stdpi.h"
+#include "staritmetic.h"
 
-simModel3::simModel3()
+simModel::simModel()
 {
     /* Set sim number */
     m_sim = 3;
     m_description = "PI on RL sim";
+
+    /* Default common params */
+    m_ts = 0.00005;
+    m_tc = 0.00005;
+    m_duration = 2;
 }
 
-void simModel3::startSim(void)
+void simModel::startSim(void)
 {
     // Test specific initialization
     m_ts = 0.00005;

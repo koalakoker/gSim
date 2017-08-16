@@ -1,7 +1,8 @@
-#include "simModel8.h"
-#include "simModules/ssscope.h"
+#include "simModel.h"
 
-simModel8::simModel8()
+#include "ssscope.h"
+
+simModel::simModel()
 {
     /* Set sim number */
     m_sim = 8;
@@ -30,7 +31,7 @@ simModel8::simModel8()
     thetaPlot = false;
 }
 
-void simModel8::startSim(void)
+void simModel::startSim(void)
 {
     // Test specific initialization
     double theta = 0;

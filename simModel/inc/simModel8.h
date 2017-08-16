@@ -1,14 +1,15 @@
-#ifndef SIMMODEL8_H
-#define SIMMODEL8_H
+#ifndef SIMMODEL_H
+#define SIMMODEL_H
 
-#include "baseSimModel.h"
+#include "gsimmodel_global.h"
+#include"baseSimModel.h"
 
-class simModel8 : public baseSimModel
+class GSIMMODELSHARED_EXPORT simModel : public baseSimModel
 {
-public:
-    simModel8();
-
-    /* Specific params for sim 8 */
+private:
+    /********************* *********************/
+    /*   Add here parameters for simulation    */
+    /********************* *********************/
     double m_motSpeedRads;
     double m_exc_freq;
     double m_exc_ampl;
@@ -23,8 +24,11 @@ public:
     bool excitingPlot;
     bool outputsPlot;
     bool thetaPlot;
+    /********************* *********************/
 
+public:
+    simModel();
     void startSim(void);
 };
 
-#endif // SIMMODEL8_H
+#endif // SIMMODEL_H

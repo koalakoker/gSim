@@ -1,12 +1,20 @@
-#ifndef SIMMODEL4_H
-#define SIMMODEL4_H
+#ifndef SIMMODEL_H
+#define SIMMODEL_H
 
-#include "baseSimModel.h"
+#include "gsimmodel_global.h"
+#include"baseSimModel.h"
 
-class simModel4 : public baseSimModel
+class GSIMMODELSHARED_EXPORT simModel : public baseSimModel
 {
+private:
+    /********************* *********************/
+    /*   Add here parameters for simulation    */
+    /********************* *********************/
+
+    /********************* *********************/
+
 public:
-    simModel4();
+    simModel();
 
     /* Specific params for sim 4 */
     double m_pi_kp;
@@ -20,4 +28,4 @@ public:
     void startSim(void);
 };
 
-#endif // SIMMODEL4_H
+#endif // SIMMODEL3_H

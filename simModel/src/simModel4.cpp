@@ -1,17 +1,18 @@
-#include "simModel4.h"
+#include "simModel.h"
 
-#include "simModules/ssscope.h"
-#include "simModules/strl.h"
-#include "simModules/stpid.h"
+#include "ssscope.h"
+#include "strl.h"
+#include "stpid.h"
 
-simModel4::simModel4()
+simModel::simModel()
 {
     /* Set sim number */
     m_sim = 4;
     m_description = "PI (different types) on RL sim";
 }
 
-void simModel4::startSim(void)
+
+void simModel::startSim(void)
 {
     // Test specific initialization
     m_ts = 0.00005;

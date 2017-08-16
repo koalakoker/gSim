@@ -1,12 +1,20 @@
-#ifndef SIMMODEL3_H
-#define SIMMODEL3_H
+#ifndef SIMMODEL_H
+#define SIMMODEL_H
 
-#include "baseSimModel.h"
+#include "gsimmodel_global.h"
+#include"baseSimModel.h"
 
-class simModel3 : public baseSimModel
+class GSIMMODELSHARED_EXPORT simModel : public baseSimModel
 {
+private:
+    /********************* *********************/
+    /*   Add here parameters for simulation    */
+    /********************* *********************/
+
+    /********************* *********************/
+
 public:
-    simModel3();
+    simModel();
 
     /* Specific params for sim 3 */
     double m_pi_kp;
