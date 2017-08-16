@@ -1,11 +1,13 @@
 #ifndef STPMSMDQ_H
 #define STPMSMDQ_H
 
+#include "simmodules_global.h"
+
 #include "smotor.h"
 #include "stfintegrator.h"
 #include "pmsmvars.h"
 
-class STPMSMdq : public SMotor
+class SIMMODULESSHARED_EXPORT STPMSMdq : public SMotor
 {
 public:
     STPMSMdq(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,

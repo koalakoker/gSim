@@ -1,10 +1,12 @@
 #ifndef STPI_H
 #define STPI_H
 
+#include "simmodules_global.h"
+
 #include "stransfer.h"
 #include "discretetimetransformtype.h"
 
-class STPI : public STransfer
+class SIMMODULESSHARED_EXPORT STPI : public STransfer
 {
 public:
     STPI(double kp, double ki, double ts, DiscreteTimeTransformType_t transform = BackwardEuler);

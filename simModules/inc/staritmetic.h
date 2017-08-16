@@ -1,9 +1,11 @@
 #ifndef STARITMETIC_H
 #define STARITMETIC_H
 
+#include "simmodules_global.h"
+
 #include "stransferbinary.h"
 
-class STAritmetic : public STransferBinary
+class SIMMODULESSHARED_EXPORT STAritmetic : public STransferBinary
 {
 public:
     typedef enum {sumType, differenceType, multiplicationType, divisionType} aritmeticType_t;

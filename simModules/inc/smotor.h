@@ -1,9 +1,11 @@
 #ifndef SMOTOR_H
 #define SMOTOR_H
 
+#include "simmodules_global.h"
+
 #include "selement.h"
 
-class SMotor : public SElement
+class SIMMODULESSHARED_EXPORT SMotor : public SElement
 {
 public:
     SMotor();

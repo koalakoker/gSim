@@ -1,9 +1,11 @@
 #ifndef STDQTOALPHABETA_H
 #define STDQTOALPHABETA_H
 
+#include "simmodules_global.h"
+
 #include "stransfer.h"
 
-class STdqtoalphabeta : public STransfer
+class SIMMODULESSHARED_EXPORT STdqtoalphabeta : public STransfer
 {
 public:
     STdqtoalphabeta();

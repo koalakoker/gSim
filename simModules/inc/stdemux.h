@@ -1,9 +1,11 @@
 #ifndef STDEMUX_H
 #define STDEMUX_H
 
+#include "simmodules_global.h"
+
 #include "stransfer.h"
 
-class STDemux : public STransfer
+class SIMMODULESSHARED_EXPORT STDemux : public STransfer
 {
 public:
     STDemux();

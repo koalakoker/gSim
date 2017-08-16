@@ -1,9 +1,11 @@
 #ifndef STDPI_H
 #define STDPI_H
 
+#include "simmodules_global.h"
+
 #include "stransfer.h"
 
-class STDPI : public STransfer
+class SIMMODULESSHARED_EXPORT STDPI : public STransfer
 {
 public:
     STDPI(double kp, double ki);

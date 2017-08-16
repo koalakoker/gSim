@@ -1,9 +1,11 @@
 #ifndef SSSIN_H
 #define SSSIN_H
 
+#include "simmodules_global.h"
+
 #include "ssource.h"
 
-class SSSinCos : public SSource
+class SIMMODULESSHARED_EXPORT SSSinCos : public SSource
 {
 public:
     typedef enum {sinType, cosType} trigType_t;

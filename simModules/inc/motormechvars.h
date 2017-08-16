@@ -1,9 +1,11 @@
 #ifndef MOTORMECHVARS_H
 #define MOTORMECHVARS_H
 
+#include "simmodules_global.h"
+
 #include "sdatavector.h"
 
-class MotorMechVars : public SDataVector
+class SIMMODULESSHARED_EXPORT MotorMechVars : public SDataVector
 {
 public:
     MotorMechVars() : SDataVector(), Wm(0), We(0), MechAngle(0), ElAngle(0) {}

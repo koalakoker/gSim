@@ -1,9 +1,11 @@
 #ifndef STPREV_H
 #define STPREV_H
 
+#include "simmodules_global.h"
+
 #include "stransfer.h"
 
-class STPrev : public STransfer
+class SIMMODULESSHARED_EXPORT STPrev : public STransfer
 {
 public:
     STPrev();

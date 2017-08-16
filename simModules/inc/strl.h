@@ -1,9 +1,11 @@
 #ifndef STRL_H
 #define STRL_H
 
+#include "simmodules_global.h"
+
 #include "stransfer.h"
 
-class STRL : public STransfer
+class SIMMODULESSHARED_EXPORT STRL : public STransfer
 {
 public:
     STRL(double r, double l, double ts);

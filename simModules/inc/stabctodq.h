@@ -1,9 +1,11 @@
 #ifndef STABCTODQ_H
 #define STABCTODQ_H
 
+#include "simmodules_global.h"
+
 #include "stransfer.h"
 
-class STabctodq : public STransfer
+class SIMMODULESSHARED_EXPORT STabctodq : public STransfer
 {
 public:
     STabctodq();

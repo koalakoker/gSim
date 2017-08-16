@@ -1,9 +1,11 @@
 #ifndef STDQTOABC_H
 #define STDQTOABC_H
 
+#include "simmodules_global.h"
+
 #include "stransfer.h"
 
-class STdqtoabc : public STransfer
+class SIMMODULESSHARED_EXPORT STdqtoabc : public STransfer
 {
 public:
     STdqtoabc();

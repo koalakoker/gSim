@@ -1,13 +1,15 @@
 #ifndef STPMSMABC_H
 #define STPMSMABC_H
 
+#include "simmodules_global.h"
+
 #include "smotor.h"
 #include "stpmsmdq.h"
 #include "stabctodq.h"
 #include "stdqtoabc.h"
 #include "pmsmvars.h"
 
-class STPMSMabc : public SMotor
+class SIMMODULESSHARED_EXPORT STPMSMabc : public SMotor
 {
 public:
     STPMSMabc(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,

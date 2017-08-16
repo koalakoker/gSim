@@ -1,9 +1,11 @@
 #ifndef SSRAMP_H
 #define SSRAMP_H
 
+#include "simmodules_global.h"
+
 #include "ssource.h"
 
-class SSRamp : public SSource
+class SIMMODULESSHARED_EXPORT SSRamp : public SSource
 {
 public:
     SSRamp(double ramp = 1, double tStart = 0);
