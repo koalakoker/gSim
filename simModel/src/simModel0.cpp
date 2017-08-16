@@ -1,29 +1,31 @@
-#include "simModel0.h"
+#include "simModel.h"
 
-#include "simModules/sssincos.h"
-#include "simModules/ssscope.h"
-#include "simModules/staritmetic.h"
-#include "simModules/stmux.h"
-#include "simModules/stdemux.h"
+#include "sssincos.h"
+#include "ssscope.h"
+#include "staritmetic.h"
+#include "stmux.h"
+#include "stdemux.h"
 
-simModel0::simModel0()
+simModel::simModel()
 {
     /* Set sim number */
     m_sim = 0;
     m_description = "Sin-cos-artitmetic-mux  sim";
 
     /* Default common params */
-    m_t = 0;
     m_ts = 0.00005;
     m_tc = 0.00005;
     m_duration = 2;
 }
 
-void simModel0::startSim(void)
+void simModel::startSim(void)
 {
     // Init sim vars
     m_t = 0;
     int m_step = (int)(m_duration / m_ts);
+    /********************* *********************/
+    /* Define here the behaviour of your model */
+    /********************* *********************/
 
     // Init sink-source-transfer
     SSSinCos ssin;
@@ -63,4 +65,5 @@ void simModel0::startSim(void)
     sscope2.scopeUpdate(m_ts);
     sscope3.scopeUpdate(m_ts);
     sscope4.scopeUpdate(m_ts);
+    /********************* *********************/
 }

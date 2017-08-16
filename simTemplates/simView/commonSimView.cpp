@@ -22,95 +22,103 @@ void commonSimView::updateView(void)
 
     if (m_simModel)
     {
-        QString firstGroupName = "Specific simulation parameters";
-        int startingElement = 0;
-        bool isFirstGroup = (m_simModel->m_userParams[0]->m_type == SE_group);
-        if (isFirstGroup)
+        if (m_simModel->m_userParams.size() == 0)
         {
-            firstGroupName = m_simModel->m_userParams[0]->m_label;
-            startingElement = 1;
+            QLabel* label = new QLabel("Parameter list empty.");
+            mainLayout->addWidget(label);
         }
-        QGroupBox* group = new QGroupBox(firstGroupName);
-        QVBoxLayout* groupLayout = new QVBoxLayout();
-        if (isFirstGroup)
+        else
         {
-            m_widget.append(group);
-        }
-
-        for (int i = startingElement; i < m_simModel->m_userParams.size(); i++)
-        {
-
-            switch (m_simModel->m_userParams[i]->m_type)
+            QString firstGroupName = "Specific simulation parameters";
+            int startingElement = 0;
+            bool isFirstGroup = (m_simModel->m_userParams[0]->m_type == SE_group);
+            if (isFirstGroup)
             {
-                case SE_double:
-                {
-                    QHBoxLayout* hLayout = new QHBoxLayout();
-
-                    QLabel* labelW = new QLabel(m_simModel->m_userParams[i]->m_label);
-                    hLayout->addWidget(labelW);
-
-                    QDoubleSpinBox* doubleSpinBox = new QDoubleSpinBox();
-                    doubleSpinBox->setDecimals(5);
-                    doubleSpinBox->setValue(*(double*)(m_simModel->m_userParams[i]->m_pValue));
-
-                    hLayout->addWidget(doubleSpinBox);
-                    m_widget.append(doubleSpinBox);
-
-                    groupLayout->addItem(hLayout);
-                }
-                break;
-
-                case SE_bool:
-                {
-                    QHBoxLayout* hLayout = new QHBoxLayout();
-
-                    QLabel* labelW = new QLabel(m_simModel->m_userParams[i]->m_label);
-                    hLayout->addWidget(labelW);
-
-                    QCheckBox* checkBox = new QCheckBox();
-                    checkBox->setChecked(*(bool*)(m_simModel->m_userParams[i]->m_pValue));
-
-                    hLayout->addWidget(checkBox);
-                    m_widget.append(checkBox);
-
-                    groupLayout->addItem(hLayout);
-                }
-                break;
-
-                case SE_int:
-                {
-                    QHBoxLayout* hLayout = new QHBoxLayout();
-
-                    QLabel* labelW = new QLabel(m_simModel->m_userParams[i]->m_label);
-                    hLayout->addWidget(labelW);
-
-                    QSpinBox* spinBox = new QSpinBox();
-                    spinBox->setValue(*(int*)(m_simModel->m_userParams[i]->m_pValue));
-
-                    hLayout->addWidget(spinBox);
-                    m_widget.append(spinBox);
-
-                    groupLayout->addItem(hLayout);
-                }
-                break;
-
-                case SE_group:
-                {
-                    group->setLayout(groupLayout);
-                    mainLayout->addWidget(group);
-
-                    group = new QGroupBox(m_simModel->m_userParams[i]->m_label);
-                    groupLayout = new QVBoxLayout();
-
-                    m_widget.append(group);
-                }
-                break;
+                firstGroupName = m_simModel->m_userParams[0]->m_label;
+                startingElement = 1;
             }
+            QGroupBox* group = new QGroupBox(firstGroupName);
+            QVBoxLayout* groupLayout = new QVBoxLayout();
+            if (isFirstGroup)
+            {
+                m_widget.append(group);
+            }
+
+            for (int i = startingElement; i < m_simModel->m_userParams.size(); i++)
+            {
+
+                switch (m_simModel->m_userParams[i]->m_type)
+                {
+                    case SE_double:
+                    {
+                        QHBoxLayout* hLayout = new QHBoxLayout();
+
+                        QLabel* labelW = new QLabel(m_simModel->m_userParams[i]->m_label);
+                        hLayout->addWidget(labelW);
+
+                        QDoubleSpinBox* doubleSpinBox = new QDoubleSpinBox();
+                        doubleSpinBox->setDecimals(5);
+                        doubleSpinBox->setValue(*(double*)(m_simModel->m_userParams[i]->m_pValue));
+
+                        hLayout->addWidget(doubleSpinBox);
+                        m_widget.append(doubleSpinBox);
+
+                        groupLayout->addItem(hLayout);
+                    }
+                    break;
+
+                    case SE_bool:
+                    {
+                        QHBoxLayout* hLayout = new QHBoxLayout();
+
+                        QLabel* labelW = new QLabel(m_simModel->m_userParams[i]->m_label);
+                        hLayout->addWidget(labelW);
+
+                        QCheckBox* checkBox = new QCheckBox();
+                        checkBox->setChecked(*(bool*)(m_simModel->m_userParams[i]->m_pValue));
+
+                        hLayout->addWidget(checkBox);
+                        m_widget.append(checkBox);
+
+                        groupLayout->addItem(hLayout);
+                    }
+                    break;
+
+                    case SE_int:
+                    {
+                        QHBoxLayout* hLayout = new QHBoxLayout();
+
+                        QLabel* labelW = new QLabel(m_simModel->m_userParams[i]->m_label);
+                        hLayout->addWidget(labelW);
+
+                        QSpinBox* spinBox = new QSpinBox();
+                        spinBox->setValue(*(int*)(m_simModel->m_userParams[i]->m_pValue));
+
+                        hLayout->addWidget(spinBox);
+                        m_widget.append(spinBox);
+
+                        groupLayout->addItem(hLayout);
+                    }
+                    break;
+
+                    case SE_group:
+                    {
+                        group->setLayout(groupLayout);
+                        mainLayout->addWidget(group);
+
+                        group = new QGroupBox(m_simModel->m_userParams[i]->m_label);
+                        groupLayout = new QVBoxLayout();
+
+                        m_widget.append(group);
+                    }
+                    break;
+                }
+            }
+
+            group->setLayout(groupLayout);
+            mainLayout->addWidget(group);
+
         }
-
-        group->setLayout(groupLayout);
-        mainLayout->addWidget(group);
-
     }
     else
     {
