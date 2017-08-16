@@ -1,0 +1,8 @@
+del /Q "debug"
+rmdir "debug"
+del /Q "release"
+rmdir "release"
+del ".qmake.stash"
+del "Makefile"
+del "Makefile.Debug"
+del "Makefile.Release"
