@@ -1,12 +1,20 @@
-#ifndef SIMMODEL7_H
-#define SIMMODEL7_H
+#ifndef SIMMODEL_H
+#define SIMMODEL_H
 
-#include "baseSimModel.h"
+#include "gsimmodel_global.h"
+#include"baseSimModel.h"
 
-class simModel7 : public baseSimModel
+class GSIMMODELSHARED_EXPORT simModel : public baseSimModel
 {
+private:
+    /********************* *********************/
+    /*   Add here parameters for simulation    */
+    /********************* *********************/
+
+    /********************* *********************/
+
 public:
-    simModel7();
+    simModel();
 
     /* Specific params for sim 7 */
     double m_pi_kp;
@@ -20,4 +28,4 @@ public:
     void startSim(void);
 };
 
-#endif // SIMMODEL7_H
+#endif // SIMMODEL_H

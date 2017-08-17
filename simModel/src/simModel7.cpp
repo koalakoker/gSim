@@ -1,26 +1,25 @@
-#include "simModel7.h"
+#include "simModel.h"
 
-#include "simModules/ssscope.h"
-#include "simModules/stpid.h"
-#include "simModules/stpmsmabc.h"
-#include "simModules/stdqtoabc.h"
-#include "simModules/stdqtoalphabeta.h"
-#include "simModules/stabctodq.h"
-#include "simModules/stsvm.h"
+#include "ssscope.h"
+#include "stpid.h"
+#include "stpmsmabc.h"
+#include "stdqtoabc.h"
+#include "stdqtoalphabeta.h"
+#include "stabctodq.h"
+#include "stsvm.h"
 
-simModel7::simModel7()
+simModel::simModel()
 {
     /* Set sim number */
     m_sim = 7;
     m_description = "Space vector modulation sim";
 
-     /* Default common params */
-    m_t = 0;
+    /* Default common params */
     m_ts = 0.00005;
     m_tc = 0.00005;
     m_duration = 2;
 
-    /* Specific params for sim 8 */
+    /* Specific params for sim 7 */
     m_pi_kp = 2.90663474828051;
     m_pi_ki = 2113.6708113218;
     m_pi_kd = 0;
@@ -30,7 +29,7 @@ simModel7::simModel7()
     m_l = 0.001;
 }
 
-void simModel7::startSim(void)
+void simModel::startSim(void)
 {
     // Test specific initialization
 
@@ -129,4 +128,3 @@ void simModel7::startSim(void)
     sscope6.scopeUpdate(m_ts);
     sscope7.scopeUpdate(m_ts);
 }
-
