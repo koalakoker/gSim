@@ -29,6 +29,26 @@ simModel::simModel()
     excitingPlot = false;
     outputsPlot = true;
     thetaPlot = false;
+
+    /********************* *********************/
+    /*      Setup parameters into the view     */
+    /********************* *********************/
+
+    m_userParams.append(new simModelElement("Resolver sim parameters", SE_group, NULL));
+
+    m_userParams.append(new simModelElement("Excitation frequency", SE_double, (void*)(&m_exc_freq)));
+    m_userParams.append(new simModelElement("Excitation amplitude", SE_double, (void*)(&m_exc_ampl)));
+    m_userParams.append(new simModelElement("Motor speed in radiants", SE_double, (void*)(&m_motSpeedRads)));
+    m_userParams.append(new simModelElement("Sin attentuation", SE_double, (void*)(&m_sin_att)));
+    m_userParams.append(new simModelElement("Sin delay", SE_double, (void*)(&m_sin_delay)));
+    m_userParams.append(new simModelElement("Sin offset", SE_double, (void*)(&m_sin_offset)));
+    m_userParams.append(new simModelElement("Cos attentuation", SE_double, (void*)(&m_cos_att)));
+    m_userParams.append(new simModelElement("Cos delay", SE_double, (void*)(&m_cos_delay)));
+    m_userParams.append(new simModelElement("Cos offset", SE_double, (void*)(&m_cos_offset)));
+
+    m_userParams.append(new simModelElement("excitingPlot", SE_bool, (void*)(&excitingPlot)));
+    m_userParams.append(new simModelElement("outputsPlot", SE_bool, (void*)(&outputsPlot)));
+    m_userParams.append(new simModelElement("thetaPlot", SE_bool, (void*)(&thetaPlot)));
 }
 
 void simModel::startSim(void)
