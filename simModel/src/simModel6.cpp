@@ -1,10 +1,10 @@
-#include "simModel6.h"
+#include "simModel.h"
 
-#include "simModules/stpmsmabc.h"
-#include "simModules/stpid.h"
-#include "simModules/ssscope.h"
+#include "stpmsmabc.h"
+#include "stpid.h"
+#include "ssscope.h"
 
-simModel6::simModel6()
+simModel::simModel()
 {
     /* Set sim number */
     m_sim = 6;
@@ -23,10 +23,9 @@ simModel6::simModel6()
 
     m_r = 1;
     m_l = 0.001;
-
 }
 
-void simModel6::startSim(void)
+void simModel::startSim(void)
 {
     // Test specific initialization
 
