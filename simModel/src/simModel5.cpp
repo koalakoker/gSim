@@ -1,10 +1,10 @@
-#include "simModel5.h"
+#include "simModel.h"
 
-#include "simModules/stpmsmdq.h"
-#include "simModules/stpid.h"
-#include "simModules/ssscope.h"
+#include "stpmsmdq.h"
+#include "stpid.h"
+#include "ssscope.h"
 
-simModel5::simModel5()
+simModel::simModel()
 {
     /* Set sim number */
     m_sim = 5;
@@ -25,7 +25,7 @@ simModel5::simModel5()
     m_l = 0.001;
 }
 
-void simModel5::startSim(void)
+void simModel::startSim(void)
 {
     // Test specific initialization
 
