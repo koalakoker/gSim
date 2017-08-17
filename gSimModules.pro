@@ -6,7 +6,7 @@
 
 QT       += widgets printsupport
 
-TARGET = simModules
+TARGET = gSimModules
 TEMPLATE = lib
 
 DEFINES += SIMMODULES_LIBRARY

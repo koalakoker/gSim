@@ -39,9 +39,9 @@ unix {
     INSTALLS += target
 }
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build-simModules/release/ -lsimModules
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build-simModules/debug/ -lsimModules
-else:unix: LIBS += -L$$PWD/../build-simModules/ -lsimModules
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build-gSimModules/release/ -lgSimModules
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build-gSimModules/debug/ -lgSimModules
+else:unix: LIBS += -L$$PWD/../build-gSimModules/ -lgSimModules
 
 INCLUDEPATH += simModules/inc
 INCLUDEPATH += simModel/inc/

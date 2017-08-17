@@ -4,4 +4,11 @@ mingw32-make.exe
 copy ".\release\gSimModel.dll" "..\gSimExe"
 del ".\release\gSimModel.dll"
 
-remove_unused.bat
+del /Q "debug"
+rmdir "debug"
+del /Q "release"
+rmdir "release"
+del ".qmake.stash"
+del "Makefile"
+del "Makefile.Debug"
+del "Makefile.Release"

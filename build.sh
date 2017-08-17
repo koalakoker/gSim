@@ -2,5 +2,7 @@
 
 qmake gSimModel.pro
 make
-./remove_unused.sh
+rm *.o
+rm moc*
+rm .qmake.stash Makefile
 mv lib* ~/lib
