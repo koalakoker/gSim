@@ -15,7 +15,6 @@ simModel::simModel()
     /********************* *********************/
     /*        Parameters initialization        */
     /********************* *********************/
-
     m_polesPairs = 4.0;
     m_inertia = 0.0010;
     m_friction = 0.0050;
@@ -26,17 +25,17 @@ simModel::simModel()
 
     m_movementDuration = m_duration;
     m_angleStep = 3.14;
-
     /********************* *********************/
 
     /********************* *********************/
     /*      Setup parameters into the view     */
     /********************* *********************/
-
-    m_userParams.append(new simModelElement("Sim parameters", SE_group, NULL));
+    m_userParams.append(new simModelElement("Sim input parameters", SE_group, NULL));
     m_userParams.append(new simModelElement("Duration (s)", SE_double, (void*)(&m_movementDuration)));
     m_userParams.append(new simModelElement("AngleStep (rad)", SE_double, (void*)(&m_angleStep)));
     m_userParams.append(new simModelElement("Plot", SE_bool, (void*)(&m_anglePlot)));
+    m_userParams.append(new simModelElement("Sim output values", SE_group, NULL));
+    m_userParams.append(new simModelElement("Jerk", SE_double, (void*)(&m_jerk)));
     /********************* *********************/
 }
 
