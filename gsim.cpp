@@ -1,8 +1,8 @@
 #include <QTime>
 #include "gsim.h"
 #include "ui_gsim.h"
-
-#define DEFAULT_SIMULATION 9
+#include <QCloseEvent>
+#include <QDebug>
 
 gSim::gSim(QWidget *parent) :
     QMainWindow(parent),
@@ -10,46 +10,40 @@ gSim::gSim(QWidget *parent) :
 {
     m_simModel = NULL;
     m_simView = NULL;
-    m_lastSetWidget = NULL;
 
     ui->setupUi(this);
-
-    setSimulation(DEFAULT_SIMULATION); /* To be called after UI setup */
-
-#ifdef TEST
-    connect(&testTim, SIGNAL(timeout()), this, SLOT(testTimeout()));
-    testTim.start(SIM_TEST);
-#endif
 }
 
 gSim::~gSim()
 {
-    if (m_lastSetWidget != NULL)
-    {
-        ui->dynamicLayout->removeWidget(m_lastSetWidget);
-    }
-
     delete ui;
 }
 
-void gSim::on_startSimulation_clicked()
+void gSim::closeEvent(QCloseEvent *event)
+{
+    if (m_simView)
+    {
+        m_simView->close();
+    }
+    event->accept();
+}
+
+void gSim::on_startSim_clicked()
 {
     QTime t;
     t.start();
 
     m_simModel->setDuration(ui->duration->value());
-    m_simModel->setSimulationTime(ui->stepTime->value());
+    m_simModel->setSimTime(ui->stepTime->value());
     m_simModel->setControlTime(ui->controlTime->value());
 
     if (m_simView)
     {
         // Update specific params
-        m_simView->updateModel(); /* Update model before to start simulation */
+        m_simView->updateModel(); /* Update model before to start sim */
     }
 
-    m_simModel->startSimulation();
-
-    m_simView->updateView(); /* Update view values according model after simulation */
+    m_simModel->startSim();
 
     ui->simInfo->setText(QString("Time elapsed: %1 s").arg((double)t.elapsed()/1000));
 }
@@ -59,128 +53,33 @@ void gSim::updateProgress(double percentage)
     ui->progressBar->setValue(percentage * 100);
 }
 
-void gSim::on_simulation_valueChanged(int arg1)
+void gSim::setSimModel(baseSimModel* model)
 {
-    setSimulation(arg1);
+    m_simModel = model;
+
+    /* Update common settings */
+    ui->duration->setValue(m_simModel->duration());
+    ui->stepTime->setValue(m_simModel->simTime());
+    ui->controlTime->setValue(m_simModel->controlTime());
+    ui->simName->setText(m_simModel->m_description);
+
+    connect(m_simModel, SIGNAL(updateProgress(double)), this, SLOT(updateProgress(double)));
 }
 
-void gSim::setSimulation(int arg)
+void gSim::setSimView(baseSimView* view)
 {
-    bool change = true;
-    if (m_simModel)
-    {
-        if (arg == m_simModel->m_simulation)
-        {
-            change = false;
-        }
-    }
-    if (change)
-    {
-        if (m_lastSetWidget != NULL)
-        {
-            ui->dynamicLayout->removeWidget(m_lastSetWidget);
-            m_lastSetWidget->hide();
-        }
-
-        m_simView = NULL;
-
-        switch (arg)
-        {
-        case 0:
-        {
-            m_simModel = &m_simModel0;
-        }
-            break;
-        case 1:
-        {
-            m_simModel = &m_simModel1;
-        }
-            break;
-        case 2:
-        {
-            m_simModel = &m_simModel2;
-        }
-            break;
-        case 3:
-        {
-            m_simModel = &m_simModel3;
-        }
-            break;
-        case 4:
-        {
-            m_simModel = &m_simModel4;
-        }
-            break;
-        case 5:
-        {
-            m_simModel = &m_simModel5;
-            m_simView = &m_simView7;
-            m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            m_simView->updateView(); /* Update view values according model */
-        }
-            break;
-        case 6:
-        {
-            m_simModel = &m_simModel6;
-            m_simView = &m_simView7;
-            m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            m_simView->updateView(); /* Update view values according model */
-        }
-            break;
-        case 7:
-        {
-            m_simModel = &m_simModel7;
-            m_simView = &m_simView7;
-            m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            m_simView->updateView(); /* Update view values according model */
-        }
-            break;
-        case 8:
-        {
-            m_simModel = &m_simModel8;
-            m_simView = &m_simView8;
-            m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            m_simView->updateView(); /* Update view values according model */
-        }
-            break;
-        case 9:
-        {
-            m_simModel = &m_simModel9;
-            m_simView = &m_simView9;
-            m_simView->setSimulationModel(m_simModel); /* Set simulation model */
-            m_simView->updateView(); /* Update view values according model */
-        }
-            break;
-        default:
-        {
-            m_simModel = new baseSimulationModel(); /* Create simulation model */
-            m_simView = new baseSimulationView(); /* Create simulation view */
-        }
-        }
-
-        if (m_simView)
-        {
-            m_lastSetWidget = m_simView;
-            ui->dynamicLayout->addWidget(m_simView);
-            m_simView->show();
-        }
-
-        /* Update common settings */
-        bool oldState = ui->simulation->blockSignals(true);
-        ui->simulation->setValue(m_simModel->m_simulation);
-        ui->simulation->blockSignals(oldState);
-        ui->description->setText(m_simModel->m_description);
-        ui->duration->setValue(m_simModel->duration());
-        ui->stepTime->setValue(m_simModel->simulationTime());
-        ui->controlTime->setValue(m_simModel->controlTime());
-
-        connect(m_simModel, SIGNAL(updateProgress(double)), this, SLOT(updateProgress(double)));
-    }
+    m_simView = view;
 }
 
-void gSim::testTimeout(void)
+void gSim::resetSimView(void)
 {
-    testTim.start(SIM_TEST);
-    int last = qrand() % MAX_TEST_NUM;
-    ui->simulation->setValue(last);
+    m_simView = NULL;
+}
+
+void gSim::on_params_clicked()
+{
+    if (m_simView)
+    {
+        m_simView->show();
+    }
 }

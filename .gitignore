@@ -29,4 +29,7 @@
 *.app
 /gSim.pro.user
 /gSim.pro.user.f213374
-/Resolver - Shortcut.lnk
+/gSimModel.pro.user
+/gSimModules.pro.user
+/gsim.sublime-project
+/gsim.sublime-workspace

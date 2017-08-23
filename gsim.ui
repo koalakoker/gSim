@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>544</height>
+    <height>375</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,19 +18,22 @@
     <item>
      <widget class="QGroupBox" name="SimParams">
       <property name="title">
-       <string>Simulation params</string>
+       <string>Sim params</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QFormLayout" name="formLayout">
-         <item row="2" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="label">
            <property name="text">
             <string>Duration (s)</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="1" column="1">
+          <widget class="QDoubleSpinBox" name="duration"/>
+         </item>
+         <item row="2" column="0">
           <widget class="QLabel" name="label_2">
            <property name="text">
             <string>Step Time (s)</string>
@@ -38,57 +41,37 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QDoubleSpinBox" name="duration">
-           <property name="decimals">
-            <number>4</number>
-           </property>
-           <property name="maximum">
-            <double>999.990000000000009</double>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
           <widget class="QDoubleSpinBox" name="stepTime">
            <property name="decimals">
-            <number>10</number>
+            <number>5</number>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="3" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
             <string>Control Time (s)</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
+         <item row="3" column="1">
           <widget class="QDoubleSpinBox" name="controlTime">
            <property name="decimals">
-            <number>10</number>
+            <number>5</number>
            </property>
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QLabel" name="label_10">
+          <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>Simulation</string>
+            <string>Sim</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="simulation"/>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_4">
+          <widget class="QLabel" name="simName">
            <property name="text">
-            <string>Description</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="description">
-           <property name="readOnly">
-            <bool>true</bool>
+            <string>simName</string>
            </property>
           </widget>
          </item>
@@ -98,44 +81,40 @@
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="SimulationSpecificParams">
-      <property name="title">
-       <string>Simulation specific params</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <layout class="QFormLayout" name="dynamicLayout">
-         <item row="0" column="0">
-          <widget class="QWidget" name="specificForm" native="true"/>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="startSimulation">
-      <property name="text">
-       <string>Start simulation</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="startSim">
+        <property name="text">
+         <string>Start sim</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="params">
+        <property name="text">
+         <string>Params</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
-       <string>Simulation info</string>
+       <string>Sim info</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
@@ -180,7 +159,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
