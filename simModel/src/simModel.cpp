@@ -10,7 +10,7 @@ simModel::simModel()
     /* Default common params */
     m_ts = 0.0005;
     m_tc = m_ts;
-    m_duration = 0.9;
+    m_duration = 0.026;
 
     /********************* *********************/
     /*        Parameters initialization        */
@@ -24,7 +24,7 @@ simModel::simModel()
     m_anglePlot = true;
 
     m_movementDuration = m_duration;
-    m_angleStep = 3.14;
+    m_angleStep = 4.92;
     /********************* *********************/
 
     /********************* *********************/
