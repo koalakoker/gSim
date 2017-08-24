@@ -1,25 +1,20 @@
-#include "simModel10.h"
-#include "simModules/ssscope.h"
-#include "simModules/stfintegrator.h"
-#include "simModules/stpid.h"
-#include "simModules/stmotormech.h"
-#include "simModules/stdelay.h"
+#include "simModel.h"
+#include "ssscope.h"
 
-simulationModel10::simulationModel10()
+simModel::simModel()
 {
-    /* Set simulation number */
-    m_simulation = 10;
+    /* Set sim number */
+    m_sim = 10;
     m_description = "Position control simulation";
 
     /* Default common params */
-    m_t = 0;
     m_ts = 0.0005;
-    m_duration = 0.9;
-
-    /* Specific params for simulation 10 */
     m_tc = m_ts;
+    m_duration = 0.026;
 
-    /* Motor deafult values */
+    /********************* *********************/
+    /*        Parameters initialization        */
+    /********************* *********************/
     m_polesPairs = 4.0;
     m_inertia = 0.0010;
     m_friction = 0.0050;
@@ -28,15 +23,23 @@ simulationModel10::simulationModel10()
     /* Plots */
     m_anglePlot = true;
 
-    //
-    PI_KP = 200.0;
-    PI_KI = 10000.0000;
-
     m_movementDuration = m_duration;
-    m_angleStep = 3.14;
+    m_angleStep = 4.92;
+    /********************* *********************/
+
+    /********************* *********************/
+    /*      Setup parameters into the view     */
+    /********************* *********************/
+    m_userParams.append(new simModelElement("Sim input parameters", SE_group, NULL));
+    m_userParams.append(new simModelElement("Duration (s)", SE_double, (void*)(&m_movementDuration)));
+    m_userParams.append(new simModelElement("AngleStep (rad)", SE_double, (void*)(&m_angleStep)));
+    m_userParams.append(new simModelElement("Plot", SE_bool, (void*)(&m_anglePlot)));
+    m_userParams.append(new simModelElement("Sim output values", SE_group, NULL));
+    m_userParams.append(new simModelElement("Jerk", SE_double, (void*)(&m_jerk)));
+    /********************* *********************/
 }
 
-void simulationModel10::startSimulation(void)
+void simModel::startSim(void)
 {
     // Test specific initialization
     m_t1 = m_movementDuration / 9;
@@ -56,6 +59,9 @@ void simulationModel10::startSimulation(void)
     // Init simulation vars
     m_t = 0;
     int m_step = (int)(m_duration / m_ts);
+    /********************* *********************/
+    /* Define here the behaviour of your model */
+    /********************* *********************/
 
     // Init sink-source-transfer
     SSScope sscope("Angle",1);
@@ -120,4 +126,5 @@ void simulationModel10::startSimulation(void)
         sscope1.scopeUpdate(m_ts);
         sscope2.scopeUpdate(m_ts);
     }
+    /********************* *********************/
 }

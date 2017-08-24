@@ -1,16 +1,15 @@
-#ifndef SIMULATIONMODEL10_H
-#define SIMULATIONMODEL10_H
+#ifndef SIMMODEL_H
+#define SIMMODEL_H
 
-#include "baseSimulationModel.h"
+#include "gsimmodel_global.h"
+#include"baseSimModel.h"
 
-class simulationModel10 : public baseSimulationModel
+class GSIMMODELSHARED_EXPORT simModel : public baseSimModel
 {
-public:
-    simulationModel10();
-
-    /* Specific params for simulation 9 */
-
-    /* Motor params */
+private:
+    /********************* *********************/
+    /*   Add here parameters for simulation    */
+    /********************* *********************/
     double m_torque;
     double m_polesPairs;
     double m_inertia;
@@ -36,12 +35,10 @@ public:
     /* Plots */
     bool m_anglePlot;
 
-    void startSimulation(void);
-
-    // PI
-    double PI_KP;
-    double PI_KI;
-
+    /********************* *********************/
+public:
+    simModel();
+    void startSim(void);
 };
 
-#endif // SIMULATIONMODEL10_H
+#endif // SIMMODEL_H
