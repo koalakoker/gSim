@@ -60,7 +60,7 @@ void commonSimView::updateView(void)
                             hLayout->addWidget(labelW);
 
                             QDoubleSpinBox* doubleSpinBox = new QDoubleSpinBox();
-                            doubleSpinBox->setDecimals(5);
+                            doubleSpinBox->setDecimals(10);
                             doubleSpinBox->setMaximum(999999999);
                             doubleSpinBox->setMinimum(-999999999);
                             doubleSpinBox->setValue(*(double*)(m_simModel->m_userParams[i]->m_pValue));
