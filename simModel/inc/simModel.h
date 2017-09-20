@@ -10,17 +10,20 @@ private:
     /********************* *********************/
     /*   Add here parameters for simulation    */
     /********************* *********************/
-//    double m_pi_kp;
-//    double m_pi_ki;
-//    double m_pi_kd;
-//    double m_pi_n;
+    double m_pi_kp;
+    double m_pi_ki;
+    double m_pi_kd;
+    double m_pi_n;
 
     double m_pp;
     double m_j;
     double m_f;
-    double m_torque;
 
-    bool m_wPlot;
+    double m_maxTorque;
+    double m_bw;
+
+    bool m_wTetaPlot;
+    bool m_wSpeedPlot;
     bool m_torquePlot;
 
     /********************* *********************/

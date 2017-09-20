@@ -20,11 +20,11 @@ void SMotorMech::execute(SDataVector in)
     wm = m_vars.Wm = m_wIntTF.execute(dw).value();
 
     double mechAngle = m_thIntTF.execute(wm).value();
-    int p = (int)(mechAngle / (2 * M_PI));
-    mechAngle -= p * (2 * M_PI);
+    //int p = (int)(mechAngle / (2 * M_PI));
+    //mechAngle -= p * (2 * M_PI);
     double elAngle = mechAngle * m_polesPairs;
-    p = (int)(elAngle / (2 * M_PI));
-    elAngle -= p * (2 * M_PI);
+    //p = (int)(elAngle / (2 * M_PI));
+    //elAngle -= p * (2 * M_PI);
 
     m_vars.Wm = wm;
     m_vars.We = wm * m_polesPairs;

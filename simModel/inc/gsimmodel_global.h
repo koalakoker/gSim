@@ -3,10 +3,12 @@
 
 #include <QtCore/qglobal.h>
 
-#if defined(GSIMMODEL_LIBRARY)
-#  define GSIMMODELSHARED_EXPORT Q_DECL_EXPORT
-#else
-#  define GSIMMODELSHARED_EXPORT Q_DECL_IMPORT
-#endif
+//#if defined(GSIMMODEL_LIBRARY)
+//#  define GSIMMODELSHARED_EXPORT Q_DECL_EXPORT
+//#else
+//#  define GSIMMODELSHARED_EXPORT Q_DECL_IMPORT
+//#endif
+
+#define GSIMMODELSHARED_EXPORT
 
 #endif // GSIMMODEL_GLOBAL_H

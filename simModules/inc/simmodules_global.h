@@ -3,10 +3,12 @@
 
 #include <QtCore/qglobal.h>
 
-#if defined(SIMMODULES_LIBRARY)
-#  define SIMMODULESSHARED_EXPORT Q_DECL_EXPORT
-#else
-#  define SIMMODULESSHARED_EXPORT Q_DECL_IMPORT
-#endif
+// #if defined(SIMMODULES_LIBRARY)
+// #  define SIMMODULESSHARED_EXPORT Q_DECL_EXPORT
+// #else
+// #  define SIMMODULESSHARED_EXPORT Q_DECL_IMPORT
+// #endif
+
+#define SIMMODULESSHARED_EXPORT
 
 #endif // SIMMODULES_GLOBAL_H

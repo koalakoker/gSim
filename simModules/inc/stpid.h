@@ -18,8 +18,9 @@ private:
     double m_kp;
     double m_ki;
     double m_kd;
-    //double m_ts;
-    //double m_n;
+
+    double m_maxOut;
+    double m_maxIntTerm;
 
     STFIntegrator m_intTF;
     STFDerivatorFitered m_derTF;
