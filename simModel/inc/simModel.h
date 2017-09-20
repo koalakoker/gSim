@@ -19,7 +19,11 @@ private:
     double m_j;
     double m_f;
 
+    double m_maxTorque;
+    double m_bw;
+
     bool m_wTetaPlot;
+    bool m_wSpeedPlot;
     bool m_torquePlot;
 
     /********************* *********************/
