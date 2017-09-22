@@ -10,26 +10,33 @@ private:
     /********************* *********************/
     /*   Add here parameters for simulation    */
     /********************* *********************/
-    double m_pi_kp;
-    double m_pi_ki;
-    double m_pi_kd;
-    double m_pi_n;
-
-    double m_pp;
-    double m_j;
-    double m_f;
-
-    double m_maxTorque;
-    double m_bw;
-
-    bool m_wTetaPlot;
-    bool m_wSpeedPlot;
-    bool m_torquePlot;
 
     /********************* *********************/
 
 public:
     simModel();
+
+    /* Specific params for sim 7 */
+    double m_qd_kp;
+    double m_qd_ki;
+    double m_qd_kd;
+    double m_qd_n;
+
+    double m_spd_kp;
+    double m_spd_ki;
+    double m_spd_kd;
+    double m_spd_n;
+
+    double m_r;
+    double m_l;
+    double m_flux;
+
+    double m_pp;
+    double m_j;
+    double m_f;
+
+    double m_brakeTorque;
+
     void startSim(void);
 };
 
