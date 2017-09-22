@@ -28,14 +28,17 @@ simModel::simModel()
     m_spd_kd = 0;
     m_spd_n = 0;
 
-    m_r = 0.2;
-    m_l = 0.0085;
-    m_pp = 4;
-    m_flux = 0.175;
-    m_j = 0.089;
-    m_f = 0.05;
+    m_r = 0.35;
+    m_l = 0.0006;
+    m_pp = 2;
 
-    m_brakeTorque = 4;
+    double ke = 4;
+    m_flux = (ke/m_pp) * (sqrt(2) / sqrt(3)) * (60/(1000*2*M_PI));
+
+    m_j = 0.000005;
+    m_f = 0.000014;
+
+    m_brakeTorque = 0;
 
     m_abcCurrPlot = TRUE;
     m_angleSpeedPlot = FALSE;
@@ -52,6 +55,8 @@ simModel::simModel()
     m_userParams.append(new simModelElement("Poles pairs", SE_double, (void*)(&m_pp)));
     m_userParams.append(new simModelElement("Stator Resistance", SE_double, (void*)(&m_r)));
     m_userParams.append(new simModelElement("Stator Inductance (d-q)", SE_double, (void*)(&m_l)));
+    m_userParams.append(new simModelElement("Magnetic flux", SE_double, (void*)(&m_flux)));
+
     m_userParams.append(new simModelElement("Inertia", SE_double, (void*)(&m_j)));
     m_userParams.append(new simModelElement("Friction", SE_double, (void*)(&m_f)));
 
@@ -134,7 +139,8 @@ void simModel::startSim(void)
 
         if (m_abcCurrPlot)
         {
-            sscope3.execute(m_t, vin);
+            //sscope3.execute(m_t, vin);
+            sscope3.execute(m_t, SDataVector(motor.vars().Ia, motor.vars().Ib, motor.vars().Ic));
         }
 
         motor.execute(vin);

@@ -15,6 +15,7 @@ public:
 
     double Ia;
     double Ib;
+    double Ic;
     double Iq;
     double Id;
     double T;

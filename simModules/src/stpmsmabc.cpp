@@ -21,4 +21,5 @@ void STPMSMabc::execute(SDataVector in) // in have single inputs (slot) with thr
     SDataVector iabc = m_dqtoabc.execute(idq);
     m_vars.Ia = iabc.data(0, 0);
     m_vars.Ib = iabc.data(0, 1);
+    m_vars.Ic = iabc.data(0, 2);
 }
