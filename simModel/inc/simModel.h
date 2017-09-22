@@ -37,6 +37,10 @@ public:
 
     double m_brakeTorque;
 
+    bool m_abcCurrPlot;
+    bool m_angleSpeedPlot;
+    bool m_iqPlot;
+
     void startSim(void);
 };
 
