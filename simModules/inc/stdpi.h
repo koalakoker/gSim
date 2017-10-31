@@ -8,7 +8,7 @@
 class SIMMODULESSHARED_EXPORT STDPI : public STransfer
 {
 public:
-    STDPI(double kp, double ki);
+    STDPI(double kp, double ki, double sat);
 
     SDataVector execute(SDataVector in);
 
@@ -16,6 +16,7 @@ private:
     double m_kp;
     double m_ki;
 
+    double m_sat;
     double m_intTerm;
 };
 
