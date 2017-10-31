@@ -10,38 +10,34 @@ private:
     /********************* *********************/
     /*   Add here parameters for simulation    */
     /********************* *********************/
+    double m_torque;
+    double m_polesPairs;
+    double m_inertia;
+    double m_friction;
+
+    double m_jerk;
+    double m_acceleration;
+    double m_cruiseSpeed;
+    double m_angleStep;
+    double m_movementDuration;
+
+    double m_t1;
+    double m_t2;
+    double m_t3;
+    double m_t4;
+    double m_t5;
+    double m_t6;
+    double m_t7;
+
+    double m_omega;
+    double m_teta;
+
+    /* Plots */
+    bool m_anglePlot;
 
     /********************* *********************/
-
 public:
     simModel();
-
-    /* Specific params for sim 7 */
-    double m_qd_kp;
-    double m_qd_ki;
-    double m_qd_kd;
-    double m_qd_n;
-
-    double m_spd_kp;
-    double m_spd_ki;
-    double m_spd_kd;
-    double m_spd_n;
-
-    double m_r;
-    double m_l;
-    double m_flux;
-
-    double m_pp;
-    double m_j;
-    double m_f;
-
-    double m_brakeTorque;
-
-    bool m_abcCurrPlot;
-    bool m_angleSpeedPlot;
-    bool m_iqPlot;
-    bool m_vqdPlot;
-
     void startSim(void);
 };
 

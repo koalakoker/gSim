@@ -45,6 +45,12 @@ void gSim::on_startSim_clicked()
 
     m_simModel->startSim();
 
+    if (m_simView)
+    {
+        // Update view after simulation
+        m_simView->updateView(); /* Update view after simulation */
+    }
+
     ui->simInfo->setText(QString("Time elapsed: %1 s").arg((double)t.elapsed()/1000));
 }
 
