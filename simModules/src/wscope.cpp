@@ -202,7 +202,7 @@ void WScope::exportData(QString fileName)
             for (int j = 0; j < tracksNum; j++)
             {
                 double y = yArray[j].at(i);
-                stream << QString(":%1").arg(y);
+                stream << QString(" %1").arg(y);
             }
             stream << endl;
         }

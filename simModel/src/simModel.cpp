@@ -185,7 +185,7 @@ void simModel::startSim(void)
 
     if (m_iqPlot)
     {
-//        sscope.scopeUpdate(m_ts);
+        //sscope.scopeUpdate(m_ts);
         sscope.exportData("scope_iqPlot.txt");
     }
 
