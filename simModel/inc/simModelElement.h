@@ -16,11 +16,12 @@ class simModelElement : public QObject
     Q_OBJECT
 public:
     explicit simModelElement(QObject *parent = nullptr);
-    simModelElement(QString label, simModelElementType type, void *pValue, QObject *parent = nullptr);
+    simModelElement(QString label, simModelElementType type, void *pValue, int digit = 5, QObject *parent = nullptr);
 
     QString m_label;
     simModelElementType m_type;
     void* m_pValue;
+    int m_digit;
 
 signals:
 
