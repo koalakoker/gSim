@@ -11,6 +11,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 TARGET = gSim
 TEMPLATE = app
 
+INCLUDEPATH += \
+    simModules/inc\
+    simModel/inc
 
 SOURCES += \
     main.cpp\

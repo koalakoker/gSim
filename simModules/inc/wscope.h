@@ -25,7 +25,7 @@ public:
     void reset(void);
     void addPoint(double t, SData y);
     void setData(QVector<double> tArray, QVector<QVector<double> > yArray);
-    void exportData(void);
+    void exportData(QString fileName);
     void setAxis(double xMin,double  xMax,double  yMin,double  yMax);
 
     void setdt(double dt);

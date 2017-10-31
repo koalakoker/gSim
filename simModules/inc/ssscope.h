@@ -14,6 +14,7 @@ public:
 
     void execute(double t, SDataVector in);
     void scopeUpdate(double dt);
+    void exportData(QString fileName);
 
 private:
     WScope* m_wscope;

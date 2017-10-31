@@ -1,6 +1,6 @@
 #include "wscope.h"
 #include "ui_wscope.h"
-#include <QString>
+#include <QFile>
 
 WScope::WScope(QString name, int tracks, QWidget *parent) : QWidget(parent), ui(new Ui::WScope)
 {
@@ -186,17 +186,28 @@ void WScope::setData(QVector<double> tArray,QVector<QVector<double>> yArray)
     ui->qplot->replot();
 }
 
-void WScope::exportData(void)
+void WScope::exportData(QString fileName)
 {
-    QVector<double> y = yArray[0];
-    int size = tArray.size();
-    int i;
-    for (i = 0; i < size; i++)
+    QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly))
     {
-        double t = tArray[i];
-        double y0 = y[i];
-        QString out = QString("step %1 : %2 , %3").arg(i).arg(t).arg(y0);
+        QTextStream stream( &file );
+        int size = tArray.size();
+        int i;
+        for (i = 0; i < size; i++)
+        {
+            double t = tArray[i];
+            QString out = QString("%1").arg(t);
+            stream << out;
+            for (int j = 0; j < tracksNum; j++)
+            {
+                double y = yArray[j].at(i);
+                stream << QString(":%1").arg(y);
+            }
+            stream << endl;
+        }
     }
+    file.close();
 }
 
 void WScope::setXMin(double val)

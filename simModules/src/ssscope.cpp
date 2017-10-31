@@ -18,3 +18,8 @@ void SSScope::scopeUpdate(double dt)
     m_wscope->maximizeX();
     m_wscope->maximizeY();
 }
+
+void SSScope::exportData(QString fileName)
+{
+    m_wscope->exportData(fileName);
+}
