@@ -1,7 +1,8 @@
 #include "simModel.h"
 
 #include "stpmsmabc.h"
-#include "stpid.h"
+#include "stdpi.h"
+//#include "stpid.h"
 #include "ssscope.h"
 
 simModel::simModel()
@@ -13,21 +14,11 @@ simModel::simModel()
     /* Default common params */
     m_ts = 0.0001;
     m_tc = 0.001;
-    m_duration = 0.3;
+    m_duration = 1;
 
     /********************* *********************/
     /*        Parameters initialization        */
     /********************* *********************/
-    m_qd_kp = 30;
-    m_qd_ki = 20;
-    m_qd_kd = 0;
-    m_qd_n = 0;
-
-    m_spd_kp = 0.4;
-    m_spd_ki = 0.4;
-    m_spd_kd = 0;
-    m_spd_n = 0;
-
     m_r = 0.35;
     m_l = 0.0006;
     m_pp = 2;
@@ -38,11 +29,25 @@ simModel::simModel()
     m_j = 0.000005;
     m_f = 0.000014;
 
+    double currBW = 6000;
+    m_qd_kp = currBW * m_r;
+    m_qd_ki = currBW * m_l;
+    m_qd_kd = 0;
+    m_qd_n = 0;
+
+    double spdBW = 50;
+    double spdAB = (1.5 * m_pp * m_flux) * (60 / (2 * M_PI));
+    m_spd_kp = (spdBW * m_j)/ spdAB;
+    m_spd_ki = (spdBW * m_f)/ spdAB;
+    m_spd_kd = 0;
+    m_spd_n = 0;
+
     m_brakeTorque = 0;
 
-    m_abcCurrPlot = TRUE;
-    m_angleSpeedPlot = FALSE;
+    m_abcCurrPlot = FALSE;
+    m_angleSpeedPlot = TRUE;
     m_iqPlot = TRUE;
+    m_vqdPlot = FALSE;
 
     /********************* *********************/
 
@@ -57,8 +62,8 @@ simModel::simModel()
     m_userParams.append(new simModelElement("Stator Inductance (d-q)", SE_double, (void*)(&m_l)));
     m_userParams.append(new simModelElement("Magnetic flux", SE_double, (void*)(&m_flux)));
 
-    m_userParams.append(new simModelElement("Inertia", SE_double, (void*)(&m_j)));
-    m_userParams.append(new simModelElement("Friction", SE_double, (void*)(&m_f)));
+    m_userParams.append(new simModelElement("Inertia",  SE_double, (void*)(&m_j), 6));
+    m_userParams.append(new simModelElement("Friction", SE_double, (void*)(&m_f), 6));
 
 
     m_userParams.append(new simModelElement("Iqd PI parameters", SE_group, NULL));
@@ -78,7 +83,11 @@ simModel::simModel()
     m_userParams.append(new simModelElement("abc Plot", SE_bool, (void*)(&m_abcCurrPlot)));
     m_userParams.append(new simModelElement("angle speed Plot", SE_bool, (void*)(&m_angleSpeedPlot)));
     m_userParams.append(new simModelElement("iqd Plot", SE_bool, (void*)(&m_iqPlot)));
+    m_userParams.append(new simModelElement("vqd Plot", SE_bool, (void*)(&m_vqdPlot)));
 }
+
+#define RPMTORADS(rpm)  (((rpm)/60) * 2 * M_PI)
+#define RADSTORPM(rads) (((rads)*60)/(2*M_PI))
 
 void simModel::startSim(void)
 {
@@ -92,18 +101,23 @@ void simModel::startSim(void)
     // Init sink-source-transfer
 
     STPMSMabc motor(m_r, m_l, m_l, m_pp, m_flux, m_j, m_f, m_ts, m_brakeTorque);
-    STPID idpid(m_qd_kp, m_qd_ki, m_qd_kd, m_qd_n, m_tc);
-    STPID iqpid(m_qd_kp, m_qd_ki, m_qd_kd, m_qd_n, m_tc);
-    STPID spdpid(m_spd_kp, m_spd_ki, m_spd_kd, m_spd_n, m_tc);
+    STDPI idpid(m_qd_kp, m_qd_ki / m_ts , 24);
+    STDPI iqpid(m_qd_kp, m_qd_ki / m_ts , 24);
+    STDPI spdpid(m_spd_kp, m_spd_ki * m_tc, 3);
+//    STPID idpid(m_qd_kp, m_qd_ki, 0, 0, m_ts);
+//    STPID iqpid(m_qd_kp, m_qd_ki, 0, 0, m_ts);
+//    STPID spdpid(m_spd_kp, m_spd_ki, 0, 0, m_tc);
     STabctodq abctodq;
     STdqtoabc dqtoabc;
     double idTarg = 0;
-    double iqTarg = 4.76;
-    double WmTarg = (1000/60) * 2 * M_PI;
+    double iqTarg = 0;
+    double WmTarg = RPMTORADS(1000);//(1000/60) * 2 * M_PI;
 
-    SSScope sscope("Iqd",2);
-    SSScope sscope2("Speed - Theta", 4);
+    SSScope sscope("Iqd",4);
+    SSScope sscope_speed("Speed", 1);
+    SSScope sscope_teta("Theta", 1);
     SSScope sscope3("Vabc", 3);
+    SSScope sscope4("Vqd", 2);
 
     SDataVector vqin, vdin;
 
@@ -119,7 +133,8 @@ void simModel::startSim(void)
         {
             // Execution of control cycle
             err = WmTarg - motor.vars().Wm;
-            iqTarg = spdpid.execute(err).value();
+            //iqTarg = spdpid.execute(err).value();
+            iqTarg = 1;
         }
 
         /* Park - Clark */
@@ -134,6 +149,11 @@ void simModel::startSim(void)
         err = iqTarg - iq;
         vqin = iqpid.execute(err);
 
+        if (m_vqdPlot)
+        {
+            sscope4.execute(m_t, SDataVector(vqin, vdin));
+        }
+
         SDataVector vin = SDataVector(vdin, vqin, motor.vars().ElAngle);
         vin = dqtoabc.execute(vin);
 
@@ -147,12 +167,13 @@ void simModel::startSim(void)
         PMSMVars iW = motor.vars();
         if (m_iqPlot)
         {
-            sscope.execute(m_t, SDataVector(iW.Iq,iW.Id));
+            sscope.execute(m_t, SDataVector(iW.Iq,iW.Id, iqTarg, idTarg));
         }
 
         if (m_angleSpeedPlot)
         {
-            sscope2.execute(m_t, SDataVector(iW.Wm, iW.MechAngle, iW.We, iW.ElAngle));
+            sscope_speed.execute(m_t, SDataVector(RADSTORPM(iW.Wm)));
+            sscope_teta.execute(m_t, SDataVector(iW.MechAngle));
         }
 
         // Update of simutaion variables
@@ -169,11 +190,17 @@ void simModel::startSim(void)
 
     if (m_angleSpeedPlot)
     {
-        sscope2.scopeUpdate(m_ts);
+        sscope_speed.scopeUpdate(m_ts);
+        sscope_teta.scopeUpdate(m_ts);
     }
 
     if (m_abcCurrPlot)
     {
         sscope3.scopeUpdate(m_ts);
+    }
+
+    if (m_vqdPlot)
+    {
+        sscope4.scopeUpdate(m_ts);
     }
 }

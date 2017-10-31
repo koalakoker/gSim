@@ -40,6 +40,7 @@ public:
     bool m_abcCurrPlot;
     bool m_angleSpeedPlot;
     bool m_iqPlot;
+    bool m_vqdPlot;
 
     void startSim(void);
 };
