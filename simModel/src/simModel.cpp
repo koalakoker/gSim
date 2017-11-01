@@ -44,10 +44,10 @@ simModel::simModel()
 
     m_brakeTorque = 0;
 
-    m_abcCurrPlot = FALSE;
-    m_angleSpeedPlot = TRUE;
-    m_iqPlot = FALSE;
-    m_vqdPlot = FALSE;
+    m_abcCurrPlot = true;
+    m_angleSpeedPlot = true;
+    m_iqPlot = true;
+    m_vqdPlot = true;
 
     /********************* *********************/
 

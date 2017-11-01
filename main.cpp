@@ -5,6 +5,8 @@
 #include "simModel/inc/gsimmodel_global.h"
 #include "simModel/inc/simModel.h"
 
+#include "wplot.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -20,6 +22,9 @@ int main(int argc, char *argv[])
     w.setSimView(&v);
 
     w.show();
+
+    WPlot w_p;
+    w_p.show();
 
     return a.exec();
 }

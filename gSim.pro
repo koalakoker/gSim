@@ -56,9 +56,11 @@ SOURCES += \
     simModules/src/wscope.cpp \
     simModules/src/waxisctrl.cpp \
     simModules/src/wcursorctrl.cpp \
+    simModules/src/plotter.cpp \
+    simModules/src/wplot.cpp \
     simModel/src/simModel.cpp \
     simModel/src/baseSimModel.cpp \
-    simModel/src/simModelElement.cpp
+    simModel/src/simModelElement.cpp \
 
 HEADERS += \
     gsim.h \
@@ -102,10 +104,12 @@ HEADERS += \
     simModules/inc/wscope.h \
     simModules/inc/waxisctrl.h \
     simModules/inc/wcursorctrl.h \
+    simModules/inc/plotter.h \
+    simModules/inc/wplot.h \
     simModel/inc/simModel.h \
     simModel/inc/gsimmodel_global.h \
     simModel/inc/baseSimModel.h \
-    simModel/inc/simModelElement.h
+    simModel/inc/simModelElement.h \
 
 FORMS += \
     gsim.ui \
