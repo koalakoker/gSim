@@ -46,16 +46,31 @@ void WPlot::updatePlot(void) {
 
 void WPlot::mousePressEvent(QMouseEvent* event)
 {
-    static qreal xMax = 1;
-    if (event->button() == Qt::RightButton)
-    {
-        xMax = xMax / 2;
-    }
-    if (event->button() == Qt::LeftButton)
-    {
-        xMax = xMax * 2;
-    }
-    m_plotter->setRangeX_Max(xMax);
+//    static qreal xMax = 1;
+//    if (event->button() == Qt::RightButton)
+//    {
+//        xMax = xMax / 2;
+//    }
+//    if (event->button() == Qt::LeftButton)
+//    {
+//        xMax = xMax * 2;
+//    }
+//    m_plotter->setRangeX_Max(xMax);
+//    updatePlot();
+}
 
+void WPlot::wheelEvent(QWheelEvent* event)
+{
+    QPoint pixelDelta = event->pixelDelta();
+    QPoint angleDelta = event->angleDelta();
+    if (angleDelta != QPoint(0,0))
+    {
+        qDebug() << "Angle:" << angleDelta;
+    }
+    if (pixelDelta != QPoint(0,0))
+    {
+        qDebug() << "Pixel:" << pixelDelta;
+    }
+    m_plotter->scrollX((qreal)pixelDelta.x()/10);
     updatePlot();
 }

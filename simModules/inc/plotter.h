@@ -23,6 +23,8 @@ public:
     void setRangeY_Min(qreal val) {_range.setBottom(val);}
     void setRangeY_Max(qreal val) {_range.setTop   (val);}
 
+    void scrollX(qreal val) {_range.setLeft(_range.left() + val); _range.setRight(_range.right() + val); }
+
 signals:
     void done(QImage);
     void cleanup();

@@ -5,6 +5,7 @@
 #include <QThread>
 #include <QFile>
 #include <QMouseEvent>
+#include <QWheelEvent>
 
 #include "plotter.h"
 
@@ -16,6 +17,7 @@ public:
 protected:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent* event);
+    void wheelEvent(QWheelEvent* event);
 
 public slots:
     void updatePlot(void);

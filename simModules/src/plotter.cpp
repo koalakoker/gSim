@@ -32,13 +32,11 @@ QImage Plotter::plot()
     }
 
     qDebug() << "plotted in" << t.elapsed() << "msec";
-    //emit done(img);
-    //emit cleanup();
     return img;
 }
 
 inline QPointF Plotter::map(double x, double y)
 {
-    return QPointF(_size.width() * ((x * 1) / (_range.width() - _range.x())),
-                   (_size.height() * ((1-y) / (_range.height() - _range.y()))));
+    return QPointF((_size.width () * ((x    ) / (_range.width()  - _range.x()))),
+                   (_size.height() * ((1 - y) / (_range.height() - _range.y()))));
 }
