@@ -2,6 +2,8 @@
 
 WPlot::WPlot(QWidget * parent) : QWidget(parent)
 {
+    m_drag = false;
+
     // prepping data
     QVector<double> data;
 
@@ -57,6 +59,31 @@ void WPlot::mousePressEvent(QMouseEvent* event)
 //    }
 //    m_plotter->setRangeX_Max(xMax);
 //    updatePlot();
+    if (event->button() == Qt::RightButton)
+    {
+        m_drag = true;
+        m_lastPoint = event->pos();
+    }
+}
+
+void WPlot::mouseReleaseEvent(QMouseEvent* event)
+{
+    if (event->button() == Qt::RightButton)
+    {
+        m_drag = false;
+    }
+}
+
+void WPlot::mouseMoveEvent(QMouseEvent* event)
+{
+    if (m_drag)
+    {
+        QPoint delta = m_lastPoint - event->pos();
+        m_lastPoint = event->pos();
+        m_plotter->scrollXpixel( delta.x());
+        m_plotter->scrollYpixel(-delta.y());
+        updatePlot();
+    }
 }
 
 void WPlot::wheelEvent(QWheelEvent* event)

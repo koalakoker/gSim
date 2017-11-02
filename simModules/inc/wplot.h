@@ -17,6 +17,8 @@ public:
 protected:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
+    void mouseMoveEvent(QMouseEvent* event);
     void wheelEvent(QWheelEvent* event);
 
 public slots:
@@ -26,6 +28,9 @@ private:
     QImage plot;
     QThread* m_thread;
     Plotter* m_plotter;
+
+    bool m_drag;
+    QPoint m_lastPoint;
 };
 
 #endif // WPLOT_H

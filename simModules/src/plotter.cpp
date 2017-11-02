@@ -31,12 +31,12 @@ QImage Plotter::plot()
         break;
     }
 
-    qDebug() << "plotted in" << t.elapsed() << "msec";
+    //qDebug() << "plotted in" << t.elapsed() << "msec";
     return img;
 }
 
 inline QPointF Plotter::map(double x, double y)
 {
-    return QPointF((_size.width () * ((x    ) / (_range.width()  - _range.x()))),
-                   (_size.height() * ((1 - y) / (_range.height() - _range.y()))));
+    return QPointF(                (_size.width () * ((x - _range.x()) / _range.width ())),
+                   (_size.height()-(_size.height() * ((y - _range.y()) / _range.height()))));
 }
