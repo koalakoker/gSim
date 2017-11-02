@@ -4,7 +4,6 @@ WPlot::WPlot(QWidget * parent) : QWidget(parent)
 {
     m_drag = false;
 
-    // prepping data
     QVector<double> data;
 
     QFile file("scope_teta.txt");
@@ -29,7 +28,6 @@ WPlot::WPlot(QWidget * parent) : QWidget(parent)
     }
     file.close();
 
-    // create plotter
     m_plotter = new Plotter(size(), QRectF(0, 0, 1, 1), data);
 
     updatePlot();
@@ -48,18 +46,7 @@ void WPlot::updatePlot(void) {
 
 void WPlot::mousePressEvent(QMouseEvent* event)
 {
-//    static qreal xMax = 1;
-//    if (event->button() == Qt::RightButton)
-//    {
-//        xMax = xMax / 2;
-//    }
-//    if (event->button() == Qt::LeftButton)
-//    {
-//        xMax = xMax * 2;
-//    }
-//    m_plotter->setRangeX_Max(xMax);
-//    updatePlot();
-    if (event->button() == Qt::RightButton)
+    if (event->button() == dragButton)
     {
         m_drag = true;
         m_lastPoint = event->pos();
@@ -68,7 +55,7 @@ void WPlot::mousePressEvent(QMouseEvent* event)
 
 void WPlot::mouseReleaseEvent(QMouseEvent* event)
 {
-    if (event->button() == Qt::RightButton)
+    if (event->button() == dragButton)
     {
         m_drag = false;
     }
@@ -92,12 +79,13 @@ void WPlot::wheelEvent(QWheelEvent* event)
     QPoint angleDelta = event->angleDelta();
     if (angleDelta != QPoint(0,0))
     {
-        qDebug() << "Angle:" << angleDelta;
+        //qDebug() << "Angle:" << angleDelta;
+        m_plotter->zoomX((qreal)angleDelta.y()/120);
+        m_plotter->zoomY((qreal)angleDelta.x()/120);
+        updatePlot();
     }
     if (pixelDelta != QPoint(0,0))
     {
         qDebug() << "Pixel:" << pixelDelta;
     }
-    m_plotter->scrollX((qreal)pixelDelta.x()/10);
-    updatePlot();
 }

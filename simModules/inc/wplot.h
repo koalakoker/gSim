@@ -14,6 +14,8 @@ class WPlot : public QWidget {
 public:
     WPlot(QWidget * parentb = 0);
 
+    const Qt::MouseButton dragButton = Qt::LeftButton;
+
 protected:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent* event);

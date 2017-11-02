@@ -29,6 +29,18 @@ public:
     void scrollXpixel(int pix) {scrollX((_range.width()  * (qreal)(pix))/(qreal)(_size.width ()));}
     void scrollYpixel(int pix) {scrollY((_range.height() * (qreal)(pix))/(qreal)(_size.height()));}
 
+    void zoomX(qreal val) {
+        qreal delta = _range.width() * val * 0.05;
+        _range.setLeft(_range.left() + delta);
+        _range.setRight(_range.right() - delta);
+    }
+
+    void zoomY(qreal val) {
+        qreal delta = _range.height() * val * 0.05;
+        _range.setTop   (_range.top()    + delta);
+        _range.setBottom(_range.bottom() - delta);
+    }
+
 signals:
     void done(QImage);
     void cleanup();
