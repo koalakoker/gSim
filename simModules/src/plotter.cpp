@@ -1,6 +1,6 @@
 #include "plotter.h"
 
-void Plotter::plot()
+QImage Plotter::plot()
 {
     QElapsedTimer t;
     t.start();
@@ -32,8 +32,9 @@ void Plotter::plot()
     }
 
     qDebug() << "plotted in" << t.elapsed() << "msec";
-    emit done(img);
-    emit cleanup();
+    //emit done(img);
+    //emit cleanup();
+    return img;
 }
 
 inline QPointF Plotter::map(double x, double y)

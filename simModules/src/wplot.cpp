@@ -27,19 +27,10 @@ WPlot::WPlot(QWidget * parent) : QWidget(parent)
     }
     file.close();
 
-    // create plotter and thread
-    Plotter * p = new Plotter(size(), QRectF(0, 0, 1, 1), data);
-    QThread * thread = new QThread;
-    p->moveToThread(thread);
+    // create plotter
+    m_plotter = new Plotter(size(), QRectF(0, 0, 1, 1), data);
 
-    // do connections
-    connect(thread, SIGNAL(started()), p, SLOT(plot()));
-    connect(p, SIGNAL(done(QImage)), this, SLOT(updatePlot(QImage)));
-    connect(p, SIGNAL(cleanup()), thread, SLOT(quit()));
-    connect(thread, SIGNAL(finished()), p, SLOT(deleteLater()));
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-
-    thread->start();
+    updatePlot();
 }
 
 void WPlot::paintEvent(QPaintEvent *)
@@ -48,7 +39,23 @@ void WPlot::paintEvent(QPaintEvent *)
     p.drawImage(QPoint(0, 0), plot);
 }
 
-void WPlot::updatePlot(QImage p) {
-    plot = p;
+void WPlot::updatePlot(void) {
+    plot = m_plotter->plot();
     repaint();
+}
+
+void WPlot::mousePressEvent(QMouseEvent* event)
+{
+    static qreal xMax = 1;
+    if (event->button() == Qt::RightButton)
+    {
+        xMax = xMax / 2;
+    }
+    if (event->button() == Qt::LeftButton)
+    {
+        xMax = xMax * 2;
+    }
+    m_plotter->setRangeX_Max(xMax);
+
+    updatePlot();
 }

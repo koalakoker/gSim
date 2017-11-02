@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QThread>
 #include <QFile>
+#include <QMouseEvent>
 
 #include "plotter.h"
 
@@ -14,12 +15,15 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *);
+    void mousePressEvent(QMouseEvent* event);
 
 public slots:
-    void updatePlot(QImage p);
+    void updatePlot(void);
 
 private:
     QImage plot;
+    QThread* m_thread;
+    Plotter* m_plotter;
 };
 
 #endif // WPLOT_H

@@ -18,12 +18,17 @@ public:
     Plotter(QSize size, QRectF range, QVector<double> data, style_t style = LINE_STYLE)
         : _size(size), _range(range), _data(data), m_style(style) { }
 
+    void setRangeX_Min(qreal val) {_range.setLeft  (val);}
+    void setRangeX_Max(qreal val) {_range.setRight (val);}
+    void setRangeY_Min(qreal val) {_range.setBottom(val);}
+    void setRangeY_Max(qreal val) {_range.setTop   (val);}
+
 signals:
     void done(QImage);
     void cleanup();
 
 public slots:
-    void plot();
+    QImage plot();
 
 private:
     inline QPointF map(double x, double y);
