@@ -1,8 +1,10 @@
 #include "wplot.h"
+#include <QGestureEvent>
 
 WPlot::WPlot(QWidget * parent) : QWidget(parent)
 {
     m_drag = false;
+    grabGesture(Qt::PinchGesture);
 
     QVector<double> data;
 
@@ -89,3 +91,22 @@ void WPlot::wheelEvent(QWheelEvent* event)
         qDebug() << "Pixel:" << pixelDelta;
     }
 }
+
+bool WPlot::event(QEvent *event)
+{
+    if (event->type() == QEvent::Gesture)
+    {
+        QGestureEvent* gest = static_cast<QGestureEvent*>(event);
+        if (QGesture *pinch = gest->gesture(Qt::PinchGesture))
+        {
+            QPinchGesture* pinchGest = static_cast<QPinchGesture *>(pinch);
+            qreal factor = pinchGest->scaleFactor();
+            m_plotter->zoomX(factor);
+            m_plotter->zoomY(factor);
+            updatePlot();
+            qDebug() << "Gesture:" << pinchGest->scaleFactor();
+        }
+    }
+    return QWidget::event(event);
+}
+
