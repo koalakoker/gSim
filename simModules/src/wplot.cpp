@@ -101,10 +101,9 @@ bool WPlot::event(QEvent *event)
         {
             QPinchGesture* pinchGest = static_cast<QPinchGesture *>(pinch);
             qreal factor = pinchGest->scaleFactor();
-            m_plotter->zoomX(factor);
-            m_plotter->zoomY(factor);
+            m_plotter->zoomX((factor-1)*5);
+            m_plotter->zoomY((factor-1)*5);
             updatePlot();
-            qDebug() << "Gesture:" << pinchGest->scaleFactor();
         }
     }
     return QWidget::event(event);
