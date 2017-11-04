@@ -1,14 +1,18 @@
 #include "wplot.h"
 #include <QGestureEvent>
 
-WPlot::WPlot(QWidget * parent) : QWidget(parent)
+WPlot::WPlot(QString fileName, int track, QWidget * parent) : QWidget(parent)
 {
     m_drag = false;
     grabGesture(Qt::PinchGesture);
 
     QVector<double> data;
+    double y_max = 0;
+    double y_min = 0;
 
-    QFile file("scope_teta.txt");
+    QFile file(fileName);
+    //QFile file("scope_abcCurr.txt");
+    //QFile file("scope_teta.txt");
     if (file.open(QIODevice::ReadOnly))
     {
         QTextStream stream( &file );
@@ -21,16 +25,26 @@ WPlot::WPlot(QWidget * parent) : QWidget(parent)
             QString x = fields.at(0); // t value
             double x_val = x.toDouble();
 
-            QString y = fields.at(1); // y value
+            QString y = fields.at(track); // y value
             double y_val = y.toDouble();
 
             data.append(x_val);
-            data.append(y_val / 6.28);
+            data.append(y_val);
+
+            if (y_val > y_max)
+            {
+                y_max = y_val;
+            }
+
+            if (y_val < y_min)
+            {
+                y_min = y_val;
+            }
         }
     }
     file.close();
-
-    m_plotter = new Plotter(size(), QRectF(0, 0, 1, 1), data);
+    qDebug() << "y_max:" << y_max << " y_min:" << y_min;
+    m_plotter = new Plotter(size(), QRectF(0, y_min, 1, y_max - y_min), data);
 
     updatePlot();
 }
@@ -77,7 +91,7 @@ void WPlot::mouseMoveEvent(QMouseEvent* event)
 
 void WPlot::wheelEvent(QWheelEvent* event)
 {
-    QPoint pixelDelta = event->pixelDelta();
+//    QPoint pixelDelta = event->pixelDelta();
     QPoint angleDelta = event->angleDelta();
     if (angleDelta != QPoint(0,0))
     {
@@ -86,10 +100,10 @@ void WPlot::wheelEvent(QWheelEvent* event)
         m_plotter->zoomY((qreal)angleDelta.x()/120);
         updatePlot();
     }
-    if (pixelDelta != QPoint(0,0))
-    {
-        qDebug() << "Pixel:" << pixelDelta;
-    }
+//    if (pixelDelta != QPoint(0,0))
+//    {
+//        qDebug() << "Pixel:" << pixelDelta;
+//    }
 }
 
 bool WPlot::event(QEvent *event)

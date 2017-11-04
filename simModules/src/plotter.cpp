@@ -30,6 +30,8 @@ QImage Plotter::plot()
     default:
         break;
     }
+    p.setPen(QPen(Qt::red));
+    p.drawText(10,20,QString("Rect: Top %1, Bottom %2").arg(_range.top()).arg(_range.bottom()));
 
     //qDebug() << "plotted in" << t.elapsed() << "msec";
     return img;

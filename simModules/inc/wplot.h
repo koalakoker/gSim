@@ -12,7 +12,7 @@
 class WPlot : public QWidget {
     Q_OBJECT
 public:
-    WPlot(QWidget * parentb = 0);
+    WPlot(QString fileName, int track, QWidget * parentb = 0);
 
     const Qt::MouseButton dragButton = Qt::LeftButton;
 
