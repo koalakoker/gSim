@@ -23,10 +23,10 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    WPlot w_p1("scope_abcCurr.txt",1), w_p2("scope_abcCurr.txt",2), w_p3("scope_abcCurr.txt",3);
+    WPlot w_p1("model2.txt");
+    //WPlot w_p2("scope_abcCurr.txt");
     w_p1.show();
-    w_p2.show();
-    w_p3.show();
+    //w_p2.show();
 
     return a.exec();
 }

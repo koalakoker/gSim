@@ -121,3 +121,8 @@ bool WPlot::event(QEvent *event)
     return QWidget::event(event);
 }
 
+void WPlot::resizeEvent(QResizeEvent *event)
+{
+    m_plotter->setSize(event->size());
+    updatePlot();
+}

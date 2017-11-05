@@ -23,6 +23,7 @@ protected:
     void mouseMoveEvent(QMouseEvent* event);
     void wheelEvent(QWheelEvent* event);
     bool event(QEvent* event);
+    void resizeEvent(QResizeEvent *event);
 
 public slots:
     void updatePlot(void);

@@ -43,6 +43,8 @@ public:
         _range.setBottom(_range.bottom() - delta);
     }
 
+    void setSize(QSize size) {_size = size;}
+
 signals:
     void done(QImage);
     void cleanup();
