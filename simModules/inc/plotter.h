@@ -6,6 +6,8 @@
 #include <QPainter>
 #include <QDebug>
 
+#include "sdata.h"
+
 class Plotter : public QObject {
     Q_OBJECT
 
@@ -15,7 +17,7 @@ public:
         LINE_STYLE
     } style_t;
 
-    Plotter(QSize size, QRectF range, QVector<double> data, style_t style = LINE_STYLE)
+    Plotter(QSize size, QRectF range, QVector<SData> data, style_t style = LINE_STYLE)
         : _size(size), _range(range), _data(data), m_style(style) { }
 
     void setRangeX_Min(qreal val) {_range.setLeft  (val);}
@@ -53,7 +55,7 @@ private:
 
     QSize _size;
     QRectF _range;
-    QVector<double> _data;
+    QVector<SData> _data;
 
     style_t m_style;
 };

@@ -1,18 +1,16 @@
 #include "wplot.h"
 #include <QGestureEvent>
 
-WPlot::WPlot(QString fileName, int track, QWidget * parent) : QWidget(parent)
+WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
 {
     m_drag = false;
     grabGesture(Qt::PinchGesture);
 
-    QVector<double> data;
+    QVector<SData> data;
     double y_max = 0;
     double y_min = 0;
 
     QFile file(fileName);
-    //QFile file("scope_abcCurr.txt");
-    //QFile file("scope_teta.txt");
     if (file.open(QIODevice::ReadOnly))
     {
         QTextStream stream( &file );
@@ -21,30 +19,30 @@ WPlot::WPlot(QString fileName, int track, QWidget * parent) : QWidget(parent)
         {
             line = stream.readLine();
             QStringList fields = line.split(" ");
-
-            QString x = fields.at(0); // t value
-            double x_val = x.toDouble();
-
-            QString y = fields.at(track); // y value
-            double y_val = y.toDouble();
-
-            data.append(x_val);
-            data.append(y_val);
-
-            if (y_val > y_max)
+            SData sample;
+            for (int i = 0; i < fields.size(); i++)
             {
-                y_max = y_val;
-            }
+                double val = fields.at(i).toDouble();
+                sample.append(val);
+                if (i != 0)
+                {
+                    if (val > y_max)
+                    {
+                        y_max = val;
+                    }
 
-            if (y_val < y_min)
-            {
-                y_min = y_val;
+                    if (val < y_min)
+                    {
+                        y_min = val;
+                    }
+                }
             }
+            data.append(sample);
         }
     }
     file.close();
-    qDebug() << "y_max:" << y_max << " y_min:" << y_min;
-    m_plotter = new Plotter(size(), QRectF(0, y_min, 1, y_max - y_min), data);
+    //qDebug() << "y_max:" << y_max << " y_min:" << y_min;
+    m_plotter = new Plotter(size(), QRectF(0, y_min, 1, y_max - y_min), data, Plotter::POINT_STYLE);
 
     updatePlot();
 }
