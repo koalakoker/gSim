@@ -7,8 +7,7 @@ WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
     grabGesture(Qt::PinchGesture);
 
     QVector<SData> data;
-    double y_max = 0;
-    double y_min = 0;
+    double y_max = 0, y_min = 0;
 
     QFile file(fileName);
     if (file.open(QIODevice::ReadOnly))
@@ -41,9 +40,12 @@ WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
         }
     }
     file.close();
-    //qDebug() << "y_max:" << y_max << " y_min:" << y_min;
-    m_plotter = new Plotter(size(), QRectF(0, y_min, 1, y_max - y_min), data, Plotter::POINT_STYLE);
 
+    m_plotter = new Plotter(
+                size(),
+                QRectF(data[0][0], y_min,data[data.size()-1][0], y_max - y_min),
+                data,
+                Plotter::LINE_STYLE);
     updatePlot();
 }
 
