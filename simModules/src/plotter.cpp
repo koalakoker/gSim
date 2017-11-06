@@ -43,6 +43,31 @@ QImage Plotter::plot()
     //p.setPen(QPen(Qt::red));
     //p.drawText(10,20,QString("Rect: Top %1, Bottom %2").arg(_range.top()).arg(_range.bottom()));
 
+    /* Cursors */
+    pen.setColor(Qt::black);
+    pen.setStyle(Qt::DashLine);
+    p.setPen(pen);
+
+    m_cursorRect.clear();
+    for (int cur = 0; cur < m_cursorPos.size(); cur++)
+    {
+        qreal curXpos       = m_cursorPos.at(cur);
+        qreal curYposTop    = _range.y();
+        qreal curYposBottom = _range.y()+_range.height();
+        p.drawLine(map(curXpos, curYposTop), map(curXpos, curYposBottom));
+        //qDebug() << "x:" << curXpos << " y1:" << curYposBottom << " y2:" << curYposTop;
+
+        QPointF top     = map(curXpos, curYposTop);
+        QPointF bottom  = map(curXpos, curYposBottom);
+        QPoint  topLeft    (top.x()    - 20, top.y());
+        QPoint  bottomRight(bottom.x() + 20, bottom.y());
+        QRect   rect(topLeft, bottomRight);
+        m_cursorRect.append(rect);
+        pen.setColor(Qt::red);
+        p.setPen(pen);
+        p.drawRect(rect);
+    }
+
     //qDebug() << "plotted in" << t.elapsed() << "msec";
     return img;
 }

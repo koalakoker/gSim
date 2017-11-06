@@ -45,6 +45,9 @@ public:
 
     void setSize(QSize size) {_size = size;}
 
+    // Cursors
+    void addCursor(qreal pos) {m_cursorPos.append(pos);}
+
 signals:
     void done(QImage);
     void cleanup();
@@ -60,6 +63,10 @@ private:
     QVector<SData> _data;
 
     style_t m_style;
+
+    // Cursors
+    QVector<qreal> m_cursorPos;
+    QVector<QRect> m_cursorRect;
 };
 
 #endif // PLOTTER_H

@@ -41,11 +41,15 @@ WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
     }
     file.close();
 
+    qreal x_min = data[0][0];
+    qreal x_max = data[data.size()-1][0];
+
     m_plotter = new Plotter(
                 size(),
-                QRectF(data[0][0], y_min,data[data.size()-1][0], y_max - y_min),
+                QRectF(x_min, y_min, x_max - x_min, y_max - y_min),
                 data,
                 Plotter::LINE_STYLE);
+    m_plotter->addCursor(x_min + (x_max - x_min)/2);
     updatePlot();
 }
 
