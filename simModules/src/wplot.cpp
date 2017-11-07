@@ -68,8 +68,16 @@ void WPlot::mousePressEvent(QMouseEvent* event)
 {
     if (event->button() == dragButton)
     {
-        m_drag = true;
         m_lastPoint = event->pos();
+        if (m_plotter->onCursor(m_lastPoint, true))
+        {
+
+        }
+        else
+        {
+            m_drag = true;
+        }
+
     }
 }
 
@@ -77,7 +85,14 @@ void WPlot::mouseReleaseEvent(QMouseEvent* event)
 {
     if (event->button() == dragButton)
     {
-        m_drag = false;
+        if (m_drag)
+        {
+            m_drag = false;
+        }
+        if (m_plotter->getCursorDragged() != 0)
+        {
+            m_plotter->releaseCursor();
+        }
     }
 }
 
@@ -89,6 +104,13 @@ void WPlot::mouseMoveEvent(QMouseEvent* event)
         m_lastPoint = event->pos();
         m_plotter->scrollXpixel( delta.x());
         m_plotter->scrollYpixel(-delta.y());
+        updatePlot();
+    }
+    if (int index = m_plotter->getCursorDragged() != 0)
+    {
+        QPoint delta =  event->pos() - m_lastPoint;
+        m_lastPoint = event->pos();
+        m_plotter->cursorScrollPixel(index-1, delta.x());
         updatePlot();
     }
 }

@@ -46,7 +46,13 @@ public:
     void setSize(QSize size) {_size = size;}
 
     // Cursors
-    void addCursor(qreal pos) {m_cursorPos.append(pos);}
+    void addCursor(qreal pos);
+    void setCursorPos(int index, qreal pos);
+    void cursorScrollPixel(int index, int pix);
+    bool onCursor(QPoint point, bool select = false);
+    void dragCursor(int index);
+    void releaseCursor();
+    int getCursorDragged();
 
 signals:
     void done(QImage);
@@ -67,6 +73,8 @@ private:
     // Cursors
     QVector<qreal> m_cursorPos;
     QVector<QRect> m_cursorRect;
+    int m_cursorDrag; // 0 none, index + 1 (zero based) if cursor index is dragged
+    const int m_cursorMargin = 5;
 };
 
 #endif // PLOTTER_H

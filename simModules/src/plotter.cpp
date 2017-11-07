@@ -55,12 +55,11 @@ QImage Plotter::plot()
         qreal curYposTop    = _range.y();
         qreal curYposBottom = _range.y()+_range.height();
         p.drawLine(map(curXpos, curYposTop), map(curXpos, curYposBottom));
-        //qDebug() << "x:" << curXpos << " y1:" << curYposBottom << " y2:" << curYposTop;
 
         QPointF top     = map(curXpos, curYposTop);
         QPointF bottom  = map(curXpos, curYposBottom);
-        QPoint  topLeft    (top.x()    - 20, top.y());
-        QPoint  bottomRight(bottom.x() + 20, bottom.y());
+        QPoint  topLeft    (top.x()    - m_cursorMargin, top.y());
+        QPoint  bottomRight(bottom.x() + m_cursorMargin, bottom.y());
         QRect   rect(topLeft, bottomRight);
         m_cursorRect.append(rect);
         pen.setColor(Qt::red);
@@ -76,4 +75,55 @@ inline QPointF Plotter::map(double x, double y)
 {
     return QPointF(                (_size.width () * ((x - _range.x()) / _range.width ())),
                    (_size.height()-(_size.height() * ((y - _range.y()) / _range.height()))));
+}
+
+// Cursors
+void Plotter::addCursor(qreal pos)
+{
+    m_cursorPos.append(pos);
+}
+
+void Plotter::setCursorPos(int index, qreal pos)
+{
+    m_cursorPos[index] += pos;
+}
+
+void Plotter::cursorScrollPixel(int index, int pix)
+{
+    setCursorPos(index, (_range.width()  * (qreal)(pix))/(qreal)(_size.width ()));
+}
+
+bool Plotter::onCursor(QPoint point, bool select)
+{
+    bool retVal = false;
+    for (int cursor = 0; cursor < m_cursorRect.size(); cursor++)
+    {
+        if (m_cursorRect.at(cursor).contains(point))
+        {
+            retVal = true;
+            if (select)
+            {
+                dragCursor(cursor);
+            }
+        }
+    }
+    return retVal;
+}
+
+void Plotter::dragCursor(int index)
+{
+    if ((index >= 0) && (index < m_cursorPos.size()))
+    {
+        m_cursorDrag = index + 1; // 0 none, index + 1 (zero based) if cursor index is dragged
+    }
+}
+
+void Plotter::releaseCursor()
+{
+    m_cursorDrag = 0;
+}
+
+int Plotter::getCursorDragged()
+{
+    return m_cursorDrag;
 }
