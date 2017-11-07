@@ -113,6 +113,16 @@ void WPlot::mouseMoveEvent(QMouseEvent* event)
         m_plotter->cursorScrollPixel(index-1, delta.x());
         updatePlot();
     }
+
+    qDebug() << "Moduse";
+    if (m_plotter->onCursor(event->pos(), false))
+    {
+        this->setCursor(Qt::WaitCursor);
+    }
+    else
+    {
+        this->setCursor(Qt::ArrowCursor);
+    }
 }
 
 void WPlot::wheelEvent(QWheelEvent* event)
