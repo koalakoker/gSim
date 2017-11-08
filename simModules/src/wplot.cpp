@@ -42,8 +42,12 @@ WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
     }
     file.close();
 
-    qreal x_min = data[0][0];
-    qreal x_max = data[data.size()-1][0];
+    qreal x_min, x_max;
+    if (data.size() != 0)
+    {
+        x_min = data[0][0];
+        x_max = data[data.size()-1][0];
+    }
 
     m_plotter = new Plotter(
                 size(),

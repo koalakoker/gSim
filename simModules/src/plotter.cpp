@@ -13,71 +13,74 @@ QImage Plotter::plot()
     pen.setWidth(1);
     p.setPen(pen);
 
-    int trackNum = m_data[0].size();
-    int sampleNum = m_data.size();
-    QVector<double> tSample;
-    if (trackNum > 1)
+    if (m_data.size() != 0)
     {
-        tSample.reserve(sampleNum);
-    }
-    for (int track = 1; track < trackNum; track++) // Skip index 0 that is the time (x)
-    {
-        pen.setColor(plotColor[track-1]);
-        p.setPen(pen);
-
-        switch (m_style)
+        int trackNum = m_data[0].size();
+        int sampleNum = m_data.size();
+        QVector<double> tSample;
+        if (trackNum > 1)
         {
-        case POINT_STYLE:
-            {
-                if (track == 1) /* See below the optimizaton description */
-                {
-                    for (int i = 0; i < m_data.size(); i++)
-                    {
-                        QPointF point;
-                        p.drawPoint(point = map(m_data[i][0], m_data[i][track]));
-                        tSample.append(point.x());
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < m_data.size(); i++)
-                    {
-                        p.drawPoint(QPointF(tSample[i+1], mapY(m_data[i][track])));
-                    }
-                }
-            }
-            break;
-        case LINE_STYLE:
-            {
-                if (track == 1) /* For first trac are computed t/x values and stored in temporary array tSample */
-                {
-                    QPointF nextP, prevP = map(m_data[0][0], m_data[0][track]); /* To track the line the prev point is used */
-                    tSample.append(prevP.x());
-                    for (int i = 0; i < m_data.size() - 1; i++)
-                    {
-                        p.drawLine(prevP, nextP = map(m_data[i+1][0], m_data[i+1][track]));
-                        prevP = nextP;
-                        tSample.append(nextP.x());
-                    }
-
-                }
-                else /* For the t/x value are used the preprocessed values */
-                {
-                    QPointF nextP, prevP = QPointF(tSample[0], mapY(m_data[0][track]));
-                    for (int i = 0; i < m_data.size() - 1; i++)
-                    {
-                        p.drawLine(prevP, nextP = QPointF(tSample[i+1], mapY(m_data[i+1][track])));
-                        prevP = nextP;
-                    }
-                }
-            }
-            break;
-        default:
-            break;
+            tSample.reserve(sampleNum);
         }
+        for (int track = 1; track < trackNum; track++) // Skip index 0 that is the time (x)
+        {
+            pen.setColor(plotColor[track-1]);
+            p.setPen(pen);
+
+            switch (m_style)
+            {
+            case POINT_STYLE:
+                {
+                    if (track == 1) /* See below the optimizaton description */
+                    {
+                        for (int i = 0; i < m_data.size(); i++)
+                        {
+                            QPointF point;
+                            p.drawPoint(point = map(m_data[i][0], m_data[i][track]));
+                            tSample.append(point.x());
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < m_data.size(); i++)
+                        {
+                            p.drawPoint(QPointF(tSample[i], mapY(m_data[i][track])));
+                        }
+                    }
+                }
+                break;
+            case LINE_STYLE:
+                {
+                    if (track == 1) /* For first trac are computed t/x values and stored in temporary array tSample */
+                    {
+                        QPointF nextP, prevP = map(m_data[0][0], m_data[0][track]); /* To track the line the prev point is used */
+                        tSample.append(prevP.x());
+                        for (int i = 0; i < m_data.size() - 1; i++)
+                        {
+                            p.drawLine(prevP, nextP = map(m_data[i+1][0], m_data[i+1][track]));
+                            prevP = nextP;
+                            tSample.append(nextP.x());
+                        }
+
+                    }
+                    else /* For the t/x value are used the preprocessed values */
+                    {
+                        QPointF nextP, prevP = QPointF(tSample[0], mapY(m_data[0][track]));
+                        for (int i = 0; i < m_data.size() - 1; i++)
+                        {
+                            p.drawLine(prevP, nextP = QPointF(tSample[i+1], mapY(m_data[i+1][track])));
+                            prevP = nextP;
+                        }
+                    }
+                }
+                break;
+            default:
+                break;
+            }
+        }
+        //p.setPen(QPen(Qt::red));
+        //p.drawText(10,20,QString("Rect: Top %1, Bottom %2").arg(_range.top()).arg(_range.bottom()));
     }
-    //p.setPen(QPen(Qt::red));
-    //p.drawText(10,20,QString("Rect: Top %1, Bottom %2").arg(_range.top()).arg(_range.bottom()));
 
     /* Cursors */
     pen.setColor(Qt::black);
