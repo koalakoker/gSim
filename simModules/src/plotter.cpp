@@ -6,14 +6,14 @@ QImage Plotter::plot()
 
     QElapsedTimer t;
     t.start();
-    QImage img(_size, QImage::Format_ARGB32_Premultiplied);
+    QImage img(m_size, QImage::Format_ARGB32_Premultiplied);
     img.fill(Qt::white);
     QPainter p(&img);
     QPen pen(Qt::darkBlue);
     pen.setWidth(1);
     p.setPen(pen);
 
-    int trackNum = _data[0].size();
+    int trackNum = m_data[0].size();
     for (int track = 1; track < trackNum; track++) // Skip index 0 that is the time (x)
     {
         pen.setColor(plotColor[track-1]);
@@ -23,16 +23,18 @@ QImage Plotter::plot()
         {
         case POINT_STYLE:
             {
-                for (int i = 0; i < _data.size(); i++)
+                for (int i = 0; i < m_data.size(); i++)
                 {
-                    p.drawPoint(map(_data[i][0], _data[i][track]));
+                    p.drawPoint(map(m_data[i][0], m_data[i][track]));
                 }
             }
             break;
         case LINE_STYLE:
             {
-                for (int i = 0; i < _data.size() - 1; i++) {
-                    p.drawLine(map(_data[i][0], _data[i][track]), map(_data[i+1][0], _data[i+1][track]));
+                QPointF nextP, prevP = map(m_data[0][0], m_data[0][track]);
+                for (int i = 0; i < m_data.size() - 1; i++) {
+                    p.drawLine(prevP, nextP = map(m_data[i+1][0], m_data[i+1][track]));
+                    prevP = nextP;
                 }
             }
             break;
@@ -52,8 +54,8 @@ QImage Plotter::plot()
     for (int cur = 0; cur < m_cursorPos.size(); cur++)
     {
         qreal curXpos       = m_cursorPos.at(cur);
-        qreal curYposTop    = _range.y();
-        qreal curYposBottom = _range.y()+_range.height();
+        qreal curYposTop    = m_range.y();
+        qreal curYposBottom = m_range.y()+m_range.height();
         p.drawLine(map(curXpos, curYposTop), map(curXpos, curYposBottom));
 
         QPointF top     = map(curXpos, curYposTop);
@@ -64,14 +66,14 @@ QImage Plotter::plot()
         m_cursorRect.append(rect);
     }
 
-    //qDebug() << "plotted in" << t.elapsed() << "msec";
+    qDebug() << "plotted in" << t.elapsed() << "msec";
     return img;
 }
 
-inline QPointF Plotter::map(double x, double y)
+QPointF Plotter::map(double x, double y)
 {
-    return QPointF(                (_size.width () * ((x - _range.x()) / _range.width ())),
-                   (_size.height()-(_size.height() * ((y - _range.y()) / _range.height()))));
+    return QPointF(                 (m_size.width () * ((x - m_range.x()) / m_range.width ())),
+                   (m_size.height()-(m_size.height() * ((y - m_range.y()) / m_range.height()))));
 }
 
 // Cursors
@@ -87,7 +89,7 @@ void Plotter::setCursorPos(int index, qreal pos)
 
 void Plotter::cursorScrollPixel(int index, int pix)
 {
-    setCursorPos(index, (_range.width()  * (qreal)(pix))/(qreal)(_size.width ()));
+    setCursorPos(index, (m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));
 }
 
 bool Plotter::onCursor(QPoint point, bool select)

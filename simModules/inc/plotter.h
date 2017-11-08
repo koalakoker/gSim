@@ -18,32 +18,32 @@ public:
     } style_t;
 
     Plotter(QSize size, QRectF range, QVector<SData> data, style_t style = LINE_STYLE)
-        : _size(size), _range(range), _data(data), m_style(style), m_cursorDrag(0) { }
+        : m_size(size), m_range(range), m_data(data), m_style(style), m_cursorDrag(0) { }
 
-    void setRangeX_Min(qreal val) {_range.setLeft  (val);}
-    void setRangeX_Max(qreal val) {_range.setRight (val);}
-    void setRangeY_Min(qreal val) {_range.setBottom(val);}
-    void setRangeY_Max(qreal val) {_range.setTop   (val);}
+    void setRangeX_Min(qreal val) {m_range.setLeft  (val);}
+    void setRangeX_Max(qreal val) {m_range.setRight (val);}
+    void setRangeY_Min(qreal val) {m_range.setBottom(val);}
+    void setRangeY_Max(qreal val) {m_range.setTop   (val);}
 
-    void scrollX(qreal val) {_range.setLeft(_range.left() + val); _range.setRight (_range.right()  + val);}
-    void scrollY(qreal val) {_range.setTop (_range.top()  + val); _range.setBottom(_range.bottom() + val);}
+    void scrollX(qreal val) {m_range.setLeft(m_range.left() + val); m_range.setRight (m_range.right()  + val);}
+    void scrollY(qreal val) {m_range.setTop (m_range.top()  + val); m_range.setBottom(m_range.bottom() + val);}
 
-    void scrollXpixel(int pix) {scrollX((_range.width()  * (qreal)(pix))/(qreal)(_size.width ()));}
-    void scrollYpixel(int pix) {scrollY((_range.height() * (qreal)(pix))/(qreal)(_size.height()));}
+    void scrollXpixel(int pix) {scrollX((m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));}
+    void scrollYpixel(int pix) {scrollY((m_range.height() * (qreal)(pix))/(qreal)(m_size.height()));}
 
     void zoomX(qreal val) {
-        qreal delta = _range.width() * val * 0.05;
-        _range.setLeft(_range.left() + delta);
-        _range.setRight(_range.right() - delta);
+        qreal delta = m_range.width() * val * 0.05;
+        m_range.setLeft(m_range.left() + delta);
+        m_range.setRight(m_range.right() - delta);
     }
 
     void zoomY(qreal val) {
-        qreal delta = _range.height() * val * 0.05;
-        _range.setTop   (_range.top()    + delta);
-        _range.setBottom(_range.bottom() - delta);
+        qreal delta = m_range.height() * val * 0.05;
+        m_range.setTop   (m_range.top()    + delta);
+        m_range.setBottom(m_range.bottom() - delta);
     }
 
-    void setSize(QSize size) {_size = size;}
+    void setSize(QSize size) {m_size = size;}
 
     // Cursors
     void addCursor(qreal pos);
@@ -64,9 +64,9 @@ public slots:
 private:
     inline QPointF map(double x, double y);
 
-    QSize _size;
-    QRectF _range;
-    QVector<SData> _data;
+    QSize m_size;
+    QRectF m_range;
+    QVector<SData> m_data;
 
     style_t m_style;
 
