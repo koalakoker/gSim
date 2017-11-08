@@ -62,9 +62,6 @@ QImage Plotter::plot()
         QPoint  bottomRight(bottom.x() + m_cursorMargin, bottom.y());
         QRect   rect(topLeft, bottomRight);
         m_cursorRect.append(rect);
-        pen.setColor(Qt::red);
-        p.setPen(pen);
-        p.drawRect(rect);
     }
 
     //qDebug() << "plotted in" << t.elapsed() << "msec";

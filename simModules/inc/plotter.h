@@ -18,7 +18,7 @@ public:
     } style_t;
 
     Plotter(QSize size, QRectF range, QVector<SData> data, style_t style = LINE_STYLE)
-        : _size(size), _range(range), _data(data), m_style(style) { }
+        : _size(size), _range(range), _data(data), m_style(style), m_cursorDrag(0) { }
 
     void setRangeX_Min(qreal val) {_range.setLeft  (val);}
     void setRangeX_Max(qreal val) {_range.setRight (val);}

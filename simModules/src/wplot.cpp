@@ -5,6 +5,7 @@ WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
 {
     m_drag = false;
     grabGesture(Qt::PinchGesture);
+    setMouseTracking(true);
 
     QVector<SData> data;
     double y_max = 0, y_min = 0;
@@ -114,10 +115,9 @@ void WPlot::mouseMoveEvent(QMouseEvent* event)
         updatePlot();
     }
 
-    qDebug() << "Moduse";
     if (m_plotter->onCursor(event->pos(), false))
     {
-        this->setCursor(Qt::WaitCursor);
+        this->setCursor(Qt::SizeHorCursor);
     }
     else
     {
