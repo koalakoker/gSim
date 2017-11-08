@@ -62,7 +62,8 @@ public slots:
     QImage plot();
 
 private:
-    inline QPointF map(double x, double y);
+    QPointF map(double x, double y);
+    double mapY(double y);
 
     QSize m_size;
     QRectF m_range;

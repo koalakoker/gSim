@@ -49,7 +49,7 @@ WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
                 size(),
                 QRectF(x_min, y_min, x_max - x_min, y_max - y_min),
                 data,
-                Plotter::LINE_STYLE);
+                Plotter::POINT_STYLE);
     m_plotter->addCursor(x_min + (x_max - x_min)/2);
     updatePlot();
 }
