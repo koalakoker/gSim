@@ -23,6 +23,10 @@ QImage Plotter::plot()
         double dX = x1-x0;
         double dY = m_data[1][0]-m_data[0][0];
         int di = dX/dY;
+        if (di <= 0)
+        {
+            di = 1;
+        }
         qDebug() << "di:" << di;
 
         QVector<double> tSample;
@@ -63,7 +67,7 @@ QImage Plotter::plot()
                     {
                         QPointF nextP, prevP = map(m_data[0][0], m_data[0][track]); /* To track the line the prev point is used */
                         tSample.append(prevP.x());
-                        for (int i = 0; i < m_data.size() - di - 10; i+=di)
+                        for (int i = 0; i < m_data.size() - di; i+=di)
                         {
                             p.drawLine(prevP, nextP = map(m_data[i+1][0], m_data[i+1][track]));
                             prevP = nextP;
@@ -73,11 +77,13 @@ QImage Plotter::plot()
                     }
                     else /* For the t/x value are used the preprocessed values */
                     {
-                        QPointF nextP, prevP = QPointF(tSample[0], mapY(m_data[0][track]));
-                        for (int i = 0; i < m_data.size() - di - 10; i+=di)
+                        int j = 0;
+                        QPointF nextP, prevP = QPointF(tSample[j], mapY(m_data[0][track]));
+                        for (int i = 0; i < m_data.size() - di; i+=di)
                         {
-                            p.drawLine(prevP, nextP = QPointF(tSample[i+1], mapY(m_data[i+1][track])));
+                            p.drawLine(prevP, nextP = QPointF(tSample[j+1], mapY(m_data[i+1][track])));
                             prevP = nextP;
+                            j++;
                         }
                     }
                 }
