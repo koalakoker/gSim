@@ -63,6 +63,7 @@ public slots:
 
 private:
     QPointF map(double x, double y);
+    double invMapX(double x);
     double mapY(double y);
 
     QSize m_size;

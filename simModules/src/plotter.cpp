@@ -17,6 +17,14 @@ QImage Plotter::plot()
     {
         int trackNum = m_data[0].size();
         int sampleNum = m_data.size();
+
+        double x0 = invMapX(0);
+        double x1 = invMapX(1);
+        double dX = x1-x0;
+        double dY = m_data[1][0]-m_data[0][0];
+        int di = dX/dY;
+        qDebug() << "di:" << di;
+
         QVector<double> tSample;
         if (trackNum > 1)
         {
@@ -55,7 +63,7 @@ QImage Plotter::plot()
                     {
                         QPointF nextP, prevP = map(m_data[0][0], m_data[0][track]); /* To track the line the prev point is used */
                         tSample.append(prevP.x());
-                        for (int i = 0; i < m_data.size() - 1; i++)
+                        for (int i = 0; i < m_data.size() - di - 10; i+=di)
                         {
                             p.drawLine(prevP, nextP = map(m_data[i+1][0], m_data[i+1][track]));
                             prevP = nextP;
@@ -66,7 +74,7 @@ QImage Plotter::plot()
                     else /* For the t/x value are used the preprocessed values */
                     {
                         QPointF nextP, prevP = QPointF(tSample[0], mapY(m_data[0][track]));
-                        for (int i = 0; i < m_data.size() - 1; i++)
+                        for (int i = 0; i < m_data.size() - di - 10; i+=di)
                         {
                             p.drawLine(prevP, nextP = QPointF(tSample[i+1], mapY(m_data[i+1][track])));
                             prevP = nextP;
@@ -111,6 +119,11 @@ QPointF Plotter::map(double x, double y)
 {
     return QPointF(                 (m_size.width () * ((x - m_range.x()) / m_range.width ())),
                    (m_size.height()-(m_size.height() * ((y - m_range.y()) / m_range.height()))));
+}
+
+double Plotter::invMapX(double x)
+{
+    return (((x / m_size.width()) * m_range.width()) + m_range.x());
 }
 
 double Plotter::mapY(double y)
