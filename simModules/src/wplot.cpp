@@ -54,7 +54,7 @@ WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
                 QRectF(x_min, y_min, x_max - x_min, y_max - y_min),
                 data,
                 Plotter::LINE_STYLE);
-    m_plotter->addCursor(x_min + (x_max - x_min)/2);
+    //m_plotter->addCursor(x_min + (x_max - x_min)/2);
     updatePlot();
 }
 
@@ -84,6 +84,11 @@ void WPlot::mousePressEvent(QMouseEvent* event)
         }
 
     }
+    if (event->button() == addCursorButton)
+    {
+        m_plotter->addCursorAtPixel(event->pos().x());
+        updatePlot();
+    }
 }
 
 void WPlot::mouseReleaseEvent(QMouseEvent* event)
@@ -111,7 +116,9 @@ void WPlot::mouseMoveEvent(QMouseEvent* event)
         m_plotter->scrollYpixel(-delta.y());
         updatePlot();
     }
-    if (int index = m_plotter->getCursorDragged() != 0)
+
+    int index = m_plotter->getCursorDragged();
+    if (index != 0)
     {
         QPoint delta =  event->pos() - m_lastPoint;
         m_lastPoint = event->pos();
@@ -131,19 +138,13 @@ void WPlot::mouseMoveEvent(QMouseEvent* event)
 
 void WPlot::wheelEvent(QWheelEvent* event)
 {
-//    QPoint pixelDelta = event->pixelDelta();
     QPoint angleDelta = event->angleDelta();
     if (angleDelta != QPoint(0,0))
     {
-        //qDebug() << "Angle:" << angleDelta;
         m_plotter->zoomX((qreal)angleDelta.y()/120);
         m_plotter->zoomY((qreal)angleDelta.x()/120);
         updatePlot();
     }
-//    if (pixelDelta != QPoint(0,0))
-//    {
-//        qDebug() << "Pixel:" << pixelDelta;
-//    }
 }
 
 bool WPlot::event(QEvent *event)

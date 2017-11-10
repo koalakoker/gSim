@@ -27,7 +27,6 @@ QImage Plotter::plot()
         {
             di = 1;
         }
-        qDebug() << "di:" << di;
 
         QVector<double> tSample;
         if (trackNum > 1)
@@ -117,7 +116,7 @@ QImage Plotter::plot()
         m_cursorRect.append(rect);
     }
 
-    qDebug() << "plotted in" << t.elapsed() << "msec";
+    //qDebug() << "plotted in" << t.elapsed() << "msec";
     return img;
 }
 
@@ -141,6 +140,11 @@ double Plotter::mapY(double y)
 void Plotter::addCursor(qreal pos)
 {
     m_cursorPos.append(pos);
+}
+
+void Plotter::addCursorAtPixel(int pos)
+{
+    m_cursorPos.append(invMapX(pos));
 }
 
 void Plotter::setCursorPos(int index, qreal pos)
@@ -175,6 +179,7 @@ void Plotter::dragCursor(int index)
     if ((index >= 0) && (index < m_cursorPos.size()))
     {
         m_cursorDrag = index + 1; // 0 none, index + 1 (zero based) if cursor index is dragged
+        qDebug() << "Drag:" << m_cursorDrag;
     }
 }
 
@@ -185,5 +190,6 @@ void Plotter::releaseCursor()
 
 int Plotter::getCursorDragged()
 {
+    qDebug() << "Drag:" << m_cursorDrag;
     return m_cursorDrag;
 }

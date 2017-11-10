@@ -47,6 +47,7 @@ public:
 
     // Cursors
     void addCursor(qreal pos);
+    void addCursorAtPixel(int pos);
     void setCursorPos(int index, qreal pos);
     void cursorScrollPixel(int index, int pix);
     bool onCursor(QPoint point, bool select = false);

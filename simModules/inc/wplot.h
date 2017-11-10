@@ -15,6 +15,7 @@ public:
     WPlot(QString fileName, QWidget * parentb = 0);
 
     const Qt::MouseButton dragButton = Qt::LeftButton;
+    const Qt::MouseButton addCursorButton = Qt::RightButton;
 
 protected:
     void paintEvent(QPaintEvent *);
