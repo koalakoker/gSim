@@ -190,6 +190,5 @@ void Plotter::releaseCursor()
 
 int Plotter::getCursorDragged()
 {
-    qDebug() << "Drag:" << m_cursorDrag;
     return m_cursorDrag;
 }
