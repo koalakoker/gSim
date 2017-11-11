@@ -105,16 +105,7 @@ void WPlot::mousePressEvent(QMouseEvent* event)
 void WPlot::mouseDoubleClickEvent(QMouseEvent* event)
 {
     m_plotter->AddUndoStatus();
-    int cursorNum = m_plotter->getCursorNumber();
-    if (cursorNum == 0)
-    {
-        m_plotter->zoomX(5);
-    }
-    else
-    {
-        m_plotter->zoomXToCursors(event->pos());
-        //m_plotter->zoomXToCursors(0,1); // Only 2 cursors
-    }
+    m_plotter->zoomXToCursors(event->pos());
     updatePlot();
 }
 

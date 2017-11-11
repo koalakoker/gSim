@@ -26,95 +26,17 @@ public:
     void setRangeY_Max(qreal val) {m_range.setTop   (val);}
 
     // Scroll
-
-    void scrollX(qreal val)
-    {
-        m_range.setLeft(m_range.left() + val);
-        m_range.setRight (m_range.right()  + val);
-    }
-
-    void scrollY(qreal val)
-    {
-        m_range.setTop (m_range.top()  + val);
-        m_range.setBottom(m_range.bottom() + val);
-    }
-
-    void scrollXpixel(int pix)
-    {
-        scrollX((m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));
-    }
-
-    void scrollYpixel(int pix)
-    {
-        scrollY((m_range.height() * (qreal)(pix))/(qreal)(m_size.height()));
-    }
+    void scrollX(qreal val);
+    void scrollY(qreal val);
+    void scrollXpixel(int pix);
+    void scrollYpixel(int pix);
 
     // Zoom
-
-    void zoomX(qreal val)
-    {
-        qreal delta = m_range.width() * val * 0.05;
-        m_range.setLeft(m_range.left() + delta);
-        m_range.setRight(m_range.right() - delta);
-    }
-
-    void zoomY(qreal val)
-    {
-        qreal delta = m_range.height() * val * 0.05;
-        m_range.setTop   (m_range.top()    + delta);
-        m_range.setBottom(m_range.bottom() - delta);
-    }
-
-    void zoomXToCursors(int index1, int index2)
-    {
-        qreal xMin = m_cursorPos.at(index1);
-        qreal xMax = m_cursorPos.at(index2);
-        if (xMin == xMax)
-        {
-            // Do nothing
-        }
-        else
-        {
-            // Make effective change
-            if (xMin > xMax)
-            {
-                qreal tmp = xMin;
-                xMin = xMax;
-                xMax= tmp;
-            }
-            m_range.setLeft(xMin);
-            m_range.setRight(xMax);
-        }
-    }
-
-    bool zoomXToCursors(QPoint point)
-    {
-        qreal xMin,xMax;
-        if (m_cursorPos.size() == 0)
-        {
-            return false;
-        }
-        if (m_cursorPos.size() == 1)
-        {
-            if (invMapX(point.x()) < m_cursorPos.at(0))
-            {
-                xMin = m_range.left();
-                xMax = m_cursorPos.at(0);
-            }
-            else
-            {
-                xMin = m_cursorPos.at(0);
-                xMax = m_range.right();
-            }
-            m_range.setLeft(xMin);
-            m_range.setRight(xMax);
-            qDebug() << "Zoom x1:" << xMin << " x2:" << xMax;
-        }
-        return true;
-    }
+    void zoomX(qreal val);
+    void zoomY(qreal val);
+    void zoomXToCursors(QPoint point);
 
     // Resize
-
     void setSize(QSize size) {m_size = size;}
 
     // Cursors
@@ -144,6 +66,7 @@ public slots:
 private:
     QPointF map(double x, double y);
     double invMapX(double x);
+    double mapX(double x);
     double mapY(double y);
 
     QSize m_size;

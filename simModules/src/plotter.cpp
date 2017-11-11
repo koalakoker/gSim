@@ -131,9 +131,92 @@ double Plotter::invMapX(double x)
     return (((x / m_size.width()) * m_range.width()) + m_range.x());
 }
 
+double Plotter::mapX(double x)
+{
+    return (m_size.width () * ((x - m_range.x()) / m_range.width ()));
+}
+
 double Plotter::mapY(double y)
 {
     return (m_size.height()-(m_size.height() * ((y - m_range.y()) / m_range.height())));
+}
+
+// Scroll
+
+void Plotter::scrollX(qreal val)
+{
+    m_range.setLeft(m_range.left() + val);
+    m_range.setRight (m_range.right()  + val);
+}
+
+void Plotter::scrollY(qreal val)
+{
+    m_range.setTop (m_range.top()  + val);
+    m_range.setBottom(m_range.bottom() + val);
+}
+
+void Plotter::scrollXpixel(int pix)
+{
+    scrollX((m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));
+}
+
+void Plotter::scrollYpixel(int pix)
+{
+    scrollY((m_range.height() * (qreal)(pix))/(qreal)(m_size.height()));
+}
+
+// Zoom
+
+void Plotter::zoomX(qreal val)
+{
+    qreal delta = m_range.width() * val * 0.05;
+    m_range.setLeft(m_range.left() + delta);
+    m_range.setRight(m_range.right() - delta);
+}
+
+void Plotter::zoomY(qreal val)
+{
+    qreal delta = m_range.height() * val * 0.05;
+    m_range.setTop   (m_range.top()    + delta);
+    m_range.setBottom(m_range.bottom() - delta);
+}
+
+void Plotter::zoomXToCursors(QPoint point)
+{
+    qreal xMin,xMax;
+    qreal xPos = invMapX(point.x());
+
+    QVector<qreal> xPoints;
+    xPoints.append(xMin = m_range.left());
+    xPoints.append(xMax = m_range.right());
+
+    int i;
+    for (i = 0; i < m_cursorPos.size(); i++)
+    {
+        xPoints.append(m_cursorPos.at(i));
+    }
+
+    qSort(xPoints);
+
+    for (i = 0; i < xPoints.size(); i++)
+    {
+        if (xPos < xPoints.at(i))
+        {
+            xMin = xPoints.at(i-1);
+            xMax = xPoints.at(i);
+            break;
+        }
+    }
+
+    if ((m_range.left() == xMin) && (m_range.right() == xMax))
+    {
+        zoomX(5);
+    }
+    else
+    {
+        m_range.setLeft(xMin);
+        m_range.setRight(xMax);
+    }
 }
 
 // Cursors
