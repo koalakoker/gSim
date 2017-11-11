@@ -87,6 +87,32 @@ public:
         }
     }
 
+    bool zoomXToCursors(QPoint point)
+    {
+        qreal xMin,xMax;
+        if (m_cursorPos.size() == 0)
+        {
+            return false;
+        }
+        if (m_cursorPos.size() == 1)
+        {
+            if (invMapX(point.x()) < m_cursorPos.at(0))
+            {
+                xMin = m_range.left();
+                xMax = m_cursorPos.at(0);
+            }
+            else
+            {
+                xMin = m_cursorPos.at(0);
+                xMax = m_range.right();
+            }
+            m_range.setLeft(xMin);
+            m_range.setRight(xMax);
+            qDebug() << "Zoom x1:" << xMin << " x2:" << xMax;
+        }
+        return true;
+    }
+
     // Resize
 
     void setSize(QSize size) {m_size = size;}
