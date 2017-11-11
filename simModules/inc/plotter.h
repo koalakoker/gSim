@@ -75,9 +75,6 @@ public:
         }
         else
         {
-            // Undo
-            m_undoRangeHystory.append(m_range);
-
             // Make effective change
             if (xMin > xMax)
             {

@@ -205,7 +205,6 @@ void Plotter::Undo(void)
     {
         m_redoRangeHystory.append(m_range);
         m_range = m_undoRangeHystory.takeLast();
-        qDebug() << "Undo";
     }
 }
 
@@ -215,7 +214,6 @@ void Plotter::Redo(void)
     {
         m_undoRangeHystory.append(m_range);
         m_range = m_redoRangeHystory.takeLast();
-        qDebug() << "Redo";
     }
 }
 
@@ -223,5 +221,4 @@ void Plotter::AddUndoStatus(void)
 {
     m_undoRangeHystory.append(m_range);
     m_redoRangeHystory.clear();
-    qDebug() << "Add";
 }
