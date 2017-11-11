@@ -1,6 +1,8 @@
 #include "wplot.h"
 #include <QGestureEvent>
 #include <QApplication>
+#include <QTextStream>
+#include <QDebug>
 
 WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
 {
@@ -55,7 +57,7 @@ WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
                 QRectF(x_min, y_min, x_max - x_min, y_max - y_min),
                 data,
                 Plotter::LINE_STYLE);
-    //m_plotter->addCursor(x_min + (x_max - x_min)/2);
+
     updatePlot();
 }
 

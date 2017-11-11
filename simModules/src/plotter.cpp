@@ -1,5 +1,8 @@
 #include "plotter.h"
 
+#include <QElapsedTimer>
+#include <QTimer>
+
 QImage Plotter::plot()
 {
     const Qt::GlobalColor plotColor[] = {Qt::black, Qt::blue, Qt::green, Qt::red};
@@ -302,6 +305,16 @@ void Plotter::Redo(void)
 
 void Plotter::AddUndoStatus(void)
 {
-    m_undoRangeHystory.append(m_range);
-    m_redoRangeHystory.clear();
+    if (!m_debounce)
+    {
+        m_undoRangeHystory.append(m_range);
+        m_redoRangeHystory.clear();
+        QTimer::singleShot(500, this, SLOT(endTimer()));
+        m_debounce = true;
+    }
+}
+
+void Plotter::endTimer()
+{
+    m_debounce = false;
 }
