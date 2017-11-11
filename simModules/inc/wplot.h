@@ -26,6 +26,7 @@ protected:
     void wheelEvent(QWheelEvent* event);
     bool event(QEvent* event);
     void resizeEvent(QResizeEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 
 public slots:
     void updatePlot(void);
@@ -37,6 +38,7 @@ private:
 
     bool m_drag;
     QPoint m_lastPoint;
+    bool m_movingUndo;
 };
 
 #endif // WPLOT_H

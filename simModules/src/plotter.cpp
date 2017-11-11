@@ -197,3 +197,31 @@ int Plotter::getCursorDragged()
 {
     return m_cursorDrag;
 }
+
+// Undo
+void Plotter::Undo(void)
+{
+    if (!m_undoRangeHystory.isEmpty())
+    {
+        m_redoRangeHystory.append(m_range);
+        m_range = m_undoRangeHystory.takeLast();
+        qDebug() << "Undo";
+    }
+}
+
+void Plotter::Redo(void)
+{
+    if (!m_redoRangeHystory.isEmpty())
+    {
+        m_undoRangeHystory.append(m_range);
+        m_range = m_redoRangeHystory.takeLast();
+        qDebug() << "Redo";
+    }
+}
+
+void Plotter::AddUndoStatus(void)
+{
+    m_undoRangeHystory.append(m_range);
+    m_redoRangeHystory.clear();
+    qDebug() << "Add";
+}

@@ -1,5 +1,6 @@
 #include "wplot.h"
 #include <QGestureEvent>
+#include <QApplication>
 
 WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
 {
@@ -81,6 +82,7 @@ void WPlot::mousePressEvent(QMouseEvent* event)
         }
         else
         {
+            m_movingUndo = true;
             m_drag = true;
         }
 
@@ -102,6 +104,7 @@ void WPlot::mousePressEvent(QMouseEvent* event)
 
 void WPlot::mouseDoubleClickEvent(QMouseEvent* event)
 {
+    m_plotter->AddUndoStatus();
     if (m_plotter->getCursorNumber() < 2)
     {
         m_plotter->zoomX(5);
@@ -132,6 +135,12 @@ void WPlot::mouseMoveEvent(QMouseEvent* event)
 {
     if (m_drag)
     {
+        if (m_movingUndo) // Add undo to be done only once
+        {
+            m_plotter->AddUndoStatus();
+            m_movingUndo = false;
+        }
+
         QPoint delta = m_lastPoint - event->pos();
         m_lastPoint = event->pos();
         m_plotter->scrollXpixel( delta.x());
@@ -191,4 +200,18 @@ void WPlot::resizeEvent(QResizeEvent *event)
 {
     m_plotter->setSize(event->size());
     updatePlot();
+}
+
+void WPlot::keyPressEvent(QKeyEvent *event)
+{
+    if ((event->key() == Qt::Key_Z) && (QApplication::keyboardModifiers()) && (Qt::ControlModifier))
+    {
+        m_plotter->Undo();
+        updatePlot();
+    }
+    if ((event->key() == Qt::Key_X) && (QApplication::keyboardModifiers()) && (Qt::ControlModifier))
+    {
+        m_plotter->Redo();
+        updatePlot();
+    }
 }

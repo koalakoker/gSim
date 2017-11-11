@@ -25,19 +25,41 @@ public:
     void setRangeY_Min(qreal val) {m_range.setBottom(val);}
     void setRangeY_Max(qreal val) {m_range.setTop   (val);}
 
-    void scrollX(qreal val) {m_range.setLeft(m_range.left() + val); m_range.setRight (m_range.right()  + val);}
-    void scrollY(qreal val) {m_range.setTop (m_range.top()  + val); m_range.setBottom(m_range.bottom() + val);}
+    // Scroll
 
-    void scrollXpixel(int pix) {scrollX((m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));}
-    void scrollYpixel(int pix) {scrollY((m_range.height() * (qreal)(pix))/(qreal)(m_size.height()));}
+    void scrollX(qreal val)
+    {
+        m_range.setLeft(m_range.left() + val);
+        m_range.setRight (m_range.right()  + val);
+    }
 
-    void zoomX(qreal val) {
+    void scrollY(qreal val)
+    {
+        m_range.setTop (m_range.top()  + val);
+        m_range.setBottom(m_range.bottom() + val);
+    }
+
+    void scrollXpixel(int pix)
+    {
+        scrollX((m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));
+    }
+
+    void scrollYpixel(int pix)
+    {
+        scrollY((m_range.height() * (qreal)(pix))/(qreal)(m_size.height()));
+    }
+
+    // Zoom
+
+    void zoomX(qreal val)
+    {
         qreal delta = m_range.width() * val * 0.05;
         m_range.setLeft(m_range.left() + delta);
         m_range.setRight(m_range.right() - delta);
     }
 
-    void zoomY(qreal val) {
+    void zoomY(qreal val)
+    {
         qreal delta = m_range.height() * val * 0.05;
         m_range.setTop   (m_range.top()    + delta);
         m_range.setBottom(m_range.bottom() - delta);
@@ -53,6 +75,10 @@ public:
         }
         else
         {
+            // Undo
+            m_undoRangeHystory.append(m_range);
+
+            // Make effective change
             if (xMin > xMax)
             {
                 qreal tmp = xMin;
@@ -63,6 +89,8 @@ public:
             m_range.setRight(xMax);
         }
     }
+
+    // Resize
 
     void setSize(QSize size) {m_size = size;}
 
@@ -77,6 +105,11 @@ public:
     void dragCursor(int index);
     void releaseCursor();
     int getCursorDragged();
+
+    // Undo-Redo
+    void Undo(void);
+    void Redo(void);
+    void AddUndoStatus(void);
 
 signals:
     void done(QImage);
@@ -101,6 +134,10 @@ private:
     QVector<QRect> m_cursorRect;
     int m_cursorDrag; // 0 none, index + 1 (zero based) if cursor index is dragged
     const int m_cursorMargin = 5;
+
+    // Undo-Redo
+    QVector<QRectF> m_undoRangeHystory;
+    QVector<QRectF> m_redoRangeHystory;
 };
 
 #endif // PLOTTER_H
