@@ -43,9 +43,31 @@ public:
         m_range.setBottom(m_range.bottom() - delta);
     }
 
+    void zoomXToCursors(int index1, int index2)
+    {
+        qreal xMin = m_cursorPos.at(index1);
+        qreal xMax = m_cursorPos.at(index2);
+        if (xMin == xMax)
+        {
+            // Do nothing
+        }
+        else
+        {
+            if (xMin > xMax)
+            {
+                qreal tmp = xMin;
+                xMin = xMax;
+                xMax= tmp;
+            }
+            m_range.setLeft(xMin);
+            m_range.setRight(xMax);
+        }
+    }
+
     void setSize(QSize size) {m_size = size;}
 
     // Cursors
+    int getCursorNumber(void) {return m_cursorPos.size();}
     void addCursor(qreal pos);
     void removeCursor(int index);
     void addCursorAtPixel(int pos);

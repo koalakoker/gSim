@@ -100,6 +100,19 @@ void WPlot::mousePressEvent(QMouseEvent* event)
     }
 }
 
+void WPlot::mouseDoubleClickEvent(QMouseEvent* event)
+{
+    if (m_plotter->getCursorNumber() < 2)
+    {
+        m_plotter->zoomX(5);
+    }
+    else
+    {
+        m_plotter->zoomXToCursors(0,1); // Only 2 cursors
+    }
+    updatePlot();
+}
+
 void WPlot::mouseReleaseEvent(QMouseEvent* event)
 {
     if (event->button() == dragButton)
