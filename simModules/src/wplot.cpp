@@ -73,8 +73,9 @@ void WPlot::mousePressEvent(QMouseEvent* event)
 {
     if (event->button() == dragButton)
     {
+        int selected = 0;
         m_lastPoint = event->pos();
-        if (m_plotter->onCursor(m_lastPoint, true))
+        if (m_plotter->onCursor(m_lastPoint, selected, true))
         {
 
         }
@@ -86,7 +87,15 @@ void WPlot::mousePressEvent(QMouseEvent* event)
     }
     if (event->button() == addCursorButton)
     {
-        m_plotter->addCursorAtPixel(event->pos().x());
+        int selected = 0;
+        if (!(m_plotter->onCursor(event->pos(), selected, false)))
+        {
+            m_plotter->addCursorAtPixel(event->pos().x());
+        }
+        else
+        {
+            m_plotter->removeCursor(selected);
+        }
         updatePlot();
     }
 }
@@ -126,7 +135,8 @@ void WPlot::mouseMoveEvent(QMouseEvent* event)
         updatePlot();
     }
 
-    if (m_plotter->onCursor(event->pos(), false))
+    int selected = 0;
+    if (m_plotter->onCursor(event->pos(), selected, false))
     {
         this->setCursor(Qt::SizeHorCursor);
     }

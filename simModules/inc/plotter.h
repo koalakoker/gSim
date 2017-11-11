@@ -47,10 +47,11 @@ public:
 
     // Cursors
     void addCursor(qreal pos);
+    void removeCursor(int index);
     void addCursorAtPixel(int pos);
     void setCursorPos(int index, qreal pos);
     void cursorScrollPixel(int index, int pix);
-    bool onCursor(QPoint point, bool select = false);
+    bool onCursor(QPoint point, int& selectedCursor, bool startDrag = false);
     void dragCursor(int index);
     void releaseCursor();
     int getCursorDragged();

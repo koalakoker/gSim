@@ -147,6 +147,11 @@ void Plotter::addCursorAtPixel(int pos)
     m_cursorPos.append(invMapX(pos));
 }
 
+void Plotter::removeCursor(int index)
+{
+    m_cursorPos.remove(index);
+}
+
 void Plotter::setCursorPos(int index, qreal pos)
 {
     m_cursorPos[index] += pos;
@@ -157,7 +162,7 @@ void Plotter::cursorScrollPixel(int index, int pix)
     setCursorPos(index, (m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));
 }
 
-bool Plotter::onCursor(QPoint point, bool select)
+bool Plotter::onCursor(QPoint point, int& selectedCursor, bool startDrag)
 {
     bool retVal = false;
     for (int cursor = 0; cursor < m_cursorRect.size(); cursor++)
@@ -165,7 +170,8 @@ bool Plotter::onCursor(QPoint point, bool select)
         if (m_cursorRect.at(cursor).contains(point))
         {
             retVal = true;
-            if (select)
+            selectedCursor = cursor;
+            if (startDrag)
             {
                 dragCursor(cursor);
             }
@@ -179,7 +185,6 @@ void Plotter::dragCursor(int index)
     if ((index >= 0) && (index < m_cursorPos.size()))
     {
         m_cursorDrag = index + 1; // 0 none, index + 1 (zero based) if cursor index is dragged
-        qDebug() << "Drag:" << m_cursorDrag;
     }
 }
 
