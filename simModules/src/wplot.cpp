@@ -166,6 +166,7 @@ void WPlot::wheelEvent(QWheelEvent* event)
     QPoint angleDelta = event->angleDelta();
     if (angleDelta != QPoint(0,0))
     {
+        m_plotter->AddUndoStatus(); // To be filetered
         m_plotter->zoomX((qreal)angleDelta.y()/120);
         m_plotter->zoomY((qreal)angleDelta.x()/120);
         updatePlot();
@@ -181,6 +182,7 @@ bool WPlot::event(QEvent *event)
         {
             QPinchGesture* pinchGest = static_cast<QPinchGesture *>(pinch);
             qreal factor = pinchGest->scaleFactor();
+            m_plotter->AddUndoStatus(); // To be filetered
             m_plotter->zoomX((factor-1)*5);
             m_plotter->zoomY((factor-1)*5);
             updatePlot();
