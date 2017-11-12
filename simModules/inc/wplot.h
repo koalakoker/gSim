@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QMouseEvent>
 #include <QWheelEvent>
+#include <QMenuBar>
 
 #include "plotter.h"
 
@@ -26,19 +27,27 @@ protected:
     void wheelEvent(QWheelEvent* event);
     bool event(QEvent* event);
     void resizeEvent(QResizeEvent *event);
-    void keyPressEvent(QKeyEvent *event);
 
 public slots:
     void updatePlot(void);
 
+private slots:
+    void actionOpen  (void);
+    void actionExport(void);
+    void actionUndo  (void);
+    void actionRedo  (void);
+
 private:
     QImage plot;
-    QThread* m_thread;
-    Plotter* m_plotter;
+    QThread *m_thread;
+    Plotter *m_plotter;
+    QMenuBar *menu;
 
     bool m_drag;
     QPoint m_lastPoint;
     bool m_movingUndo;
+
+    void createMenu(void);
 };
 
 #endif // WPLOT_H

@@ -4,7 +4,7 @@
 #include <QTextStream>
 #include <QDebug>
 
-WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
+WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent), menu(new QMenuBar(this))
 {
     m_drag = false;
     grabGesture(Qt::PinchGesture);
@@ -59,6 +59,22 @@ WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent)
                 Plotter::LINE_STYLE);
 
     updatePlot();
+
+    createMenu();
+}
+
+void WPlot::createMenu(void)
+{
+    QMenu *file = new QMenu("&File");
+    file->addAction("&Open data file"  , this, SLOT(actionOpen())  , QKeySequence(Qt::CTRL             + Qt::Key_O));
+    file->addAction("&Export data file", this, SLOT(actionExport()), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_S));
+    file->addAction("&Close"           , this, SLOT(close())       , QKeySequence(Qt::CTRL             + Qt::Key_W));
+    menu->addMenu(file);
+
+    QMenu *edit = new QMenu("&Edit");
+    edit->addAction("Zoom &Undo", this, SLOT(actionUndo()),  QKeySequence(Qt::CTRL             + Qt::Key_Z));
+    edit->addAction("Zoom &Redo", this, SLOT(actionRedo()),  QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_Z));
+    menu->addMenu(edit);
 }
 
 void WPlot::paintEvent(QPaintEvent *)
@@ -67,10 +83,38 @@ void WPlot::paintEvent(QPaintEvent *)
     p.drawImage(QPoint(0, 0), plot);
 }
 
+// Slots
+
 void WPlot::updatePlot(void) {
     plot = m_plotter->plot();
     repaint();
 }
+
+// Actions
+
+void WPlot::actionUndo()
+{
+    m_plotter->Undo();
+    updatePlot();
+}
+
+void WPlot::actionRedo()
+{
+    m_plotter->Redo();
+    updatePlot();
+}
+
+void WPlot::actionOpen()
+{
+    qDebug() << "Open";
+}
+
+void WPlot::actionExport(void)
+{
+    qDebug() << "Export";
+}
+
+// Mouse events
 
 void WPlot::mousePressEvent(QMouseEvent* event)
 {
@@ -197,18 +241,4 @@ void WPlot::resizeEvent(QResizeEvent *event)
 {
     m_plotter->setSize(event->size());
     updatePlot();
-}
-
-void WPlot::keyPressEvent(QKeyEvent *event)
-{
-    if ((event->key() == Qt::Key_Z) && (QApplication::keyboardModifiers()) && (Qt::ControlModifier))
-    {
-        m_plotter->Undo();
-        updatePlot();
-    }
-    if ((event->key() == Qt::Key_X) && (QApplication::keyboardModifiers()) && (Qt::ControlModifier))
-    {
-        m_plotter->Redo();
-        updatePlot();
-    }
 }
