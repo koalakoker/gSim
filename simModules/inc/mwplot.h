@@ -14,6 +14,7 @@ class MWPlot : public QMainWindow
 public:
     explicit MWPlot(QWidget *parent = 0);
     ~MWPlot();
+    void loadDataFile(QString fileName);
 
 private slots:
     void on_actionOpen_data_file_triggered();
