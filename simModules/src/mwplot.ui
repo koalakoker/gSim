@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WPlot</class>
- <widget class="QMainWindow" name="WPlot">
+ <class>MWPlot</class>
+ <widget class="QMainWindow" name="MWPlot">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="WPlot" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -30,7 +30,7 @@
     <addaction name="actionOpen_data_file"/>
     <addaction name="actionExport_data_file"/>
    </widget>
-   <widget class="QMenu" name="menu_Edit">
+   <widget class="QMenu" name="menuEdit">
     <property name="title">
      <string>Edit</string>
     </property>
@@ -38,7 +38,7 @@
     <addaction name="actionZoom_Redo"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menu_Edit"/>
+   <addaction name="menuEdit"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -62,7 +62,7 @@
      <normaloff>:/png/open.png</normaloff>:/png/open.png</iconset>
    </property>
    <property name="text">
-    <string>Open data file</string>
+    <string>Open data file </string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -105,6 +105,14 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WPlot</class>
+   <extends>QWidget</extends>
+   <header location="global">wplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../../resource.qrc"/>
  </resources>

@@ -1,15 +1,11 @@
 #ifndef WPLOT_H
 #define WPLOT_H
 
-#include <QMainWindow>
+#include <QWidget>
 
 #include "plotter.h"
 
-namespace Ui {
-class WPlot;
-}
-
-class WPlot : public QMainWindow
+class WPlot : public QWidget
 {
     Q_OBJECT
 
@@ -23,10 +19,10 @@ public:
 
 public slots:
     void updatePlot(void);
+    void zoom_Undo(void);
+    void zoom_Redo(void);
 
 private:
-    Ui::WPlot *ui;
-
     QImage plot;
     Plotter *m_plotter;
 
@@ -37,10 +33,6 @@ private:
     void createMenu(void);
 
 private slots:
-    void on_actionOpen_data_file_triggered();
-    void on_actionExport_data_file_triggered();
-    void on_actionZoom_Undo_triggered();
-    void on_actionZoom_Redo_triggered();
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -51,7 +43,6 @@ protected:
     void wheelEvent(QWheelEvent* event);
     bool event(QEvent* event);
     void resizeEvent(QResizeEvent *event);
-
 };
 
 #endif // WPLOT_H

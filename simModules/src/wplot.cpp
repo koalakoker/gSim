@@ -1,18 +1,14 @@
 #include "wplot.h"
-#include "ui_wplot.h"
 
 #include <QGestureEvent>
 #include <QMouseEvent>
 #include <QFile>
-#include <QFileDialog>
 #include <QTextStream>
 #include <QDebug>
 
 WPlot::WPlot(QWidget *parent) :
-    QMainWindow(parent), ui(new Ui::WPlot), m_plotter(NULL)
+    QWidget(parent), m_plotter(NULL)
 {
-    ui->setupUi(this);
-
     m_drag = false;
 
     grabGesture(Qt::PinchGesture);
@@ -21,7 +17,6 @@ WPlot::WPlot(QWidget *parent) :
 
 WPlot::~WPlot()
 {
-    delete ui;
 }
 
 // Load data file
@@ -75,7 +70,7 @@ void WPlot::loadDataFile(QString fileName)
     }
 
     m_plotter = new Plotter(
-                centralWidget()->size(),
+                size(),
                 QRectF(x_min, y_min, x_max - x_min, y_max - y_min),
                 data,
                 Plotter::LINE_STYLE);
@@ -85,7 +80,7 @@ void WPlot::loadDataFile(QString fileName)
 void WPlot::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
-    p.drawImage(centralWidget()->pos(), plot);
+    p.drawImage(QPoint(0, 0), plot);
 }
 
 // Slots
@@ -93,25 +88,14 @@ void WPlot::updatePlot(void) {
     plot = m_plotter->plot();
     repaint();
 }
-
-// Actions
-void WPlot::on_actionOpen_data_file_triggered()
-{
-    QString fileName = QFileDialog::getOpenFileName(this,"Open data file","","*.*");
-    loadDataFile(fileName);
-}
-void WPlot::on_actionExport_data_file_triggered()
-{
-    qDebug() << "Export";
-}
-void WPlot::on_actionZoom_Undo_triggered()
+void WPlot::zoom_Undo(void)
 {
     if (!m_plotter)
         return;
     m_plotter->Undo();
     updatePlot();
 }
-void WPlot::on_actionZoom_Redo_triggered()
+void WPlot::zoom_Redo(void)
 {
     if (!m_plotter)
         return;
@@ -216,7 +200,6 @@ void WPlot::mouseMoveEvent(QMouseEvent* event)
     {
         this->setCursor(Qt::ArrowCursor);
     }
-    qDebug() << "selected:" << selected;
 }
 void WPlot::wheelEvent(QWheelEvent* event)
 {
@@ -256,8 +239,7 @@ void WPlot::resizeEvent(QResizeEvent *event)
         return;
     if (event->type() == QEvent::Resize)
     {
-        m_plotter->setSize(centralWidget()->size());
+        m_plotter->setSize(size());
         updatePlot();
     }
 }
-

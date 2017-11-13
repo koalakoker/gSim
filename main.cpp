@@ -5,7 +5,8 @@
 #include "simModel/inc/gsimmodel_global.h"
 #include "simModel/inc/simModel.h"
 
-#include "wplot.h"
+//#include "wplot.h"
+#include "mwplot.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,10 +24,10 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    WPlot w_p1;
-    //WPlot w_p2("scope_abcCurr.txt");
-    w_p1.show();
-    //w_p2.show();
+    //WPlot w_p1;
+    //w_p1.show();
+    MWPlot mw_pl;
+    mw_pl.show();
 
     return a.exec();
 }
