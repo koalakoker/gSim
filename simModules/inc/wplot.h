@@ -14,8 +14,9 @@ class WPlot : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit WPlot(QWidget *parent = 0, QString fileName = "model2.txt");
+    explicit WPlot(QWidget *parent = 0);
     ~WPlot();
+    void loadDataFile(QString fileName);
 
     const Qt::MouseButton dragButton = Qt::LeftButton;
     const Qt::MouseButton addCursorButton = Qt::RightButton;
@@ -27,9 +28,7 @@ private:
     Ui::WPlot *ui;
 
     QImage plot;
-    QThread *m_thread;
     Plotter *m_plotter;
-    QMenuBar *menu;
 
     bool m_drag;
     QPoint m_lastPoint;
@@ -38,10 +37,10 @@ private:
     void createMenu(void);
 
 private slots:
-    void actionOpen  (void);
-    void actionExport(void);
-    void actionUndo  (void);
-    void actionRedo  (void);
+    void on_actionOpen_data_file_triggered();
+    void on_actionExport_data_file_triggered();
+    void on_actionZoom_Undo_triggered();
+    void on_actionZoom_Redo_triggered();
 
 protected:
     void paintEvent(QPaintEvent *);

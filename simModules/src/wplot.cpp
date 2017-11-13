@@ -4,19 +4,29 @@
 #include <QGestureEvent>
 #include <QMouseEvent>
 #include <QFile>
+#include <QFileDialog>
 #include <QTextStream>
 #include <QDebug>
 
-WPlot::WPlot(QWidget *parent, QString fileName) :
-    QMainWindow(parent),
-    ui(new Ui::WPlot)
+WPlot::WPlot(QWidget *parent) :
+    QMainWindow(parent), ui(new Ui::WPlot), m_plotter(NULL)
 {
     ui->setupUi(this);
 
     m_drag = false;
+
     grabGesture(Qt::PinchGesture);
     setMouseTracking(true);
+}
 
+WPlot::~WPlot()
+{
+    delete ui;
+}
+
+// Load data file
+void WPlot::loadDataFile(QString fileName)
+{
     QVector<SData> data;
     double y_max = 0, y_min = 0;
 
@@ -28,7 +38,7 @@ WPlot::WPlot(QWidget *parent, QString fileName) :
         while (!stream.atEnd())
         {
             line = stream.readLine();
-            QStringList fields = line.split(" ");
+            QStringList fields = line.split(QRegExp("[\t ]+"));
             SData sample;
             for (int i = 0; i < fields.size(); i++)
             {
@@ -59,61 +69,62 @@ WPlot::WPlot(QWidget *parent, QString fileName) :
         x_max = data[data.size()-1][0];
     }
 
+    if (m_plotter)
+    {
+        delete m_plotter; // remove old data plotter
+    }
+
     m_plotter = new Plotter(
-                size(),
+                centralWidget()->size(),
                 QRectF(x_min, y_min, x_max - x_min, y_max - y_min),
                 data,
                 Plotter::LINE_STYLE);
 
     updatePlot();
 }
-
-WPlot::~WPlot()
-{
-    delete ui;
-}
-
 void WPlot::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
-    p.drawImage(QPoint(0, 0), plot);
+    p.drawImage(centralWidget()->pos(), plot);
 }
 
 // Slots
-
 void WPlot::updatePlot(void) {
     plot = m_plotter->plot();
     repaint();
 }
 
 // Actions
-
-void WPlot::actionUndo()
+void WPlot::on_actionOpen_data_file_triggered()
 {
+    QString fileName = QFileDialog::getOpenFileName(this,"Open data file","","*.*");
+    loadDataFile(fileName);
+}
+void WPlot::on_actionExport_data_file_triggered()
+{
+    qDebug() << "Export";
+}
+void WPlot::on_actionZoom_Undo_triggered()
+{
+    if (!m_plotter)
+        return;
     m_plotter->Undo();
     updatePlot();
 }
-
-void WPlot::actionRedo()
+void WPlot::on_actionZoom_Redo_triggered()
 {
+    if (!m_plotter)
+        return;
     m_plotter->Redo();
     updatePlot();
 }
 
-void WPlot::actionOpen()
-{
-    qDebug() << "Open";
-}
-
-void WPlot::actionExport(void)
-{
-    qDebug() << "Export";
-}
-
 // Mouse events
-
 void WPlot::mousePressEvent(QMouseEvent* event)
 {
+    if (!m_plotter)
+        return;
+
     if (event->button() == dragButton)
     {
         int selected = 0;
@@ -129,6 +140,7 @@ void WPlot::mousePressEvent(QMouseEvent* event)
         }
 
     }
+
     if (event->button() == addCursorButton)
     {
         int selected = 0;
@@ -143,16 +155,18 @@ void WPlot::mousePressEvent(QMouseEvent* event)
         updatePlot();
     }
 }
-
 void WPlot::mouseDoubleClickEvent(QMouseEvent* event)
 {
+    if (!m_plotter)
+        return;
     m_plotter->AddUndoStatus();
     m_plotter->zoomXToCursors(event->pos());
     updatePlot();
 }
-
 void WPlot::mouseReleaseEvent(QMouseEvent* event)
 {
+    if (!m_plotter)
+        return;
     if (event->button() == dragButton)
     {
         if (m_drag)
@@ -165,9 +179,10 @@ void WPlot::mouseReleaseEvent(QMouseEvent* event)
         }
     }
 }
-
 void WPlot::mouseMoveEvent(QMouseEvent* event)
 {
+    if (!m_plotter)
+        return;
     if (m_drag)
     {
         if (m_movingUndo) // Add undo to be done only once
@@ -201,10 +216,12 @@ void WPlot::mouseMoveEvent(QMouseEvent* event)
     {
         this->setCursor(Qt::ArrowCursor);
     }
+    qDebug() << "selected:" << selected;
 }
-
 void WPlot::wheelEvent(QWheelEvent* event)
 {
+    if (!m_plotter)
+        return;
     QPoint angleDelta = event->angleDelta();
     if (angleDelta != QPoint(0,0))
     {
@@ -214,9 +231,10 @@ void WPlot::wheelEvent(QWheelEvent* event)
         updatePlot();
     }
 }
-
 bool WPlot::event(QEvent *event)
 {
+    if (!m_plotter)
+        QWidget::event(event);
     if (event->type() == QEvent::Gesture)
     {
         QGestureEvent* gest = static_cast<QGestureEvent*>(event);
@@ -232,9 +250,14 @@ bool WPlot::event(QEvent *event)
     }
     return QWidget::event(event);
 }
-
 void WPlot::resizeEvent(QResizeEvent *event)
 {
-    m_plotter->setSize(event->size());
-    updatePlot();
+    if (!m_plotter)
+        return;
+    if (event->type() == QEvent::Resize)
+    {
+        m_plotter->setSize(centralWidget()->size());
+        updatePlot();
+    }
 }
+
