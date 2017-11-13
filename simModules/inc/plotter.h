@@ -49,6 +49,7 @@ public:
     void dragCursor(int index);
     void releaseCursor();
     int getCursorDragged();
+    QVector<QVector<double> > getCursorValueTrack(void);
 
     // Undo-Redo
     void Undo(void);

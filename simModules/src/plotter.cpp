@@ -2,7 +2,9 @@
 
 #include <QElapsedTimer>
 #include <QTimer>
+#include <QDebug>
 
+// Plot
 QImage Plotter::plot()
 {
     const Qt::GlobalColor plotColor[] = {Qt::black, Qt::blue, Qt::green, Qt::red};
@@ -122,68 +124,57 @@ QImage Plotter::plot()
     //qDebug() << "plotted in" << t.elapsed() << "msec";
     return img;
 }
-
 QPointF Plotter::map(double x, double y)
 {
     return QPointF(                 (m_size.width () * ((x - m_range.x()) / m_range.width ())),
                    (m_size.height()-(m_size.height() * ((y - m_range.y()) / m_range.height()))));
 }
-
 double Plotter::invMapX(double x)
 {
     return (((x / m_size.width()) * m_range.width()) + m_range.x());
 }
-
 double Plotter::mapX(double x)
 {
     return (m_size.width () * ((x - m_range.x()) / m_range.width ()));
 }
-
 double Plotter::mapY(double y)
 {
     return (m_size.height()-(m_size.height() * ((y - m_range.y()) / m_range.height())));
 }
 
 // Scroll
-
 void Plotter::scrollX(qreal val)
 {
     m_range.setLeft(m_range.left() + val);
     m_range.setRight (m_range.right()  + val);
 }
-
 void Plotter::scrollY(qreal val)
 {
     m_range.setTop (m_range.top()  + val);
     m_range.setBottom(m_range.bottom() + val);
 }
-
 void Plotter::scrollXpixel(int pix)
 {
     scrollX((m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));
 }
-
 void Plotter::scrollYpixel(int pix)
 {
     scrollY((m_range.height() * (qreal)(pix))/(qreal)(m_size.height()));
 }
 
 // Zoom
-
 void Plotter::zoomX(qreal val)
 {
     qreal delta = m_range.width() * val * 0.05;
     m_range.setLeft(m_range.left() + delta);
     m_range.setRight(m_range.right() - delta);
 }
-
 void Plotter::zoomY(qreal val)
 {
     qreal delta = m_range.height() * val * 0.05;
     m_range.setTop   (m_range.top()    + delta);
     m_range.setBottom(m_range.bottom() - delta);
 }
-
 void Plotter::zoomXToCursors(QPoint point)
 {
     qreal xMin,xMax;
@@ -223,32 +214,27 @@ void Plotter::zoomXToCursors(QPoint point)
 }
 
 // Cursors
-void Plotter::addCursor(qreal pos)
+void   Plotter::addCursor(qreal pos)
 {
     m_cursorPos.append(pos);
 }
-
-void Plotter::addCursorAtPixel(int pos)
+void   Plotter::addCursorAtPixel(int pos)
 {
     m_cursorPos.append(invMapX(pos));
 }
-
-void Plotter::removeCursor(int index)
+void   Plotter::removeCursor(int index)
 {
     m_cursorPos.remove(index);
 }
-
-void Plotter::setCursorPos(int index, qreal pos)
+void   Plotter::setCursorPos(int index, qreal pos)
 {
     m_cursorPos[index] += pos;
 }
-
-void Plotter::cursorScrollPixel(int index, int pix)
+void   Plotter::cursorScrollPixel(int index, int pix)
 {
     setCursorPos(index, (m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));
 }
-
-bool Plotter::onCursor(QPoint point, int& selectedCursor, bool startDrag)
+bool   Plotter::onCursor(QPoint point, int& selectedCursor, bool startDrag)
 {
     bool retVal = false;
     for (int cursor = 0; cursor < m_cursorRect.size(); cursor++)
@@ -265,23 +251,37 @@ bool Plotter::onCursor(QPoint point, int& selectedCursor, bool startDrag)
     }
     return retVal;
 }
-
-void Plotter::dragCursor(int index)
+void   Plotter::dragCursor(int index)
 {
     if ((index >= 0) && (index < m_cursorPos.size()))
     {
         m_cursorDrag = index + 1; // 0 none, index + 1 (zero based) if cursor index is dragged
     }
 }
-
-void Plotter::releaseCursor()
+void   Plotter::releaseCursor()
 {
     m_cursorDrag = 0;
 }
-
-int Plotter::getCursorDragged()
+int    Plotter::getCursorDragged()
 {
     return m_cursorDrag;
+}
+QVector<QVector<double>> Plotter::getCursorValueTrack(void)
+{
+    QVector<QVector<double>> cursorInfo;
+    for (int cur = 0; cur < m_cursorPos.size(); cur++)
+    {
+        QVector<double> data;
+        qreal x = m_cursorPos.at(cur);
+        qreal dx = m_data[1][0] - m_data[0][0];
+        int i = (int)(x/dx);
+        for (int track = 0; track < m_data[0].size(); track++)
+        {
+            data.append(m_data[i][track]);
+        }
+        cursorInfo.append(data);
+    }
+    return cursorInfo;
 }
 
 // Undo
@@ -293,7 +293,6 @@ void Plotter::Undo(void)
         m_range = m_undoRangeHystory.takeLast();
     }
 }
-
 void Plotter::Redo(void)
 {
     if (!m_redoRangeHystory.isEmpty())
@@ -302,7 +301,6 @@ void Plotter::Redo(void)
         m_range = m_redoRangeHystory.takeLast();
     }
 }
-
 void Plotter::AddUndoStatus(void)
 {
     if (!m_debounce)
@@ -313,7 +311,6 @@ void Plotter::AddUndoStatus(void)
         m_debounce = true;
     }
 }
-
 void Plotter::endTimer()
 {
     m_debounce = false;

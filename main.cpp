@@ -5,7 +5,6 @@
 #include "simModel/inc/gsimmodel_global.h"
 #include "simModel/inc/simModel.h"
 
-//#include "wplot.h"
 #include "mwplot.h"
 
 int main(int argc, char *argv[])
@@ -28,7 +27,7 @@ int main(int argc, char *argv[])
     //w_p1.show();
     MWPlot mw_pl;
     mw_pl.show();
-    mw_pl.loadDataFile("model1.txt");
+    mw_pl.loadDataFile("model2.txt");
 
     return a.exec();
 }

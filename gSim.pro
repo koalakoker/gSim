@@ -59,6 +59,7 @@ SOURCES += \
     simModules/src/plotter.cpp \
     simModules/src/wplot.cpp \
     simModules/src/mwplot.cpp \
+    simModules/src/wcursorinfo.cpp \
     simModel/src/simModel.cpp \
     simModel/src/baseSimModel.cpp \
     simModel/src/simModelElement.cpp
@@ -108,6 +109,7 @@ HEADERS += \
     simModules/inc/plotter.h \
     simModules/inc/wplot.h \
     simModules/inc/mwplot.h \
+    simModules/inc/wcursorinfo.h \
     simModel/inc/simModel.h \
     simModel/inc/gsimmodel_global.h \
     simModel/inc/baseSimModel.h \
@@ -119,7 +121,8 @@ FORMS += \
     simModules/src/wscope.ui \
     simModules/src/waxisctrl.ui \
     simModules/src/wcursorctrl.ui \
-    simModules/src/mwplot.ui
+    simModules/src/mwplot.ui \
+    simModules/src/wcursorinfo.ui
 
 RESOURCES += \
     resource.qrc

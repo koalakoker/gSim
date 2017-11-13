@@ -77,6 +77,13 @@ void WPlot::loadDataFile(QString fileName)
 
     updatePlot();
 }
+QVector<QVector<double> > WPlot::getCursorValueTrack(void)
+{
+    if (!m_plotter)
+        return QVector<QVector<double>>();
+    return m_plotter->getCursorValueTrack();
+}
+
 void WPlot::paintEvent(QPaintEvent *)
 {
     QPainter p(this);

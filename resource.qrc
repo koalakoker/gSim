@@ -7,5 +7,6 @@
         <file>png/redo.png</file>
         <file>png/save.png</file>
         <file>png/undo.png</file>
+        <file>png/question.png</file>
     </qresource>
 </RCC>

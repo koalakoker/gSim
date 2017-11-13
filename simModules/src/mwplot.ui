@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -37,8 +37,15 @@
     <addaction name="actionZoom_Undo"/>
     <addaction name="actionZoom_Redo"/>
    </widget>
+   <widget class="QMenu" name="menuTest">
+    <property name="title">
+     <string>Test</string>
+    </property>
+    <addaction name="actionTest"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
+   <addaction name="menuTest"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -55,6 +62,7 @@
    <addaction name="actionExport_data_file"/>
    <addaction name="actionZoom_Undo"/>
    <addaction name="actionZoom_Redo"/>
+   <addaction name="actionTest"/>
   </widget>
   <action name="actionOpen_data_file">
    <property name="icon">
@@ -102,6 +110,15 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+Z</string>
+   </property>
+  </action>
+  <action name="actionTest">
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/png/question.png</normaloff>:/png/question.png</iconset>
+   </property>
+   <property name="text">
+    <string>Test</string>
    </property>
   </action>
  </widget>
