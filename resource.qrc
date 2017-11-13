@@ -3,5 +3,9 @@
         <file>png/maxY.png</file>
         <file>png/maxX.png</file>
         <file>png/zoomicons.png</file>
+        <file>png/open.png</file>
+        <file>png/redo.png</file>
+        <file>png/save.png</file>
+        <file>png/undo.png</file>
     </qresource>
 </RCC>

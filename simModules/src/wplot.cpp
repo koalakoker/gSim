@@ -1,11 +1,18 @@
 #include "wplot.h"
+#include "ui_wplot.h"
+
 #include <QGestureEvent>
-#include <QApplication>
+#include <QMouseEvent>
+#include <QFile>
 #include <QTextStream>
 #include <QDebug>
 
-WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent), menu(new QMenuBar(this))
+WPlot::WPlot(QWidget *parent, QString fileName) :
+    QMainWindow(parent),
+    ui(new Ui::WPlot)
 {
+    ui->setupUi(this);
+
     m_drag = false;
     grabGesture(Qt::PinchGesture);
     setMouseTracking(true);
@@ -59,22 +66,11 @@ WPlot::WPlot(QString fileName, QWidget * parent) : QWidget(parent), menu(new QMe
                 Plotter::LINE_STYLE);
 
     updatePlot();
-
-    createMenu();
 }
 
-void WPlot::createMenu(void)
+WPlot::~WPlot()
 {
-    QMenu *file = new QMenu("&File");
-    file->addAction("&Open data file"  , this, SLOT(actionOpen())  , QKeySequence(Qt::CTRL             + Qt::Key_O));
-    file->addAction("&Export data file", this, SLOT(actionExport()), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_S));
-    file->addAction("&Close"           , this, SLOT(close())       , QKeySequence(Qt::CTRL             + Qt::Key_W));
-    menu->addMenu(file);
-
-    QMenu *edit = new QMenu("&Edit");
-    edit->addAction("Zoom &Undo", this, SLOT(actionUndo()),  QKeySequence(Qt::CTRL             + Qt::Key_Z));
-    edit->addAction("Zoom &Redo", this, SLOT(actionRedo()),  QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_Z));
-    menu->addMenu(edit);
+    delete ui;
 }
 
 void WPlot::paintEvent(QPaintEvent *)

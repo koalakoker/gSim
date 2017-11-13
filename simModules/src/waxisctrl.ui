@@ -24,8 +24,8 @@
     <rect>
      <x>9</x>
      <y>9</y>
-     <width>359</width>
-     <height>123</height>
+     <width>416</width>
+     <height>150</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -128,7 +128,7 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="resource.qrc">
+            <iconset resource="../../resource.qrc">
              <normaloff>:/png/maxX.png</normaloff>:/png/maxX.png</iconset>
            </property>
            <property name="iconSize">
@@ -152,7 +152,7 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="resource.qrc">
+            <iconset resource="../../resource.qrc">
              <normaloff>:/png/maxY.png</normaloff>:/png/maxY.png</iconset>
            </property>
            <property name="iconSize">
@@ -169,7 +169,7 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="resource.qrc">
+            <iconset resource="../../resource.qrc">
              <normaloff>:/png/zoomicons.png</normaloff>:/png/zoomicons.png</iconset>
            </property>
            <property name="iconSize">
@@ -189,7 +189,7 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="resource.qrc">
+            <iconset resource="../../resource.qrc">
              <normaloff>:/png/zoomicons.png</normaloff>:/png/zoomicons.png</iconset>
            </property>
            <property name="iconSize">
@@ -212,7 +212,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="resource.qrc"/>
+  <include location="../../resource.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -60,7 +60,7 @@ SOURCES += \
     simModules/src/wplot.cpp \
     simModel/src/simModel.cpp \
     simModel/src/baseSimModel.cpp \
-    simModel/src/simModelElement.cpp \
+    simModel/src/simModelElement.cpp
 
 HEADERS += \
     gsim.h \
@@ -109,14 +109,15 @@ HEADERS += \
     simModel/inc/simModel.h \
     simModel/inc/gsimmodel_global.h \
     simModel/inc/baseSimModel.h \
-    simModel/inc/simModelElement.h \
+    simModel/inc/simModelElement.h
 
 FORMS += \
     gsim.ui \
     simTemplates/simView/baseSimView.ui \
     simModules/src/wscope.ui \
     simModules/src/waxisctrl.ui \
-    simModules/src/wcursorctrl.ui
+    simModules/src/wcursorctrl.ui \
+    simModules/src/wplot.ui
 
 RESOURCES += \
     resource.qrc

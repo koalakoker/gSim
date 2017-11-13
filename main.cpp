@@ -6,6 +6,7 @@
 #include "simModel/inc/simModel.h"
 
 #include "wplot.h"
+#include "widgettest.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,7 +24,7 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    WPlot w_p1("model2.txt");
+    WPlot w_p1;
     //WPlot w_p2("scope_abcCurr.txt");
     w_p1.show();
     //w_p2.show();
