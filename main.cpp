@@ -6,7 +6,6 @@
 #include "simModel/inc/simModel.h"
 
 #include "wplot.h"
-#include "widgettest.h"
 
 int main(int argc, char *argv[])
 {
