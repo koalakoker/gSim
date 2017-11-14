@@ -16,6 +16,16 @@ WCursorInfo::~WCursorInfo()
     delete ui;
 }
 
+static QSize myGetQTableWidgetSize(QTableWidget *t) {
+   int w = t->verticalHeader()->width() + 4; // +4 seems to be needed
+   for (int i = 0; i < t->columnCount(); i++)
+      w += t->columnWidth(i); // seems to include gridline (on my machine)
+   int h = t->horizontalHeader()->height() + 4;
+   for (int i = 0; i < t->rowCount(); i++)
+      h += t->rowHeight(i);
+   return QSize(w, h);
+}
+
 void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
 {
     int cursorNum = cursorInfo.size();
@@ -32,10 +42,13 @@ void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
             ui->tableWidget->setItem(cur,track,cell);
         }
     }
+    ui->tableWidget->setMaximumSize(myGetQTableWidgetSize(ui->tableWidget));
+    ui->tableWidget->setMinimumSize(ui->tableWidget->maximumSize()); // optional
+    resize(ui->tableWidget->size());
 }
 
 void WCursorInfo::on_pushButton_clicked()
 {
-    QTableWidgetItem* cell = new QTableWidgetItem("0");
-    ui->tableWidget->setItem(0,0,cell);
+    //QTableWidgetItem* cell = new QTableWidgetItem("0");
+    //ui->tableWidget->setItem(0,0,cell);
 }
