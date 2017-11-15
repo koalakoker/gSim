@@ -53,6 +53,7 @@ void WPlot::loadDataFile(QString fileName)
             }
             data.append(sample);
         }
+        m_fileName = fileName;
     }
     file.close();
 

@@ -44,6 +44,7 @@ QVector<double> MWPlot::getSelectedCursorValueTrack(void)
 void MWPlot::onNewPlotter()
 {
     connect(ui->wplot->m_plotter,SIGNAL(cursorChanged()), this, SLOT(onCursorChange()));
+    setWindowTitle(ui->wplot->m_fileName);
 }
 void MWPlot::onCursorChange()
 {

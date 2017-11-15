@@ -18,6 +18,7 @@ public:
     const Qt::MouseButton addCursorButton = Qt::RightButton;
 
     Plotter *m_plotter;
+    QString m_fileName;
 
 public slots:
     void updatePlot(void);
