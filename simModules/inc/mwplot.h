@@ -18,6 +18,14 @@ public:
     ~MWPlot();
     void loadDataFile(QString fileName);
     QVector<QVector<double>> getCursorValueTrack(void);
+    QVector<double> getCursorValueTrack(int cur);
+    QVector<double> getSelectedCursorValueTrack(void);
+
+public slots:
+    void onCursorChange();
+
+signals:
+    void cursorChanged();
 
 private slots:
     void on_actionOpen_data_file_triggered();

@@ -49,7 +49,9 @@ public:
     void dragCursor(int index);
     void releaseCursor();
     int getCursorDragged();
-    QVector<QVector<double> > getCursorValueTrack(void);
+    QVector<QVector<double>> getCursorValueTrack(void);
+    QVector<double> getCursorValueTrack(int cur);
+    QVector<double> getSelectedCursorValueTrack(void);
 
     // Undo-Redo
     void Undo(void);
@@ -59,6 +61,7 @@ public:
 signals:
     void done(QImage);
     void cleanup();
+    void cursorChanged();
 
 public slots:
     QImage plot();

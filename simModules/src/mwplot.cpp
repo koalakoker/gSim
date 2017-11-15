@@ -7,6 +7,7 @@
 MWPlot::MWPlot(QWidget *parent) : QMainWindow(parent), ui(new Ui::MWPlot), wCursorInfo(NULL)
 {
     ui->setupUi(this);
+    connect(ui->wplot,SIGNAL(cursorChanged()), this, SLOT(onCursorChange()));
 }
 MWPlot::~MWPlot()
 {
@@ -23,6 +24,14 @@ void MWPlot::loadDataFile(QString fileName)
 QVector<QVector<double>> MWPlot::getCursorValueTrack(void)
 {
     return ui->wplot->getCursorValueTrack();
+}
+QVector<double> MWPlot::getCursorValueTrack(int cur)
+{
+    return ui->wplot->getCursorValueTrack(cur);
+}
+QVector<double> MWPlot::getSelectedCursorValueTrack(void)
+{
+    return ui->wplot->getSelectedCursorValueTrack();
 }
 
 // Actions
@@ -44,12 +53,33 @@ void MWPlot::on_actionZoom_Redo_triggered()
     ui->wplot->zoom_Redo();
 }
 
+void MWPlot::onCursorChange()
+{
+    emit cursorChanged();
+    if (wCursorInfo)
+    {
+        wCursorInfo->updateInfo(getCursorValueTrack());
+    }
+}
 void MWPlot::on_actionTest_triggered()
 {
-    if (wCursorInfo)
-        delete wCursorInfo;
-    wCursorInfo = new WCursorInfo();
-    wCursorInfo->show();
+    bool oldPos = false;
+    QPoint pos;
     QVector<QVector<double>> cursorInfo = getCursorValueTrack();
-    wCursorInfo->updateInfo(cursorInfo);
+    if (cursorInfo.size() > 0)
+    {
+        if (wCursorInfo)
+        {
+            pos = wCursorInfo->pos();
+            delete wCursorInfo;
+            oldPos = true;
+        }
+        wCursorInfo = new WCursorInfo();
+        wCursorInfo->show();
+        wCursorInfo->updateInfo(cursorInfo);
+        if (oldPos)
+        {
+            wCursorInfo->move(pos);
+        }
+    }
 }

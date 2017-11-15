@@ -112,6 +112,7 @@ QImage Plotter::plot()
         qreal curYposTop    = m_range.y();
         qreal curYposBottom = m_range.y()+m_range.height();
         p.drawLine(map(curXpos, curYposTop), map(curXpos, curYposBottom));
+        p.drawText(mapX(curXpos)+5,15,QString::number(cur+1));
 
         QPointF top     = map(curXpos, curYposTop);
         QPointF bottom  = map(curXpos, curYposBottom);
@@ -217,18 +218,22 @@ void Plotter::zoomXToCursors(QPoint point)
 void   Plotter::addCursor(qreal pos)
 {
     m_cursorPos.append(pos);
+    emit cursorChanged();
 }
 void   Plotter::addCursorAtPixel(int pos)
 {
     m_cursorPos.append(invMapX(pos));
+    emit cursorChanged();
 }
 void   Plotter::removeCursor(int index)
 {
     m_cursorPos.remove(index);
+    emit cursorChanged();
 }
 void   Plotter::setCursorPos(int index, qreal pos)
 {
     m_cursorPos[index] += pos;
+    emit cursorChanged();
 }
 void   Plotter::cursorScrollPixel(int index, int pix)
 {
@@ -271,17 +276,25 @@ QVector<QVector<double>> Plotter::getCursorValueTrack(void)
     QVector<QVector<double>> cursorInfo;
     for (int cur = 0; cur < m_cursorPos.size(); cur++)
     {
-        QVector<double> data;
-        qreal x = m_cursorPos.at(cur);
-        qreal dx = m_data[1][0] - m_data[0][0];
-        int i = (int)(x/dx);
-        for (int track = 0; track < m_data[0].size(); track++)
-        {
-            data.append(m_data[i][track]);
-        }
-        cursorInfo.append(data);
+        cursorInfo.append(getCursorValueTrack(cur));
     }
     return cursorInfo;
+}
+QVector<double> Plotter::getCursorValueTrack(int cur)
+{
+    QVector<double> data;
+    qreal x = m_cursorPos.at(cur);
+    qreal dx = m_data[1][0] - m_data[0][0];
+    int i = (int)(x/dx);
+    for (int track = 0; track < m_data[0].size(); track++)
+    {
+        data.append(m_data[i][track]);
+    }
+    return data;
+}
+QVector<double> Plotter::getSelectedCursorValueTrack(void)
+{
+    return getCursorValueTrack(m_cursorDrag);
 }
 
 // Undo

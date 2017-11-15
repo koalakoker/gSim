@@ -74,14 +74,26 @@ void WPlot::loadDataFile(QString fileName)
                 QRectF(x_min, y_min, x_max - x_min, y_max - y_min),
                 data,
                 Plotter::LINE_STYLE);
-
+    connect(m_plotter,SIGNAL(cursorChanged()), this, SLOT(onCursorChange()));
     updatePlot();
 }
-QVector<QVector<double> > WPlot::getCursorValueTrack(void)
+QVector<QVector<double>> WPlot::getCursorValueTrack(void)
 {
     if (!m_plotter)
         return QVector<QVector<double>>();
     return m_plotter->getCursorValueTrack();
+}
+QVector<double> WPlot::getCursorValueTrack(int cur)
+{
+    if (!m_plotter)
+        return QVector<double>();
+    return m_plotter->getCursorValueTrack(cur);
+}
+QVector<double> WPlot::getSelectedCursorValueTrack(void)
+{
+    if (!m_plotter)
+        return QVector<double>();
+    return m_plotter->getSelectedCursorValueTrack();
 }
 
 void WPlot::paintEvent(QPaintEvent *)
@@ -108,6 +120,10 @@ void WPlot::zoom_Redo(void)
         return;
     m_plotter->Redo();
     updatePlot();
+}
+void WPlot::onCursorChange()
+{
+    emit cursorChanged();
 }
 
 // Mouse events

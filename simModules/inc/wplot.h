@@ -14,6 +14,8 @@ public:
     ~WPlot();
     void loadDataFile(QString fileName);
     QVector<QVector<double>> getCursorValueTrack(void);
+    QVector<double> getCursorValueTrack(int cur);
+    QVector<double> getSelectedCursorValueTrack(void);
 
     const Qt::MouseButton dragButton = Qt::LeftButton;
     const Qt::MouseButton addCursorButton = Qt::RightButton;
@@ -22,6 +24,10 @@ public slots:
     void updatePlot(void);
     void zoom_Undo(void);
     void zoom_Redo(void);
+    void onCursorChange();
+
+signals:
+    void cursorChanged();
 
 private:
     QImage plot;
