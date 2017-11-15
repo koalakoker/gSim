@@ -16,6 +16,7 @@ WCursorInfo::~WCursorInfo()
     delete ui;
 }
 
+/* Copy pasted from the WEB */
 static QSize myGetQTableWidgetSize(QTableWidget *t) {
    int w = t->verticalHeader()->width() + 4; // +4 seems to be needed
    for (int i = 0; i < t->columnCount(); i++)
@@ -28,19 +29,28 @@ static QSize myGetQTableWidgetSize(QTableWidget *t) {
 
 void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
 {
+    const Qt::GlobalColor plotColor[] = {Qt::black,Qt::black, Qt::blue, Qt::green, Qt::red};
     int cursorNum = cursorInfo.size();
     if (cursorNum > 0)
     {
         int trackNum = cursorInfo[0].size();
         ui->tableWidget->setColumnCount(trackNum);
+
+        QStringList horizontalLabels;
+        horizontalLabels << "x";
+        for (int i = 0; i < trackNum; i++)
+        {
+            horizontalLabels << QString("y%1").arg(i+1);
+        }
+        ui->tableWidget->setHorizontalHeaderLabels(horizontalLabels);
+
         ui->tableWidget->setRowCount(cursorNum);
         for (int cur = 0; cur < cursorNum; cur++)
         {
-            //qDebug() << "Cursor: " << cur;
             for (int track = 0;  track < trackNum;  track++)
             {
-                //qDebug() << "Track: " << track << " Value:" << cursorInfo[cur][track];
                 QTableWidgetItem* cell = new QTableWidgetItem(QString::number(cursorInfo[cur][track]));
+                cell->setTextColor(plotColor[track]);
                 ui->tableWidget->setItem(cur,track,cell);
             }
         }
@@ -48,10 +58,4 @@ void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
         ui->tableWidget->setMinimumSize(ui->tableWidget->maximumSize()); // optional
         resize(ui->tableWidget->size());
     }
-}
-
-void WCursorInfo::on_pushButton_clicked()
-{
-    //QTableWidgetItem* cell = new QTableWidgetItem("0");
-    //ui->tableWidget->setItem(0,0,cell);
 }

@@ -19,7 +19,6 @@ public slots:
     void updateInfo(QVector<QVector<double>> cursorInfo);
 
 private slots:
-    void on_pushButton_clicked();
 
 private:
     Ui::WCursorInfo *ui;
