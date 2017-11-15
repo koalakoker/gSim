@@ -7,7 +7,7 @@
 MWPlot::MWPlot(QWidget *parent) : QMainWindow(parent), ui(new Ui::MWPlot), wCursorInfo(NULL)
 {
     ui->setupUi(this);
-    connect(ui->wplot,SIGNAL(cursorChanged()), this, SLOT(onCursorChange()));
+    connect(ui->wplot,SIGNAL(newPlotter()), this, SLOT(onNewPlotter()));
 }
 MWPlot::~MWPlot()
 {
@@ -23,36 +23,28 @@ void MWPlot::loadDataFile(QString fileName)
 }
 QVector<QVector<double>> MWPlot::getCursorValueTrack(void)
 {
-    return ui->wplot->getCursorValueTrack();
+    if (ui->wplot->m_plotter)
+        return ui->wplot->m_plotter->getCursorValueTrack();
+    return QVector<QVector<double>>();
 }
 QVector<double> MWPlot::getCursorValueTrack(int cur)
 {
-    return ui->wplot->getCursorValueTrack(cur);
+    if (ui->wplot->m_plotter)
+        return ui->wplot->m_plotter->getCursorValueTrack(cur);
+    return QVector<double>();
 }
 QVector<double> MWPlot::getSelectedCursorValueTrack(void)
 {
-    return ui->wplot->getSelectedCursorValueTrack();
+    if (ui->wplot->m_plotter)
+        return ui->wplot->m_plotter->getSelectedCursorValueTrack();
+    return QVector<double>();
 }
 
-// Actions
-void MWPlot::on_actionOpen_data_file_triggered()
+// Slots
+void MWPlot::onNewPlotter()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,"Open data file","","*.*");
-    ui->wplot->loadDataFile(fileName);
+    connect(ui->wplot->m_plotter,SIGNAL(cursorChanged()), this, SLOT(onCursorChange()));
 }
-void MWPlot::on_actionExport_data_file_triggered()
-{
-    qDebug() << "Export";
-}
-void MWPlot::on_actionZoom_Undo_triggered()
-{
-    ui->wplot->zoom_Undo();
-}
-void MWPlot::on_actionZoom_Redo_triggered()
-{
-    ui->wplot->zoom_Redo();
-}
-
 void MWPlot::onCursorChange()
 {
     emit cursorChanged();
@@ -82,4 +74,23 @@ void MWPlot::on_actionTest_triggered()
             wCursorInfo->move(pos);
         }
     }
+}
+
+// Actions
+void MWPlot::on_actionOpen_data_file_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,"Open data file","","*.*");
+    ui->wplot->loadDataFile(fileName);
+}
+void MWPlot::on_actionExport_data_file_triggered()
+{
+    qDebug() << "Export";
+}
+void MWPlot::on_actionZoom_Undo_triggered()
+{
+    ui->wplot->zoom_Undo();
+}
+void MWPlot::on_actionZoom_Redo_triggered()
+{
+    ui->wplot->zoom_Redo();
 }

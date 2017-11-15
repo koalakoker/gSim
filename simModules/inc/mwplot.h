@@ -22,6 +22,7 @@ public:
     QVector<double> getSelectedCursorValueTrack(void);
 
 public slots:
+    void onNewPlotter();
     void onCursorChange();
 
 signals:
