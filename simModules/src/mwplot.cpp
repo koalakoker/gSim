@@ -62,8 +62,7 @@ void MWPlot::onCursorChange()
 void MWPlot::on_cursorPosChanged(int cur, qreal value)
 {
     ui->wplot->m_plotter->setCursorPos(cur, value);
-    ui->wplot->m_plotter->plot();??
-    qDebug() << "Cursor: " << cur << " value" << value;
+    ui->wplot->updatePlot();
 }
 
 // Actions

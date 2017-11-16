@@ -230,14 +230,20 @@ void   Plotter::removeCursor(int index)
     m_cursorPos.remove(index);
     emit cursorChanged();
 }
-void   Plotter::setCursorPos(int index, qreal pos)
+void Plotter::setCursorPos(int index, qreal pos)
+{
+    m_cursorPos[index] = pos;
+    emit cursorChanged();
+}
+
+void   Plotter::cursorScroll(int index, qreal pos)
 {
     m_cursorPos[index] += pos;
     emit cursorChanged();
 }
 void   Plotter::cursorScrollPixel(int index, int pix)
 {
-    setCursorPos(index, (m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));
+    cursorScroll(index, (m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));
 }
 bool   Plotter::onCursor(QPoint point, int& selectedCursor, bool startDrag)
 {

@@ -75,10 +75,10 @@ void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
     }
     ui->tableWidget->setMaximumSize(myGetQTableWidgetSize(ui->tableWidget));
     ui->tableWidget->setMinimumSize(ui->tableWidget->maximumSize()); // optional
-    resize(ui->tableWidget->maximumSize());
+    resize(ui->tableWidget->size());
 }
 
 void WCursorInfo::on_tableWidget_cellChanged(int row, int column)
 {
-    emit cursorPosChanged(row, ui->tableWidget->itemAt(row,column)->text().toDouble());
+    emit cursorPosChanged(row, ui->tableWidget->item(row,column)->text().toDouble());
 }
