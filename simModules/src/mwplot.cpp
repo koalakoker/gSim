@@ -10,6 +10,7 @@ MWPlot::MWPlot(QWidget *parent) : QMainWindow(parent), ui(new Ui::MWPlot), wCurs
     connect(ui->wplot,SIGNAL(newPlotter()), this, SLOT(onNewPlotter()));
     wCursorInfo = new WCursorInfo();
     wCursorInfo->updateInfo(getCursorValueTrack());
+    connect (wCursorInfo, SIGNAL(cursorPosChanged(int,qreal)), this, SLOT(on_cursorPosChanged(int,qreal)));
 }
 MWPlot::~MWPlot()
 {
@@ -55,6 +56,14 @@ void MWPlot::onCursorChange()
     {
         wCursorInfo->updateInfo(getCursorValueTrack());
     }
+}
+
+// Private Slots
+void MWPlot::on_cursorPosChanged(int cur, qreal value)
+{
+    ui->wplot->m_plotter->setCursorPos(cur, value);
+    ui->wplot->m_plotter->plot();??
+    qDebug() << "Cursor: " << cur << " value" << value;
 }
 
 // Actions

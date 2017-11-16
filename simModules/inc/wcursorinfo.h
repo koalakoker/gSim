@@ -18,7 +18,11 @@ public:
 public slots:
     void updateInfo(QVector<QVector<double>> cursorInfo);
 
+signals:
+    void cursorPosChanged(int cur, qreal value);
+
 private slots:
+    void on_tableWidget_cellChanged(int row, int column);
 
 private:
     Ui::WCursorInfo *ui;

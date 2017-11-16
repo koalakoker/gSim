@@ -29,6 +29,7 @@ signals:
     void cursorChanged();
 
 private slots:
+    void on_cursorPosChanged(int cur, qreal value);
     void on_actionOpen_data_file_triggered();
     void on_actionExport_data_file_triggered();
     void on_actionZoom_Undo_triggered();

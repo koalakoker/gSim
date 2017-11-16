@@ -51,7 +51,17 @@ void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
             {
                 QTableWidgetItem* cell = new QTableWidgetItem(QString::number(cursorInfo[cur][track]));
                 cell->setTextColor(plotColor[track]);
+                if (track == 0)
+                {
+
+                }
+                else
+                {
+                    cell->setFlags(cell->flags() ^ Qt::ItemIsEditable);
+                }
+                ui->tableWidget->blockSignals(true);
                 ui->tableWidget->setItem(cur,track,cell);
+                ui->tableWidget->blockSignals(false);
             }
         }
     }
@@ -66,4 +76,9 @@ void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
     ui->tableWidget->setMaximumSize(myGetQTableWidgetSize(ui->tableWidget));
     ui->tableWidget->setMinimumSize(ui->tableWidget->maximumSize()); // optional
     resize(ui->tableWidget->maximumSize());
+}
+
+void WCursorInfo::on_tableWidget_cellChanged(int row, int column)
+{
+    emit cursorPosChanged(row, ui->tableWidget->itemAt(row,column)->text().toDouble());
 }
