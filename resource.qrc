@@ -8,5 +8,10 @@
         <file>png/save.png</file>
         <file>png/undo.png</file>
         <file>png/question.png</file>
+        <file>png/add.png</file>
+        <file>png/cursorInfo.png</file>
+        <file>png/fit.png</file>
+        <file>png/zoom-out.png</file>
+        <file>png/zoom.png</file>
     </qresource>
 </RCC>

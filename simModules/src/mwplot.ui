@@ -36,6 +36,8 @@
     </property>
     <addaction name="actionZoom_Undo"/>
     <addaction name="actionZoom_Redo"/>
+    <addaction name="actionZoom_In"/>
+    <addaction name="actionZoom_Out"/>
    </widget>
    <widget class="QMenu" name="menuTest">
     <property name="title">
@@ -43,9 +45,17 @@
     </property>
     <addaction name="actionTest"/>
    </widget>
+   <widget class="QMenu" name="menuCursors">
+    <property name="title">
+     <string>Cursors</string>
+    </property>
+    <addaction name="actionAdd"/>
+    <addaction name="actionInfo_data"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuTest"/>
+   <addaction name="menuCursors"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -62,6 +72,10 @@
    <addaction name="actionExport_data_file"/>
    <addaction name="actionZoom_Undo"/>
    <addaction name="actionZoom_Redo"/>
+   <addaction name="actionZoom_In"/>
+   <addaction name="actionZoom_Out"/>
+   <addaction name="actionAdd"/>
+   <addaction name="actionInfo_data"/>
    <addaction name="actionTest"/>
   </widget>
   <action name="actionOpen_data_file">
@@ -119,6 +133,45 @@
    </property>
    <property name="text">
     <string>Test</string>
+   </property>
+  </action>
+  <action name="actionAdd">
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/png/add.png</normaloff>:/png/add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add Cursor</string>
+   </property>
+  </action>
+  <action name="actionInfo_data">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/png/cursorInfo.png</normaloff>:/png/cursorInfo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Info data</string>
+   </property>
+  </action>
+  <action name="actionZoom_In">
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/png/zoom.png</normaloff>:/png/zoom.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/png/zoom-out.png</normaloff>:/png/zoom-out.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Out</string>
    </property>
   </action>
  </widget>

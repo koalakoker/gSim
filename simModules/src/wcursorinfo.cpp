@@ -54,8 +54,16 @@ void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
                 ui->tableWidget->setItem(cur,track,cell);
             }
         }
-        ui->tableWidget->setMaximumSize(myGetQTableWidgetSize(ui->tableWidget));
-        ui->tableWidget->setMinimumSize(ui->tableWidget->maximumSize()); // optional
-        resize(ui->tableWidget->size());
     }
+    else
+    {
+        ui->tableWidget->setColumnCount(2);
+        ui->tableWidget->setRowCount(0);
+        QStringList horizontalLabels;
+        horizontalLabels << "x" << "y";
+        ui->tableWidget->setHorizontalHeaderLabels(horizontalLabels);
+    }
+    ui->tableWidget->setMaximumSize(myGetQTableWidgetSize(ui->tableWidget));
+    ui->tableWidget->setMinimumSize(ui->tableWidget->maximumSize()); // optional
+    resize(ui->tableWidget->maximumSize());
 }

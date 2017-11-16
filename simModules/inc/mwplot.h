@@ -33,6 +33,7 @@ private slots:
     void on_actionExport_data_file_triggered();
     void on_actionZoom_Undo_triggered();
     void on_actionZoom_Redo_triggered();
+    void on_actionInfo_data_changed();
 
     void on_actionTest_triggered();
 
