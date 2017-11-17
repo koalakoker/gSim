@@ -23,6 +23,7 @@ signals:
 
 private slots:
     void on_tableWidget_cellChanged(int row, int column);
+    void forceResize(void);
 
 private:
     Ui::WCursorInfo *ui;
