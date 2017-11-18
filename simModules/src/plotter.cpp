@@ -122,6 +122,57 @@ QImage Plotter::plot()
         m_cursorRect.append(rect);
     }
 
+    /* Axis */
+    int hDivNum = 5;
+    int vDivNum = 5;
+    int divLen = 10;
+    bool axsisBottom = true;
+    bool axsisLeft = true;
+    bool axsisTop = true;
+    bool axsisRight = true;
+
+    int h = m_size.height();
+    int w = m_size.width();
+
+    int hDivSpace = m_size.width()  / hDivNum;
+    int vDivSpace = m_size.height() / vDivNum;
+
+    pen.setColor(Qt::black);
+    pen.setStyle(Qt::SolidLine);
+    p.setPen(pen);
+
+    if (axsisBottom)
+    {
+        for (int i = 0; i < (hDivNum-1); i++)
+        {
+            p.drawLine(QPoint(hDivSpace * (i+1), h), QPoint(hDivSpace * (i+1), h - divLen));
+        }
+    }
+
+    if (axsisTop)
+    {
+        for (int i = 0; i < (hDivNum-1); i++)
+        {
+            p.drawLine(QPoint(hDivSpace * (i+1), 0), QPoint(hDivSpace * (i+1), divLen));
+        }
+    }
+
+    if (axsisLeft)
+    {
+        for (int i = 0; i < (vDivNum-1); i++)
+        {
+            p.drawLine(QPoint(0, vDivSpace * (i+1)), QPoint(divLen, vDivSpace * (i+1)));
+        }
+    }
+
+    if (axsisRight)
+    {
+        for (int i = 0; i < (vDivNum-1); i++)
+        {
+            p.drawLine(QPoint(w, vDivSpace * (i+1)), QPoint(w - divLen, vDivSpace * (i+1)));
+        }
+    }
+
     //qDebug() << "plotted in" << t.elapsed() << "msec";
     return img;
 }
