@@ -35,6 +35,10 @@ private slots:
     void on_actionZoom_Undo_triggered();
     void on_actionZoom_Redo_triggered();
     void on_actionInfo_data_changed();
+    void on_actionBottom_toggled(bool arg1);
+    void on_actionLeft_toggled(bool arg1);
+    void on_actionRight_toggled(bool arg1);
+    void on_actionTop_toggled(bool arg1);
 
     void on_actionTest_triggered();
 

@@ -100,3 +100,39 @@ void MWPlot::on_actionTest_triggered()
 }
 
 
+
+void MWPlot::on_actionBottom_toggled(bool arg1)
+{
+    if (ui->wplot->m_plotter)
+    {
+        ui->wplot->m_plotter->axsisBottom = arg1;
+        ui->wplot->updatePlot();
+    }
+}
+
+void MWPlot::on_actionLeft_toggled(bool arg1)
+{
+    if (ui->wplot->m_plotter)
+    {
+        ui->wplot->m_plotter->axsisLeft = arg1;
+        ui->wplot->updatePlot();
+    }
+}
+
+void MWPlot::on_actionRight_toggled(bool arg1)
+{
+    if (ui->wplot->m_plotter)
+    {
+        ui->wplot->m_plotter->axsisRight = arg1;
+        ui->wplot->updatePlot();
+    }
+}
+
+void MWPlot::on_actionTop_toggled(bool arg1)
+{
+    if (ui->wplot->m_plotter)
+    {
+        ui->wplot->m_plotter->axsisTop = arg1;
+        ui->wplot->updatePlot();
+    }
+}

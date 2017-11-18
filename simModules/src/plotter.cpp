@@ -128,10 +128,6 @@ QImage Plotter::plot()
     int vDivNum = 5;
     int divLen = 10;
     int spacer = 4;
-    bool axsisBottom = true;
-    bool axsisLeft = true;
-    bool axsisTop = false;
-    bool axsisRight = false;
 
     int h = m_size.height();
     int w = m_size.width();

@@ -54,6 +54,12 @@ public:
     QVector<double> getCursorValueTrack(int cur);
     QVector<double> getSelectedCursorValueTrack(void);
 
+    // Axis
+    bool axsisBottom = false;
+    bool axsisLeft = false;
+    bool axsisTop = false;
+    bool axsisRight = false;
+
     // Undo-Redo
     void Undo(void);
     void Redo(void);
