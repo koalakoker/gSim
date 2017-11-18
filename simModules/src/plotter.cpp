@@ -1,5 +1,6 @@
 #include "plotter.h"
 
+#include <QFontMetrics>
 #include <QElapsedTimer>
 #include <QTimer>
 #include <QDebug>
@@ -126,13 +127,15 @@ QImage Plotter::plot()
     int hDivNum = 5;
     int vDivNum = 5;
     int divLen = 10;
+    int spacer = 4;
     bool axsisBottom = true;
     bool axsisLeft = true;
-    bool axsisTop = true;
-    bool axsisRight = true;
+    bool axsisTop = false;
+    bool axsisRight = false;
 
     int h = m_size.height();
     int w = m_size.width();
+    QFontMetrics fm(p.font());
 
     int hDivSpace = m_size.width()  / hDivNum;
     int vDivSpace = m_size.height() / vDivNum;
@@ -146,6 +149,9 @@ QImage Plotter::plot()
         for (int i = 0; i < (hDivNum-1); i++)
         {
             p.drawLine(QPoint(hDivSpace * (i+1), h), QPoint(hDivSpace * (i+1), h - divLen));
+            QString valueStr = QString::number(i);
+            QSize sz = fm.size(Qt::TextSingleLine,valueStr);
+            p.drawText(QPoint(hDivSpace * (i+1) - (sz.width()/2), h - divLen - spacer), valueStr);
         }
     }
 
@@ -154,6 +160,9 @@ QImage Plotter::plot()
         for (int i = 0; i < (hDivNum-1); i++)
         {
             p.drawLine(QPoint(hDivSpace * (i+1), 0), QPoint(hDivSpace * (i+1), divLen));
+            QString valueStr = QString::number(i);
+            QSize sz = fm.size(Qt::TextSingleLine,valueStr);
+            p.drawText(QPoint(hDivSpace * (i+1) - (sz.width()/2), divLen + sz.height()), valueStr);
         }
     }
 
@@ -162,6 +171,9 @@ QImage Plotter::plot()
         for (int i = 0; i < (vDivNum-1); i++)
         {
             p.drawLine(QPoint(0, vDivSpace * (i+1)), QPoint(divLen, vDivSpace * (i+1)));
+            QString valueStr = QString::number(i);
+            QSize sz = fm.size(Qt::TextSingleLine,valueStr);
+            p.drawText(QPoint(divLen + spacer, (vDivSpace * (i+1)) + (sz.height()/2) - spacer) , valueStr);
         }
     }
 
@@ -170,6 +182,9 @@ QImage Plotter::plot()
         for (int i = 0; i < (vDivNum-1); i++)
         {
             p.drawLine(QPoint(w, vDivSpace * (i+1)), QPoint(w - divLen, vDivSpace * (i+1)));
+            QString valueStr = QString::number(i);
+            QSize sz = fm.size(Qt::TextSingleLine,valueStr);
+            p.drawText(QPoint(w - divLen - spacer - sz.width(), (vDivSpace * (i+1)) + (sz.height()/2) - spacer) , valueStr);
         }
     }
 
