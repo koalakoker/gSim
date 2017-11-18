@@ -13,5 +13,7 @@
         <file>png/fit.png</file>
         <file>png/zoom-out.png</file>
         <file>png/zoom.png</file>
+        <file>png/axis_bottom_left.png</file>
+        <file>png/axis_top_right.png</file>
     </qresource>
 </RCC>

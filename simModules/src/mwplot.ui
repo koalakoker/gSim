@@ -89,6 +89,8 @@
    <addaction name="actionZoom_Out"/>
    <addaction name="actionAdd"/>
    <addaction name="actionInfo_data"/>
+   <addaction name="actionBottom_Left"/>
+   <addaction name="actionTop_Right"/>
    <addaction name="actionTest"/>
   </widget>
   <action name="actionOpen_data_file">
@@ -223,6 +225,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/png/axis_bottom_left.png</normaloff>:/png/axis_bottom_left.png</iconset>
+   </property>
    <property name="text">
     <string>Bottom-Left</string>
    </property>
@@ -230,6 +236,10 @@
   <action name="actionTop_Right">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/png/axis_top_right.png</normaloff>:/png/axis_top_right.png</iconset>
    </property>
    <property name="text">
     <string>Top-Right</string>
