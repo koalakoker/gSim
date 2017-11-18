@@ -56,6 +56,9 @@
     <property name="title">
      <string>Axis</string>
     </property>
+    <addaction name="actionBottom_Left"/>
+    <addaction name="actionTop_Right"/>
+    <addaction name="separator"/>
     <addaction name="actionBottom"/>
     <addaction name="actionLeft"/>
     <addaction name="actionTop"/>
@@ -214,6 +217,22 @@
    </property>
    <property name="text">
     <string>Bottom</string>
+   </property>
+  </action>
+  <action name="actionBottom_Left">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Bottom-Left</string>
+   </property>
+  </action>
+  <action name="actionTop_Right">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Top-Right</string>
    </property>
   </action>
  </widget>

@@ -39,6 +39,8 @@ private slots:
     void on_actionLeft_toggled(bool arg1);
     void on_actionRight_toggled(bool arg1);
     void on_actionTop_toggled(bool arg1);
+    void on_actionBottom_Left_toggled(bool arg1);
+    void on_actionTop_Right_toggled(bool arg1);
 
     void on_actionTest_triggered();
 

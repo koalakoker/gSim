@@ -140,7 +140,7 @@ QImage Plotter::plot()
     pen.setStyle(Qt::SolidLine);
     p.setPen(pen);
 
-    if (axsisBottom)
+    if (m_axsisBottom)
     {
         for (int i = 0; i < (hDivNum-1); i++)
         {
@@ -151,7 +151,7 @@ QImage Plotter::plot()
         }
     }
 
-    if (axsisTop)
+    if (m_axsisTop)
     {
         for (int i = 0; i < (hDivNum-1); i++)
         {
@@ -162,7 +162,7 @@ QImage Plotter::plot()
         }
     }
 
-    if (axsisLeft)
+    if (m_axsisLeft)
     {
         for (int i = 0; i < (vDivNum-1); i++)
         {
@@ -173,7 +173,7 @@ QImage Plotter::plot()
         }
     }
 
-    if (axsisRight)
+    if (m_axsisRight)
     {
         for (int i = 0; i < (vDivNum-1); i++)
         {

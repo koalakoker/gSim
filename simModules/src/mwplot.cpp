@@ -105,34 +105,58 @@ void MWPlot::on_actionBottom_toggled(bool arg1)
 {
     if (ui->wplot->m_plotter)
     {
-        ui->wplot->m_plotter->axsisBottom = arg1;
+        ui->wplot->m_plotter->m_axsisBottom = arg1;
         ui->wplot->updatePlot();
     }
+    ui->actionBottom_Left->blockSignals(true);
+    ui->actionBottom_Left->setChecked(ui->actionBottom->isChecked() && ui->actionLeft->isChecked());
+    ui->actionBottom_Left->blockSignals(false);
 }
 
 void MWPlot::on_actionLeft_toggled(bool arg1)
 {
     if (ui->wplot->m_plotter)
     {
-        ui->wplot->m_plotter->axsisLeft = arg1;
+        ui->wplot->m_plotter->m_axsisLeft = arg1;
         ui->wplot->updatePlot();
     }
+    ui->actionBottom_Left->blockSignals(true);
+    ui->actionBottom_Left->setChecked(ui->actionBottom->isChecked() && ui->actionLeft->isChecked());
+    ui->actionBottom_Left->blockSignals(false);
 }
 
 void MWPlot::on_actionRight_toggled(bool arg1)
 {
     if (ui->wplot->m_plotter)
     {
-        ui->wplot->m_plotter->axsisRight = arg1;
+        ui->wplot->m_plotter->m_axsisRight = arg1;
         ui->wplot->updatePlot();
     }
+    ui->actionTop_Right->blockSignals(true);
+    ui->actionTop_Right->setChecked(ui->actionTop->isChecked() && ui->actionRight->isChecked());
+    ui->actionTop_Right->blockSignals(false);
 }
 
 void MWPlot::on_actionTop_toggled(bool arg1)
 {
     if (ui->wplot->m_plotter)
     {
-        ui->wplot->m_plotter->axsisTop = arg1;
+        ui->wplot->m_plotter->m_axsisTop = arg1;
         ui->wplot->updatePlot();
     }
+    ui->actionTop_Right->blockSignals(true);
+    ui->actionTop_Right->setChecked(ui->actionTop->isChecked() && ui->actionRight->isChecked());
+    ui->actionTop_Right->blockSignals(false);
+}
+
+void MWPlot::on_actionBottom_Left_toggled(bool arg1)
+{
+    ui->actionBottom->setChecked(arg1);
+    ui->actionLeft->setChecked(arg1);
+}
+
+void MWPlot::on_actionTop_Right_toggled(bool arg1)
+{
+    ui->actionTop->setChecked(arg1);
+    ui->actionRight->setChecked(arg1);
 }
