@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>214</width>
-    <height>79</height>
+    <width>184</width>
+    <height>71</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -33,12 +33,18 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="WTable" name="tableWidget">
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="rowCount">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="columnCount">
-      <number>2</number>
+      <number>0</number>
      </property>
      <attribute name="horizontalHeaderVisible">
       <bool>true</bool>
@@ -58,38 +64,10 @@
      <attribute name="verticalHeaderDefaultSectionSize">
       <number>21</number>
      </attribute>
-     <row/>
-     <column>
-      <property name="text">
-       <string>x</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>y1</string>
-      </property>
-     </column>
-     <item row="0" column="0">
-      <property name="text">
-       <string>0</string>
-      </property>
-     </item>
-     <item row="0" column="1">
-      <property name="text">
-       <string>0</string>
-      </property>
-     </item>
     </widget>
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>WTable</class>
-   <extends>QTableWidget</extends>
-   <header location="global">wtable.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

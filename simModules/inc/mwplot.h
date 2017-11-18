@@ -34,7 +34,7 @@ private slots:
     void on_actionExport_data_file_triggered();
     void on_actionZoom_Undo_triggered();
     void on_actionZoom_Redo_triggered();
-    void on_actionInfo_data_changed();
+    void on_actionInfo_data_triggered(bool checked);
     void on_actionBottom_toggled(bool arg1);
     void on_actionLeft_toggled(bool arg1);
     void on_actionRight_toggled(bool arg1);
@@ -43,6 +43,7 @@ private slots:
     void on_actionTop_Right_toggled(bool arg1);
 
     void on_actionTest_triggered();
+
 
 private:
     Ui::MWPlot *ui;

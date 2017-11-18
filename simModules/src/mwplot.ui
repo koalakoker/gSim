@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -168,7 +168,10 @@
      <normaloff>:/png/cursorInfo.png</normaloff>:/png/cursorInfo.png</iconset>
    </property>
    <property name="text">
-    <string>Info data</string>
+    <string>Data Values</string>
+   </property>
+   <property name="toolTip">
+    <string>Visualize cursors data values</string>
    </property>
   </action>
   <action name="actionZoom_In">

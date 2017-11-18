@@ -8,7 +8,6 @@ WCursorInfo::WCursorInfo(QWidget *parent) :
     ui(new Ui::WCursorInfo)
 {
     ui->setupUi(this);
-
 }
 
 WCursorInfo::~WCursorInfo()
@@ -73,17 +72,7 @@ void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
         horizontalLabels << "x" << "y";
         ui->tableWidget->setHorizontalHeaderLabels(horizontalLabels);
     }
-    QSize newSize = myGetQTableWidgetSize(ui->tableWidget);
-    ui->tableWidget->setMaximumSize(newSize);
-    ui->tableWidget->setMinimumSize(newSize); // optional
-
-    connect(ui->tableWidget, SIGNAL(resized()), this, SLOT(forceResize()));
-}
-
-void WCursorInfo::forceResize(void)
-{
-    QSize newSize = myGetQTableWidgetSize(ui->tableWidget);
-    resize(newSize);
+    resize(myGetQTableWidgetSize(ui->tableWidget));
 }
 
 void WCursorInfo::on_tableWidget_cellChanged(int row, int column)

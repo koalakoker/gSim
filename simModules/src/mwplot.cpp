@@ -8,9 +8,6 @@ MWPlot::MWPlot(QWidget *parent) : QMainWindow(parent), ui(new Ui::MWPlot), wCurs
 {
     ui->setupUi(this);
     connect(ui->wplot,SIGNAL(newPlotter()), this, SLOT(onNewPlotter()));
-    wCursorInfo = new WCursorInfo();
-    wCursorInfo->updateInfo(getCursorValueTrack());
-    connect (wCursorInfo, SIGNAL(cursorPosChanged(int,qreal)), this, SLOT(on_cursorPosChanged(int,qreal)));
 }
 MWPlot::~MWPlot()
 {
@@ -83,23 +80,21 @@ void MWPlot::on_actionZoom_Redo_triggered()
 {
     ui->wplot->zoom_Redo();
 }
-void MWPlot::on_actionInfo_data_changed()
+void MWPlot::on_actionInfo_data_triggered(bool checked)
 {
-    if (ui->actionInfo_data->isChecked())
+    if (!wCursorInfo)
     {
+        wCursorInfo = new WCursorInfo();
         wCursorInfo->show();
+        wCursorInfo->updateInfo(getCursorValueTrack());
+        connect (wCursorInfo, SIGNAL(cursorPosChanged(int,qreal)), this, SLOT(on_cursorPosChanged(int,qreal)));
     }
-    else
-    {
-        wCursorInfo->hide();
-    }
+    wCursorInfo->setVisible(checked);
 }
 
 void MWPlot::on_actionTest_triggered()
 {
 }
-
-
 
 void MWPlot::on_actionBottom_toggled(bool arg1)
 {
@@ -112,7 +107,6 @@ void MWPlot::on_actionBottom_toggled(bool arg1)
     ui->actionBottom_Left->setChecked(ui->actionBottom->isChecked() && ui->actionLeft->isChecked());
     ui->actionBottom_Left->blockSignals(false);
 }
-
 void MWPlot::on_actionLeft_toggled(bool arg1)
 {
     if (ui->wplot->m_plotter)
@@ -124,7 +118,6 @@ void MWPlot::on_actionLeft_toggled(bool arg1)
     ui->actionBottom_Left->setChecked(ui->actionBottom->isChecked() && ui->actionLeft->isChecked());
     ui->actionBottom_Left->blockSignals(false);
 }
-
 void MWPlot::on_actionRight_toggled(bool arg1)
 {
     if (ui->wplot->m_plotter)
@@ -136,7 +129,6 @@ void MWPlot::on_actionRight_toggled(bool arg1)
     ui->actionTop_Right->setChecked(ui->actionTop->isChecked() && ui->actionRight->isChecked());
     ui->actionTop_Right->blockSignals(false);
 }
-
 void MWPlot::on_actionTop_toggled(bool arg1)
 {
     if (ui->wplot->m_plotter)
@@ -148,15 +140,14 @@ void MWPlot::on_actionTop_toggled(bool arg1)
     ui->actionTop_Right->setChecked(ui->actionTop->isChecked() && ui->actionRight->isChecked());
     ui->actionTop_Right->blockSignals(false);
 }
-
 void MWPlot::on_actionBottom_Left_toggled(bool arg1)
 {
     ui->actionBottom->setChecked(arg1);
     ui->actionLeft->setChecked(arg1);
 }
-
 void MWPlot::on_actionTop_Right_toggled(bool arg1)
 {
     ui->actionTop->setChecked(arg1);
     ui->actionRight->setChecked(arg1);
 }
+

@@ -60,7 +60,6 @@ SOURCES += \
     simModules/src/wplot.cpp \
     simModules/src/mwplot.cpp \
     simModules/src/wcursorinfo.cpp \
-    simModules/src/wtable.cpp \
     simModel/src/simModel.cpp \
     simModel/src/baseSimModel.cpp \
     simModel/src/simModelElement.cpp \
@@ -111,7 +110,6 @@ HEADERS += \
     simModules/inc/wplot.h \
     simModules/inc/mwplot.h \
     simModules/inc/wcursorinfo.h \
-    simModules/inc/wtable.h \
     simModel/inc/simModel.h \
     simModel/inc/gsimmodel_global.h \
     simModel/inc/baseSimModel.h \
