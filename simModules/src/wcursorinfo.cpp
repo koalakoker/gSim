@@ -28,7 +28,7 @@ static QSize myGetQTableWidgetSize(QTableWidget *t) {
 
 void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
 {
-    const Qt::GlobalColor plotColor[] = {Qt::black,Qt::black, Qt::blue, Qt::green, Qt::red};
+    const Qt::GlobalColor plotColor[] = {Qt::darkGray, Qt::black, Qt::blue, Qt::green, Qt::red};
     int cursorNum = cursorInfo.size();
     if (cursorNum > 0)
     {

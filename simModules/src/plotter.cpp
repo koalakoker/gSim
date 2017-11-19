@@ -361,7 +361,14 @@ QVector<double> Plotter::getCursorValueTrack(int cur)
     int i = (int)(x/dx);
     for (int track = 0; track < m_data[0].size(); track++)
     {
-        data.append(m_data[i][track]);
+        if ((i >= 0) && (i < m_data.size()))
+        {
+            data.append(m_data[i][track]);
+        }
+        else
+        {
+            data.append(0);
+        }
     }
     return data;
 }
