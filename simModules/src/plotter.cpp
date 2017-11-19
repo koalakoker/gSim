@@ -102,7 +102,7 @@ QImage Plotter::plot()
     }
 
     /* Cursors */
-    int curLabelYPos = 50;
+    int curLabelYPos = 30;
 
     pen.setColor(Qt::black);
     pen.setStyle(Qt::DashLine);
@@ -129,7 +129,8 @@ QImage Plotter::plot()
     int hDivNum = 5;
     int vDivNum = 5;
     int divLen = 10;
-    int spacer = 4;
+    int hSpacer = 5;
+    int vSpacer = 5;
 
     int h = m_size.height();
     int w = m_size.width();
@@ -148,8 +149,7 @@ QImage Plotter::plot()
             int x = hDivSpace * (i+1);
             p.drawLine(QPoint(x, h), QPoint(x, h - divLen));
             QString valueStr = QString::number(invMapX(x),'g', 3);
-            QSize sz = fm.size(Qt::TextSingleLine,valueStr);
-            p.drawText(QPoint(hDivSpace * (i+1) - (sz.width()/2), h - divLen - spacer), valueStr);
+            p.drawText(QPoint(x + vSpacer, h - hSpacer), valueStr);
         }
     }
     if (m_axsisTop)
@@ -160,7 +160,7 @@ QImage Plotter::plot()
             p.drawLine(QPoint(x, 0), QPoint(x, divLen));
             QString valueStr = QString::number(invMapX(x),'g', 3);
             QSize sz = fm.size(Qt::TextSingleLine,valueStr);
-            p.drawText(QPoint(hDivSpace * (i+1) - (sz.width()/2), divLen + sz.height()), valueStr);
+            p.drawText(QPoint(x + vSpacer, sz.height()), valueStr);
         }
     }
     if (m_axsisLeft)
@@ -171,7 +171,7 @@ QImage Plotter::plot()
             p.drawLine(QPoint(0, y), QPoint(divLen, y));
             QString valueStr = QString::number(invMapY(y),'g', 3);
             QSize sz = fm.size(Qt::TextSingleLine,valueStr);
-            p.drawText(QPoint(divLen + spacer, (vDivSpace * (i+1)) + (sz.height()/2) - spacer) , valueStr);
+            p.drawText(QPoint(divLen + hSpacer, y + (sz.height()/2) - hSpacer) , valueStr);
         }
     }
     if (m_axsisRight)
@@ -182,7 +182,7 @@ QImage Plotter::plot()
             p.drawLine(QPoint(w, y), QPoint(w - divLen, y));
             QString valueStr = QString::number(invMapY(y),'g', 3);
             QSize sz = fm.size(Qt::TextSingleLine,valueStr);
-            p.drawText(QPoint(w - divLen - spacer - sz.width(), (vDivSpace * (i+1)) + (sz.height()/2) - spacer) , valueStr);
+            p.drawText(QPoint(w - divLen - hSpacer - sz.width(), y + (sz.height()/2) - hSpacer) , valueStr);
         }
     }
 
