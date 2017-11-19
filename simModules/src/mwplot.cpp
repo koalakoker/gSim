@@ -151,3 +151,10 @@ void MWPlot::on_actionTop_Right_toggled(bool arg1)
     ui->actionRight->setChecked(arg1);
 }
 
+
+void MWPlot::on_actionAdd_triggered()
+{
+    // Add cursor
+    ui->wplot->m_plotter->addCursor();
+    ui->wplot->updatePlot();
+}

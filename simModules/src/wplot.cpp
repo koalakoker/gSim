@@ -78,7 +78,6 @@ void WPlot::loadDataFile(QString fileName)
     updatePlot();
 }
 
-
 // Slots
 void WPlot::updatePlot(void) {
     plot = m_plotter->plot();

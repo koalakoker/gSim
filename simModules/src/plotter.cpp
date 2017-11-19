@@ -282,6 +282,12 @@ void Plotter::zoomXToCursors(QPoint point)
 }
 
 // Cursors
+void   Plotter::addCursor(void)
+{
+    qreal pos = (invMapX(m_size.width()) - invMapX(0))/2;
+    addCursor(pos);
+    emit cursorChanged();
+}
 void   Plotter::addCursor(qreal pos)
 {
     m_cursorPos.append(pos);

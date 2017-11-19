@@ -45,6 +45,8 @@ private slots:
     void on_actionTest_triggered();
 
 
+    void on_actionAdd_triggered();
+
 private:
     Ui::MWPlot *ui;
     WCursorInfo *wCursorInfo;

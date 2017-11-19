@@ -40,9 +40,10 @@ public:
 
     // Cursors
     int getCursorNumber(void) {return m_cursorPos.size();}
+    void addCursor(void);
     void addCursor(qreal pos);
-    void removeCursor(int index);
     void addCursorAtPixel(int pos);
+    void removeCursor(int index);
     void setCursorPos(int index, qreal pos);
     void cursorScroll(int index, qreal pos);
     void cursorScrollPixel(int index, int pix);
