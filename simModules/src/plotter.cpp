@@ -5,6 +5,13 @@
 #include <QTimer>
 #include <QDebug>
 
+// Add point
+void Plotter::addPoint(double t, SData y)
+{
+    y.prepend(t);
+    m_data.append(y);
+}
+
 // Plot
 QImage Plotter::plot()
 {

@@ -2,6 +2,7 @@
 #define MWPLOT_H
 
 #include "wcursorinfo.h"
+#include "sdata.h"
 
 #include <QMainWindow>
 
@@ -20,6 +21,7 @@ public:
     QVector<QVector<double>> getCursorValueTrack(void);
     QVector<double> getCursorValueTrack(int cur);
     QVector<double> getSelectedCursorValueTrack(void);
+    void addPoint(double t, SData y);
 
 public slots:
     void onNewPlotter();

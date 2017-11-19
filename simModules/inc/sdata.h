@@ -23,6 +23,7 @@ public:
     QVector<double> data() {return m_data;}
     void setData(QVector<double> data){m_data = data;}
     void append(double d){m_data.append(d);}
+    void prepend(double d){m_data.prepend(d);}
     int size() {return m_data.size();}
 
     double value(){return elementAt(0);}

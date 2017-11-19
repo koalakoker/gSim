@@ -6,6 +6,7 @@
 #include <QString>
 #include "ssink.h"
 #include "wscope.h"
+#include "mwplot.h"
 
 class SIMMODULESSHARED_EXPORT SSScope : public SSink
 {
@@ -18,6 +19,7 @@ public:
 
 private:
     WScope* m_wscope;
+    MWPlot* m_mwplot;
 };
 
 #endif // SSSCOPE_H
