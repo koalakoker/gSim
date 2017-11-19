@@ -21,13 +21,13 @@ WPlot::~WPlot()
 // Load data file
 void WPlot::loadDataFile(QString fileName)
 {
-    QVector<SData> data;
+    data.clear();
     double y_max = 0, y_min = 0;
 
     QFile file(fileName);
     if (file.open(QIODevice::ReadOnly))
     {
-        QTextStream stream( &file );
+        QTextStream stream(&file);
         QString line;
         while (!stream.atEnd())
         {
@@ -81,7 +81,19 @@ void WPlot::loadDataFile(QString fileName)
 // Save data file
 void WPlot::saveDataFile(QString fileName)
 {
-    qDebug() << "Exporting to "<< fileName;
+    QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly))
+    {
+        QTextStream stream(&file);
+        foreach (SData dataRow, data) {
+            foreach (double val, dataRow.data())
+            {
+                stream << val << " ";
+            }
+            stream << endl;
+        }
+    }
+    file.close();
 }
 
 // Slots
