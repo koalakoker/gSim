@@ -144,8 +144,9 @@ QImage Plotter::plot()
     {
         for (int i = 0; i < (hDivNum-1); i++)
         {
-            p.drawLine(QPoint(hDivSpace * (i+1), h), QPoint(hDivSpace * (i+1), h - divLen));
-            QString valueStr = QString::number(i);
+            int x = hDivSpace * (i+1);
+            p.drawLine(QPoint(x, h), QPoint(x, h - divLen));
+            QString valueStr = QString::number(invMapX(x));
             QSize sz = fm.size(Qt::TextSingleLine,valueStr);
             p.drawText(QPoint(hDivSpace * (i+1) - (sz.width()/2), h - divLen - spacer), valueStr);
         }
@@ -155,8 +156,9 @@ QImage Plotter::plot()
     {
         for (int i = 0; i < (hDivNum-1); i++)
         {
-            p.drawLine(QPoint(hDivSpace * (i+1), 0), QPoint(hDivSpace * (i+1), divLen));
-            QString valueStr = QString::number(i);
+            int x = hDivSpace * (i+1);
+            p.drawLine(QPoint(x, 0), QPoint(x, divLen));
+            QString valueStr = QString::number(invMapX(x));
             QSize sz = fm.size(Qt::TextSingleLine,valueStr);
             p.drawText(QPoint(hDivSpace * (i+1) - (sz.width()/2), divLen + sz.height()), valueStr);
         }
@@ -166,8 +168,9 @@ QImage Plotter::plot()
     {
         for (int i = 0; i < (vDivNum-1); i++)
         {
-            p.drawLine(QPoint(0, vDivSpace * (i+1)), QPoint(divLen, vDivSpace * (i+1)));
-            QString valueStr = QString::number(i);
+            int y = vDivSpace * (i+1);
+            p.drawLine(QPoint(0, y), QPoint(divLen, y));
+            QString valueStr = QString::number(invMapY(y));
             QSize sz = fm.size(Qt::TextSingleLine,valueStr);
             p.drawText(QPoint(divLen + spacer, (vDivSpace * (i+1)) + (sz.height()/2) - spacer) , valueStr);
         }
@@ -177,8 +180,9 @@ QImage Plotter::plot()
     {
         for (int i = 0; i < (vDivNum-1); i++)
         {
-            p.drawLine(QPoint(w, vDivSpace * (i+1)), QPoint(w - divLen, vDivSpace * (i+1)));
-            QString valueStr = QString::number(i);
+            int y = vDivSpace * (i+1);
+            p.drawLine(QPoint(w, y), QPoint(w - divLen, y));
+            QString valueStr = QString::number(invMapY(y));
             QSize sz = fm.size(Qt::TextSingleLine,valueStr);
             p.drawText(QPoint(w - divLen - spacer - sz.width(), (vDivSpace * (i+1)) + (sz.height()/2) - spacer) , valueStr);
         }
@@ -189,12 +193,7 @@ QImage Plotter::plot()
 }
 QPointF Plotter::map(double x, double y)
 {
-    return QPointF(                 (m_size.width () * ((x - m_range.x()) / m_range.width ())),
-                   (m_size.height()-(m_size.height() * ((y - m_range.y()) / m_range.height()))));
-}
-double Plotter::invMapX(double x)
-{
-    return (((x / m_size.width()) * m_range.width()) + m_range.x());
+    return QPointF(mapX(x),mapY(y));
 }
 double Plotter::mapX(double x)
 {
@@ -203,6 +202,14 @@ double Plotter::mapX(double x)
 double Plotter::mapY(double y)
 {
     return (m_size.height()-(m_size.height() * ((y - m_range.y()) / m_range.height())));
+}
+double Plotter::invMapX(double x)
+{
+    return (((x / m_size.width()) * m_range.width()) + m_range.x());
+}
+double Plotter::invMapY(double y)
+{
+    return (((1 - (y / m_size.height())) * m_range.height()) + m_range.y());
 }
 
 // Scroll

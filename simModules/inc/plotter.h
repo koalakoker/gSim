@@ -77,6 +77,7 @@ public slots:
 private:
     QPointF map(double x, double y);
     double invMapX(double x);
+    double invMapY(double y);
     double mapX(double x);
     double mapY(double y);
 
