@@ -102,6 +102,8 @@ QImage Plotter::plot()
     }
 
     /* Cursors */
+    int curLabelYPos = 50;
+
     pen.setColor(Qt::black);
     pen.setStyle(Qt::DashLine);
     p.setPen(pen);
@@ -113,7 +115,7 @@ QImage Plotter::plot()
         qreal curYposTop    = m_range.y();
         qreal curYposBottom = m_range.y()+m_range.height();
         p.drawLine(map(curXpos, curYposTop), map(curXpos, curYposBottom));
-        p.drawText(mapX(curXpos)+5,15,QString::number(cur+1));
+        p.drawText(mapX(curXpos)+5,curLabelYPos,QString::number(cur+1));
 
         QPointF top     = map(curXpos, curYposTop);
         QPointF bottom  = map(curXpos, curYposBottom);
@@ -139,50 +141,46 @@ QImage Plotter::plot()
     pen.setColor(Qt::black);
     pen.setStyle(Qt::SolidLine);
     p.setPen(pen);
-
     if (m_axsisBottom)
     {
         for (int i = 0; i < (hDivNum-1); i++)
         {
             int x = hDivSpace * (i+1);
             p.drawLine(QPoint(x, h), QPoint(x, h - divLen));
-            QString valueStr = QString::number(invMapX(x));
+            QString valueStr = QString::number(invMapX(x),'g', 3);
             QSize sz = fm.size(Qt::TextSingleLine,valueStr);
             p.drawText(QPoint(hDivSpace * (i+1) - (sz.width()/2), h - divLen - spacer), valueStr);
         }
     }
-
     if (m_axsisTop)
     {
         for (int i = 0; i < (hDivNum-1); i++)
         {
             int x = hDivSpace * (i+1);
             p.drawLine(QPoint(x, 0), QPoint(x, divLen));
-            QString valueStr = QString::number(invMapX(x));
+            QString valueStr = QString::number(invMapX(x),'g', 3);
             QSize sz = fm.size(Qt::TextSingleLine,valueStr);
             p.drawText(QPoint(hDivSpace * (i+1) - (sz.width()/2), divLen + sz.height()), valueStr);
         }
     }
-
     if (m_axsisLeft)
     {
         for (int i = 0; i < (vDivNum-1); i++)
         {
             int y = vDivSpace * (i+1);
             p.drawLine(QPoint(0, y), QPoint(divLen, y));
-            QString valueStr = QString::number(invMapY(y));
+            QString valueStr = QString::number(invMapY(y),'g', 3);
             QSize sz = fm.size(Qt::TextSingleLine,valueStr);
             p.drawText(QPoint(divLen + spacer, (vDivSpace * (i+1)) + (sz.height()/2) - spacer) , valueStr);
         }
     }
-
     if (m_axsisRight)
     {
         for (int i = 0; i < (vDivNum-1); i++)
         {
             int y = vDivSpace * (i+1);
             p.drawLine(QPoint(w, y), QPoint(w - divLen, y));
-            QString valueStr = QString::number(invMapY(y));
+            QString valueStr = QString::number(invMapY(y),'g', 3);
             QSize sz = fm.size(Qt::TextSingleLine,valueStr);
             p.drawText(QPoint(w - divLen - spacer - sz.width(), (vDivSpace * (i+1)) + (sz.height()/2) - spacer) , valueStr);
         }
