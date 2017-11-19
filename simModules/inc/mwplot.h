@@ -22,6 +22,7 @@ public:
     QVector<double> getCursorValueTrack(int cur);
     QVector<double> getSelectedCursorValueTrack(void);
     void addPoint(double t, SData y);
+    void updatePlot(void);
 
 public slots:
     void onNewPlotter();

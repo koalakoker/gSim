@@ -41,7 +41,11 @@ QVector<double> MWPlot::getSelectedCursorValueTrack(void)
 }
 void MWPlot::addPoint(double t, SData y)
 {
-    ui->wplot->m_plotter->addPoint(t, y);
+    ui->wplot->addPoint(t, y);
+}
+void MWPlot::updatePlot(void)
+{
+    ui->wplot->createPlot();
 }
 
 // Slots

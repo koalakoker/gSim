@@ -23,11 +23,5 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    //WPlot w_p1;
-    //w_p1.show();
-    MWPlot mw_pl;
-    mw_pl.show();
-    mw_pl.loadDataFile("model2.txt");
-
     return a.exec();
 }

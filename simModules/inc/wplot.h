@@ -12,6 +12,8 @@ class WPlot : public QWidget
 public:
     explicit WPlot(QWidget *parent = 0);
     ~WPlot();
+    void addPoint(double t, SData y);
+    void createPlot(void);
     void loadDataFile(QString fileName);
     void saveDataFile(QString fileName);
 
@@ -35,6 +37,7 @@ private:
     bool m_drag;
     QPoint m_lastPoint;
     bool m_movingUndo;
+    double m_y_max = 0, m_y_min = 0;
 
     void createMenu(void);
 

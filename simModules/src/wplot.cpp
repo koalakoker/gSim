@@ -18,6 +18,48 @@ WPlot::~WPlot()
 {
 }
 
+// Add point
+void WPlot::addPoint(double t, SData y)
+{
+    foreach (double val, y.data())
+    {
+        if (val > m_y_max)
+        {
+            m_y_max = val;
+        }
+
+        if (val < m_y_min)
+        {
+            m_y_min = val;
+        }
+
+    }
+
+    y.prepend(t);
+    m_data.append(y);
+
+
+}
+
+// Create plot
+void WPlot::createPlot(void)
+{
+    qreal x_min = 0, x_max = 0;
+    if (m_data.size() != 0)
+    {
+        x_min = m_data[0][0];
+        x_max = m_data[m_data.size()-1][0];
+    }
+
+    m_plotter = new Plotter(
+                size(),
+                QRectF(x_min, m_y_min, x_max - x_min, m_y_max - m_y_min),
+                m_data,
+                Plotter::LINE_STYLE);
+    emit newPlotter();
+    updatePlot();
+}
+
 // Load data file
 void WPlot::loadDataFile(QString fileName)
 {

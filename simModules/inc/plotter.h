@@ -19,8 +19,6 @@ public:
         : m_size(size), m_range(range), m_data(data), m_style(style), m_cursorDrag(0),
           m_debounce(false) { }
 
-    void addPoint(double t, SData y);
-
     void setRangeX_Min(qreal val) {m_range.setLeft  (val);}
     void setRangeX_Max(qreal val) {m_range.setRight (val);}
     void setRangeY_Min(qreal val) {m_range.setBottom(val);}
