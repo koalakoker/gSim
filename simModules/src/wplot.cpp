@@ -21,7 +21,7 @@ WPlot::~WPlot()
 // Load data file
 void WPlot::loadDataFile(QString fileName)
 {
-    data.clear();
+    m_data.clear();
     double y_max = 0, y_min = 0;
 
     QFile file(fileName);
@@ -51,17 +51,17 @@ void WPlot::loadDataFile(QString fileName)
                     }
                 }
             }
-            data.append(sample);
+            m_data.append(sample);
         }
         m_fileName = fileName;
     }
     file.close();
 
     qreal x_min = 0, x_max = 0;
-    if (data.size() != 0)
+    if (m_data.size() != 0)
     {
-        x_min = data[0][0];
-        x_max = data[data.size()-1][0];
+        x_min = m_data[0][0];
+        x_max = m_data[m_data.size()-1][0];
     }
 
     if (m_plotter)
@@ -72,7 +72,7 @@ void WPlot::loadDataFile(QString fileName)
     m_plotter = new Plotter(
                 size(),
                 QRectF(x_min, y_min, x_max - x_min, y_max - y_min),
-                data,
+                m_data,
                 Plotter::LINE_STYLE);
     emit newPlotter();
     updatePlot();
@@ -85,9 +85,9 @@ void WPlot::saveDataFile(QString fileName)
     if (file.open(QIODevice::WriteOnly))
     {
         QTextStream stream(&file);
-        for (int row = 0; row < data.size(); row++)
+        for (int row = 0; row < m_data.size(); row++)
         {
-            SData dataRow = data.at(row);
+            SData dataRow = m_data.at(row);
             for (int i = 0; i < dataRow.size(); i++)
             {
                 double val = dataRow.data().at(i);
@@ -108,7 +108,7 @@ void WPlot::saveDataFile(QString fileName)
 
 // Slots
 void WPlot::updatePlot(void) {
-    plot = m_plotter->plot();
+    m_plotImage = m_plotter->plot();
     repaint();
 }
 void WPlot::zoom_Undo(void)
@@ -130,7 +130,7 @@ void WPlot::zoom_Redo(void)
 void WPlot::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
-    p.drawImage(QPoint(0, 0), plot);
+    p.drawImage(QPoint(0, 0), m_plotImage);
 }
 void WPlot::mousePressEvent(QMouseEvent* event)
 {

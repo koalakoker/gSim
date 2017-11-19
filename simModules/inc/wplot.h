@@ -30,8 +30,8 @@ signals:
     void newPlotter(void);
 
 private:
-    QVector<SData> data;
-    QImage plot;
+    QVector<SData> m_data;
+    QImage m_plotImage;
     bool m_drag;
     QPoint m_lastPoint;
     bool m_movingUndo;
