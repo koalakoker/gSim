@@ -70,7 +70,8 @@ void MWPlot::on_actionOpen_data_file_triggered()
 }
 void MWPlot::on_actionExport_data_file_triggered()
 {
-    qDebug() << "Export";
+    QString fileName = QFileDialog::getSaveFileName(this,"Export data file","","*.*");
+    ui->wplot->saveDataFile(fileName);
 }
 void MWPlot::on_actionZoom_Undo_triggered()
 {

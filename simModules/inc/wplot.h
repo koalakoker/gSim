@@ -13,6 +13,7 @@ public:
     explicit WPlot(QWidget *parent = 0);
     ~WPlot();
     void loadDataFile(QString fileName);
+    void saveDataFile(QString fileName);
 
     const Qt::MouseButton dragButton = Qt::LeftButton;
     const Qt::MouseButton addCursorButton = Qt::RightButton;

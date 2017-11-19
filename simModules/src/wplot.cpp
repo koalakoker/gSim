@@ -78,6 +78,12 @@ void WPlot::loadDataFile(QString fileName)
     updatePlot();
 }
 
+// Save data file
+void WPlot::saveDataFile(QString fileName)
+{
+    qDebug() << "Exporting to "<< fileName;
+}
+
 // Slots
 void WPlot::updatePlot(void) {
     plot = m_plotter->plot();
