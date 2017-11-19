@@ -72,7 +72,9 @@ void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
         horizontalLabels << "x" << "y";
         ui->tableWidget->setHorizontalHeaderLabels(horizontalLabels);
     }
-    resize(myGetQTableWidgetSize(ui->tableWidget));
+    QSize tabSize = myGetQTableWidgetSize(ui->tableWidget);
+    QSize layoutSize(5,5);
+    resize(tabSize+layoutSize);
 }
 
 void WCursorInfo::on_tableWidget_cellChanged(int row, int column)
