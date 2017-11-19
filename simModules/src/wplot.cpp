@@ -85,10 +85,20 @@ void WPlot::saveDataFile(QString fileName)
     if (file.open(QIODevice::WriteOnly))
     {
         QTextStream stream(&file);
-        foreach (SData dataRow, data) {
-            foreach (double val, dataRow.data())
+        for (int row = 0; row < data.size(); row++)
+        {
+            SData dataRow = data.at(row);
+            for (int i = 0; i < dataRow.size(); i++)
             {
-                stream << val << " ";
+                double val = dataRow.data().at(i);
+                if (i == 0)
+                {
+                    stream << val;
+                }
+                else
+                {
+                    stream << " " << val;
+                }
             }
             stream << endl;
         }
