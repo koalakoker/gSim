@@ -150,11 +150,27 @@ void MWPlot::on_actionTop_Right_toggled(bool arg1)
     ui->actionTop->setChecked(arg1);
     ui->actionRight->setChecked(arg1);
 }
-
-
 void MWPlot::on_actionAdd_triggered()
 {
     // Add cursor
     ui->wplot->m_plotter->addCursor();
+    ui->wplot->updatePlot();
+}
+void MWPlot::on_actionZoom_In_triggered()
+{
+    Plotter* m_plotter = ui->wplot->m_plotter;
+    if (!m_plotter)
+        return;
+    m_plotter->AddUndoStatus();
+    m_plotter->zoomXToCursors(QPoint(ui->wplot->size().width()/2,ui->wplot->size().height()/2));
+    ui->wplot->updatePlot();
+}
+void MWPlot::on_actionZoom_Out_triggered()
+{
+    Plotter* m_plotter = ui->wplot->m_plotter;
+    if (!m_plotter)
+        return;
+    m_plotter->AddUndoStatus();
+    m_plotter->unZoom();
     ui->wplot->updatePlot();
 }

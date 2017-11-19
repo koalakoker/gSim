@@ -34,6 +34,7 @@ public:
     void zoomX(qreal val);
     void zoomY(qreal val);
     void zoomXToCursors(QPoint point);
+    void unZoom(void);
 
     // Resize
     void setSize(QSize size) {m_size = size;}

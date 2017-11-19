@@ -41,11 +41,11 @@ private slots:
     void on_actionTop_toggled(bool arg1);
     void on_actionBottom_Left_toggled(bool arg1);
     void on_actionTop_Right_toggled(bool arg1);
+    void on_actionAdd_triggered();
+    void on_actionZoom_In_triggered();
+    void on_actionZoom_Out_triggered();
 
     void on_actionTest_triggered();
-
-
-    void on_actionAdd_triggered();
 
 private:
     Ui::MWPlot *ui;

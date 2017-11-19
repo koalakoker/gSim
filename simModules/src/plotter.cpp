@@ -280,6 +280,10 @@ void Plotter::zoomXToCursors(QPoint point)
         m_range.setRight(xMax);
     }
 }
+void Plotter::unZoom(void)
+{
+    zoomX(-5);
+}
 
 // Cursors
 void   Plotter::addCursor(void)
