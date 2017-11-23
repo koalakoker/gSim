@@ -55,7 +55,7 @@ SOURCES += \
     simModules/src/plot/plotter.cpp \
     simModules/src/plot/wplot.cpp \
     simModules/src/plot/mwplot.cpp \
-    simModules/src/plot/wcursorinfo.cpp \
+    simModules/src/wcursorinfo.cpp \
     simModel/src/simModel.cpp \
     simModel/src/baseSimModel.cpp \
     simModel/src/simModelElement.cpp \
@@ -101,7 +101,7 @@ HEADERS += \
     simModules/inc/plot/plotter.h \
     simModules/inc/plot/wplot.h \
     simModules/inc/plot/mwplot.h \
-    simModules/inc/plot/wcursorinfo.h \
+    simModules/inc/wcursorinfo.h \
     simModel/inc/simModel.h \
     simModel/inc/gsimmodel_global.h \
     simModel/inc/baseSimModel.h \
