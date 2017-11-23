@@ -52,14 +52,10 @@ SOURCES += \
     simModules/src/stdqtoalphabeta.cpp \
     simModules/src/svm.cpp \
     simModules/src/stsvm.cpp \
-    simModules/src/qcustomplot.cpp \
-    simModules/src/wscope.cpp \
-    simModules/src/waxisctrl.cpp \
-    simModules/src/wcursorctrl.cpp \
-    simModules/src/plotter.cpp \
-    simModules/src/wplot.cpp \
-    simModules/src/mwplot.cpp \
-    simModules/src/wcursorinfo.cpp \
+    simModules/src/plot/plotter.cpp \
+    simModules/src/plot/wplot.cpp \
+    simModules/src/plot/mwplot.cpp \
+    simModules/src/plot/wcursorinfo.cpp \
     simModel/src/simModel.cpp \
     simModel/src/baseSimModel.cpp \
     simModel/src/simModelElement.cpp \
@@ -102,14 +98,10 @@ HEADERS += \
     simModules/inc/stdqtoalphabeta.h \
     simModules/inc/svm.h \
     simModules/inc/stsvm.h \
-    simModules/inc/qcustomplot.h \
-    simModules/inc/wscope.h \
-    simModules/inc/waxisctrl.h \
-    simModules/inc/wcursorctrl.h \
-    simModules/inc/plotter.h \
-    simModules/inc/wplot.h \
-    simModules/inc/mwplot.h \
-    simModules/inc/wcursorinfo.h \
+    simModules/inc/plot/plotter.h \
+    simModules/inc/plot/wplot.h \
+    simModules/inc/plot/mwplot.h \
+    simModules/inc/plot/wcursorinfo.h \
     simModel/inc/simModel.h \
     simModel/inc/gsimmodel_global.h \
     simModel/inc/baseSimModel.h \
@@ -118,11 +110,8 @@ HEADERS += \
 FORMS += \
     gsim.ui \
     simTemplates/simView/baseSimView.ui \
-    simModules/src/wscope.ui \
-    simModules/src/waxisctrl.ui \
-    simModules/src/wcursorctrl.ui \
-    simModules/src/mwplot.ui \
-    simModules/src/wcursorinfo.ui
+    simModules/src/plot/mwplot.ui \
+    simModules/src/plot/wcursorinfo.ui
 
 RESOURCES += \
     resource.qrc

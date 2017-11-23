@@ -14,16 +14,11 @@ void SSScope::execute(double t, SDataVector in)
 
 void SSScope::scopeUpdate(double dt)
 {
-//    m_wscope->setdt(dt);
-//    m_wscope->show();
-//    m_wscope->refresh();
-//    m_wscope->maximizeX();
-//    m_wscope->maximizeY();
     m_mwplot->show();
     m_mwplot->updatePlot();
 }
 
 void SSScope::exportData(QString fileName)
 {
-    m_wscope->exportData(fileName);
+    m_mwplot->exportData(fileName);
 }

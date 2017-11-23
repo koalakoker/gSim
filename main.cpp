@@ -5,8 +5,6 @@
 #include "simModel/inc/gsimmodel_global.h"
 #include "simModel/inc/simModel.h"
 
-#include "mwplot.h"
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
