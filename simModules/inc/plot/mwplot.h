@@ -19,12 +19,12 @@ public:
     explicit MWPlot(QString name, QWidget *parent = 0);
     ~MWPlot();
     void loadDataFile(QString fileName);
+    void exportData(QString filename);
     QVector<QVector<double>> getCursorValueTrack(void);
     QVector<double> getCursorValueTrack(int cur);
     QVector<double> getSelectedCursorValueTrack(void);
     void addPoint(double t, SData y);
     void updatePlot(void);
-    void exportData(QString filename) {qDebug() << "Export: " << filename;}
 
 public slots:
     void onNewPlotter();

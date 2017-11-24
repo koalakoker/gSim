@@ -8,7 +8,6 @@ MWPlot::MWPlot(QString name, QWidget *parent) : QMainWindow(parent), ui(new Ui::
 {
     ui->setupUi(this);
     connect(ui->wplot,SIGNAL(newPlotter()), this, SLOT(onNewPlotter()));
-
 }
 MWPlot::~MWPlot()
 {
@@ -21,6 +20,10 @@ MWPlot::~MWPlot()
 void MWPlot::loadDataFile(QString fileName)
 {
     ui->wplot->loadDataFile(fileName);
+}
+void MWPlot::exportData(QString filename)
+{
+    ui->wplot->saveDataFile(filename);
 }
 QVector<QVector<double>> MWPlot::getCursorValueTrack(void)
 {
@@ -47,13 +50,15 @@ void MWPlot::addPoint(double t, SData y)
 void MWPlot::updatePlot(void)
 {
     ui->wplot->createPlot();
+    setWindowTitle(m_name);
 }
 
 // Slots
 void MWPlot::onNewPlotter()
 {
     connect(ui->wplot->m_plotter,SIGNAL(cursorChanged()), this, SLOT(onCursorChange()));
-    setWindowTitle(ui->wplot->m_fileName);
+    QFileInfo file(ui->wplot->m_fileName);
+    setWindowTitle(file.baseName());
 }
 void MWPlot::onCursorChange()
 {
