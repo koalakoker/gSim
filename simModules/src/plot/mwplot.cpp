@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include <QDebug>
 
-MWPlot::MWPlot(QWidget *parent) : QMainWindow(parent), ui(new Ui::MWPlot), wCursorInfo(NULL)
+MWPlot::MWPlot(QString name, QWidget *parent) : QMainWindow(parent), ui(new Ui::MWPlot), wCursorInfo(NULL), m_name(name)
 {
     ui->setupUi(this);
     connect(ui->wplot,SIGNAL(newPlotter()), this, SLOT(onNewPlotter()));

@@ -1,18 +1,16 @@
 #include "ssscope.h"
 
-SSScope::SSScope(QString name, int tracks)
+SSScope::SSScope(QString name)
 {
-    m_wscope = new WScope(name, tracks);
-    m_mwplot = new MWPlot();
+    m_mwplot = new MWPlot(name);
 }
 
 void SSScope::execute(double t, SDataVector in)
 {
-    m_wscope->addPoint(t, in.data(0));
     m_mwplot->addPoint(t, in.data(0));
 }
 
-void SSScope::scopeUpdate(double dt)
+void SSScope::scopeUpdate(void)
 {
     m_mwplot->show();
     m_mwplot->updatePlot();

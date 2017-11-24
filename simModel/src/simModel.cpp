@@ -4,6 +4,7 @@
 #include "stdpi.h"
 //#include "stpid.h"
 #include "ssscope.h"
+#include "math.h"
 
 simModel::simModel()
 {
@@ -113,11 +114,11 @@ void simModel::startSim(void)
     double iqTarg = 0;
     double WmTarg = RPMTORADS(1000);//(1000/60) * 2 * M_PI;
 
-    SSScope sscope("Iqd",4);
-    SSScope sscope_speed("Speed", 1);
-    SSScope sscope_teta("Theta", 1);
-    SSScope sscope3("Vabc", 3);
-    SSScope sscope4("Vqd", 2);
+    SSScope sscope("Iqd");
+    SSScope sscope_speed("Speed");
+    SSScope sscope_teta("Theta");
+    SSScope sscope3("Vabc");
+    SSScope sscope4("Vqd");
 
     SDataVector vqin, vdin;
 
@@ -185,27 +186,27 @@ void simModel::startSim(void)
 
     if (m_iqPlot)
     {
-        sscope.scopeUpdate(m_ts);
+        sscope.scopeUpdate();
         sscope.exportData("scope_iqPlot.txt");
     }
 
     if (m_angleSpeedPlot)
     {
-        sscope_speed.scopeUpdate(m_ts);
-        sscope_teta.scopeUpdate(m_ts);
+        sscope_speed.scopeUpdate();
+        sscope_teta.scopeUpdate();
         sscope_speed.exportData("scope_speed.txt");
         sscope_teta.exportData("scope_teta.txt");
     }
 
     if (m_abcCurrPlot)
     {
-        sscope3.scopeUpdate(m_ts);
+        sscope3.scopeUpdate();
         sscope3.exportData("scope_abcCurr.txt");
     }
 
     if (m_vqdPlot)
     {
-        sscope4.scopeUpdate(m_ts);
+        sscope4.scopeUpdate();
         sscope4.exportData("scope_vqd.txt");
     }
 }

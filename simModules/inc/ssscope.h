@@ -10,10 +10,10 @@
 class SIMMODULESSHARED_EXPORT SSScope : public SSink
 {
 public:
-    SSScope(QString name, int tracks = 1);
+    SSScope(QString name);
 
     void execute(double t, SDataVector in);
-    void scopeUpdate(double dt);
+    void scopeUpdate(void);
     void exportData(QString fileName);
 
 private:

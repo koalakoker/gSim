@@ -13,6 +13,7 @@ TEMPLATE = app
 
 INCLUDEPATH += \
     simModules/inc\
+    simModules/inc/plot\
     simModel/inc
 
 SOURCES += \
@@ -55,7 +56,7 @@ SOURCES += \
     simModules/src/plot/plotter.cpp \
     simModules/src/plot/wplot.cpp \
     simModules/src/plot/mwplot.cpp \
-    simModules/src/wcursorinfo.cpp \
+    simModules/src/plot/wcursorinfo.cpp \
     simModel/src/simModel.cpp \
     simModel/src/baseSimModel.cpp \
     simModel/src/simModelElement.cpp \
@@ -101,7 +102,7 @@ HEADERS += \
     simModules/inc/plot/plotter.h \
     simModules/inc/plot/wplot.h \
     simModules/inc/plot/mwplot.h \
-    simModules/inc/wcursorinfo.h \
+    simModules/inc/plot/wcursorinfo.h \
     simModel/inc/simModel.h \
     simModel/inc/gsimmodel_global.h \
     simModel/inc/baseSimModel.h \

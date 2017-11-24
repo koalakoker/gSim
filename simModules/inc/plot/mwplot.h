@@ -5,6 +5,7 @@
 #include "sdata.h"
 
 #include <QMainWindow>
+#include <QDebug>
 
 namespace Ui {
 class MWPlot;
@@ -15,7 +16,7 @@ class MWPlot : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MWPlot(QWidget *parent = 0);
+    explicit MWPlot(QString name, QWidget *parent = 0);
     ~MWPlot();
     void loadDataFile(QString fileName);
     QVector<QVector<double>> getCursorValueTrack(void);
@@ -23,6 +24,7 @@ public:
     QVector<double> getSelectedCursorValueTrack(void);
     void addPoint(double t, SData y);
     void updatePlot(void);
+    void exportData(QString filename) {qDebug() << "Export: " << filename;}
 
 public slots:
     void onNewPlotter();
@@ -53,6 +55,7 @@ private slots:
 private:
     Ui::MWPlot *ui;
     WCursorInfo *wCursorInfo;
+    QString m_name;
 };
 
 #endif // MWPLOT_H
