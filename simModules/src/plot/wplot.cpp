@@ -63,12 +63,12 @@ void WPlot::createPlot(void)
 // Load data file
 void WPlot::loadDataFile(QString fileName)
 {
-    m_data.clear();
     double y_max = 0, y_min = 0;
 
     QFile file(fileName);
     if (file.open(QIODevice::ReadOnly))
     {
+        m_data.clear();
         QTextStream stream(&file);
         QString line;
         while (!stream.atEnd())
@@ -96,28 +96,28 @@ void WPlot::loadDataFile(QString fileName)
             m_data.append(sample);
         }
         m_fileName = fileName;
+
+        qreal x_min = 0, x_max = 0;
+        if (m_data.size() != 0)
+        {
+            x_min = m_data[0][0];
+            x_max = m_data[m_data.size()-1][0];
+        }
+
+        if (m_plotter)
+        {
+            delete m_plotter; // remove old data plotter
+        }
+
+        m_plotter = new Plotter(
+                    size(),
+                    QRectF(x_min, y_min, x_max - x_min, y_max - y_min),
+                    m_data,
+                    Plotter::LINE_STYLE);
+        emit newPlotter();
+        updatePlot();
     }
     file.close();
-
-    qreal x_min = 0, x_max = 0;
-    if (m_data.size() != 0)
-    {
-        x_min = m_data[0][0];
-        x_max = m_data[m_data.size()-1][0];
-    }
-
-    if (m_plotter)
-    {
-        delete m_plotter; // remove old data plotter
-    }
-
-    m_plotter = new Plotter(
-                size(),
-                QRectF(x_min, y_min, x_max - x_min, y_max - y_min),
-                m_data,
-                Plotter::LINE_STYLE);
-    emit newPlotter();
-    updatePlot();
 }
 
 // Save data file

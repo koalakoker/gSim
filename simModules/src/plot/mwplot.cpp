@@ -8,6 +8,7 @@ MWPlot::MWPlot(QString name, QWidget *parent) : QMainWindow(parent), ui(new Ui::
 {
     ui->setupUi(this);
     connect(ui->wplot,SIGNAL(newPlotter()), this, SLOT(onNewPlotter()));
+
 }
 MWPlot::~MWPlot()
 {
@@ -74,7 +75,10 @@ void MWPlot::on_cursorPosChanged(int cur, qreal value)
 void MWPlot::on_actionOpen_data_file_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this,"Open data file","","*.*");
-    ui->wplot->loadDataFile(fileName);
+    if (fileName != "")
+    {
+        ui->wplot->loadDataFile(fileName);
+    }
 }
 void MWPlot::on_actionExport_data_file_triggered()
 {
