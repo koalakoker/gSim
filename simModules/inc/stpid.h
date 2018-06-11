@@ -14,7 +14,7 @@ public:
 
     SDataVector execute(SDataVector in);
 
-private:
+public:
     double m_kp;
     double m_ki;
     double m_kd;

@@ -10,7 +10,18 @@ SDataVector STPID::execute(SDataVector in)
     double u;
     double err = in.value();
 
-    u = (m_kp * err) + (m_ki * m_intTF.execute(err).value()) + (m_kd * m_derTF.execute(err).value());
+    double intTerm = m_ki * m_intTF.execute(err).value();
+    u = (m_kp * err) + (intTerm) + (m_kd * m_derTF.execute(err).value());
+
+    if (u > m_maxOut)
+    {
+        u = m_maxOut;
+    }
+
+    if (u < -m_maxOut)
+    {
+        u = -m_maxOut;
+    }
 
     return SDataVector(u);
 }
