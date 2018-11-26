@@ -1,0 +1,508 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"n",
+				"name"
+			],
+			[
+				"TIM_BDTR",
+				"TIM_BDTR_BKE"
+			],
+			[
+				"SMS",
+				"SMS_MODE_TRIGGER"
+			],
+			[
+				"de",
+				"define"
+			],
+			[
+				"CC",
+				"CCER"
+			],
+			[
+				"C",
+				"CCR1"
+			],
+			[
+				"NBIT",
+				"NBIT0"
+			],
+			[
+				"m_",
+				"m_pp"
+			],
+			[
+				"S16",
+				"S16_30_PHASE_SHIFT"
+			],
+			[
+				"Enable",
+				"EnableTimerOutputs"
+			],
+			[
+				"ui",
+				"uint32_t"
+			],
+			[
+				"uint",
+				"uint8_t"
+			],
+			[
+				"tim",
+				"timCkShift"
+			],
+			[
+				"TIM",
+				"TIM_ARR"
+			],
+			[
+				"Out",
+				"EnableTimerOutputs"
+			],
+			[
+				"Star",
+				"StartTimers"
+			],
+			[
+				"GPIO_P",
+				"GPIO_Pin_4"
+			],
+			[
+				"JM",
+				"JMEASBUFF"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "STARTUP\nPWM 15000 - Reprate 1\nCapture5 - LV Board - Current bandwidth 6000 rad/s\nCapture6 - LV Board - Current bandwidth 3000 rad/s\nCapture7 - LV Board - Current bandwidth 1000 rad/s\nCapture8 - LV Board - Current bandwidth 500  rad/s\n\nPWM 15000 - Reprate 2\nCapture9  - LV Board - Current bandwidth 6000 rad/s\nCapture10 - LV Board - Current bandwidth 1000 rad/s\n\nRUN\n\nPWM 15000 - Reprate 2\n            LV Board - Current bandwidth 3000 rad/s - RUN @ 2000rpm <- Motor don't start\nCapture12 - LV Board - Current bandwidth 2000 rad/s - RUN @ 2000rpm\nCapture11 - LV Board - Current bandwidth 1000 rad/s - RUN @ 2000rpm\n\nPNUCLEO\n\nRUN\nReprate 2\nCapture14 - PNUCLEO - Current bandwidth 3000 rad/s - RUN @ 2000rpm\nCapture13 - PNUCLEO - Current bandwidth 2000 rad/s - RUN @ 2000rpm\nCapture15 - PNUCLEO - Current bandwidth 1000 rad/s - RUN @ 2000rpm\n\nSTARTUP\nReprate 1\nCapture16 - PNUCLEO - Current bandwidth 6000 rad/s\nCapture17 - PNUCLEO - Current bandwidth 3000 rad/s\nCapture18 - PNUCLEO - Current bandwidth 1000 rad/s\nCapture19 - PNUCLEO - Current bandwidth 500  rad/s\n\nReprate 2\nCapture20 - PNUCLEO - Current bandwidth 6000 rad/s\nCapture21 - PNUCLEO - Current bandwidth 1000 rad/s",
+			"file": "/C/Users/gianluigi forte/Desktop/Customer Support/2017/CeilingFAN_LV_Subhodu/ceiling fan LV/repo/Firmware/Report.txt",
+			"file_size": 1209,
+			"file_write_time": 131577199151062551,
+			"settings":
+			{
+				"buffer_size": 1174,
+				"line_ending": "Windows",
+				"name": "Capture5 - LV Board - Current bandwidth 6000 rad/s"
+			}
+		},
+		{
+			"file": "/C/Users/gianluigi forte/Desktop/Customer Support/2017/CeilingFAN_LV_Subhodu/FW/Report/Report.txt",
+			"settings":
+			{
+				"buffer_size": 1174,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/cpp.sublime-build",
+					""
+				],
+				[
+					"Packages/User/cpp.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/cpp.sublime-build",
+				"Run"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: ",
+				"Snippet: #ifndef … #define … #endif"
+			]
+		],
+		"width": 436.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/MyProjects/gSim"
+	],
+	"file_history":
+	[
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/CeilingFAN_LV_Subhodu/FW/STM32 PMSM FOC LIB/Web/Project/main.c",
+		"/C/VSS/MC/3PH/0051.15/SOFTWARE/FIRMWARE/trunk/Web/MCLibrary/src/NTC_TemperatureSensorClass.c",
+		"/C/MyProjects/gSim/simModules/inc/strc.h",
+		"/C/MyProjects/gSim/simModules/src/strc.cpp",
+		"/C/Users/gianluigi forte/Desktop/home/ST My home page.html",
+		"/C/Users/gianluigi forte/Desktop/STM32303E-EVAL_SingleDrive_M2.stmcx",
+		"/C/Program Files (x86)/STMicroelectronics/FOC SDK/v4.3.0/STMCWB/assets/xml/board/control/STM32303E-EVAL.xml",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MIP/FW/Web/MCApplication/src/MCTasks.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/List.txt",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/STM32F303R(D-E)Tx - 72 MHz - eb.ftl",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/STM32F302R8T6.ioc",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/STM32F302R(6-8)Tx - 72 MHz - eb.ftl",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/STM32F303CCT6.ioc",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/STM32F303C(B-C)Tx - 72 MHz - eb.ftl",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/STM32F303VCT6.ioc",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/STM32F303V(B-C)Tx - 72 MHz - eb.ftl",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/STM32F303VET6.ioc",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/STM32F303V(D-E)Tx - 72 MHz - eb.ftl",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/NVIC_Ok.txt",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/BlankIocTemplate/NVIC_New.txt",
+		"/C/Users/gianluigi forte/Desktop/STM32F303R(D-E)Tx - 72 MHz - eb.ftl",
+		"/C/VSS/FA/DRS/0011.17/SOFTWARE/FIRMWARE/STESC80A MODULE/Project/mc_interface.c",
+		"/C/VSS/FA/DRS/0011.17/SOFTWARE/FIRMWARE/STESC80A MODULE/Project/uav.cpp",
+		"/C/Users/gianluigi forte/AppData/Roaming/Sublime Text 3/Packages/User/Anaconda.sublime-settings",
+		"/C/Users/gianluigi forte/AppData/Roaming/Sublime Text 3/Packages/Anaconda/Anaconda.sublime-settings",
+		"/C/Users/gianluigi forte/AppData/Roaming/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/C/VSS/FA/DRS/0011.17/SOFTWARE/FIRMWARE/STESC80A MODULE/uavcan/protocol/debug/KeyValue.hpp",
+		"/C/VSS/FA/DRS/0011.17/SOFTWARE/FIRMWARE/STESC80A MODULE/uavcan/protocol/DataTypeKind.hpp",
+		"//ctnfs03/GPO_FR/MLDCLAB/Users/gianluigi forte/My Documents/My Received Files/motor_db.xml",
+		"/C/MyProjects/testClass/                 from main.cpp",
+		"/C/MyProjects/testClass/In file included from b.h",
+		"/C/MinGW/include/stdio.h",
+		"/C/Users/gianluigi forte/AppData/Roaming/Sublime Text 3/Packages/User/cpp.sublime-build",
+		"/C/MyProjects/testClass/main.cpp",
+		"/C/MyProjects/testClass/dialog.cpp",
+		"/C/MyProjects/testClass/test.sublime-project",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/Cedric/STM32F303VETx_24Mhz_Ext.ioc",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/Cedric/STM32F303VETx_48Mhz_Ext.ioc_",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/Cedric/STM32F303VETx_48Mhz_Ext.ioc",
+		"//ctnfs03/GPO_FR/MLDCLAB/Users/gianluigi forte/My Documents/My Received Files/STM32E-EVAL-SingleMotor.ioc",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/Cedric/STM32F303VETx_72Mhz_Ext.ioc",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/Cedric/STM32F303VETx_56Mhz_Ext.ioc",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/6I/src/Test.txt",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/6I/src/main.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/6I/test.tcl",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/dotara.h",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/6C/src/main.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/6I/src/compila_test.bat",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/6J/src/TestDescription.txt",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/6J/src/main.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/6J/test.tcl",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/2P/test.tcl",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/2P/src/main.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/6H/test.tcl",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/C/MyProjects/gSim/simModel/src/simModel.cpp",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/6H/src/compila_test.bat",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/AMS_test_TXMODE/src/main-357.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/Palano/Catania/ADC3.txt",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/Palano/Catania/ADC1.txt",
+		"/C/Users/GIANLU~1/AppData/Local/Temp/7zEDAD0.tmp/saveext.txt",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/AMS_test_TXMODE/src/main.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/AMS_test_TXMODE/src/2A_changes201709121706.txt",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/AMS_test_TXMODE/src/changes.txt",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/gpio_from_rom/src/main.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/AMS_test_TXMODE/Test_2A_ReadMe.txt",
+		"/C/Users/gianluigi forte/AppData/Roaming/Sublime Text 3/Packages/User/arm.sublime-build",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/AMS_test_TXMODE/src/compila_test.bat",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/2A/src/main.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/2A/src/main_lucio.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/2A/Test_2A_ReadMe.txt",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/2A/TimerInit.txt",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/2A/src/compila_test.bat",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/CMSIS/dotara_xe.h",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/Gigi_Base_Test/src/main.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2016/Canon/FW/ProtectedSources_4_3/SystemDriveParams/SystemNDriveParams.h",
+		"/C/MyProjects/gSim/simModules/src/stpi.cpp",
+		"/C/MyProjects/gSim/simModules/src/stpid.cpp",
+		"/C/MyProjects/gSim/simModules/src/stfintegrator.cpp",
+		"/C/MyProjects/gSim/simModules/src/stfderivatorfitered.cpp",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2016/Canon/FW/ProtectedSources_4_3/MCLibrary/src/HALL_F30X_SpeednPosFdbkClass.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/WB/Test/SDK43x-NUCLEO-F302R8-X-NUCLEO-IHM08M1-Shinano/Debugging IOC generation",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/Zuma/repo/design/libs/integration/verif/tests/FSM/src/compila_test",
+		"/C/MyProjects/gSim/simModules/src/stfdiscretefirstorder.cpp",
+		"/C/MyProjects/gSim/simModules/src/stdpi.cpp",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2016/Canon/FW/ProtectedSources_4_3/MCApplication/src/MCTasks.c",
+		"/C/Users/gianluigi forte/Desktop/EvalBD Validation/STM32G081B-EVAL/STM32Cube_FW_G0_V0.2.0/Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_tim.h",
+		"/C/Users/gianluigi forte/Desktop/EvalBD Validation/STM32G081B-EVAL/STM32Cube_FW_G0_V0.2.0/Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_tim_ex.c",
+		"/C/Users/gianluigi forte/Desktop/EvalBD Validation/STM32G081B-EVAL/STM32Cube_FW_G0_V0.2.0/Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_gpio_ex.h",
+		"/C/Users/gianluigi forte/Desktop/EvalBD Validation/STM32G081B-EVAL/STM32Cube_FW_G0_V0.2.0/Projects/STM32G081B_EVAL/Template/Src/main.c",
+		"/C/Users/gianluigi forte/Desktop/EvalBD Validation/STM32G081B-EVAL/STM32Cube_FW_G0_V0.2.0/Drivers/CMSIS/Device/ST/STM32G0xx/Include/stm32g081xx.h",
+		"/C/Users/gianluigi forte/Desktop/EvalBD Validation/Orca_MB1313/Alpha/FW/HAL/STM32Cube_FW_L4_V1.9.0RC4/Projects/STM32L4R9I_EVAL/Templates/Src/main.c",
+		"/C/Users/gianluigi forte/Desktop/EvalBD Validation/STM32G081B-EVAL/STM32Cube_FW_G0_V0.2.0/Projects/STM32G081B_EVAL/Demonstrations/Demo/Src/main.c",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2016/Canon/FW/ProtectedSources_4_3/readme.txt",
+		"/C/MyProjects/gSim/simTemplates/simView/commonSimView.cpp",
+		"/C/MyProjects/gSim/simModel/src/simModel10.cpp",
+		"/C/MyProjects/gSim/simModel/inc/simModel10.h",
+		"/C/MyProjects/gSim/simulationTemplates/simulationModel9.cpp",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/WB/WB 5.0.0.17317/WB_to_Mx/templates/support/utils.ftl",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/WB/Test/SDK43x-NUCLEO-F302R8-X-NUCLEO-IHM08M1-Shinano/SDK43x-NUCLEO-F302R8-X-NUCLEO-IHM08M1-Shinano.ioc",
+		"/C/Users/gianluigi forte/Desktop/Sublime Text Key.txt",
+		"/C/Users/gianluigi forte/Desktop/EvalBD Validation/STM32G081B-EVAL/PinAssignment.txt",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/Daniel/NUCLEO_F303RE_IHM08M1_1SHUNT_PWM.ioc",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/Palano/WB_to_Mx/templates/support/MC_task/oCurrSensor/support/includeFragmentDefinitions.ftl",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/TIM1.IPParameters_IHM07",
+		"/C/Users/gianluigi forte/Desktop/Customer Support/2017/MCD/TIM1.IPParameters_IHM08",
+		"/C/MyProjects/FlexBison/linux/my.l",
+		"/C/MyProjects/FlexBison/linux/my.y",
+		"/C/MyProjects/FlexBison/STM32/FlexBisonSTM32/Src/build.bat",
+		"/C/VSS/MC/3PH/0051.15/SOFTWARE/FIRMWARE/trunk/Web/Project/main.c",
+		"/C/VSS/MC/3PH/0051.15/SOFTWARE/FIRMWARE/trunk/ProtectedSources/MCApplication/src/MCTasks.c",
+		"/C/MyProjects/FlexBison/STM32/FlexBisonSTM32/Src/lex.yy.c",
+		"/C/MyProjects/FlexBison/STM32/FlexBisonSTM32/Inc/my.tab.h",
+		"/C/MyProjects/FlexBison/STM32/FlexBisonSTM32/Src/my.y"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/gianluigi forte/Desktop/Customer Support/2017/CeilingFAN_LV_Subhodu/ceiling fan LV/repo/Firmware/Report.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1174,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1072,
+								1072
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Capture5 - LV Board - Current bandwidth 6000 rad/s",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/gianluigi forte/Desktop/Customer Support/2017/CeilingFAN_LV_Subhodu/FW/Report/Report.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1174,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								309,
+								318
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 203.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/cpp.sublime-build",
+	"project": "gsim.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"strc",
+				"simModules\\src\\strc.cpp"
+			],
+			[
+				"str",
+				"simModules\\inc\\strc.h"
+			],
+			[
+				"b",
+				"b.h"
+			],
+			[
+				"b.h",
+				"b.h"
+			],
+			[
+				"mctas",
+				"MCApplication\\src\\MCTasks.c"
+			],
+			[
+				"ha",
+				"MCLibrary\\src\\HALL_F30X_SpeednPosFdbkClass.c"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 282.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
