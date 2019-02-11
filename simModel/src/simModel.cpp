@@ -3,6 +3,8 @@
 #include "smotormech.h"
 #include "stpid.h"
 
+const double M_PI = 3.14159265359;
+
 simModel::simModel()
 {
     /* Set sim number */
@@ -43,12 +45,12 @@ simModel::simModel()
     /********************* *********************/
     /*      Setup parameters into the view     */
     /********************* *********************/
-    m_userParams.append(new simModelElement("Sim input parameters", SE_group, NULL));
-    m_userParams.append(new simModelElement("Duration (s)", SE_double, (void*)(&m_movementDuration)));
-    m_userParams.append(new simModelElement("AngleStep (rad)", SE_double, (void*)(&m_angleStep)));
-    m_userParams.append(new simModelElement("Plot", SE_bool, (void*)(&m_anglePlot)));
-    m_userParams.append(new simModelElement("Sim output values", SE_group, NULL));
-    m_userParams.append(new simModelElement("Jerk", SE_double, (void*)(&m_jerk)));
+    m_userParams.append(new simModelElement("Sim input parameters", SE_group, nullptr));
+    m_userParams.append(new simModelElement("Duration (s)", SE_double,        static_cast<void*>(&m_movementDuration)));
+    m_userParams.append(new simModelElement("AngleStep (rad)", SE_double,     static_cast<void*>(&m_angleStep)));
+    m_userParams.append(new simModelElement("Plot", SE_bool,                  static_cast<void*>(&m_anglePlot)));
+    m_userParams.append(new simModelElement("Sim output values", SE_group,    nullptr));
+    m_userParams.append(new simModelElement("Jerk", SE_double,                static_cast<void*>(&m_jerk)));
     /********************* *********************/
 }
 
@@ -72,7 +74,7 @@ void simModel::startSim(void)
 
     // Init simulation vars
     m_t = 0;
-    int m_step = (int)(m_duration / m_ts);
+    int m_step = static_cast<int>(m_duration / m_ts);
     /********************* *********************/
     /* Define here the behaviour of your model */
     /********************* *********************/
@@ -164,7 +166,7 @@ void simModel::startSim(void)
         m_t += m_ts;
 
         // Update progress
-        emit updateProgress((double)(i+1)/(double)m_step);
+        emit updateProgress(static_cast<double>(i+1)/static_cast<double>(m_step));
     }
 
     if (m_motorOmegaPlot)
