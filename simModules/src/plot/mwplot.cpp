@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include <QDebug>
 
-MWPlot::MWPlot(QString name, QWidget *parent) : QMainWindow(parent), ui(new Ui::MWPlot), wCursorInfo(NULL), m_name(name)
+MWPlot::MWPlot(QString name, QWidget *parent) : QMainWindow(parent), ui(new Ui::MWPlot), wCursorInfo(nullptr), m_name(name)
 {
     ui->setupUi(this);
     connect(ui->wplot,SIGNAL(newPlotter()), this, SLOT(onNewPlotter()));
@@ -53,7 +53,7 @@ void MWPlot::updatePlot(void)
 void MWPlot::onNewPlotter()
 {
     connect(ui->wplot->m_plotter,SIGNAL(cursorChanged()), this, SLOT(onCursorChange()));
-    setWindowTitle(ui->wplot->m_fileName);
+    setWindowTitle(ui->wplot->m_fileName + " " + m_name);
 }
 void MWPlot::onCursorChange()
 {

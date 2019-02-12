@@ -47,7 +47,7 @@
          <item row="2" column="1">
           <widget class="QDoubleSpinBox" name="stepTime">
            <property name="decimals">
-            <number>5</number>
+            <number>6</number>
            </property>
           </widget>
          </item>
@@ -61,7 +61,7 @@
          <item row="3" column="1">
           <widget class="QDoubleSpinBox" name="controlTime">
            <property name="decimals">
-            <number>5</number>
+            <number>6</number>
            </property>
           </widget>
          </item>
@@ -163,7 +163,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

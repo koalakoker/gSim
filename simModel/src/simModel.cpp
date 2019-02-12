@@ -1,166 +1,154 @@
 #include "simModel.h"
-#include "ssscope.h"
-#include "smotormech.h"
-#include "stpid.h"
 
-const double M_PI = 3.14159265359;
+#include "stpmsmabc.h"
+#include "strl.h"
+#include "stdpi.h"
+#include "ssscope.h"
+
+# define M_PI           3.14159265358979323846  /* pi */
 
 simModel::simModel()
 {
     /* Set sim number */
-    m_sim = 10;
-    m_description = "Position control simulation";
+    m_sim = 6;
+    m_description = "PMSM abc sim";
 
     /* Default common params */
-    m_ts = 0.0005;
-    m_tc = m_ts;
-    m_duration = 50;
+    m_tc = 1/20000.0;
+    m_ts = m_tc/10.0;
+    m_duration = 0.5;
 
-    /********************* *********************/
-    /*        Parameters initialization        */
-    /********************* *********************/
+    /* Specific params for sim */
+    m_rs   = 0.35;
+    m_ls   = 0.0006;
+    m_flux = 0.016;
 
-    /* Motor */
-    m_polesPairs = 7.0;
-    m_inertia    = 0.0000044;
-    m_friction   = 0.00002766;
-    m_torque     = 0.013;
+    m_polesPairs = 2.0;
+    m_inertia    = 0.00005;
+    m_friction   = 0.000014;
 
-    m_motorTetaPlot  = true;
-    m_motorOmegaPlot = false;
+    m_pi_iqd_bw = 6000.0;
+    m_pi_iqd_kp = m_ls * m_pi_iqd_bw;
+    m_pi_iqd_ki = m_rs * m_pi_iqd_bw;
+    m_pi_iqd_kd = 0.0;
+    m_pi_iqd_n = 0.0;
 
-    /* Position PID */
-    m_pi_kp = 0.0001;
-    m_pi_ki = 0.0002;
-    m_pi_kd = 0.00002;
-    m_pi_n = 1;
-
-    /* Plots */
-    m_anglePlot = false;
-
-    m_movementDuration = 50;
-    m_angleStep = M_PI * 2;
-    /********************* *********************/
+    m_pi_speed_bw = 10.0;
+    m_pi_speed_kp = m_inertia  * m_pi_speed_bw;
+    m_pi_speed_ki = m_friction * m_pi_speed_bw;
+    m_pi_speed_kd = 0.0;
+    m_pi_speed_n = 0.0;
 
     /********************* *********************/
     /*      Setup parameters into the view     */
     /********************* *********************/
-    m_userParams.append(new simModelElement("Sim input parameters", SE_group, nullptr));
-    m_userParams.append(new simModelElement("Duration (s)", SE_double,        static_cast<void*>(&m_movementDuration)));
-    m_userParams.append(new simModelElement("AngleStep (rad)", SE_double,     static_cast<void*>(&m_angleStep)));
-    m_userParams.append(new simModelElement("Plot", SE_bool,                  static_cast<void*>(&m_anglePlot)));
-    m_userParams.append(new simModelElement("Sim output values", SE_group,    nullptr));
-    m_userParams.append(new simModelElement("Jerk", SE_double,                static_cast<void*>(&m_jerk)));
+    m_userParams.append(new simModelElement("Electrical",   SE_group,  nullptr));
+    m_userParams.append(new simModelElement("Rs",           SE_double, static_cast<void*>(&m_rs)));
+    m_userParams.append(new simModelElement("Ls",           SE_double, static_cast<void*>(&m_ls)));
+    m_userParams.append(new simModelElement("Flux",         SE_double, static_cast<void*>(&m_flux)));
+
+    m_userParams.append(new simModelElement("Meccanical",   SE_group,  nullptr));
+    m_userParams.append(new simModelElement("Poles Pairs",  SE_double, static_cast<void*>(&m_polesPairs)));
+    m_userParams.append(new simModelElement("Inertia",      SE_double, static_cast<void*>(&m_inertia), 6));
+    m_userParams.append(new simModelElement("Friction",     SE_double, static_cast<void*>(&m_friction),6));
+
+    m_userParams.append(new simModelElement("Iqd Params",   SE_group,  nullptr));
+    m_userParams.append(new simModelElement("IqdPIBw",      SE_double, static_cast<void*>(&m_pi_iqd_bw)));
+    m_userParams.append(new simModelElement("IqdPIKp",      SE_double, static_cast<void*>(&m_pi_iqd_kp)));
+    m_userParams.append(new simModelElement("IqdPIKi",      SE_double, static_cast<void*>(&m_pi_iqd_ki)));
+
+    m_userParams.append(new simModelElement("Speed Params", SE_group,  nullptr));
+    m_userParams.append(new simModelElement("SpeedPIBw",    SE_double, static_cast<void*>(&m_pi_speed_bw)));
+    m_userParams.append(new simModelElement("SpeedPIKp",    SE_double, static_cast<void*>(&m_pi_speed_kp)));
+    m_userParams.append(new simModelElement("SpeedPIKi",    SE_double, static_cast<void*>(&m_pi_speed_ki)));
+
     /********************* *********************/
+}
+
+double RadSectoRPM(double rads)
+{
+    return ((rads / (2.0 * M_PI)) * 60.0);
+}
+
+double RPMtoRadSec(double rpm)
+{
+    return ((rpm * (2.0 * M_PI)) / 60.0);
 }
 
 void simModel::startSim(void)
 {
     // Test specific initialization
-    m_t1 = m_movementDuration / 9;
-    m_t2 = 2 * m_t1;
-    m_t3 = 3 * m_t1;
-    m_t4 = 6 * m_t1;
-    m_t5 = 7 * m_t1;
-    m_t6 = 8 * m_t1;
-    m_t7 = 9 * m_t1;
 
-    m_jerk = m_angleStep / (12 * m_t1 * m_t1 * m_t1);
-    m_cruiseSpeed = 2 * m_jerk * m_t1 * m_t1;
-
-    m_omega = 0;
-    m_teta = 0;
-    m_acceleration = 0;
-
-    // Init simulation vars
+    // Init sim vars
     m_t = 0;
     int m_step = static_cast<int>(m_duration / m_ts);
-    /********************* *********************/
-    /* Define here the behaviour of your model */
-    /********************* *********************/
+    int m_controlStepRatio = static_cast<int>(m_tc / m_ts);
 
     // Init sink-source-transfer
-    SMotorMech motor(m_polesPairs, m_inertia, m_friction, m_ts);
-    STPID speedpid(m_pi_kp, m_pi_ki, m_pi_kd, m_pi_n, m_tc);
-    double posTarg = M_PI / 2;
-    SDataVector tin;
+    double brakeTorque = 0;
+    STPMSMabc motor(m_rs, m_ls, m_ls, m_polesPairs, m_flux, m_inertia, m_friction, m_ts, brakeTorque);
+    STDPI idpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
+    STDPI iqpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
+    STDPI speedpid(m_pi_speed_kp, m_pi_speed_ki, m_tc * 20, 10000);
+    double speedTargRPM = 1000;
+    STabctodq abctodq;
+    STdqtoabc dqtoabc;
+    double idTarg = 0.0;
+    double iqTarg = 0.0;
+    SSScope iqdScope("Iqd");
+    SSScope vqdScope("Vqd");
+    SSScope speed("Speed rpm");
+    SSScope torque("Torque");
+    SSScope theta("Theta");
+    SSScope vabc("Vabc");
+    SSScope iabc("Iabc");
 
-    SSScope sscope3("Motor - Speed");
-    SSScope sscope4("Motor - Theta");
-
-    SSScope sscope("Angle");
-    SSScope sscope1("Omega");
-    SSScope sscope2("Acceleration");
+    SDataVector vqin = 0 , vdin = 0;
 
     // Main cycle
     for (int i = 0; i < m_step; i++)
     {
         // Execution of sink and source
+        double id = 0.0;
+        double iq = 0.0;
 
-        double jerk = 0;
-        /* Motor update */
-        if (m_t < m_t1)
+        if ((i % m_controlStepRatio) == 0)
         {
-            jerk = m_jerk;
-        }
-        else if (m_t < m_t2)
-        {
-        }
-        else if (m_t < m_t3)
-        {
-            jerk = -m_jerk;
-        }
-        else if (m_t < m_t4)
-        {
-            m_acceleration = 0;
-            m_omega = m_cruiseSpeed;
-        }
-        else if (m_t < m_t5)
-        {
-            jerk = -m_jerk;
-        }
-        else if (m_t < m_t6)
-        {
+            // Execution of control cycle
+            SDataVector idq = abctodq.execute(SDataVector(motor.vars().Ia, motor.vars().Ib, motor.vars().ElAngle));
 
-        }
-        else if (m_t < m_t7)
-        {
-            jerk = m_jerk;
-        }
-        else
-        {
-            m_acceleration = 0;
-            m_omega = 0;
-        }
-        m_acceleration += jerk * m_ts;
-        m_omega += m_acceleration * m_ts;
-        m_teta += m_omega * m_ts;
+            id = idq.data(0, 0);
+            iq = idq.data(0, 1);
 
-        // Execution of control cycle
-        posTarg = m_teta;
-        double err;
-        err = posTarg - motor.vars().MechAngle;
-        tin = speedpid.execute(err);
+            double err;
+            err = idTarg - id;
+            vdin = idpid.execute(err);
 
-        motor.execute(tin);
-        MotorMechVars iW = motor.vars();
+            err = iqTarg - iq;
+            vqin = iqpid.execute(err);
 
-        if (m_motorOmegaPlot)
-        {
-            sscope3.execute(m_t, SDataVector(iW.Wm));
+            iqdScope.execute(m_t, SDataVector(iqTarg, iq, idTarg, id));
+            vqdScope.execute(m_t, SDataVector(vdin, vqin));
+
+            if ((i % (m_controlStepRatio * 20)) == 0)
+            {
+                // Execution of speed loop
+                err = RPMtoRadSec(speedTargRPM) - motor.vars().Wm;
+                double torqueRef = speedpid.execute(err).value();
+                iqTarg = torqueRef/(1.5 * m_polesPairs * m_flux);
+            }
         }
 
-        if (m_motorTetaPlot)
-        {
-            sscope4.execute(m_t, SDataVector(posTarg, iW.MechAngle));
-        }
+        SDataVector vin = SDataVector(vdin, vqin, motor.vars().ElAngle);
+        vin = dqtoabc.execute(vin);
+        vabc.execute(m_t, vin);
+        motor.execute(vin);
+        PMSMVars iW = motor.vars();
 
-        if (m_anglePlot)
-        {
-            sscope.execute(m_t, SDataVector(m_teta));
-            sscope1.execute(m_t, SDataVector(m_omega));
-            sscope2.execute(m_t, SDataVector(m_acceleration));
-        }
+        speed.execute(m_t, RadSectoRPM(iW.Wm));
+        torque.execute(m_t, iW.T);
+        theta.execute(m_t, SDataVector(iW.MechAngle, iW.ElAngle));
+        iabc.execute(m_t, SDataVector(iW.Ia, iW.Ib, iW.Ic));
 
         // Update of simutaion variables
         m_t += m_ts;
@@ -169,21 +157,13 @@ void simModel::startSim(void)
         emit updateProgress(static_cast<double>(i+1)/static_cast<double>(m_step));
     }
 
-    if (m_motorOmegaPlot)
-    {
-        sscope3.scopeUpdate();
-    }
+    iqdScope.scopeUpdate();
+    vqdScope.scopeUpdate();
 
-    if (m_motorTetaPlot)
-    {
-        sscope4.scopeUpdate();
-    }
+    torque.scopeUpdate();
+    speed.scopeUpdate();
 
-    if (m_anglePlot)
-    {
-        sscope.scopeUpdate();
-        sscope1.scopeUpdate();
-        sscope2.scopeUpdate();
-    }
-    /********************* *********************/
+    theta.scopeUpdate();
+    vabc.scopeUpdate();
+    iabc.scopeUpdate();
 }
