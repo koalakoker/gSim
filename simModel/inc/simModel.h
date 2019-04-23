@@ -32,11 +32,11 @@ public:
     double m_pi_iqd_kd;
     double m_pi_iqd_n;
 
-    double m_pi_speed_bw;
-    double m_pi_speed_kp;
-    double m_pi_speed_ki;
-    double m_pi_speed_kd;
-    double m_pi_speed_n;
+    double m_pi_pos_bw;
+    double m_pi_pos_kp;
+    double m_pi_pos_ki;
+    double m_pi_pos_kd;
+    double m_pi_pos_n;
 
     void startSim(void);
 };

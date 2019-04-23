@@ -3,6 +3,7 @@
 #include "stpmsmabc.h"
 #include "strl.h"
 #include "stdpi.h"
+#include "stpid.h"
 #include "ssscope.h"
 
 # define M_PI           3.14159265358979323846  /* pi */
@@ -16,7 +17,7 @@ simModel::simModel()
     /* Default common params */
     m_tc = 1/20000.0;
     m_ts = m_tc/10.0;
-    m_duration = 0.5;
+    m_duration = 1.0;
 
     /* Specific params for sim */
     m_rs   = 0.6;
@@ -33,11 +34,11 @@ simModel::simModel()
     m_pi_iqd_kd = 0.0;
     m_pi_iqd_n = 0.0;
 
-    m_pi_speed_bw = 10.0;
-    m_pi_speed_kp = m_inertia  * m_pi_speed_bw;
-    m_pi_speed_ki = m_friction * m_pi_speed_bw;
-    m_pi_speed_kd = 0.0;
-    m_pi_speed_n = 0.0;
+    m_pi_pos_bw =  10.0;
+    m_pi_pos_kp =  m_friction * m_pi_pos_bw;
+    m_pi_pos_kd =  m_inertia  * m_pi_pos_bw;
+    m_pi_pos_n  =  m_pi_pos_bw * 5;
+    m_pi_pos_ki =  0.0;
 
     /********************* *********************/
     /*      Setup parameters into the view     */
@@ -58,10 +59,11 @@ simModel::simModel()
     m_userParams.append(new simModelElement("IqdPIKp",      SE_double, static_cast<void*>(&m_pi_iqd_kp)));
     m_userParams.append(new simModelElement("IqdPIKi",      SE_double, static_cast<void*>(&m_pi_iqd_ki)));
 
-    m_userParams.append(new simModelElement("Speed Params", SE_group,  nullptr));
-    m_userParams.append(new simModelElement("SpeedPIBw",    SE_double, static_cast<void*>(&m_pi_speed_bw)));
-    m_userParams.append(new simModelElement("SpeedPIKp",    SE_double, static_cast<void*>(&m_pi_speed_kp)));
-    m_userParams.append(new simModelElement("SpeedPIKi",    SE_double, static_cast<void*>(&m_pi_speed_ki)));
+    m_userParams.append(new simModelElement("Pos Params", SE_group,  nullptr));
+    m_userParams.append(new simModelElement("PosPIBw",    SE_double, static_cast<void*>(&m_pi_pos_bw)));
+    m_userParams.append(new simModelElement("PosPIKp",    SE_double, static_cast<void*>(&m_pi_pos_kp), 8));
+    m_userParams.append(new simModelElement("PosPIKi",    SE_double, static_cast<void*>(&m_pi_pos_kd), 8));
+    m_userParams.append(new simModelElement("PosPIn",    SE_double, static_cast<void*>(&m_pi_pos_n)));
 
     /********************* *********************/
 }
@@ -89,8 +91,8 @@ void simModel::startSim(void)
     STPMSMabc motor(m_rs, m_ls, m_ls, m_polesPairs, m_flux, m_inertia, m_friction, m_ts, m_staticBrake);
     STDPI idpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
     STDPI iqpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
-    STDPI speedpid(m_pi_speed_kp, m_pi_speed_ki, m_tc * 20, 10000);
-    double speedTargRPM = 1000;
+    STPID pospid(m_pi_pos_kp, m_pi_pos_ki, m_pi_pos_kd, m_pi_pos_n, m_tc * 20);
+    double posTargTeta = 2*M_PI;
     STabctodq abctodq;
     STdqtoabc dqtoabc;
     double idTarg = 0.0;
@@ -133,8 +135,8 @@ void simModel::startSim(void)
             if ((i % (m_controlStepRatio * 20)) == 0)
             {
                 // Execution of speed loop
-                err = RPMtoRadSec(speedTargRPM) - motor.vars().Wm;
-                double torqueRef = speedpid.execute(err).value();
+                err = posTargTeta - motor.vars().MechAngle;
+                double torqueRef = pospid.execute(err).value();
                 iqTarg = torqueRef/(1.5 * m_polesPairs * m_flux);
             }
         }
@@ -147,7 +149,7 @@ void simModel::startSim(void)
 
         speed.execute(m_t, RadSectoRPM(iW.Wm));
         torque.execute(m_t, iW.T);
-        theta.execute(m_t, SDataVector(iW.MechAngle, iW.ElAngle));
+        theta.execute(m_t, SDataVector(iW.MechAngle));
         iabc.execute(m_t, SDataVector(iW.Ia, iW.Ib, iW.Ic));
 
         // Update of simutaion variables
@@ -157,13 +159,13 @@ void simModel::startSim(void)
         emit updateProgress(static_cast<double>(i+1)/static_cast<double>(m_step));
     }
 
-    iqdScope.scopeUpdate();
-    vqdScope.scopeUpdate();
+    //iqdScope.scopeUpdate();
+    //vqdScope.scopeUpdate();
 
     torque.scopeUpdate();
     speed.scopeUpdate();
 
     theta.scopeUpdate();
-    vabc.scopeUpdate();
-    iabc.scopeUpdate();
+    //vabc.scopeUpdate();
+    //iabc.scopeUpdate();
 }

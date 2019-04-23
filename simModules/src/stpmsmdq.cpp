@@ -65,11 +65,11 @@ void STPMSMdq::execute(SDataVector in)
     wm = m_vars.Wm = m_wIntTF.execute(dw).value();
 
     double mechAngle = m_thIntTF.execute(wm).value();
-    int p = static_cast<int>(mechAngle / (2 * M_PI));
-    mechAngle -= p * (2 * M_PI);
+    //int p = static_cast<int>(mechAngle / (2 * M_PI));
+    //mechAngle -= p * (2 * M_PI);
     double elAngle = mechAngle * m_polesPairs;
-    p = static_cast<int>(elAngle / (2 * M_PI));
-    elAngle -= p * (2 * M_PI);
+    //p = static_cast<int>(elAngle / (2 * M_PI));
+    //elAngle -= p * (2 * M_PI);
 
     m_vars.Id = id;
     m_vars.Iq = iq;
