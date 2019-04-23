@@ -38,6 +38,7 @@ SOURCES += \
     simModules/src/stpi.cpp \
     simModules/src/strl.cpp \
     simModules/src/stdpi.cpp \
+    simModules/src/stdpid.cpp \
     simModules/src/stpid.cpp \
     simModules/src/stfdiscretefirstorder.cpp \
     simModules/src/stfintegrator.cpp \
@@ -83,6 +84,7 @@ HEADERS += \
     simModules/inc/stpi.h \
     simModules/inc/strl.h \
     simModules/inc/stdpi.h \
+    simModules/inc/stdpid.h \
     simModules/inc/stpid.h \
     simModules/inc/stfdiscretefirstorder.h \
     simModules/inc/stfintegrator.h \

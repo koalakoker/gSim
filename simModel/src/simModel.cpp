@@ -3,6 +3,7 @@
 #include "stpmsmabc.h"
 #include "strl.h"
 #include "stdpi.h"
+#include "stdpid.h"
 #include "stpid.h"
 #include "ssscope.h"
 
@@ -34,7 +35,7 @@ simModel::simModel()
     m_pi_iqd_kd = 0.0;
     m_pi_iqd_n = 0.0;
 
-    m_pi_pos_bw =  10.0;
+    m_pi_pos_bw =  5.0;
     m_pi_pos_kp =  m_friction * m_pi_pos_bw;
     m_pi_pos_kd =  m_inertia  * m_pi_pos_bw;
     m_pi_pos_n  =  m_pi_pos_bw * 5;
@@ -91,7 +92,7 @@ void simModel::startSim(void)
     STPMSMabc motor(m_rs, m_ls, m_ls, m_polesPairs, m_flux, m_inertia, m_friction, m_ts, m_staticBrake);
     STDPI idpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
     STDPI iqpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
-    STPID pospid(m_pi_pos_kp, m_pi_pos_ki, m_pi_pos_kd, m_pi_pos_n, m_tc * 20);
+    STDPID pospid(m_pi_pos_kp, m_pi_pos_ki, m_pi_pos_kd, m_tc * 20, 0.25);
     double posTargTeta = 2*M_PI;
     STabctodq abctodq;
     STdqtoabc dqtoabc;
@@ -159,7 +160,7 @@ void simModel::startSim(void)
         emit updateProgress(static_cast<double>(i+1)/static_cast<double>(m_step));
     }
 
-    //iqdScope.scopeUpdate();
+    iqdScope.scopeUpdate();
     //vqdScope.scopeUpdate();
 
     torque.scopeUpdate();
