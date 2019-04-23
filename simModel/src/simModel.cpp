@@ -10,8 +10,8 @@
 simModel::simModel()
 {
     /* Set sim number */
-    m_sim = 6;
-    m_description = "PMSM abc sim";
+    m_sim = 0;
+    m_description = "PMSM abc sim Shinano";
 
     /* Default common params */
     m_tc = 1/20000.0;
@@ -19,13 +19,13 @@ simModel::simModel()
     m_duration = 0.5;
 
     /* Specific params for sim */
-    m_rs   = 0.35;
-    m_ls   = 0.0006;
-    m_flux = 0.016;
+    m_rs   = 0.6;
+    m_ls   = 0.0014;
+    m_flux = 0.0196;
 
     m_polesPairs = 2.0;
-    m_inertia    = 0.00005;
-    m_friction   = 0.000014;
+    m_inertia    = 0.000011;
+    m_friction   = 0.000028;
 
     m_pi_iqd_bw = 6000.0;
     m_pi_iqd_kp = m_ls * m_pi_iqd_bw;
@@ -51,6 +51,7 @@ simModel::simModel()
     m_userParams.append(new simModelElement("Poles Pairs",  SE_double, static_cast<void*>(&m_polesPairs)));
     m_userParams.append(new simModelElement("Inertia",      SE_double, static_cast<void*>(&m_inertia), 6));
     m_userParams.append(new simModelElement("Friction",     SE_double, static_cast<void*>(&m_friction),6));
+    m_userParams.append(new simModelElement("Static brake", SE_double, static_cast<void*>(&m_staticBrake)));
 
     m_userParams.append(new simModelElement("Iqd Params",   SE_group,  nullptr));
     m_userParams.append(new simModelElement("IqdPIBw",      SE_double, static_cast<void*>(&m_pi_iqd_bw)));
@@ -85,8 +86,7 @@ void simModel::startSim(void)
     int m_controlStepRatio = static_cast<int>(m_tc / m_ts);
 
     // Init sink-source-transfer
-    double brakeTorque = 0;
-    STPMSMabc motor(m_rs, m_ls, m_ls, m_polesPairs, m_flux, m_inertia, m_friction, m_ts, brakeTorque);
+    STPMSMabc motor(m_rs, m_ls, m_ls, m_polesPairs, m_flux, m_inertia, m_friction, m_ts, m_staticBrake);
     STDPI idpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
     STDPI iqpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
     STDPI speedpid(m_pi_speed_kp, m_pi_speed_ki, m_tc * 20, 10000);

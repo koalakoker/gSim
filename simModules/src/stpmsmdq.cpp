@@ -26,15 +26,49 @@ void STPMSMdq::execute(SDataVector in)
 
     double torque = 1.5 * m_polesPairs * ((m_magneticFlux * iq) + ((m_ld - m_lq) * id * iq ));
 
-    double dw = (torque - (m_friction * wm) - m_brakeTorque) / m_inertia;
+    double effectiveBrake = 0.0;
+    double dw = 0.0;
+    if (wm == 0.0)
+    {
+        if (abs(torque) < abs(m_brakeTorque))
+        {
+            dw = 0;
+        }
+        else
+        {
+            if (torque > 0)
+            {
+                dw = (torque - (m_friction * wm) - m_brakeTorque) / m_inertia;
+            }
+            else if (torque < 0)
+            {
+                dw = (torque - (m_friction * wm) + m_brakeTorque) / m_inertia;
+            }
+            else
+            {
+                dw = 0;
+            }
+        }
+    } else
+    {
+        if (wm > 0)
+        {
+            effectiveBrake = m_brakeTorque;
+        }
+        else if (wm < 0)
+        {
+            effectiveBrake = -m_brakeTorque;
+        }
+        dw = (torque - (m_friction * wm) - effectiveBrake) / m_inertia;
+    }
 
     wm = m_vars.Wm = m_wIntTF.execute(dw).value();
 
     double mechAngle = m_thIntTF.execute(wm).value();
-    int p = (int)(mechAngle / (2 * M_PI));
+    int p = static_cast<int>(mechAngle / (2 * M_PI));
     mechAngle -= p * (2 * M_PI);
     double elAngle = mechAngle * m_polesPairs;
-    p = (int)(elAngle / (2 * M_PI));
+    p = static_cast<int>(elAngle / (2 * M_PI));
     elAngle -= p * (2 * M_PI);
 
     m_vars.Id = id;
