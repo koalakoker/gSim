@@ -187,3 +187,13 @@ void MWPlot::on_actionZoom_Out_triggered()
     m_plotter->unZoom();
     ui->wplot->updatePlot();
 }
+
+void MWPlot::on_actionReset_Zoom_triggered()
+{
+    Plotter* m_plotter = ui->wplot->m_plotter;
+    if (!m_plotter)
+        return;
+    m_plotter->AddUndoStatus();
+    m_plotter->resetView();
+    ui->wplot->updatePlot();
+}

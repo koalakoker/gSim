@@ -2,9 +2,11 @@
 #include <math.h>
 
 STPMSMdq::STPMSMdq(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
-                   double brakeTorque,
+                   double brakeTorque, double coggingTorqueModule, double coggingTorqueAngleDisplacement,
                    DiscreteTimeTransformType_t transform) :
-    m_rs(rs), m_ld(ld), m_lq(lq), m_polesPairs(polesPairs), m_magneticFlux(magnetFlux), m_inertia(inertia), m_friction(friction), m_brakeTorque(brakeTorque),
+    m_rs(rs), m_ld(ld), m_lq(lq), m_polesPairs(polesPairs), m_magneticFlux(magnetFlux),
+    m_inertia(inertia), m_friction(friction), m_brakeTorque(brakeTorque),
+    m_coggingTorqueModule(coggingTorqueModule), m_coggingTorqueAngleDisplacement(coggingTorqueAngleDisplacement),
     m_idIntTF(ts, transform), m_iqIntTF(ts, transform), m_wIntTF(ts, transform), m_thIntTF(ts, transform)
 {
 }
@@ -26,54 +28,18 @@ void STPMSMdq::execute(SDataVector in)
 
     double torque = 1.5 * m_polesPairs * ((m_magneticFlux * iq) + ((m_ld - m_lq) * id * iq ));
 
-    double effectiveBrake = 0.0;
-    double dw = 0.0;
-    if (wm == 0.0)
-    {
-        if (abs(torque) < abs(m_brakeTorque))
-        {
-            dw = 0;
-        }
-        else
-        {
-            if (torque > 0)
-            {
-                dw = (torque - (m_friction * wm) - m_brakeTorque) / m_inertia;
-            }
-            else if (torque < 0)
-            {
-                dw = (torque - (m_friction * wm) + m_brakeTorque) / m_inertia;
-            }
-            else
-            {
-                dw = 0;
-            }
-        }
-    } else
-    {
-        if (wm > 0)
-        {
-            effectiveBrake = m_brakeTorque;
-        }
-        else if (wm < 0)
-        {
-            effectiveBrake = -m_brakeTorque;
-        }
-        dw = (torque - (m_friction * wm) - effectiveBrake) / m_inertia;
-    }
+    double coggingTorque = m_coggingTorqueModule * sin(m_polesPairs * (m_vars.MechAngle - m_coggingTorqueAngleDisplacement));
+    double dw = (torque - (m_friction * wm) - m_brakeTorque - coggingTorque) / m_inertia;
 
     wm = m_vars.Wm = m_wIntTF.execute(dw).value();
 
     double mechAngle = m_thIntTF.execute(wm).value();
-    //int p = static_cast<int>(mechAngle / (2 * M_PI));
-    //mechAngle -= p * (2 * M_PI);
     double elAngle = mechAngle * m_polesPairs;
-    //p = static_cast<int>(elAngle / (2 * M_PI));
-    //elAngle -= p * (2 * M_PI);
 
     m_vars.Id = id;
     m_vars.Iq = iq;
     m_vars.T = torque;
+    m_vars.coggingTorque = coggingTorque;
     m_vars.Wm = wm;
     m_vars.We = wm * m_polesPairs;
     m_vars.MechAngle = mechAngle;

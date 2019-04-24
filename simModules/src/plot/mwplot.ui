@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -87,6 +87,7 @@
    <addaction name="actionZoom_Redo"/>
    <addaction name="actionZoom_In"/>
    <addaction name="actionZoom_Out"/>
+   <addaction name="actionReset_Zoom"/>
    <addaction name="actionAdd"/>
    <addaction name="actionInfo_data"/>
    <addaction name="actionBottom_Left"/>
@@ -95,7 +96,7 @@
   </widget>
   <action name="actionOpen_data_file">
    <property name="icon">
-    <iconset resource="../../resource.qrc">
+    <iconset resource="../../../resource.qrc">
      <normaloff>:/png/open.png</normaloff>:/png/open.png</iconset>
    </property>
    <property name="text">
@@ -107,7 +108,7 @@
   </action>
   <action name="actionExport_data_file">
    <property name="icon">
-    <iconset resource="../../resource.qrc">
+    <iconset resource="../../../resource.qrc">
      <normaloff>:/png/save.png</normaloff>:/png/save.png</iconset>
    </property>
    <property name="text">
@@ -119,7 +120,7 @@
   </action>
   <action name="actionZoom_Undo">
    <property name="icon">
-    <iconset resource="../../resource.qrc">
+    <iconset resource="../../../resource.qrc">
      <normaloff>:/png/undo.png</normaloff>:/png/undo.png</iconset>
    </property>
    <property name="text">
@@ -131,7 +132,7 @@
   </action>
   <action name="actionZoom_Redo">
    <property name="icon">
-    <iconset resource="../../resource.qrc">
+    <iconset resource="../../../resource.qrc">
      <normaloff>:/png/redo.png</normaloff>:/png/redo.png</iconset>
    </property>
    <property name="text">
@@ -143,7 +144,7 @@
   </action>
   <action name="actionTest">
    <property name="icon">
-    <iconset resource="../../resource.qrc">
+    <iconset resource="../../../resource.qrc">
      <normaloff>:/png/question.png</normaloff>:/png/question.png</iconset>
    </property>
    <property name="text">
@@ -152,7 +153,7 @@
   </action>
   <action name="actionAdd">
    <property name="icon">
-    <iconset resource="../../resource.qrc">
+    <iconset resource="../../../resource.qrc">
      <normaloff>:/png/add.png</normaloff>:/png/add.png</iconset>
    </property>
    <property name="text">
@@ -164,7 +165,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../resource.qrc">
+    <iconset resource="../../../resource.qrc">
      <normaloff>:/png/cursorInfo.png</normaloff>:/png/cursorInfo.png</iconset>
    </property>
    <property name="text">
@@ -176,7 +177,7 @@
   </action>
   <action name="actionZoom_In">
    <property name="icon">
-    <iconset resource="../../resource.qrc">
+    <iconset resource="../../../resource.qrc">
      <normaloff>:/png/zoom.png</normaloff>:/png/zoom.png</iconset>
    </property>
    <property name="text">
@@ -185,7 +186,7 @@
   </action>
   <action name="actionZoom_Out">
    <property name="icon">
-    <iconset resource="../../resource.qrc">
+    <iconset resource="../../../resource.qrc">
      <normaloff>:/png/zoom-out.png</normaloff>:/png/zoom-out.png</iconset>
    </property>
    <property name="text">
@@ -229,7 +230,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../resource.qrc">
+    <iconset resource="../../../resource.qrc">
      <normaloff>:/png/axis_bottom_left.png</normaloff>:/png/axis_bottom_left.png</iconset>
    </property>
    <property name="text">
@@ -244,7 +245,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../resource.qrc">
+    <iconset resource="../../../resource.qrc">
      <normaloff>:/png/axis_top_right.png</normaloff>:/png/axis_top_right.png</iconset>
    </property>
    <property name="text">
@@ -252,6 +253,18 @@
    </property>
    <property name="toolTip">
     <string>Show/hide Top-Right axies</string>
+   </property>
+  </action>
+  <action name="actionReset_Zoom">
+   <property name="icon">
+    <iconset resource="../../../resource.qrc">
+     <normaloff>:/png/resetView.png</normaloff>:/png/resetView.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reset Zoom</string>
+   </property>
+   <property name="toolTip">
+    <string>Reset Zoom</string>
    </property>
   </action>
  </widget>
@@ -264,7 +277,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../../resource.qrc"/>
+  <include location="../../../resource.qrc"/>
  </resources>
  <connections/>
 </ui>

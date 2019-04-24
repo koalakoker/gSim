@@ -11,7 +11,7 @@ class SIMMODULESSHARED_EXPORT STPMSMdq : public SMotor
 {
 public:
     STPMSMdq(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
-             double brakeTorque = 0,
+             double brakeTorque = 0.0, double coggingTorqueModule = 0.0, double coggingTorqueAngleDisplacement = 0.0,
              DiscreteTimeTransformType_t transform = BackwardEuler);
 
     void execute(SDataVector in); // in have single inputs (slot) with two value vd [0,0] and vq [0,1]
@@ -27,6 +27,8 @@ private:
     double m_inertia;
     double m_friction;
     double m_brakeTorque;
+    double m_coggingTorqueModule;
+    double m_coggingTorqueAngleDisplacement;
 
     // Vars
     PMSMVars m_vars;

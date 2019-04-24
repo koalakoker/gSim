@@ -284,6 +284,10 @@ void Plotter::unZoom(void)
 {
     zoomX(-5);
 }
+void Plotter::resetView(void)
+{
+    m_range = m_originalRange;
+}
 
 // Cursors
 void   Plotter::addCursor(void)

@@ -15,5 +15,6 @@
         <file>png/zoom.png</file>
         <file>png/axis_bottom_left.png</file>
         <file>png/axis_top_right.png</file>
+        <file>png/resetView.png</file>
     </qresource>
 </RCC>

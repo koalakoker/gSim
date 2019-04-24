@@ -52,6 +52,8 @@ private slots:
 
     void on_actionTest_triggered();
 
+    void on_actionReset_Zoom_triggered();
+
 private:
     Ui::MWPlot *ui;
     WCursorInfo *wCursorInfo;

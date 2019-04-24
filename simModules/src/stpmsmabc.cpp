@@ -1,9 +1,12 @@
 #include "stpmsmabc.h"
 
 STPMSMabc::STPMSMabc(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
-                     double brakeTorque,
+                     double brakeTorque, double coggingToruqe, double coggingTorqueAngleDisplacement,
                      DiscreteTimeTransformType_t transform) :
-                     m_PMSMdq(rs, ld, lq, polesPairs, magnetFlux, inertia, friction, ts, brakeTorque, transform)
+                     m_PMSMdq(rs, ld, lq, polesPairs, magnetFlux,
+                              inertia, friction, ts,
+                              brakeTorque, coggingToruqe, coggingTorqueAngleDisplacement,
+                              transform)
 {
 
 }

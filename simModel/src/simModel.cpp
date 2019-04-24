@@ -18,7 +18,7 @@ simModel::simModel()
     /* Default common params */
     m_tc = 1/20000.0;
     m_ts = m_tc/10.0;
-    m_duration = 1.0;
+    m_duration = 2.0;
 
     /* Specific params for sim */
     m_rs   = 0.6;
@@ -89,7 +89,7 @@ void simModel::startSim(void)
     int m_controlStepRatio = static_cast<int>(m_tc / m_ts);
 
     // Init sink-source-transfer
-    STPMSMabc motor(m_rs, m_ls, m_ls, m_polesPairs, m_flux, m_inertia, m_friction, m_ts, m_staticBrake);
+    STPMSMabc motor(m_rs, m_ls, m_ls, m_polesPairs, m_flux, m_inertia, m_friction, m_ts, m_staticBrake, 0.001, 10 * M_PI / 180);
     STDPI idpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
     STDPI iqpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
     STDPID pospid(m_pi_pos_kp, m_pi_pos_ki, m_pi_pos_kd, m_tc * 20, 0.25);
@@ -101,7 +101,8 @@ void simModel::startSim(void)
     SSScope iqdScope("Iqd");
     SSScope vqdScope("Vqd");
     SSScope speed("Speed rpm");
-    SSScope torque("Torque");
+    SSScope torque("Electro magnetic Torque");
+    SSScope ctorque("Cogging Torque");;
     SSScope theta("Theta");
     SSScope vabc("Vabc");
     SSScope iabc("Iabc");
@@ -140,6 +141,7 @@ void simModel::startSim(void)
                 double torqueRef = pospid.execute(err).value();
                 iqTarg = torqueRef/(1.5 * m_polesPairs * m_flux);
             }
+
         }
 
         SDataVector vin = SDataVector(vdin, vqin, motor.vars().ElAngle);
@@ -149,7 +151,8 @@ void simModel::startSim(void)
         PMSMVars iW = motor.vars();
 
         speed.execute(m_t, RadSectoRPM(iW.Wm));
-        torque.execute(m_t, iW.T);
+        torque .execute(m_t, iW.T);
+        ctorque.execute(m_t, iW.coggingTorque);
         theta.execute(m_t, SDataVector(iW.MechAngle));
         iabc.execute(m_t, SDataVector(iW.Ia, iW.Ib, iW.Ic));
 
@@ -163,8 +166,9 @@ void simModel::startSim(void)
     iqdScope.scopeUpdate();
     //vqdScope.scopeUpdate();
 
-    torque.scopeUpdate();
-    speed.scopeUpdate();
+    torque. scopeUpdate();
+    ctorque.scopeUpdate();
+    speed.  scopeUpdate();
 
     theta.scopeUpdate();
     //vabc.scopeUpdate();

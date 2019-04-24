@@ -17,7 +17,10 @@ public:
 
     Plotter(QSize size, QRectF range, QVector<SData> data, style_t style = LINE_STYLE)
         : m_size(size), m_range(range), m_data(data), m_style(style), m_cursorDrag(0),
-          m_debounce(false) { }
+          m_debounce(false)
+    {
+        m_originalRange = m_range;
+    }
 
     void setRangeX_Min(qreal val) {m_range.setLeft  (val);}
     void setRangeX_Max(qreal val) {m_range.setRight (val);}
@@ -35,6 +38,7 @@ public:
     void zoomY(qreal val);
     void zoomXToCursors(QPoint point);
     void unZoom(void);
+    void resetView(void);
 
     // Resize
     void setSize(QSize size) {m_size = size;}
@@ -85,6 +89,7 @@ private:
 
     QSize m_size;
     QRectF m_range;
+    QRectF m_originalRange;
     QVector<SData> m_data;
 
     style_t m_style;
