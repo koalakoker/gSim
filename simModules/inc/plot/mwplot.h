@@ -6,6 +6,7 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QCloseEvent>
 
 namespace Ui {
 class MWPlot;
@@ -16,7 +17,7 @@ class MWPlot : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MWPlot(QString name, QWidget *parent = 0);
+    explicit MWPlot(QString name, QWidget *parent = nullptr);
     ~MWPlot();
     void loadDataFile(QString fileName);
     QVector<QVector<double>> getCursorValueTrack(void);
@@ -25,6 +26,7 @@ public:
     void addPoint(double t, SData y);
     void updatePlot(void);
     void exportData(QString filename) {qDebug() << "Export: " << filename;}
+    virtual void closeEvent ( QCloseEvent * event );
 
 public slots:
     void onNewPlotter();

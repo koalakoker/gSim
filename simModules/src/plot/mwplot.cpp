@@ -17,6 +17,15 @@ MWPlot::~MWPlot()
         delete wCursorInfo;
 }
 
+void MWPlot::closeEvent(QCloseEvent *event)
+{
+    if (wCursorInfo)
+    {
+        wCursorInfo->close();
+    }
+    event->accept();
+}
+
 // Public
 void MWPlot::loadDataFile(QString fileName)
 {
