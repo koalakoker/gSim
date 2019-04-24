@@ -25,6 +25,13 @@ void gSim::closeEvent(QCloseEvent *event)
     {
         m_simView->close();
     }
+
+    // Close all scopes
+    if (m_simModel)
+    {
+        m_simModel->closeScopes();
+    }
+
     event->accept();
 }
 

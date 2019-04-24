@@ -14,3 +14,11 @@ baseSimModel::baseSimModel()
 }
 
 void baseSimModel::startSim(void) {}
+
+void baseSimModel::closeScopes(void)
+{
+    for (int i = 0; i < m_scopes.size(); ++i)
+    {
+        m_scopes.at(i)->close();
+    }
+}

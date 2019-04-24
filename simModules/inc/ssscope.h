@@ -10,7 +10,7 @@
 class SIMMODULESSHARED_EXPORT SSScope : public SSink
 {
 public:
-    SSScope(QString name);
+    SSScope(QString name, QVector<QWidget*>* pScopes = 0);
 
     void execute(double t, SDataVector in);
     void scopeUpdate(void);

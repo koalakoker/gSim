@@ -35,11 +35,11 @@ simModel::simModel()
     m_pi_iqd_kd = 0.0;
     m_pi_iqd_n = 0.0;
 
-    m_pi_pos_bw =  5.0;
+    m_pi_pos_bw =  20.0;
     m_pi_pos_kp =  m_friction * m_pi_pos_bw;
     m_pi_pos_kd =  m_inertia  * m_pi_pos_bw;
     m_pi_pos_n  =  m_pi_pos_bw * 5;
-    m_pi_pos_ki =  0.0;
+    //m_pi_pos_ki =  0.0020;
 
     /********************* *********************/
     /*      Setup parameters into the view     */
@@ -63,8 +63,9 @@ simModel::simModel()
     m_userParams.append(new simModelElement("Pos Params", SE_group,  nullptr));
     m_userParams.append(new simModelElement("PosPIBw",    SE_double, static_cast<void*>(&m_pi_pos_bw)));
     m_userParams.append(new simModelElement("PosPIKp",    SE_double, static_cast<void*>(&m_pi_pos_kp), 8));
-    m_userParams.append(new simModelElement("PosPIKi",    SE_double, static_cast<void*>(&m_pi_pos_kd), 8));
-    m_userParams.append(new simModelElement("PosPIn",    SE_double, static_cast<void*>(&m_pi_pos_n)));
+    m_userParams.append(new simModelElement("PosPIKi",    SE_double, static_cast<void*>(&m_pi_pos_ki), 8));
+    m_userParams.append(new simModelElement("PosPIKd",    SE_double, static_cast<void*>(&m_pi_pos_kd), 8));
+    m_userParams.append(new simModelElement("PosPIn",     SE_double, static_cast<void*>(&m_pi_pos_n)));
 
     /********************* *********************/
 }
@@ -89,23 +90,23 @@ void simModel::startSim(void)
     int m_controlStepRatio = static_cast<int>(m_tc / m_ts);
 
     // Init sink-source-transfer
-    STPMSMabc motor(m_rs, m_ls, m_ls, m_polesPairs, m_flux, m_inertia, m_friction, m_ts, m_staticBrake, 0.001, 10 * M_PI / 180);
+    STPMSMabc motor(m_rs, m_ls, m_ls, m_polesPairs, m_flux, m_inertia, m_friction, m_ts, m_staticBrake, 0.001, 0.0);
     STDPI idpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
     STDPI iqpid(m_pi_iqd_kp, m_pi_iqd_ki, m_tc, 10000);
     STDPID pospid(m_pi_pos_kp, m_pi_pos_ki, m_pi_pos_kd, m_tc * 20, 0.25);
-    double posTargTeta = 2*M_PI;
+    double posTargTeta = 6.0;//2*M_PI;
     STabctodq abctodq;
     STdqtoabc dqtoabc;
     double idTarg = 0.0;
     double iqTarg = 0.0;
-    SSScope iqdScope("Iqd");
-    SSScope vqdScope("Vqd");
-    SSScope speed("Speed rpm");
-    SSScope torque("Electro magnetic Torque");
-    SSScope ctorque("Cogging Torque");;
-    SSScope theta("Theta");
-    SSScope vabc("Vabc");
-    SSScope iabc("Iabc");
+    SSScope iqdScope("Iqd", &m_scopes);
+    SSScope vqdScope("Vqd", &m_scopes);
+    SSScope speed("Speed rpm", &m_scopes);
+    SSScope torque("Electro magnetic Torque", &m_scopes);
+    SSScope ctorque("Cogging Torque", &m_scopes);
+    SSScope theta("Theta", &m_scopes);
+    SSScope vabc("Vabc", &m_scopes);
+    SSScope iabc("Iabc", &m_scopes);
 
     SDataVector vqin = 0 , vdin = 0;
 

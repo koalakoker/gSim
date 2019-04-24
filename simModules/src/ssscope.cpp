@@ -1,8 +1,12 @@
 #include "ssscope.h"
 
-SSScope::SSScope(QString name)
+SSScope::SSScope(QString name, QVector<QWidget *> *pScopes)
 {
     m_mwplot = new MWPlot(name);
+    if (pScopes)
+    {
+        pScopes->append(m_mwplot);
+    }
 }
 
 void SSScope::execute(double t, SDataVector in)

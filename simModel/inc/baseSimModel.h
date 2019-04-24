@@ -5,6 +5,7 @@
 
 #include <QObject>
 #include <QList>
+#include <QWidget>
 #include "simModelElement.h"
 
 class GSIMMODELSHARED_EXPORT baseSimModel : public QObject
@@ -20,6 +21,7 @@ public:
     void setSimTime(double ts){m_ts = ts;}
     double controlTime(){return m_tc;}
     void setControlTime(double tc){m_tc = tc;}
+    void closeScopes(void);
 
     int m_sim;
     QString m_description;
@@ -30,6 +32,8 @@ protected:
     double m_ts;
     double m_tc;
     double m_duration;
+
+    QVector<QWidget*> m_scopes;
 
 private:
     void testSim0();
