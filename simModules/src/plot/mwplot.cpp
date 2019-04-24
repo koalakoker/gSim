@@ -97,18 +97,13 @@ void MWPlot::on_actionInfo_data_triggered(bool checked)
 {
     if (!wCursorInfo)
     {
-        wCursorInfo = new WCursorInfo();
+        wCursorInfo = new WCursorInfo(this->frameGeometry());
         wCursorInfo->show();
         wCursorInfo->updateInfo(getCursorValueTrack());
         connect (wCursorInfo, SIGNAL(cursorPosChanged(int,qreal)), this, SLOT(on_cursorPosChanged(int,qreal)));
     }
     wCursorInfo->setVisible(checked);
 }
-
-void MWPlot::on_actionTest_triggered()
-{
-}
-
 void MWPlot::on_actionBottom_toggled(bool arg1)
 {
     if (ui->wplot->m_plotter)
@@ -168,6 +163,16 @@ void MWPlot::on_actionAdd_triggered()
     // Add cursor
     ui->wplot->m_plotter->addCursor();
     ui->wplot->updatePlot();
+
+    // If not present show cursor info
+    if (!wCursorInfo)
+    {
+        on_actionInfo_data_triggered(true);
+    }
+    else
+    {
+        wCursorInfo->setVisible(true);
+    }
 }
 void MWPlot::on_actionZoom_In_triggered()
 {
@@ -187,7 +192,6 @@ void MWPlot::on_actionZoom_Out_triggered()
     m_plotter->unZoom();
     ui->wplot->updatePlot();
 }
-
 void MWPlot::on_actionReset_Zoom_triggered()
 {
     Plotter* m_plotter = ui->wplot->m_plotter;

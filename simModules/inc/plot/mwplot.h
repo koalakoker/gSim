@@ -49,9 +49,6 @@ private slots:
     void on_actionAdd_triggered();
     void on_actionZoom_In_triggered();
     void on_actionZoom_Out_triggered();
-
-    void on_actionTest_triggered();
-
     void on_actionReset_Zoom_triggered();
 
 private:

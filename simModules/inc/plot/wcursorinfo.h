@@ -12,7 +12,7 @@ class WCursorInfo : public QWidget
     Q_OBJECT
 
 public:
-    explicit WCursorInfo(QWidget *parent = 0);
+    explicit WCursorInfo(QRect parentFrameGeometry, QWidget *parent = 0);
     ~WCursorInfo();
 
 public slots:

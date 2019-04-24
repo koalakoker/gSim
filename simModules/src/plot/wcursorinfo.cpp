@@ -3,11 +3,12 @@
 
 #include <QDebug>
 
-WCursorInfo::WCursorInfo(QWidget *parent) :
+WCursorInfo::WCursorInfo(QRect parentFrameGeometry, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WCursorInfo)
 {
     ui->setupUi(this);
+    move(parentFrameGeometry.right(),parentFrameGeometry.y());
 }
 
 WCursorInfo::~WCursorInfo()
@@ -23,6 +24,8 @@ static QSize myGetQTableWidgetSize(QTableWidget *t) {
    int h = t->horizontalHeader()->height() + 4;
    for (int i = 0; i < t->rowCount(); i++)
       h += t->rowHeight(i);
+   w += 9;
+   h += 9;
    return QSize(w, h);
 }
 
@@ -73,8 +76,8 @@ void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
         ui->tableWidget->setHorizontalHeaderLabels(horizontalLabels);
     }
     QSize tabSize = myGetQTableWidgetSize(ui->tableWidget);
-    QSize layoutSize(5,5);
-    resize(tabSize+layoutSize);
+    setMinimumSize(tabSize);
+    resize(tabSize);
 }
 
 void WCursorInfo::on_tableWidget_cellChanged(int row, int column)
