@@ -59,7 +59,8 @@ SOURCES += \
     plot/ssink.cpp \
     plot/ssscope.cpp \
     plot/wcursorinfo.cpp \
-    plot/sdata.cpp
+    plot/sdata.cpp \
+    plot/scopemngr.cpp
 
 HEADERS += \
     gsim.h \
@@ -106,7 +107,8 @@ HEADERS += \
     plot/selement.h \
     plot/ssink.h \
     plot/ssscope.h \
-    plot/wcursorinfo.h
+    plot/wcursorinfo.h \
+    plot/scopemngr.h
 
 FORMS += \
     gsim.ui \
