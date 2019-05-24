@@ -1,35 +1,37 @@
-#ifndef MWPLOT_H
-#define MWPLOT_H
+#ifndef PLOTTERWINDOW_H
+#define PLOTTERWINDOW_H
 
 #include "wcursorinfo.h"
 #include "sdata.h"
+#include "plotter.h"
 
 #include <QMainWindow>
 #include <QDebug>
 #include <QCloseEvent>
+#include <QToolButton>
 
 namespace Ui {
-class MWPlot;
+class PlotterWindow;
 }
 
-class MWPlot : public QMainWindow
+class PlotterWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MWPlot(QString name, QWidget *parent = nullptr);
-    ~MWPlot();
-    void loadDataFile(QString fileName);
+    explicit PlotterWindow(QString name, QWidget *parent = nullptr);
+    ~PlotterWindow();
+
     QVector<QVector<double>> getCursorValueTrack(void);
     QVector<double> getCursorValueTrack(int cur);
     QVector<double> getSelectedCursorValueTrack(void);
     void addPoint(double t, SData y);
+    void createPlot(void);
     void updatePlot(void);
     void exportData(QString filename) {qDebug() << "Export: " << filename;}
     virtual void closeEvent ( QCloseEvent * event );
 
 public slots:
-    void onNewPlotter();
     void onCursorChange();
 
 signals:
@@ -52,11 +54,45 @@ private slots:
     void on_actionZoom_In_triggered();
     void on_actionZoom_Out_triggered();
     void on_actionReset_Zoom_triggered();
+    void on_actionMaximize_vertical_triggered();
+    void on_actionMaximize_orizontal_triggered();
+    void on_actionZoom_Vertical_In_triggered();
+    void on_actionZoom_Vertical_Out_triggered();
 
 private:
-    Ui::MWPlot *ui;
+    Ui::PlotterWindow *ui;
+    QToolButton *zoomButton;
+    QToolButton *cursorsButton;
+    QToolButton *axisButton;
+
     WCursorInfo *wCursorInfo;
     QString m_name;
+
+    Plotter *m_plotter;
+    QVector<SData> m_data;
+    double m_y_max = 0, m_y_min = 0;
+    QString m_fileName;
+    QPoint m_lastPoint;
+    bool m_movingUndo;
+    bool m_drag;
+
+    const Qt::MouseButton dragButton = Qt::LeftButton;
+    const Qt::MouseButton addCursorButton = Qt::RightButton;
+
+    void loadDataFile(QString fileName);
+    void saveDataFile(QString fileName);
+    void zoom_Undo(void);
+    void zoom_Redo(void);
+
+protected:
+    void mousePressEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
+    void mouseMoveEvent(QMouseEvent* event);
+    void wheelEvent(QWheelEvent* event);
+    void mouseDoubleClickEvent(QMouseEvent* event);
+    bool event(QEvent* event);
+    void resizeEvent(QResizeEvent *event);
+
 };
 
-#endif // MWPLOT_H
+#endif // PLOTTERWINDOW_H

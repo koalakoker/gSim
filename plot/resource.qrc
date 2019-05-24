@@ -16,5 +16,12 @@
         <file>png/axis_bottom_left.png</file>
         <file>png/axis_top_right.png</file>
         <file>png/resetView.png</file>
+        <file>png/zoomMenu.png</file>
+        <file>png/maximize_horizontal.png</file>
+        <file>png/maximize_vertical.png</file>
+        <file>png/zoom_horizontal_in.png</file>
+        <file>png/zoom_horizontal_out.png</file>
+        <file>png/zoom_vertical_in.png</file>
+        <file>png/zoom_vertical_out.png</file>
     </qresource>
 </RCC>

@@ -2,7 +2,7 @@
 
 SSScope::SSScope(QString name, QVector<QWidget *> *pScopes)
 {
-    m_mwplot = new MWPlot(name);
+    m_mwplot = new PlotterWindow(name);
     if (pScopes)
     {
         pScopes->append(m_mwplot);
@@ -17,7 +17,7 @@ void SSScope::execute(double t, SDataVector in)
 void SSScope::scopeUpdate(void)
 {
     m_mwplot->show();
-    m_mwplot->updatePlot();
+    m_mwplot->createPlot();
 }
 
 void SSScope::exportData(QString fileName)

@@ -3,7 +3,7 @@
 
 #include "simmodules_global.h"
 
-#include "sdatavector.h"
+#include "plot\sdatavector.h"
 
 class SIMMODULESSHARED_EXPORT PMSMVars : public SDataVector
 {

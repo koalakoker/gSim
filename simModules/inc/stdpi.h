@@ -13,10 +13,9 @@ public:
     SDataVector execute(SDataVector in);
 
 private:
-    double m_dt;
-
     double m_kp;
     double m_ki;
+    double m_dt;
 
     double m_sat;
     double m_intTerm;

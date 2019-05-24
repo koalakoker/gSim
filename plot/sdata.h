@@ -1,11 +1,9 @@
 #ifndef SDATA_H
 #define SDATA_H
 
-#include "simmodules_global.h"
-
 #include <QVector>
 
-class SIMMODULESSHARED_EXPORT SData
+class SData
 {
 public:
     SData();

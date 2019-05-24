@@ -9,9 +9,6 @@
 QImage Plotter::plot()
 {
     const Qt::GlobalColor plotColor[] = {Qt::black, Qt::blue, Qt::green, Qt::red};
-
-    QElapsedTimer t;
-    t.start();
     QImage img(m_size, QImage::Format_ARGB32_Premultiplied);
     img.fill(Qt::white);
     QPainter p(&img);
@@ -28,7 +25,7 @@ QImage Plotter::plot()
         double x1 = invMapX(1);
         double dX = x1-x0;
         double dY = m_data[1][0]-m_data[0][0];
-        int di = dX/dY;
+        int di = static_cast<int>(dX/dY);
         if (di <= 0)
         {
             di = 1;
@@ -93,12 +90,8 @@ QImage Plotter::plot()
                     }
                 }
                 break;
-            default:
-                break;
             }
         }
-        //p.setPen(QPen(Qt::red));
-        //p.drawText(10,20,QString("Rect: Top %1, Bottom %2").arg(_range.top()).arg(_range.bottom()));
     }
 
     /* Cursors */
@@ -115,12 +108,12 @@ QImage Plotter::plot()
         qreal curYposTop    = m_range.y();
         qreal curYposBottom = m_range.y()+m_range.height();
         p.drawLine(map(curXpos, curYposTop), map(curXpos, curYposBottom));
-        p.drawText(mapX(curXpos)+5,curLabelYPos,QString::number(cur+1));
+        p.drawText(static_cast<int>(mapX(curXpos)+5),curLabelYPos,QString::number(cur+1));
 
         QPointF top     = map(curXpos, curYposTop);
         QPointF bottom  = map(curXpos, curYposBottom);
-        QPoint  topLeft    (top.x()    - m_cursorMargin, top.y());
-        QPoint  bottomRight(bottom.x() + m_cursorMargin, bottom.y());
+        QPoint  topLeft    (static_cast<int>(top.x()    - m_cursorMargin), static_cast<int>(top.y()));
+        QPoint  bottomRight(static_cast<int>(bottom.x() + m_cursorMargin), static_cast<int>(bottom.y()));
         QRect   rect(topLeft, bottomRight);
         m_cursorRect.append(rect);
     }
@@ -186,7 +179,6 @@ QImage Plotter::plot()
         }
     }
 
-    //qDebug() << "plotted in" << t.elapsed() << "msec";
     return img;
 }
 QPointF Plotter::map(double x, double y)
@@ -223,11 +215,11 @@ void Plotter::scrollY(qreal val)
 }
 void Plotter::scrollXpixel(int pix)
 {
-    scrollX((m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));
+    scrollX((m_range.width()  * static_cast<qreal>(pix))/static_cast<qreal>(m_size.width ()));
 }
 void Plotter::scrollYpixel(int pix)
 {
-    scrollY((m_range.height() * (qreal)(pix))/(qreal)(m_size.height()));
+    scrollY((m_range.height() * static_cast<qreal>(pix))/static_cast<qreal>(m_size.height()));
 }
 
 // Zoom
@@ -258,7 +250,7 @@ void Plotter::zoomXToCursors(QPoint point)
         xPoints.append(m_cursorPos.at(i));
     }
 
-    qSort(xPoints);
+    std::sort(xPoints.begin(), xPoints.end());
 
     for (i = 0; i < xPoints.size(); i++)
     {
@@ -280,13 +272,31 @@ void Plotter::zoomXToCursors(QPoint point)
         m_range.setRight(xMax);
     }
 }
-void Plotter::unZoom(void)
+void Plotter::zoomOutHorizontal(void)
 {
     zoomX(-5);
+}
+void Plotter::zoomInVertical(void)
+{
+    zoomY(5);
+}
+void Plotter::zoomOutVertical(void)
+{
+    zoomY(-5);
 }
 void Plotter::resetView(void)
 {
     m_range = m_originalRange;
+}
+void Plotter::resetHorizontal(void)
+{
+    m_range.setLeft(m_originalRange.left());
+    m_range.setRight(m_originalRange.right());
+}
+void Plotter::resetVertical(void)
+{
+    m_range.setTop   (m_originalRange.top());
+    m_range.setBottom(m_originalRange.bottom());
 }
 
 // Cursors
@@ -324,7 +334,7 @@ void   Plotter::cursorScroll(int index, qreal pos)
 }
 void   Plotter::cursorScrollPixel(int index, int pix)
 {
-    cursorScroll(index, (m_range.width()  * (qreal)(pix))/(qreal)(m_size.width ()));
+    cursorScroll(index, (m_range.width()  * static_cast<qreal>(pix))/static_cast<qreal>(m_size.width ()));
 }
 bool   Plotter::onCursor(QPoint point, int& selectedCursor, bool startDrag)
 {
@@ -372,7 +382,7 @@ QVector<double> Plotter::getCursorValueTrack(int cur)
     QVector<double> data;
     qreal x = m_cursorPos.at(cur);
     qreal dx = m_data[1][0] - m_data[0][0];
-    int i = (int)(x/dx);
+    int i = static_cast<int>(x/dx);
     for (int track = 0; track < m_data[0].size(); track++)
     {
         if ((i >= 0) && (i < m_data.size()))

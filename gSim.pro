@@ -21,12 +21,7 @@ SOURCES += \
     gsim.cpp \
     simTemplates/simView/baseSimView.cpp \
     simTemplates/simView/commonSimView.cpp \
-    simModules/src/sdata.cpp \
-    simModules/src/sdatavector.cpp \
-    simModules/src/selement.cpp \
     simModules/src/ssource.cpp \
-    simModules/src/ssink.cpp \
-    simModules/src/ssscope.cpp \
     simModules/src/sssincos.cpp \
     simModules/src/stransfer.cpp \
     simModules/src/staritmetic.cpp \
@@ -54,25 +49,24 @@ SOURCES += \
     simModules/src/stdqtoalphabeta.cpp \
     simModules/src/svm.cpp \
     simModules/src/stsvm.cpp \
-    simModules/src/plot/plotter.cpp \
-    simModules/src/plot/wplot.cpp \
-    simModules/src/plot/mwplot.cpp \
-    simModules/src/plot/wcursorinfo.cpp \
     simModel/src/simModel.cpp \
     simModel/src/baseSimModel.cpp \
     simModel/src/simModelElement.cpp \
+    plot/plotter.cpp \
+    plot/plotterwindow.cpp \
+    plot/sdatavector.cpp \
+    plot/selement.cpp \
+    plot/ssink.cpp \
+    plot/ssscope.cpp \
+    plot/wcursorinfo.cpp \
+    plot/sdata.cpp
 
 HEADERS += \
     gsim.h \
     simTemplates/simView/baseSimView.h \
     simTemplates/simView/commonSimView.h \
     simModules/inc/simmodules_global.h \
-    simModules/inc/sdata.h \
-    simModules/inc/sdatavector.h \
-    simModules/inc/selement.h \
     simModules/inc/ssource.h \
-    simModules/inc/ssink.h \
-    simModules/inc/ssscope.h \
     simModules/inc/sssincos.h \
     simModules/inc/stransfer.h \
     simModules/inc/staritmetic.h \
@@ -101,20 +95,24 @@ HEADERS += \
     simModules/inc/stdqtoalphabeta.h \
     simModules/inc/svm.h \
     simModules/inc/stsvm.h \
-    simModules/inc/plot/plotter.h \
-    simModules/inc/plot/wplot.h \
-    simModules/inc/plot/mwplot.h \
-    simModules/inc/plot/wcursorinfo.h \
     simModel/inc/simModel.h \
     simModel/inc/gsimmodel_global.h \
     simModel/inc/baseSimModel.h \
-    simModel/inc/simModelElement.h
+    simModel/inc/simModelElement.h \
+    plot/plotter.h \
+    plot/plotterwindow.h \
+    plot/sdata.h \
+    plot/sdatavector.h \
+    plot/selement.h \
+    plot/ssink.h \
+    plot/ssscope.h \
+    plot/wcursorinfo.h
 
 FORMS += \
     gsim.ui \
     simTemplates/simView/baseSimView.ui \
-    simModules/src/plot/mwplot.ui \
-    simModules/src/plot/wcursorinfo.ui
+    plot/plotterwindow.ui \
+    plot/wcursorinfo.ui
 
 RESOURCES += \
-    resource.qrc
+    plot/resource.qrc

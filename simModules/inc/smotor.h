@@ -3,7 +3,7 @@
 
 #include "simmodules_global.h"
 
-#include "selement.h"
+#include "plot\selement.h"
 
 class SIMMODULESSHARED_EXPORT SMotor : public SElement
 {

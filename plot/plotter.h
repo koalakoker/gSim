@@ -37,11 +37,16 @@ public:
     void zoomX(qreal val);
     void zoomY(qreal val);
     void zoomXToCursors(QPoint point);
-    void unZoom(void);
+    void zoomOutHorizontal(void);
+    void zoomInVertical(void);
+    void zoomOutVertical(void);
     void resetView(void);
+    void resetHorizontal(void);
+    void resetVertical(void);
 
     // Resize
     void setSize(QSize size) {m_size = size;}
+    QSize size(void) {return m_size;}
 
     // Cursors
     int getCursorNumber(void) {return m_cursorPos.size();}
