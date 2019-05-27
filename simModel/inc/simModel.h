@@ -34,6 +34,7 @@ public:
     double m_inertia;
     double m_friction;
     double m_staticBrake;
+    double m_nominalVoltage;
 
     double m_pi_iqd_bw;
     double m_pi_iqd_kp;

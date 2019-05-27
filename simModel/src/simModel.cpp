@@ -6,6 +6,7 @@
 #include "stdpid.h"
 #include "stpid.h"
 #include "plot\ssscope.h"
+#include "math.h"
 
 # define M_PI           3.14159265358979323846  /* pi */
 
@@ -23,10 +24,12 @@ simModel::simModel()
     /* Specific params for sim */
     m_controlMode = CURRENT_CONTROL;
     m_polesPairs = 7.0;
+    m_nominalVoltage = 36.0;
 
     m_rs   = 0.43;
     m_ls   = 0.00034;
-    m_flux = 0.0749/(1.5*m_polesPairs);
+    //m_flux = 0.0749/(1.5*m_polesPairs);
+    m_flux = 5.8 * sqrt(2.0/3.0) * 60.0 / (1000.0 * 2.0 * M_PI * m_polesPairs);
 
     m_inertia    = 0.000006;
     m_friction   = 0.0000177;
@@ -89,6 +92,18 @@ double RPMtoRadSec(double rpm)
     return ((rpm * (2.0 * M_PI)) / 60.0);
 }
 
+double max(double a, double b, double c)
+{
+   double max = (a < b) ? b : a;
+   return ((max < c) ? c : max);
+}
+
+double min(double a, double b, double c)
+{
+   double min = (a < b ) ? a : b;
+   return ((min < c) ? min : c);
+}
+
 void simModel::startSim(void)
 {
     // Test specific initialization
@@ -115,7 +130,8 @@ void simModel::startSim(void)
     SSScope speed("Speed rpm", &m_scopes);
     SSScope torque("Electro magnetic Torque", &m_scopes);
     SSScope theta("Theta", &m_scopes);
-    SSScope vabc("Vabc", &m_scopes);
+    SSScope vabcScope("Vabc", &m_scopes);
+    SSScope vabcScope2("Vabc svm", &m_scopes);
     SSScope iabc("Iabc", &m_scopes);
 
     SDataVector vqin = 0 , vdin = 0;
@@ -129,22 +145,9 @@ void simModel::startSim(void)
 
         if ((i % m_controlStepRatio) == 0)
         {
-            // Execution of control cycle
-            SDataVector idq = abctodq.execute(SDataVector(motor.vars().Ia, motor.vars().Ib, motor.vars().ElAngle));
-
-            id = idq.data(0, 0);
-            iq = idq.data(0, 1);
-
             double err;
-            err = idTarg - id;
-            vdin = idpid.execute(err);
 
-            err = iqTarg - iq;
-            vqin = iqpid.execute(err);
-
-            iqdScope.execute(m_t, SDataVector(iqTarg, iq, idTarg, id));
-            vqdScope.execute(m_t, SDataVector(vdin, vqin));
-
+            // Execution of control cycle
             if ((i % (m_controlStepRatio * 16)) == 0)
             {
                 double torqueRef = 0.0;
@@ -152,7 +155,7 @@ void simModel::startSim(void)
                 {
                 case CURRENT_CONTROL:
                     {
-                        torqueRef = 0.02;
+                        torqueRef = 0.207;
                     }
                     break;
                 default:
@@ -170,12 +173,43 @@ void simModel::startSim(void)
                 iqTarg = torqueRef/(1.5 * m_polesPairs * m_flux);
             }
 
+            SDataVector idq = abctodq.execute(SDataVector(motor.vars().Ia, motor.vars().Ib, motor.vars().ElAngle));
+
+            id = idq.data(0, 0);
+            iq = idq.data(0, 1);
+
+            err = idTarg - id;
+            vdin = idpid.execute(err);
+
+            err = iqTarg - iq;
+            vqin = iqpid.execute(err);
+
+            // Limit max voltage applied to motor
+            double l = sqrt((vdin.value()*vdin.value())+(vqin.value()*vqin.value()));
+            double vmax = m_nominalVoltage/sqrt(3);
+            if (l > vmax)
+            {
+                vdin = vdin.value() * vmax / l;
+                vqin = vqin.value() * vmax / l;
+            }
+
+            iqdScope.execute(m_t, SDataVector(iqTarg, iq, idTarg, id));
+            vqdScope.execute(m_t, SDataVector(vdin, vqin));
+
         }
 
         SDataVector vin = SDataVector(vdin, vqin, motor.vars().ElAngle);
-        vin = dqtoabc.execute(vin);
-        vabc.execute(m_t, vin);
-        motor.execute(vin);
+        SDataVector vabc = dqtoabc.execute(vin);
+        vabcScope.execute(m_t, vabc);
+
+        double a = vabc.data(0,0);
+        double b = vabc.data(0,1);
+        double c = vabc.data(0,2);
+        double zero = (max(a,b,c) + min(a,b,c)) / 2;
+        SDataVector vabc2(a-zero, b-zero, c-zero);
+        vabcScope2.execute(m_t, vabc2);
+
+        motor.execute(vabc);
         PMSMVars iW = motor.vars();
 
         speed.execute(m_t, RadSectoRPM(iW.Wm));
@@ -197,6 +231,7 @@ void simModel::startSim(void)
     speed.  scopeUpdate();
 
     //theta.scopeUpdate();
-    //vabc.scopeUpdate();
+    vabcScope.scopeUpdate();
+    vabcScope2.scopeUpdate();
     //iabc.scopeUpdate();
 }
