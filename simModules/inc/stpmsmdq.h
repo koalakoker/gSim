@@ -10,7 +10,9 @@
 class SIMMODULESSHARED_EXPORT STPMSMdq : public SMotor
 {
 public:
-    STPMSMdq(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
+    STPMSMdq(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia,
+             double fbrk, double wbbrk, double fc, double f,
+             double ts,
              double brakeTorque = 0.0, double coggingTorqueModule = 0.0, double coggingTorqueAngleDisplacement = 0.0,
              DiscreteTimeTransformType_t transform = BackwardEuler);
 
@@ -25,7 +27,12 @@ private:
     double m_polesPairs;
     double m_magneticFlux;
     double m_inertia;
-    double m_friction;
+
+    double m_fbrk;
+    double m_wbrk;
+    double m_fc;
+    double m_f;
+
     double m_brakeTorque;
     double m_coggingTorqueModule;
     double m_coggingTorqueAngleDisplacement;

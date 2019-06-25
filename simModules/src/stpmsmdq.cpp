@@ -1,11 +1,13 @@
 #include "stpmsmdq.h"
 #include <math.h>
 
-STPMSMdq::STPMSMdq(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
+STPMSMdq::STPMSMdq(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double fbrk, double wbbrk, double fc, double f, double ts,
                    double brakeTorque, double coggingTorqueModule, double coggingTorqueAngleDisplacement,
                    DiscreteTimeTransformType_t transform) :
     m_rs(rs), m_ld(ld), m_lq(lq), m_polesPairs(polesPairs), m_magneticFlux(magnetFlux),
-    m_inertia(inertia), m_friction(friction), m_brakeTorque(brakeTorque),
+    m_inertia(inertia),
+    m_fbrk(fbrk), m_wbrk(wbbrk), m_fc(fc), m_f(f),
+    m_brakeTorque(brakeTorque),
     m_coggingTorqueModule(coggingTorqueModule), m_coggingTorqueAngleDisplacement(coggingTorqueAngleDisplacement),
     m_idIntTF(ts, transform), m_iqIntTF(ts, transform), m_wIntTF(ts, transform), m_thIntTF(ts, transform)
 {
@@ -29,7 +31,14 @@ void STPMSMdq::execute(SDataVector in)
     double torque = 1.5 * m_polesPairs * ((m_magneticFlux * iq) + ((m_ld - m_lq) * id * iq ));
 
     double coggingTorque = m_coggingTorqueModule * sin(m_polesPairs * (m_vars.MechAngle - m_coggingTorqueAngleDisplacement));
-    double dw = (torque - (m_friction * wm) - m_brakeTorque - coggingTorque) / m_inertia;
+
+    double s2e = 2.3316439815971242034;
+    double wst = m_wbrk * sqrt(2.0);
+    double wc  = m_wbrk / 10.0;
+    double friction  = s2e * (m_fbrk - m_fc) * exp(-((wm*wm)/(wst*wst))) * (wm/wst) +
+                       m_fc * tanh(wm/wc) +
+                       (m_f * wc);
+    double dw = (torque - friction) / m_inertia;
 
     wm = m_vars.Wm = m_wIntTF.execute(dw).value();
 

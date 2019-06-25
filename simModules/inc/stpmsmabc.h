@@ -12,7 +12,9 @@
 class SIMMODULESSHARED_EXPORT STPMSMabc : public SMotor
 {
 public:
-    STPMSMabc(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia, double friction, double ts,
+    STPMSMabc(double rs, double ld, double lq, double polesPairs, double magnetFlux, double inertia,
+              double fbrk, double wbbrk, double fc, double f,
+              double ts,
               double brakeTorque = 0, double coggingToruqe = 0, double coggingTorqueAngleDisplacement = 0.0,
               DiscreteTimeTransformType_t transform = BackwardEuler);
 
