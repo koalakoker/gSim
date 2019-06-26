@@ -17,13 +17,14 @@ public:
     simModel();
 
     /* Specific params for sim */
-    double m_fbrk;
-    double m_wbrk;
-    double m_fc;
-    double m_f;
-
-    double m_maxw;
-    double m_acc;
+    // Params
+    double m_naturalfreq;
+    double m_damping;
+    // Input
+    double m_targ;
+    // State
+    double m_yprev;
+    double m_dyprev;
 
     void startSim(void);
 };
