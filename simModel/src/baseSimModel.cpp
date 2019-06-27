@@ -22,3 +22,10 @@ void baseSimModel::closeScopes(void)
         m_scopes.at(i)->close();
     }
 }
+
+SSScope* baseSimModel::createScope(QString name)
+{
+    SSScope* scope = new SSScope();
+    m_scopes.append(scope->createScope(name));
+    return scope;
+}

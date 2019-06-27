@@ -9,7 +9,9 @@ PlotterWindow::PlotterWindow(QString name, QWidget *parent) : QMainWindow(parent
 {
     ui->setupUi(this);
 
-    m_plotter = nullptr;
+    m_plotter     = nullptr;
+    wCursorInfo   = nullptr;
+    m_viewDataWid = nullptr;
     m_drag = false;
     grabGesture(Qt::PinchGesture);
     ui->Plot->setMouseTracking(true);
@@ -47,6 +49,8 @@ PlotterWindow::~PlotterWindow()
     delete ui;
     if (wCursorInfo)
         delete wCursorInfo;
+    if (m_viewDataWid)
+        delete m_viewDataWid;
 }
 
 void PlotterWindow::closeEvent(QCloseEvent *event)
@@ -54,6 +58,10 @@ void PlotterWindow::closeEvent(QCloseEvent *event)
     if (wCursorInfo)
     {
         wCursorInfo->close();
+    }
+    if (m_viewDataWid)
+    {
+        m_viewDataWid->close();
     }
     event->accept();
 }
@@ -525,6 +533,39 @@ void PlotterWindow::saveDataFile(QString fileName)
         }
     }
     file.close();
+}
+
+void PlotterWindow::on_actionView_data_triggered()
+{
+    m_viewDataWid= new QTextEdit();
+    m_viewDataWid->setWindowTitle("View data");
+    m_viewDataWid->show();
+    if (m_data.size() > 0)
+    {
+        SData firstRow = m_data.at(0);
+        int col = firstRow.size();
+        m_viewDataWid->setFixedSize(col * 80, 600);
+    }
+
+    for (int row = 0; row < m_data.size(); row++)
+    {
+        SData dataRow = m_data.at(row);
+        QString stream;
+        for (int i = 0; i < dataRow.size(); i++)
+        {
+            double val = dataRow.data().at(i);
+            if (i != 0)
+            {
+                stream.append("\t");
+            }
+            stream.append(QString("%1").arg(val));
+        }
+        m_viewDataWid->append(stream);
+    }
+    QTextDocument* doc = m_viewDataWid->document();
+    QTextCursor cur = QTextCursor(doc);
+    cur.movePosition(QTextCursor::Start);
+    m_viewDataWid->setTextCursor(cur);
 }
 
 void PlotterWindow::zoom_Undo(void)

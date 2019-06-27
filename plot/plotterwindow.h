@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QCloseEvent>
 #include <QToolButton>
+#include <QTextEdit>
 
 namespace Ui {
 class PlotterWindow;
@@ -59,6 +60,8 @@ private slots:
     void on_actionZoom_Vertical_In_triggered();
     void on_actionZoom_Vertical_Out_triggered();
 
+    void on_actionView_data_triggered();
+
 private:
     Ui::PlotterWindow *ui;
     QToolButton *zoomButton;
@@ -66,6 +69,7 @@ private:
     QToolButton *axisButton;
 
     WCursorInfo *wCursorInfo;
+    QTextEdit* m_viewDataWid;
     QString m_name;
 
     Plotter *m_plotter;

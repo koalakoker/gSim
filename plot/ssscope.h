@@ -8,13 +8,14 @@
 class SSScope : public SSink
 {
 public:
-    SSScope(QString name, QVector<QWidget*>* pScopes = 0);
+    PlotterWindow* createScope(QString name);
 
     void execute(double t, SDataVector in);
     void scopeUpdate(void);
     void exportData(QString fileName);
 
 private:
+    SSScope();
     PlotterWindow* m_mwplot;
 };
 

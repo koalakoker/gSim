@@ -1,6 +1,6 @@
 #include "stfdiscretefirstorder.h"
 
-STFDiscreteFirstOrder::STFDiscreteFirstOrder(double b0, double b1, double a1) : m_b0(b0), m_b1(b1), m_a1(a1), m_yPrev(0), m_xPrev(0)
+STFDiscreteFirstOrder::STFDiscreteFirstOrder(double b0, double b1, double a1, double startingValue) : m_b0(b0), m_b1(b1), m_a1(a1), m_yPrev(startingValue), m_xPrev(0)
 {
 }
 

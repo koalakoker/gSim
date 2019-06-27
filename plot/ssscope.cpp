@@ -1,13 +1,14 @@
 #include "ssscope.h"
 #include "scopemngr.h"
 
-SSScope::SSScope(QString name, QVector<QWidget *> *pScopes)
+SSScope::SSScope()
+{
+}
+
+PlotterWindow* SSScope::createScope(QString name)
 {
     m_mwplot = new PlotterWindow(name);
-    if (pScopes)
-    {
-        pScopes->append(m_mwplot);
-    }
+    return m_mwplot;
 }
 
 void SSScope::execute(double t, SDataVector in)

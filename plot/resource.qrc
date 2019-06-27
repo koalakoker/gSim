@@ -23,5 +23,6 @@
         <file>png/zoom_horizontal_out.png</file>
         <file>png/zoom_vertical_in.png</file>
         <file>png/zoom_vertical_out.png</file>
+        <file>png/eye.png</file>
     </qresource>
 </RCC>

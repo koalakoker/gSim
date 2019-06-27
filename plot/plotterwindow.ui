@@ -45,6 +45,7 @@
     </property>
     <addaction name="actionOpen_data_file"/>
     <addaction name="actionExport_data_file"/>
+    <addaction name="actionView_data"/>
    </widget>
    <widget class="QMenu" name="menuZoom">
     <property name="title">
@@ -298,6 +299,15 @@
    </property>
    <property name="text">
     <string>Zoom Vertical Out</string>
+   </property>
+  </action>
+  <action name="actionView_data">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/png/eye.png</normaloff>:/png/eye.png</iconset>
+   </property>
+   <property name="text">
+    <string>View data</string>
    </property>
   </action>
  </widget>

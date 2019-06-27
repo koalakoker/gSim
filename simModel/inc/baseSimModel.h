@@ -7,6 +7,7 @@
 #include <QList>
 #include <QWidget>
 #include "simModelElement.h"
+#include "plot\ssscope.h"
 
 class GSIMMODELSHARED_EXPORT baseSimModel : public QObject
 {
@@ -21,6 +22,7 @@ public:
     void setSimTime(double ts){m_ts = ts;}
     double controlTime(){return m_tc;}
     void setControlTime(double tc){m_tc = tc;}
+    SSScope *createScope(QString name);
     void closeScopes(void);
 
     int m_sim;

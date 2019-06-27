@@ -10,7 +10,7 @@
 class SIMMODULESSHARED_EXPORT STFIntegrator : public STransfer
 {
 public:
-    STFIntegrator(double ts, DiscreteTimeTransformType_t transform = BackwardEuler);
+    STFIntegrator(double ts, double startingValue = 0.0, DiscreteTimeTransformType_t transform = BackwardEuler);
 
     SDataVector execute(SDataVector in);
 
