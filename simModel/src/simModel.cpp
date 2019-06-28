@@ -4,6 +4,11 @@
 #include "stfintegrator.h"
 #include "math.h"
 
+extern "C" {
+#include "cModules/inc/PLL.h"
+#include "cModules/inc/mc_math.h"
+}
+
 # define M_PI           3.14159265358979323846  /* pi */
 
 simModel::simModel()
@@ -13,15 +18,15 @@ simModel::simModel()
     m_description = "Second order system";
 
     /* Default common params */
-    m_duration = 0.0004;
-    m_ts = m_duration / 100;
+    m_duration = 1.0;
+    m_ts = 0.000005;
+    m_tc = m_ts * 10;
 
     /* Specific params for sim */
-    m_naturalfreq = 25000; // rad/s
+    m_naturalfreq = 1000; // rad/s
     m_damping = 0.7;
     m_teta = 1.0;
-    //m_acc = 10000000.0000;
-    m_acc = 0;
+    m_acc = 11000;
 
     /********************* *********************/
     /*      Setup parameters into the view     */
@@ -38,6 +43,16 @@ simModel::simModel()
     /********************* *********************/
 }
 
+double S16DegreeToRad(int16_t s16degree)
+{
+    return (static_cast<double>(s16degree) * 2.0 * M_PI) / 65536.0;
+}
+
+int16_t RadToS16Degree(double rad)
+{
+    return static_cast<int16_t>((rad * 65536.0) / (2.0 * M_PI));
+}
+
 double RadSectoRPM(double rads)
 {
     return ((rads / (2.0 * M_PI)) * 60.0);
@@ -46,6 +61,16 @@ double RadSectoRPM(double rads)
 double RPMtoRadSec(double rpm)
 {
     return ((rpm * (2.0 * M_PI)) / 60.0);
+}
+
+double dpp2radSec(int16_t dpp, double freq)
+{
+    return (static_cast<double>(dpp) * freq * 2.0 * M_PI) / 65536.0;
+}
+
+int16_t radSec2dpp(double radSec, double freq)
+{
+    return static_cast<int16_t>((65536.0 * radSec) / (freq * 2.0 * M_PI));
 }
 
 double max(double a, double b, double c)
@@ -67,10 +92,12 @@ void simModel::startSim(void)
     // Init sim vars
     m_t = 0;
     int m_step = static_cast<int>(m_duration / m_ts);
+    int simConRatio = static_cast<int>(m_tc / m_ts);
 
 
     // Init sink-source-transfer
-    SSScope* fScope = createScope("Out");
+    SSScope* fScope   = createScope("Teta");
+    SSScope* fScope2  = createScope("Omega");
 
     STFIntegrator tetaInt(m_ts, m_teta),omegaInt(m_ts), d2yInt(m_ts), dyInt(m_ts);
 
@@ -79,6 +106,21 @@ void simModel::startSim(void)
     m_pllKi = m_naturalfreq * m_naturalfreq;
     STPI pllPI(m_pllKp, m_pllKi,m_ts);
     STFIntegrator pllInt(m_ts);
+
+    // cPLL
+    PLL pll;
+#define RESOLVER_PLL_KP_DIVIDER 16384  // PLL KP denominator
+#define RESOLVER_PLL_KI_DIVIDER 16384  // PLL KI denominator
+    pll.pi.hKpGain =     static_cast<int16_t>((2.0 * m_naturalfreq * m_damping * m_tc * RESOLVER_PLL_KP_DIVIDER) / M_PI);
+    pll.pi.hKiGain =     static_cast<int16_t>((m_naturalfreq * m_naturalfreq * m_tc * m_tc * RESOLVER_PLL_KI_DIVIDER) / M_PI );
+    pll.pi.hKpDivisor =  static_cast<int16_t>(RESOLVER_PLL_KP_DIVIDER);
+    pll.pi.hKiDivisor =  static_cast<int16_t>(RESOLVER_PLL_KI_DIVIDER);
+    pll.pi.hUpperLimit = radSec2dpp(11000,(1.0/m_tc));
+
+    pll.pi.wLowerIntegralLimit = -pll.pi.hUpperLimit * pll.pi.hKiDivisor;
+    pll.pi.wUpperIntegralLimit =  pll.pi.hUpperLimit * pll.pi.hKiDivisor;
+    pll.pi.wIntegralTerm = 0;
+    pll.hTheta = 0;
 
     // Init others
     m_k  = sqrt(1-(m_damping*m_damping));
@@ -130,26 +172,34 @@ void simModel::startSim(void)
         // PLL
         if (i > 0)
         {
-            double err = m_teta - m_tetaEst;
+            double err = sin(m_teta - m_tetaEst);
             double omegaEst = pllPI.execute(err).value();
             m_tetaEst = pllInt.execute(omegaEst).value();
+
+            if ((i % simConRatio) == 0)
+            {
+                // cPLL
+                int16_t sinTetha, cosTetha;
+                Trig_Components trigComp = MCM_Trig_Functions(RadToS16Degree(m_teta));
+                sinTetha = trigComp.hSin;
+                cosTetha = trigComp.hCos;
+                PLL_Calc(&(pll), sinTetha, cosTetha);
+            }
         }
 
-        // Dominio del tempo formula chiusa
-
+        // Dominio del tempo formula chiusa not used for acceleration
         double yt = 1.0 + (exp(-m_damping * m_naturalfreq * m_t) *
                            sin((m_wd * m_t) - m_th) /
                            m_k);
 
-        fScope->execute(m_t, SDataVector(x, y.value(), yt, m_tetaEst));
+        //fScope->execute(m_t,  SDataVector(x, m_tetaEst, S16DegreeToRad(pll.hTheta)));
+        fScope-> execute(m_t,  SDataVector(sin(x), sin(m_tetaEst), sin(S16DegreeToRad(pll.hTheta))));
+        fScope2->execute(m_t, SDataVector(pll.hSpeedDpp));
 
         // Omega integration
         if (i > 0)
         {
-            if (m_t < 0.0003)
-            {
-                m_omega = omegaInt.execute(m_acc).  value();
-            }
+            m_omega = omegaInt.execute(m_acc).  value();
             m_teta  = tetaInt. execute(m_omega).value();
         }
 
@@ -160,6 +210,6 @@ void simModel::startSim(void)
         emit updateProgress(static_cast<double>(i+1)/static_cast<double>(m_step));
     }
 
-    fScope->scopeUpdate();
-
+    fScope-> scopeUpdate();
+    fScope2->scopeUpdate();
 }

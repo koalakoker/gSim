@@ -49,6 +49,9 @@ SOURCES += \
     simModules/src/stdqtoalphabeta.cpp \
     simModules/src/svm.cpp \
     simModules/src/stsvm.cpp \
+    cModules/src/PI.c \
+    cModules/src/PLL.c \
+    cModules/src/mc_math.c \
     simModel/src/simModel.cpp \
     simModel/src/baseSimModel.cpp \
     simModel/src/simModelElement.cpp \
@@ -96,6 +99,10 @@ HEADERS += \
     simModules/inc/stdqtoalphabeta.h \
     simModules/inc/svm.h \
     simModules/inc/stsvm.h \
+    cModules/inc/PI.h \
+    cModules/inc/PLL.h \
+    cModules/inc/mc_type.h \
+    cModules/inc/mc_math.h \
     simModel/inc/simModel.h \
     simModel/inc/gsimmodel_global.h \
     simModel/inc/baseSimModel.h \

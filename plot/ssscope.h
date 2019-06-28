@@ -8,6 +8,7 @@
 class SSScope : public SSink
 {
 public:
+    SSScope();
     PlotterWindow* createScope(QString name);
 
     void execute(double t, SDataVector in);
@@ -15,7 +16,6 @@ public:
     void exportData(QString fileName);
 
 private:
-    SSScope();
     PlotterWindow* m_mwplot;
 };
 
