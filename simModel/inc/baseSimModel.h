@@ -7,7 +7,7 @@
 #include <QList>
 #include <QWidget>
 #include "simModelElement.h"
-#include "plot\ssscope.h"
+#include "plot/ssscope.h"
 
 class GSIMMODELSHARED_EXPORT baseSimModel : public QObject
 {

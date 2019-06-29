@@ -1,7 +1,7 @@
 #ifndef STRANSFER_H
 #define STRANSFER_H
 
-#include "plot\selement.h"
+#include "plot/selement.h"
 
 class STransfer : public SElement
 {

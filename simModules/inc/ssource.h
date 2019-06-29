@@ -1,7 +1,7 @@
 #ifndef SSOURCE_H
 #define SSOURCE_H
 
-#include "plot\selement.h"
+#include "plot/selement.h"
 
 
 class SSource : public SElement

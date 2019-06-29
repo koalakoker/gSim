@@ -1,7 +1,7 @@
 #ifndef STRANSFERBINARY_H
 #define STRANSFERBINARY_H
 
-#include "plot\selement.h"
+#include "plot/selement.h"
 
 class STransferBinary : public SElement
 {
