@@ -1,7 +1,7 @@
 #ifndef PLL_H
 #define PLL_H
 
-#include "MC_type.h"
+#include "mc_type.h"
 #include "PI.h"
 
 typedef struct

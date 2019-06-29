@@ -1,10 +1,9 @@
 #ifndef SIMMODEL_H
 #define SIMMODEL_H
 
-#include "gsimmodel_global.h"
 #include"baseSimModel.h"
 
-class GSIMMODELSHARED_EXPORT simModel : public baseSimModel
+class simModel : public baseSimModel
 {
 private:
     /********************* *********************/

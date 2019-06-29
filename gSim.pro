@@ -19,6 +19,7 @@ INCLUDEPATH += \
 SOURCES += \
     main.cpp\
     gsim.cpp \
+    simModel/src/simModelTest.cpp \
     simTemplates/simView/baseSimView.cpp \
     simTemplates/simView/commonSimView.cpp \
     simModules/src/ssource.cpp \
@@ -63,10 +64,12 @@ SOURCES += \
     plot/ssscope.cpp \
     plot/wcursorinfo.cpp \
     plot/sdata.cpp \
-    plot/scopemngr.cpp
+    plot/scopemngr.cpp \
+    simulationmanager.cpp
 
 HEADERS += \
     gsim.h \
+    simModel/inc/simModelTest.h \
     simTemplates/simView/baseSimView.h \
     simTemplates/simView/commonSimView.h \
     simModules/inc/simmodules_global.h \
@@ -115,13 +118,15 @@ HEADERS += \
     plot/ssink.h \
     plot/ssscope.h \
     plot/wcursorinfo.h \
-    plot/scopemngr.h
+    plot/scopemngr.h \
+    simulationmanager.h
 
 FORMS += \
     gsim.ui \
     simTemplates/simView/baseSimView.ui \
     plot/plotterwindow.ui \
-    plot/wcursorinfo.ui
+    plot/wcursorinfo.ui \
+    simulationmanager.ui
 
 RESOURCES += \
     plot/resource.qrc

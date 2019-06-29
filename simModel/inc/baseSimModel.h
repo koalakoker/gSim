@@ -38,9 +38,7 @@ protected:
     QVector<QWidget*> m_scopes;
 
 private:
-    void testSim0();
-    void testSim1();
-    void testSim2();
+
 
 signals:
     void updateProgress(double percentage);
