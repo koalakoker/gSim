@@ -60,7 +60,7 @@ void commonSimView::updateView(void)
                         doubleSpinBox->setDecimals(m_simModel->m_userParams[i]->m_digit);
                         doubleSpinBox->setMaximum(999999999);
                         doubleSpinBox->setMinimum(-999999999);
-                        doubleSpinBox->setValue(*(double*)(m_simModel->m_userParams[i]->m_pValue));
+                        doubleSpinBox->setValue(*static_cast<double*>(m_simModel->m_userParams[i]->m_pValue));
 
                         hLayout->addWidget(doubleSpinBox);
                         m_widget.append(doubleSpinBox);
@@ -77,7 +77,7 @@ void commonSimView::updateView(void)
                         hLayout->addWidget(labelW);
 
                         QCheckBox* checkBox = new QCheckBox();
-                        checkBox->setChecked(*(bool*)(m_simModel->m_userParams[i]->m_pValue));
+                        checkBox->setChecked(*static_cast<bool*>(m_simModel->m_userParams[i]->m_pValue));
 
                         hLayout->addWidget(checkBox);
                         m_widget.append(checkBox);
@@ -94,7 +94,7 @@ void commonSimView::updateView(void)
                         hLayout->addWidget(labelW);
 
                         QSpinBox* spinBox = new QSpinBox();
-                        spinBox->setValue(*(int*)(m_simModel->m_userParams[i]->m_pValue));
+                        spinBox->setValue(*static_cast<int*>(m_simModel->m_userParams[i]->m_pValue));
 
                         hLayout->addWidget(spinBox);
                         m_widget.append(spinBox);
@@ -128,6 +128,8 @@ void commonSimView::updateView(void)
         mainLayout->addWidget(label);
     }
 
+    QLayout* old = layout();
+    delete old;
     setLayout(mainLayout);
 
 }
@@ -138,14 +140,14 @@ void commonSimView::updateModel(void)
     {
         if (m_simModel->m_userParams[i]->m_type == SE_double)
         {
-            QDoubleSpinBox* doubleSpinBox = (QDoubleSpinBox*)m_widget[i];
-            *(double*)(m_simModel->m_userParams[i]->m_pValue) = doubleSpinBox->value();
+            QDoubleSpinBox* doubleSpinBox = static_cast<QDoubleSpinBox*>(m_widget[i]);
+            *static_cast<double*>(m_simModel->m_userParams[i]->m_pValue) = doubleSpinBox->value();
         }
 
         if (m_simModel->m_userParams[i]->m_type == SE_bool)
         {
-            QCheckBox* checkBox = (QCheckBox*)m_widget[i];
-            *(bool*)(m_simModel->m_userParams[i]->m_pValue) = checkBox->isChecked();
+            QCheckBox* checkBox = static_cast<QCheckBox*>(m_widget[i]);
+            *static_cast<bool*>(m_simModel->m_userParams[i]->m_pValue) = checkBox->isChecked();
         }
     }
 }

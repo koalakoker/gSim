@@ -36,6 +36,9 @@ public:
     double m_pllKi;
     double m_tetaEst;
 
+    double m_cpllKp;
+    double m_cpllKi;
+
     void startSim(void);
 };
 

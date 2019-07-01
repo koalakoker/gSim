@@ -38,8 +38,8 @@ simModel::simModel()
     m_userParams.append(new simModelElement("Start Teta",        SE_double, static_cast<void*>(&m_teta),        2));
     m_userParams.append(new simModelElement("Acceleration",      SE_double, static_cast<void*>(&m_acc),         4));
     m_userParams.append(new simModelElement("Pll",               SE_group,  nullptr));
-    m_userParams.append(new simModelElement("Kp",                SE_double, static_cast<void*>(&m_pllKp),       2));
-    m_userParams.append(new simModelElement("Ki",                SE_double, static_cast<void*>(&m_pllKi),       2));
+    m_userParams.append(new simModelElement("Kp",                SE_double, static_cast<void*>(&m_cpllKp),       2));
+    m_userParams.append(new simModelElement("Ki",                SE_double, static_cast<void*>(&m_cpllKi),       2));
     /********************* *********************/
 }
 
@@ -121,6 +121,9 @@ void simModel::startSim(void)
     pll.pi.wUpperIntegralLimit =  pll.pi.hUpperLimit * pll.pi.hKiDivisor;
     pll.pi.wIntegralTerm = 0;
     pll.hTheta = 0;
+
+    m_cpllKp = pll.pi.hKpGain;
+    m_cpllKi = pll.pi.hKiGain;
 
     // Init others
     m_k  = sqrt(1-(m_damping*m_damping));
