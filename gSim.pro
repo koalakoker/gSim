@@ -53,13 +53,23 @@ SOURCES += \
     simModules/src/stdqtoalphabeta.cpp \
     simModules/src/svm.cpp \
     simModules/src/stsvm.cpp \
-    simModules/src/plot/plotter.cpp \
-    simModules/src/plot/wplot.cpp \
-    simModules/src/plot/mwplot.cpp \
-    simModules/src/plot/wcursorinfo.cpp \
     simModel/src/simModel.cpp \
     simModel/src/baseSimModel.cpp \
     simModel/src/simModelElement.cpp \
+    wplot/axis.cpp \
+    wplot/axisproperties.cpp \
+    wplot/cursor.cpp \
+    wplot/curve.cpp \
+    wplot/iconcursors.cpp \
+    wplot/jsonserial.cpp \
+    wplot/plotter.cpp \
+    wplot/state/hzoomstate.cpp \
+    wplot/state/normalstate.cpp \
+    wplot/state/state.cpp \
+    wplot/state/vzoomstate.cpp \
+    wplot/state/zoomstate.cpp \
+    wplot/wplot.cpp \
+    wplot/zoom.cpp
 
 HEADERS += \
     gsim.h \
@@ -99,20 +109,33 @@ HEADERS += \
     simModules/inc/stdqtoalphabeta.h \
     simModules/inc/svm.h \
     simModules/inc/stsvm.h \
-    simModules/inc/plot/plotter.h \
-    simModules/inc/plot/wplot.h \
-    simModules/inc/plot/mwplot.h \
-    simModules/inc/plot/wcursorinfo.h \
     simModel/inc/simModel.h \
     simModel/inc/gsimmodel_global.h \
     simModel/inc/baseSimModel.h \
-    simModel/inc/simModelElement.h
+    simModel/inc/simModelElement.h \
+    wplot/axis.h \
+    wplot/axisproperties.h \
+    wplot/cursor.h \
+    wplot/curve.h \
+    wplot/iconcursors.h \
+    wplot/jsonserial.h \
+    wplot/plotter.h \
+    wplot/state/hzoomstate.h \
+    wplot/state/normalstate.h \
+    wplot/state/state.h \
+    wplot/state/vzoomstate.h \
+    wplot/state/zoomstate.h \
+    wplot/wplot.h \
+    wplot/zoom.h
 
 FORMS += \
     gsim.ui \
-    simTemplates/simView/baseSimView.ui \
-    simModules/src/plot/mwplot.ui \
-    simModules/src/plot/wcursorinfo.ui
+    simTemplates/simView/baseSimView.ui
 
 RESOURCES += \
-    resource.qrc
+    wplot/resource.qrc
+
+DISTFILES += \
+    wplot/png/icons8-zoom-in-24.png \
+    wplot/png/icons8-zoom-in-30.png \
+    wplot/png/icons8-zoom-out-24.png

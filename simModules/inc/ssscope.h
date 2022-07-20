@@ -5,7 +5,7 @@
 
 #include <QString>
 #include "ssink.h"
-#include "mwplot.h"
+#include "wplot/wplot.h"
 
 class SIMMODULESSHARED_EXPORT SSScope : public SSink
 {
@@ -17,7 +17,7 @@ public:
     void exportData(QString fileName);
 
 private:
-    MWPlot* m_mwplot;
+    WPlot* m_wplot;
 };
 
 #endif // SSSCOPE_H
