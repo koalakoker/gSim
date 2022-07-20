@@ -34,3 +34,5 @@
 /gsim.sublime-project
 /gsim.sublime-workspace
 /Resolver - Shortcut.lnk
+
+*.DS_Store
