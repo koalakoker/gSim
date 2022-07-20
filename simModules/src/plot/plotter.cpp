@@ -1,5 +1,6 @@
 #include "plotter.h"
 
+#include <algorithm>
 #include <QFontMetrics>
 #include <QElapsedTimer>
 #include <QTimer>
@@ -248,17 +249,19 @@ void Plotter::zoomXToCursors(QPoint point)
     qreal xMin,xMax;
     qreal xPos = invMapX(point.x());
 
-    QVector<qreal> xPoints;
-    xPoints.append(xMin = m_range.left());
-    xPoints.append(xMax = m_range.right());
+    //QVector<qreal> xPoints;
+    std::vector<qreal> xPoints;
+    xPoints.push_back(xMin = m_range.left());
+    xPoints.push_back(xMax = m_range.right());
 
     int i;
     for (i = 0; i < m_cursorPos.size(); i++)
     {
-        xPoints.append(m_cursorPos.at(i));
+        xPoints.push_back(m_cursorPos.at(i));
     }
 
-    qSort(xPoints);
+
+    std::sort(xPoints.begin(), xPoints.end());
 
     for (i = 0; i < xPoints.size(); i++)
     {

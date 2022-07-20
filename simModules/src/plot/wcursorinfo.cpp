@@ -49,7 +49,7 @@ void WCursorInfo::updateInfo(QVector<QVector<double>> cursorInfo)
             for (int track = 0;  track < trackNum;  track++)
             {
                 QTableWidgetItem* cell = new QTableWidgetItem(QString::number(cursorInfo[cur][track]));
-                cell->setTextColor(plotColor[track]);
+                cell->setForeground(plotColor[track]);
                 if (track == 0)
                 {
 

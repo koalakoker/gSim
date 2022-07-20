@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <QFile>
 #include <QTextStream>
+#include <QRegularExpression>
 #include <QDebug>
 
 WPlot::WPlot(QWidget *parent) :
@@ -74,7 +75,7 @@ void WPlot::loadDataFile(QString fileName)
         while (!stream.atEnd())
         {
             line = stream.readLine();
-            QStringList fields = line.split(QRegExp("[\t ]+"));
+            QStringList fields = line.split(QRegularExpression("[\t ]+"));
             SData sample;
             for (int i = 0; i < fields.size(); i++)
             {
@@ -142,7 +143,7 @@ void WPlot::saveDataFile(QString fileName)
                     stream << " " << val;
                 }
             }
-            stream << endl;
+            stream << Qt::endl;
         }
     }
     file.close();

@@ -30,8 +30,8 @@ void gSim::closeEvent(QCloseEvent *event)
 
 void gSim::on_startSim_clicked()
 {
-    QTime t;
-    t.start();
+    //QTime t;  Deprecated
+    //t.start();
 
     m_simModel->setDuration(ui->duration->value());
     m_simModel->setSimTime(ui->stepTime->value());
@@ -51,7 +51,7 @@ void gSim::on_startSim_clicked()
         m_simView->updateView(); /* Update view after simulation */
     }
 
-    ui->simInfo->setText(QString("Time elapsed: %1 s").arg((double)t.elapsed()/1000));
+    //ui->simInfo->setText(QString("Time elapsed: %1 s").arg((double)t.elapsed()/1000)); TBI
 }
 
 void gSim::updateProgress(double percentage)
